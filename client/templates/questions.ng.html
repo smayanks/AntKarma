@@ -1,0 +1,63 @@
+<div ng-controller="questionnaireListCtrl">
+	<div class="progress">
+		<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="3" style="width:20%;">
+			Question 1 of 3
+		</div>
+	</div>
+	<div class="navbar hidden-navbar">
+		<div class="navbar-inner">
+			<ul class="nav nav-pills">
+				<li class="active"><a href="#ques1" data-toggle="tab" data-step="1"></a></li>
+				<li><a href="#ques2" data-toggle="tab" data-step="2"></a></li>
+				<li><a href="#ques3" data-toggle="tab" data-step="3"></a></li>
+			</ul>
+		</div>		
+	</div>
+	<h3 class="section-title">Lets understand you better.</h3>
+	<form>
+		<div class="tab-content">
+			<div class="tab-pane fade in active" id="ques1">
+
+				<div class="well">
+
+					<h4> What is your current age?</h4>
+					<input class="form-control input-md">
+					<br>
+					<div class="text-center">
+						<a class="btn btn-info btn-sm next" href="#">Next</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="tab-pane fade" id="ques2">
+				<div class="well">
+					<h4> What is your annual after tax income?</h4>
+					<input class="form-control input-md">
+					<br>
+					<a class="btn btn-info btn-sm prev" href="#">Previous</a>
+					<a class="btn btn-info btn-sm next pull-right" href="#">Next</a>
+				</div>
+			</div>
+			<div class="tab-pane fade" id="ques3">
+				<div class="well">
+					<h4> When deciding how to invest your money, which one do you care more?</h4>
+					<div class="row col-md-offset-1">
+						<div class="radio">
+							<h5><input type="radio" name="investmentType">Maximizing gains</h5>
+						</div>
+						<div class="radio">
+							<h5><input type="radio" name="investmentType">Minimizing losses</h5>
+						</div>
+						<div class="radio">
+							<h5><input type="radio" name="investmentType">Both equally</h5>
+						</div>
+					</div>
+					<br>
+					<a class="btn btn-info btn-sm prev" href="#">Previous</a>
+					<a class="btn btn-info btn-sm next pull-right" href="#">Next</a>
+				</div>
+			</div>
+		</div>
+	</form>
+
+</div>
