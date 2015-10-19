@@ -14,9 +14,9 @@ $(function() {
   $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
           //update progress
           var step = $(e.target).data('step');
-          var percent = (parseInt(step) / 7) * 100;
+          var percent = (parseInt(step) / 9) * 100;
           $('.progress-bar').css({width: percent + '%'});
-          $('.progress-bar').text("Step " + step + " of 7");
+          $('.progress-bar').text("Step " + step + " of 9");
           //e.relatedTarget // previous tab
         });
 

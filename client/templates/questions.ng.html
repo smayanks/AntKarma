@@ -1,8 +1,8 @@
 <section id="questions" class="questions" ng-controller="QuestionsCtrl">
 	<div class="col-md-6 col-md-offset-3">
 		<div class="progress">
-			<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="7" style="width:20%;">
-				Step 1 of 7
+			<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="9" style="width:20%;">
+				Step 1 of 9
 			</div>
 		</div>
 		<div class="navbar hidden-navbar">
@@ -15,169 +15,266 @@
 					<li><a href="#step5" data-toggle="tab" data-step="5"></a></li>
 					<li><a href="#step6" data-toggle="tab" data-step="6"></a></li>
 					<li><a href="#step7" data-toggle="tab" data-step="7"></a></li>
+					<li><a href="#step8" data-toggle="tab" data-step="8"></a></li>
+					<li><a href="#step9" data-toggle="tab" data-step="9"></a></li>
 				</ul>
 			</div>		
 		</div>
 
-		<form>
-			<div class="tab-content">
-				<h3 class="section-title">Lets understand you better.</h3>
-				<!-- Set of questions being asked to the user for risk profiling -->
-				<!-- Step 1 -->
-				<div class="tab-pane fade in active" id="step1">
-					<div class="well well-lg">
-						<h4> What is your current age?</h4>
-						<input class="form-control input-md">
-						<br>
-						<h4> What is your annual salary/income?</h4>
-						<input class="form-control input-md">
-						<div class="text-center">
-							<a class="btn btn-info btn-custom-width btn-md next" href="#">Next</a>
-						</div>
+		<div class="tab-content">
+			<h3 class="section-title">Lets understand you better.</h3>
+			<!-- Set of questions being asked to the user for risk profiling -->
+			<!-- Step 1 -->
+			<div class="tab-pane fade in active" id="step1">
+				<div class="well well-lg">
+					<h4> What is your current age?</h4>
+					<input class="form-control input-md">
+					<br>
+					<h4> What is your annual salary/income?</h4>
+					<input class="form-control input-md">
+					<div class="text-center">
+						<a class="btn btn-info btn-custom-width btn-md next" href="#">Next</a>
 					</div>
 				</div>
-
-				<!-- Step 2 -->
-				<div class="tab-pane fade" id="step2">
-					<div class="well well-lg">
-						<h4> How much do you want to invest in tax saving overall?</h4>
-						<h4> Investment of approximately 1.9L is poosible. Include all investments made already or planned including ELSS + life insurance + EPF + PPF + FD/NSC + Health insurance</h4>
-						<input class="form-control input-md">
-						<br>
-						<h4> Have you made any tax saving investments?</h4>
-						<div class="col-sm-offset-1 col-md-offset-1">
-							<div class="radio">
-								<h4><input type="radio" name="alreadyMadeTaxInvestment" value="yes" ng-model="alreadyMadeTaxInvestment">Yes</h4>
-								<h4><input type="radio" name="alreadyMadeTaxInvestment" value="no" ng-model="alreadyMadeTaxInvestment">No</h4>							
-							</div>
-						</div>
-						<div ng-show="alreadyMadeTaxInvestment == 'yes'" class="cssFade">
-							<h4>What investments have you made already?</h4>
-							<input class="form-control input-md">
-						</div>
-						<div class="text-center">
-							<a class="btn btn-info btn-custom-width btn-md prev" href="#">Previous</a>
-							<a class="btn btn-info btn-custom-width btn-md next" href="#">Next</a>
-						</div>
-					</div>
-				</div>
-
-				<!-- Step 3 -->
-				<div class="tab-pane fade" id="step3">
-					<div class="well well-lg">
-						<h4> Have you made any tax saving investments in insurance last FY that will need to be made again this year?</h4>
-						<div class="col-sm-offset-1 col-md-offset-1">
-							<div class="radio">
-								<h4><input type="radio" name="alreadyMadeInsuranceInvestment" value="yes" ng-model="alreadyMadeInsuranceInvestment">Yes</h4>
-								<h4><input type="radio" name="alreadyMadeInsuranceInvestment" value="no" ng-model="alreadyMadeInsuranceInvestment">No</h4>			
-							</div>
-						</div>
-						
-						<div ng-show="alreadyMadeInsuranceInvestment == 'yes'" class="cssFade">
-							<h4>If yes what are those investments?</h4>
-							<input class="form-control input-md">
-						</div>
-						<div class="text-center">
-							<a class="btn btn-info btn-custom-width btn-md prev" href="#">Previous</a>
-							<a class="btn btn-info btn-custom-width btn-md next" href="#">Next</a>
-						</div>
-					</div>
-				</div>
-
-				<!-- Step 4 -->
-				<div class="tab-pane fade" id="step4">
-					<div class="well well-lg">
-						<h4> Are you/employer making any PF contributions?</h4>
-						<div class="col-sm-offset-1 col-md-offset-1">
-							<div class="radio">
-								<h4><input type="radio" name="pfCotribution" value="yes" ng-model="pfCotribution">Yes</h4>
-								<h4><input type="radio" name="pfCotribution" value="no" ng-model="pfCotribution">No</h4>							
-							</div>
-						</div>
-						
-						<div ng-show="pfCotribution == 'yes'" class="cssFade">
-							<h4>If yes, how much?</h4>
-							<input class="form-control input-md">
-						</div>
-						
-						<div class="text-center">
-							<a class="btn btn-info btn-custom-width btn-md prev" href="#">Previous</a>
-							<a class="btn btn-info btn-custom-width btn-md next" href="#">Next</a>
-						</div>
-					</div>
-				</div>
-
-				<!-- Step 5 -->
-				<div class="tab-pane fade" id="step5">
-					<h3 class="section-title">Risk coverage and life insurance are very important. Lets answer some of these questions to find right plan for you.</h3>
-					<div class="well well-lg">
-						<h4> Do you currently have life insurance?</h4>
-						<div class="col-sm-offset-1 col-md-offset-1">
-							<div class="radio">
-								<h4><input type="radio" name="currentLifeInsurance" value="yes" ng-model="currentLifeInsurance">Yes</h4>
-								<h4><input type="radio" name="currentLifeInsurance" value="no" ng-model="currentLifeInsurance">No</h4>							
-							</div>
-						</div>
-						<div ng-show="currentLifeInsurance == 'no'" class="cssFade">
-							<h4>Do you have sufficient wealth to cover for your obligations / liabilities (e.g. loans, anything else?)?</h4>
-							<div class="col-sm-offset-1 col-md-offset-1">
-								<div class="radio">
-									<h4><input type="radio" name="obligationLiabilityCovered" value="yes" ng-model="obligationLiabilityCovered">Yes</h4>
-									<h4><input type="radio" name="obligationLiabilityCovered" value="no" ng-model="obligationLiabilityCovered">No</h4>						
-								</div>
-							</div>
-							<h4>Do you have any dependents - e.g. Parents / Wife / Kids?</h4>
-							<div class="col-sm-offset-1 col-md-offset-1">
-								<div class="radio">
-									<h4><input type="radio" name="dependents" value="yes" ng-model="dependents">Yes</h4>
-									<h4><input type="radio" name="dependents" value="no" ng-model="dependents">No</h4>						
-								</div>
-							</div>
-						</div>
-						<div class="text-center">
-								<a class="btn btn-info btn-custom-width btn-md prev" href="#">Previous</a>
-								<a class="btn btn-info btn-custom-width btn-md next" href="#">Next</a>
-						</div>
-					</div>
-				</div>
-
-				<!-- Step 6 -->
-				<div class="tab-pane fade" id="step6">
-					<h3 class="section-title">Risk coverage and life insurance are very important. Lets answer some of these questions to find right plan for you.</h3>
-					<div class="well well-lg">
-						<div ng-show="currentLifeInsurance == 'no'" class="cssFade">
-							<div ng-show="dependents == 'yes'" class="cssFade">
-								<h4>Do you pay any monthly/annual expenses for your parents/family/brother/sisters etc.?</h4>
-								<div class="col-sm-offset-1 col-md-offset-1">
-									<div class="radio">
-										<h4><input type="radio" name="payForFamily" value="yes" ng-model="payForFamily">Yes</h4>
-										<h4><input type="radio" name="payForFamily" value="no" ng-model="payForFamily">No</h4>						
-									</div>
-								</div>
-							</div>
-							<div ng-show="payForFamily == 'yes'" class="cssFade">
-								<h4>How much amount you pay for your family's expenses?</h4>
-								<input class="form-control input-md">
-							</div>
-						</div>
-						<!---  Either or condition  -->
-						<div ng-show="currentLifeInsurance == 'yes'" class="cssFade">
-							<h4>What type of policy you have?</h4>
-							<input class="form-control input-md">
-							<h4>What is the premium amount?</h4>
-							<input class="form-control input-md">
-							<h4>What is the sum insured of the policy?</h4>
-							<input class="form-control input-md">
-						</div>
-						<div class="text-center">
-							<a class="btn btn-info btn-custom-width btn-md prev" href="#">Previous</a>
-							<a class="btn btn-info btn-custom-width btn-md next" href="#">Next</a>
-						</div>
-					</div>
-				</div>
-
-				<!-- Step 7 -->
 			</div>
-		</form>
+
+			<!-- Step 2 -->
+			<div class="tab-pane fade" id="step2">
+				<div class="well well-lg">
+					<h4> How much do you want to invest in tax saving overall?</h4>
+					<h4> Investment of approximately 1.9L is poosible. Include all investments made already or planned including ELSS + life insurance + EPF + PPF + FD/NSC + Health insurance</h4>
+					<input class="form-control input-md">
+					<br>
+					<h4> Have you made any tax saving investments?</h4>
+					<div class="">
+						<div class="radio">
+							<label class="radio-inline"><h4><input type="radio" name="alreadyMadeTaxInvestment" value="yes" ng-model="alreadyMadeTaxInvestment">Yes</h4></label>
+							<label class="radio-inline"><h4><input type="radio" name="alreadyMadeTaxInvestment" value="no" ng-model="alreadyMadeTaxInvestment">No</h4></label>							
+						</div>
+					</div>
+					<div ng-show="alreadyMadeTaxInvestment == 'yes'" class="cssFade">
+						<h4>What investments have you made already?</h4>
+						<input class="form-control input-md">
+					</div>
+					<div class="text-center">
+						<a class="btn btn-info btn-custom-width btn-md prev" href="#">Previous</a>
+						<a class="btn btn-info btn-custom-width btn-md next" href="#">Next</a>
+					</div>
+				</div>
+			</div>
+
+			<!-- Step 3 -->
+			<div class="tab-pane fade" id="step3">
+				<div class="well well-lg">
+					<h4> Have you made any tax saving investments in insurance last FY that will need to be made again this year?</h4>
+					<div class="">
+						<div class="radio">
+							<label class="radio-inline"><h4><input type="radio" name="alreadyMadeInsuranceInvestment" value="yes" ng-model="alreadyMadeInsuranceInvestment">Yes</h4></label>
+							<label class="radio-inline"><h4><input type="radio" name="alreadyMadeInsuranceInvestment" value="no" ng-model="alreadyMadeInsuranceInvestment">No</h4></label>			
+						</div>
+					</div>
+
+					<div ng-show="alreadyMadeInsuranceInvestment == 'yes'" class="cssFade">
+						<h4>If yes what are those investments?</h4>
+						<input class="form-control input-md">
+					</div>
+					<div class="text-center">
+						<a class="btn btn-info btn-custom-width btn-md prev" href="#">Previous</a>
+						<a class="btn btn-info btn-custom-width btn-md next" href="#">Next</a>
+					</div>
+				</div>
+			</div>
+
+			<!-- Step 4 -->
+			<div class="tab-pane fade" id="step4">
+				<div class="well well-lg">
+					<h4> Are you/employer making any PF contributions?</h4>
+					<div class="">
+						<div class="radio">
+							<label class="radio-inline"><h4><input type="radio" name="pfCotribution" value="yes" ng-model="pfCotribution">Yes</h4></label>
+							<label class="radio-inline"><h4><input type="radio" name="pfCotribution" value="no" ng-model="pfCotribution">No</h4></label>							
+						</div>
+					</div>
+
+					<div ng-show="pfCotribution == 'yes'" class="cssFade">
+						<h4>If yes, how much?</h4>
+						<input class="form-control input-md">
+					</div>
+
+					<div class="text-center">
+						<a class="btn btn-info btn-custom-width btn-md prev" href="#">Previous</a>
+						<a class="btn btn-info btn-custom-width btn-md next" href="#">Next</a>
+					</div>
+				</div>
+			</div>
+
+			<!-- Step 5 -->
+			<div class="tab-pane fade" id="step5">
+				<h3 class="section-title">Risk coverage and life insurance are very important. Lets answer some of these questions to find right plan for you.</h3>
+				<div class="well well-lg">
+					<h4> Do you currently have life insurance?</h4>
+					<div class="">
+						<div class="radio">
+							<label class="radio-inline"><h4><input type="radio" name="currentLifeInsurance" value="yes" ng-model="currentLifeInsurance">Yes</h4></label>
+							<label class="radio-inline"><h4><input type="radio" name="currentLifeInsurance" value="no" ng-model="currentLifeInsurance">No</h4></label>							
+						</div>
+					</div>
+					<div ng-show="currentLifeInsurance == 'no'" class="cssFade">
+						<h4>Do you have sufficient wealth to cover for your obligations / liabilities (e.g. loans, anything else?)?</h4>
+						<div class="">
+							<div class="radio">
+								<label class="radio-inline"><h4><input type="radio" name="obligationLiabilityCovered" value="yes" ng-model="obligationLiabilityCovered">Yes</h4></label>
+								<label class="radio-inline"><h4><input type="radio" name="obligationLiabilityCovered" value="no" ng-model="obligationLiabilityCovered">No</h4></label>						
+							</div>
+						</div>
+						<h4>Do you have any dependents - e.g. Parents / Wife / Kids?</h4>
+						<div class="">
+							<div class="radio">
+								<label class="radio-inline"><h4><input type="radio" name="dependents" value="yes" ng-model="dependents">Yes</h4></label>
+								<label class="radio-inline"><h4><input type="radio" name="dependents" value="no" ng-model="dependents">No</h4></label>						
+							</div>
+						</div>
+					</div>
+					<div class="text-center">
+						<a class="btn btn-info btn-custom-width btn-md prev" href="#">Previous</a>
+						<a class="btn btn-info btn-custom-width btn-md next" href="#">Next</a>
+					</div>
+				</div>
+			</div>
+
+			<!-- Step 6 -->
+			<div class="tab-pane fade" id="step6">
+				<h3 class="section-title">Risk coverage and life insurance are very important. Lets answer some of these questions to find right plan for you.</h3>
+				<div class="well well-lg">
+					<div ng-show="currentLifeInsurance == 'no'" class="cssFade">
+						<div ng-show="dependents == 'yes'" class="cssFade">
+							<h4>Do you pay any monthly/annual expenses for your parents/family/brother/sisters etc.?</h4>
+							<div class="">
+								<div class="radio">
+									<label class="radio-inline"><h4><input type="radio" name="payForFamily" value="yes" ng-model="payForFamily">Yes</h4></label>
+									<label class="radio-inline"><h4><input type="radio" name="payForFamily" value="no" ng-model="payForFamily">No</h4></label>						
+								</div>
+							</div>
+						</div>
+						<div ng-show="payForFamily == 'yes'" class="cssFade">
+							<h4>How much amount you pay for your family's expenses?</h4>
+							<input class="form-control input-md">
+						</div>
+					</div>
+					<!---  Either or condition  -->
+					<div ng-show="currentLifeInsurance == 'yes'" class="cssFade">
+						<h4>What type of policy you have?</h4>
+						<input class="form-control input-md">
+						<h4>What is the premium amount?</h4>
+						<input class="form-control input-md">
+						<h4>What is the sum insured of the policy?</h4>
+						<input class="form-control input-md">
+					</div>
+					<div class="text-center">
+						<a class="btn btn-info btn-custom-width btn-md prev" href="#">Previous</a>
+						<a class="btn btn-info btn-custom-width btn-md next" href="#">Next</a>
+					</div>
+				</div>
+			</div>
+
+			<!-- Step 7 -->
+			<div class="tab-pane fade" id="step7">
+				<h3 class="section-title">Great job, you are alomost done. Last but not least tell us about your health insurance requirements</h3>
+				<div class="well well-lg">
+					<h4>Do you currently have health insurance?</h4>
+					<div class="">
+						<div class="radio">
+							<label class="radio-inline"><h4><input type="radio" name="currentHealthInsurance" value="yes" ng-model="currentHealthInsurance">Yes</h4></label>
+							<label class="radio-inline"><h4><input type="radio" name="currentHealthInsurance" value="no" ng-model="currentHealthInsurance">No</h4></label>						
+						</div>
+					</div>
+					<div ng-show="currentHealthInsurance == 'no'" class="cssFade">
+						<h4>We highly recommend customers to have health insurance. Are you interested in saving taxes and having health insurance?</h4>
+						<div class="">
+							<div class="radio">
+								<label class="radio-inline"><h4><input type="radio" name="newHealthInsurance" value="yes" ng-model="newHealthInsurance">Yes</h4></label>
+								<label class="radio-inline"><h4><input type="radio" name="newHealthInsurance" value="no" ng-model="newHealthInsurance">No</h4></label>						
+							</div>
+						</div>
+					</div>
+					<!-- Either or condition -->
+					<div ng-show="currentHealthInsurance == 'yes'" class="cssFade">
+						<h4>How much is your coverage?</h4>
+						<input class="form-control input-md">
+					</div>
+					<div class="text-center">
+						<a class="btn btn-info btn-custom-width btn-md prev" href="#">Previous</a>
+						<a class="btn btn-info btn-custom-width btn-md next" href="#">Next</a>
+					</div>
+				</div>
+			</div>
+
+			<!-- Step 8 -->
+			<div class="tab-pane fade" id="step8">
+				<h3 class="section-title">Great job, you are alomost done. Last but not least tell us about your health insurance requirements</h3>
+				<div class="well well-lg">
+					<div ng-show="newHealthInsurance == 'yes' " class="cssFade">
+						<h4>Do you have any history of diseases/hospitalization in the last X years?</h4>
+						<div class="">
+							<div class="radio">
+								<label class="radio-inline"><h4><input type="radio" name="diseaseHistory" value="yes" ng-model="diseaseHistory">Yes</h4></label>
+								<label class="radio-inline"><h4><input type="radio" name="diseaseHistory" value="no" ng-model="diseaseHistory">No</h4></label>						
+							</div>
+						</div>
+
+						<h4>Does your family have any existing medical conditions?</h4>
+						<div class="">
+							<label class="radio-inline"><h4><input type="radio" name="existingMedicalCondition" value="yes" ng-model="existingMedicalCondition">Yes</h4></label>
+							<label class="radio-inline"><h4><input type="radio" name="existingMedicalCondition" value="no" ng-model="existingMedicalCondition">No</h4></label>
+						</div>
+						<h4>How often do you exercise?</h4>
+						<label class="radio-inline"><h4><input type="radio" name="exerciseSchedule" value="daily" ng-model="exerciseSchedule">Daily</h4></label>
+						<label class="radio-inline"><h4><input type="radio" name="exerciseSchedule" value="3timesWeek" ng-model="exerciseSchedule">3 times a week</h4></label>
+						<label class="radio-inline"><h4><input type="radio" name="exerciseSchedule" value="weekly" ng-model="exerciseSchedule">Week</h4></label>
+						<label class="radio-inline"><h4><input type="radio" name="exerciseSchedule" value="hardlyAny" ng-model="exerciseSchedule">Hardly Any</h4></label>
+
+					</div>
+					<!-- Either or condition -->
+					<div ng-show="currentHealthInsurance == 'yes'" class="cssFade">
+						<h4>Which policy do you have?</h4>
+						<input class="form-control input-md">
+						<h4>Are your parents/spouse covered?</h4>
+						<div class="">
+							<div class="radio">
+								<label class="radio-inline"><h4><input type="radio" name="parentSpouseCovered" value="yes" ng-model="parentSpouseCovered">Yes</h4></label>
+								<label class="radio-inline"><h4><input type="radio" name="parentSpouseCovered" value="no" ng-model="parentSpouseCovered">No</h4></label>						
+							</div>
+						</div>
+					</div>	
+					<div class="text-center">
+						<a class="btn btn-info btn-custom-width btn-md prev" href="#">Previous</a>
+						<a class="btn btn-info btn-custom-width btn-md next" href="#">Next</a>
+					</div>
+				</div>
+			</div>
+
+			<!-- Step 9 -->
+			<div class="tab-pane fade" id="step9">
+				
+				<div class="well well-lg">
+					<form class="form" role="form">
+						<h4>Thank you for your patience. Your tax saving recommendation is just a click away.</h4>
+						<h4></h4>
+						<div class="form-group">
+							<label for="email"><h4>Please enter your email:</h4></label>
+							<input type="email" class="form-control input-md" id="email" placeholder="happysaver@antkarma.com">
+						</div>
+						<div class="text-center">
+							<button type="submit" class="btn btn-info btn-custom-width btn-md">Submit</button>
+						</div>					
+					</form>
+				</div>
+			</div>
+		</div>
 	</div>
 </section>
+
+
+
+
+
