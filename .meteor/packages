@@ -27,3 +27,4 @@ urigo:angular-blaze-template
 jquery
 angularui:angular-ui-router
 angularui:angular-ui-bootstrap
+angular:angular-animate@=1.4.6
