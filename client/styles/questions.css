@@ -1,3 +1,6 @@
+.questions {
+	height: 100%;
+}
 .questions form {
 	background-color: clear;
 }
@@ -6,9 +9,11 @@
 
 }
 
-.questions .well {
+.questions .well{
 	background: none;
+
 }
+
 
 .questions .btn-custom-width {
 	width: 80px !important;
