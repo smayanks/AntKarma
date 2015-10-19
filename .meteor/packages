@@ -26,3 +26,4 @@ mrt:jquery-easing
 urigo:angular-blaze-template
 jquery
 angularui:angular-ui-router
+angularui:angular-ui-bootstrap

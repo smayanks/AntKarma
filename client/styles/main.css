@@ -17,6 +17,19 @@ section {
 
 }
 
+.section-title {
+	font-family: "Raleway",sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	text-align: center;
+	margin: 0 0 30px;
+	/*padding:  0;*/
+	color: white !important;
+
+}
+
 .process {
 	background-color: #e67e22;
 }
@@ -35,5 +48,10 @@ section {
 }
 
 .contact {
+	background-color: #f1c40f;
+}
+
+.questions {
 	background-color: #2c3e50;
+
 }

@@ -11,17 +11,9 @@
     margin-bottom: 0px;
 }
 
-.section-title {
-	font-family: "Raleway",sans-serif;
-	font-size: 16px;
-	font-weight: 400;
-	text-transform: uppercase;
-	letter-spacing: 0.1em;
-	text-align: center;
-	margin: 0 0 30px;
-	/*padding:  0;*/
-	color: white !important;
-	padding-top: 20%;
+.hero .section-title {
+
+	padding-top: 20% !important;
 
 }
 
