@@ -270,26 +270,27 @@
 				<div class="tab-pane fade" id="step9">
 
 					<div class="well well-lg">
-						<form class="form" role="form">
 							<h4>Thank you for your patience. Your tax saving recommendation is just a click away.</h4>
 							<h4></h4>
+	<!-- 						<div class="alert alert-success alert-dismissible" ng-show="submitted" role="alert">
+	  							<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	  							<h5><strong>Congratulations!</strong> Check your email for your tax saving recommendation.</h5>
+							</div> -->
 							<div class="form-group">
 								<label for="email"><h4>Please enter your email:</h4></label>
-								<input type="email" class="form-control input-md" id="email" placeholder="happysaver@antkarma.com" mg-model="questions.email">
+								<input type="email" class="form-control input-md" id="email" placeholder="happysaver@antkarma.com" ng-model="questions.email">
 							</div>
 							<div class="text-center">
 								<button type="submit" class="btn btn-info btn-custom-width btn-md" ng-click="submitForm(questions)">Submit</button>
 							</div>					
-						</form>
 					</div>
 				</div>
-
 			</div>
 		</form>
 	</div>
 </section>
 
 
-
+<!-- <div id="messages" class="alert alert-success" data-ng-show="messages" data-ng-bind="messages"></div> -->
 
 
