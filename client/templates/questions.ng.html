@@ -28,15 +28,21 @@
 				<div class="tab-pane fade in active" id="step1">
 					<div class="well well-lg">
 						<h4> What is your current age (in years)?</h4>
-						<input class="form-control input-md" ng-model="questions.currentAge" type="text" ng-pattern="onlyNumbers" required>
+						<input class="form-control input-md" name="currentAge" ng-model="questions.currentAge" type="text" ng-pattern="onlyNumbers" required>
+<!-- 						<h5 class="alert-danger" ng-show="userForm.currentAge.$error.pattern">Please enter only numbers</h5>
+						<h5 class="alert-danger" ng-show="userForm.currentAge.$error.required">Please enter your age</h5> -->
+						<div ng-messages="userForm.currentAge.$error">
+        				<h5 class="has-error" ng-message="required" ng-if="userForm.currentAge.$touched">Your name is required</h5>
+        				<h5 class="alert-danger" ng-message="pattern">Only numbers allowed.</h5>
+    				</div>
 						<br>
 						<h4> What is your annual salary/income?</h4>
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fs-2x fa-inr"></i></span>
-							<input class="form-control input-md">
+							<input class="form-control input-md" ng-model="questions.annualSalary">
 						</div>	
 						<div class="text-center">
-							<a class="btn btn-info btn-custom-width btn-md next" ng-model="questions.annualSalary" href="#">Next</a>
+							<a class="btn btn-info btn-custom-width btn-md next" href="#">Next</a>
 						</div>
 					</div>
 				</div>
@@ -46,7 +52,11 @@
 					<div class="well well-lg">
 						<h4> How much do you want to invest in tax saving overall?</h4>
 						<h4> Investment of approximately 1.9L is poosible. Include all investments made already or planned including ELSS + life insurance + EPF + PPF + FD/NSC + Health insurance</h4>
-						<input class="form-control input-md" ng-model="questions.taxInvestmentAmount">
+						<br>
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fs-2x fa-inr"></i></span>
+							<input class="form-control input-md" ng-model="questions.taxInvestmentAmount">
+						</div>
 						<br>
 						<h4> Have you made any tax saving investments?</h4>
 						<div class="">

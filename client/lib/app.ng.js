@@ -26,6 +26,13 @@
 			console.log(questions)	;		
 		}
 
+		// $scope.$watch('myText', function() {
+  // 			 // put numbersOnly() logic here, e.g.:
+  //  		if ($scope.myText  ... regex to look for ... ) {
+  //     		// strip out the non-numbers
+  //  		}
+	// })
+
 	});
 
 

@@ -56,3 +56,8 @@ section {
 	height: 100% !important;
 
 }
+
+.error-message {
+	background-color: #e74c3c;
+	border: 1px solid #ecf0f1;
+}
