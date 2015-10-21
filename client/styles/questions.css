@@ -45,7 +45,7 @@
     opacity: 0;
 }
 
-.questions form input {
+.questions .tab-content input {
 	font-size: 20px;
 	background-color: #2c3e50;
 	color: white;
