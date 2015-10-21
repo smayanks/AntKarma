@@ -8,7 +8,7 @@
 		<div class="navbar hidden-navbar">
 			<div class="navbar-inner">
 				<ul class="nav nav-pills">
-					<li class="active"><a href="#step1" data-toggle="tab" data-step="1"></a></li>
+					<li class="active"><a id="firstTab" href="#step1" data-toggle="tab" data-step="1"></a></li>
 					<li><a href="#step2" data-toggle="tab" data-step="2"></a></li>
 					<li><a href="#step3" data-toggle="tab" data-step="3"></a></li>
 					<li><a href="#step4" data-toggle="tab" data-step="4"></a></li>
@@ -27,22 +27,25 @@
 				<!-- Step 1 -->
 				<div class="tab-pane fade in active" id="step1">
 					<div class="well well-lg">
-						<h4> What is your current age (in years)?</h4>
-						<input class="form-control input-md" name="currentAge" ng-model="questions.currentAge" type="text" ng-pattern="onlyNumbers" required>
-<!-- 						<h5 class="alert-danger" ng-show="userForm.currentAge.$error.pattern">Please enter only numbers</h5>
-						<h5 class="alert-danger" ng-show="userForm.currentAge.$error.required">Please enter your age</h5> -->
-						<div ng-messages="userForm.currentAge.$error">
-        				<h5 class="has-error" ng-message="required" ng-if="userForm.currentAge.$touched">Your name is required</h5>
-        				<h5 class="alert-danger" ng-message="pattern">Only numbers allowed.</h5>
-    				</div>
-						<br>
-						<h4> What is your annual salary/income?</h4>
-						<div class="input-group">
-							<span class="input-group-addon"><i class="fa fs-2x fa-inr"></i></span>
-							<input class="form-control input-md" ng-model="questions.annualSalary">
-						</div>	
-						<div class="text-center">
-							<a class="btn btn-info btn-custom-width btn-md next" href="#">Next</a>
+						<div ng-form="step1Form">
+							<h4> What is your current age (in years)?</h4>
+							<input class="form-control input-md" name="currentAge" ng-model="questions.currentAge" type="text" ng-pattern="onlyNumbers" required>
+							<div class="help-block" ng-messages="step1Form.currentAge.$error" ng-if="step1Form.currentAge.$touched">
+								<div ng-messages-include="client/templates/messages.ng.html" ></div>
+							</div>
+							<br>
+							<h4> What is your annual salary/income?</h4>
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fs-2x fa-inr"></i></span>
+								<input class="form-control input-md" name="annualSalary" ng-model="questions.annualSalary" ng-pattern="onlyNumbers" required>
+								<div class="help-block" ng-messages="step1Form.annualSalary.$error" ng-if="step1Form.annualSalary.$touched">
+									<div ng-messages-include="client/templates/messages.ng.html" ></div>
+								</div>
+
+							</div>	
+							<div class="text-center">
+								<button class="btn btn-info btn-custom-width btn-md next" ng-disabled="step1Form.$invalid">Next</button>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -50,28 +53,36 @@
 				<!-- Step 2 -->
 				<div class="tab-pane fade" id="step2">
 					<div class="well well-lg">
-						<h4> How much do you want to invest in tax saving overall?</h4>
-						<h4> Investment of approximately 1.9L is poosible. Include all investments made already or planned including ELSS + life insurance + EPF + PPF + FD/NSC + Health insurance</h4>
-						<br>
-						<div class="input-group">
-							<span class="input-group-addon"><i class="fa fs-2x fa-inr"></i></span>
-							<input class="form-control input-md" ng-model="questions.taxInvestmentAmount">
-						</div>
-						<br>
-						<h4> Have you made any tax saving investments?</h4>
-						<div class="">
-							<div class="radio">
-								<label class="radio-inline"><h4><input type="radio" name="alreadyMadeTaxInvestment" value="yes" ng-model="questions.alreadyMadeTaxInvestment">Yes</h4></label>
-								<label class="radio-inline"><h4><input type="radio" name="alreadyMadeTaxInvestment" value="no" ng-model="questions.alreadyMadeTaxInvestment">No</h4></label>							
+						<div ng-form="step2Form">
+							<h4> How much do you want to invest in tax saving overall?</h4>
+							<h4> Investment of approximately 1.9L is poosible. Include all investments made already or planned including ELSS + life insurance + EPF + PPF + FD/NSC + Health insurance</h4>
+							<br>
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fs-2x fa-inr"></i></span>
+								<input class="form-control input-md" name="taxInvestmentAmount" ng-model="questions.taxInvestmentAmount" ng-pattern="onlyNumbers" required>
+								<div class="help-block" ng-messages="step2Form.taxInvestmentAmount.$error" ng-if="step2Form.taxInvestmentAmount.$touched">
+									<div ng-messages-include="client/templates/messages.ng.html" ></div>
+								</div>
 							</div>
-						</div>
-						<div ng-show="questions.alreadyMadeTaxInvestment == 'yes'" class="cssFade">
-							<h4>What investments have you made already?</h4>
-							<input class="form-control input-md">
-						</div>
-						<div class="text-center">
-							<a class="btn btn-info btn-custom-width btn-md prev" href="#">Previous</a>
-							<a class="btn btn-info btn-custom-width btn-md next" href="#">Next</a>
+							<br>
+							<h4> Have you made any tax saving investments?</h4>
+							<div class="">
+								<div class="radio">
+									<label class="radio-inline"><h4><input type="radio" name="alreadyMadeTaxInvestment" value="yes" ng-model="questions.alreadyMadeTaxInvestment" required>Yes</h4></label>
+									<label class="radio-inline" required><h4><input type="radio" name="alreadyMadeTaxInvestment" value="no" ng-model="questions.alreadyMadeTaxInvestment">No</h4></label>							
+								</div>
+							</div>
+							<div class="help-block" ng-messages="step2Form.alreadyMadeTaxInvestment.$error" ng-if="step2Form.alreadyMadeTaxInvestment.$touched">
+								<div ng-messages-include="client/templates/messages.ng.html" ></div>
+							</div>
+							<div ng-show="questions.alreadyMadeTaxInvestment == 'yes'" class="cssFade">
+								<h4>What investments have you made already?</h4>
+								<input class="form-control input-md">
+							</div>
+							<div class="text-center">
+								<a class="btn btn-info btn-custom-width btn-md prev" href="#">Previous</a>
+								<button class="btn btn-info btn-custom-width btn-md next" ng-disabled="step2Form.$invalid">Next</button>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -93,7 +104,7 @@
 						</div>
 						<div class="text-center">
 							<a class="btn btn-info btn-custom-width btn-md prev" href="#">Previous</a>
-							<a class="btn btn-info btn-custom-width btn-md next" href="#">Next</a>
+							<button class="btn btn-info btn-custom-width btn-md next" ng-disabled="userForm.$invalid">Next</button>
 						</div>
 					</div>
 				</div>
@@ -116,7 +127,7 @@
 
 						<div class="text-center">
 							<a class="btn btn-info btn-custom-width btn-md prev" href="#">Previous</a>
-							<a class="btn btn-info btn-custom-width btn-md next" href="#">Next</a>
+							<button class="btn btn-info btn-custom-width btn-md next" ng-disabled="userForm.$invalid">Next</button>
 						</div>
 					</div>
 				</div>
@@ -150,7 +161,7 @@
 						</div>
 						<div class="text-center">
 							<a class="btn btn-info btn-custom-width btn-md prev" href="#">Previous</a>
-							<a class="btn btn-info btn-custom-width btn-md next" href="#">Next</a>
+							<button class="btn btn-info btn-custom-width btn-md next" ng-disabled="userForm.$invalid">Next</button>
 						</div>
 					</div>
 				</div>
@@ -185,7 +196,7 @@
 						</div>
 						<div class="text-center">
 							<a class="btn btn-info btn-custom-width btn-md prev" href="#">Previous</a>
-							<a class="btn btn-info btn-custom-width btn-md next" href="#">Next</a>
+							<button class="btn btn-info btn-custom-width btn-md next" ng-disabled="userForm.$invalid">Next</button>
 						</div>
 					</div>
 				</div>
@@ -217,7 +228,7 @@
 						</div>
 						<div class="text-center">
 							<a class="btn btn-info btn-custom-width btn-md prev" href="#">Previous</a>
-							<a class="btn btn-info btn-custom-width btn-md next" href="#">Next</a>
+							<button class="btn btn-info btn-custom-width btn-md next" ng-disabled="userForm.$invalid">Next</button>
 						</div>
 					</div>
 				</div>
@@ -261,7 +272,7 @@
 						</div>	
 						<div class="text-center">
 							<a class="btn btn-info btn-custom-width btn-md prev" href="#">Previous</a>
-							<a class="btn btn-info btn-custom-width btn-md next" href="#">Next</a>
+							<button class="btn btn-info btn-custom-width btn-md next" ng-disabled="userForm.$invalid">Next</button>
 						</div>
 					</div>
 				</div>
@@ -270,27 +281,28 @@
 				<div class="tab-pane fade" id="step9">
 
 					<div class="well well-lg">
-							<h4>Thank you for your patience. Your tax saving recommendation is just a click away.</h4>
-							<h4></h4>
+						<h4>Thank you for your patience. Your tax saving recommendation is just a click away.</h4>
+						<h4></h4>
 	<!-- 						<div class="alert alert-success alert-dismissible" ng-show="submitted" role="alert">
 	  							<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 	  							<h5><strong>Congratulations!</strong> Check your email for your tax saving recommendation.</h5>
-							</div> -->
-							<div class="form-group">
-								<label for="email"><h4>Please enter your email:</h4></label>
-								<input type="email" class="form-control input-md" id="email" placeholder="happysaver@antkarma.com" ng-model="questions.email">
-							</div>
-							<div class="text-center">
-								<button type="submit" class="btn btn-info btn-custom-width btn-md" ng-click="submitForm(questions)">Submit</button>
-							</div>					
-					</div>
-				</div>
-			</div>
-		</form>
-	</div>
-</section>
+	  						</div> -->
+	  						<div class="form-group">
+	  							<label for="email"><h4>Please enter your email:</h4></label>
+	  							<input type="email" class="form-control input-md" id="email" placeholder="happysaver@antkarma.com" ng-model="questions.email">
+	  						</div>
+	  						<div class="text-center">
+	  							<!-- <a class="btn btn-info btn-custom-width btn-md first" href="#">Back</a> -->
+	  							<button type="submit" class="btn btn-info btn-custom-width btn-md" ng-disabled="userForm.$invalid" ng-click="submitForm(questions)">Submit</button>
+	  						</div>					
+	  					</div>
+	  				</div>
+	  			</div>
+	  		</form>
+	  	</div>
+	  </section>
 
 
-<!-- <div id="messages" class="alert alert-success" data-ng-show="messages" data-ng-bind="messages"></div> -->
+	  <!-- <div id="messages" class="alert alert-success" data-ng-show="messages" data-ng-bind="messages"></div> -->
 
 

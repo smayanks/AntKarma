@@ -1,8 +1,8 @@
 <div class="modal-body" style="padding:0px">
     <div class="alert alert-{{data.mode}}" style="margin-bottom:0px">
-        <button type="button" class="close" data-ng-click="closeModal()" >
-            <span class="glyphicon glyphicon-remove-circle"></span>
-        </button>
-        <strong>{{data.boldTextTitle}}</strong> {{data.textAlert}}
+        <div class="text-center">
+        	<h4><strong>{{data.boldTextTitle}}</strong> {{data.textAlert}}</h4>
+        	<button class="btn btn-{{data.mode}} btn-md" type="button" ng-click="ok()">OK</button>
+        </div>
     </div>
 </div>

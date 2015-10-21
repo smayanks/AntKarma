@@ -21,20 +21,7 @@ $(function() {
         });
 
   $('.first').click(function(){
-    $('#questionTabs a:first').tab('show')
+    $('[href=#step1]').tab('show');
   });
 
-  $('#yesToExistingTax').hide();
-
-  $('#alreadyTaxInvestment1').click(function() {
-
-    $('#yesToExistingTax').fadeIn(1200);
-
-  });
-
-  $('#alreadyTaxInvestment2').click(function() {
-
-    $('#yesToExistingTax').fadeOut(1200);
-
-  });
 });

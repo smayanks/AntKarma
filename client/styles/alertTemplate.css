@@ -1,3 +1,10 @@
 .modal-body {
-	min-height: 50px;
+	min-height: 100px ;
+	font-family: "Raleway";
+	
+
+}
+
+.modal-body .alert{
+	min-height: 100px;
 }
