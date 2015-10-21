@@ -12,6 +12,29 @@ angular.module('antkarma').controller('QuestionnaireCtrl', function($scope, $mod
 	$scope.questions = {};
 	$scope.onlyNumbers = /^\d+$/;
 	$scope.submitted = false;
+
+	$scope.addThousandSeperator = function(fieldName) {
+		console.log('FieldName ' + fieldName);
+		// console.log('FieldValue ' + fieldValue);
+		var inputVal = fieldName;
+		// var modelName = '$scope.'+fieldName;
+		// console.log("Model Name: " + modelName );
+		console.log('inputVal : ' + inputVal + " ---" + "isNum : " + isNaN(parseInt(inputVal)));
+		if (isNaN(parseInt(inputVal))) {
+			// return; 
+			$scope.fieldName = "";
+		} else {
+			var num2 = inputVal.toString().split('.');
+			var thousands = num2[0].split('').reverse().join('').match(/.{1,3}/g).join(',');
+			var decimals = (num2[1]) ? '.'+num2[1] : '';
+			var answer =  thousands.split('').reverse().join('')+decimals; 
+			console.log("Answer : " + answer);
+
+
+			$scope.questions.annualSalary = answer;
+		}
+
+	}
 	$scope.submitForm = function(questions) {
 		$scope.submitted = true;
 		$scope.questionnaire.save(questions);
