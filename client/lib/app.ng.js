@@ -10,8 +10,35 @@ angular.module('antkarma').controller('QuestionnaireCtrl', function($scope, $mod
 	$scope.questionnaire = $meteor.collection(Questionnaire);
 
 	$scope.questions = {};
+	$scope.questions.username = '';
+	$scope.questions.alreadyInvestedPPFAmount = 'no';
+	$scope.questions.alreadyMadeLifeInsInvestment = 'no';
+	$scope.questions.alreadyMadeHealthInsInvestment = 'no';
 	$scope.onlyNumbers = /^\d+$/;
 	$scope.submitted = false;
+	$scope.lifeInsuranceFieldCounter = 0;
+
+	$scope.questions.currentLifeInsurancePolicies = [{existingLifeInsPolicyName: '', existingLifeInsSumInsured: '', existingLifeInsYrlyPrem: ''}];
+
+	$scope.addLifeInsurance = function() {
+		// var counter = $scope.lifeInsuranceFieldCounter++;
+
+		$scope.questions.currentLifeInsurancePolicies.push({existingLifeInsPolicyName: '', existingLifeInsSumInsured: '', existingLifeInsYrlyPrem: ''});
+
+	}
+
+	$scope.removeLifeInsurance = function(index) {
+		// var counter = $scope.lifeInsuranceFieldCounter++;
+		$scope.questions.currentLifeInsurancePolicies.splice(index, 1);
+		
+		if ($scope.questions.currentLifeInsurancePolicies.length == 0) {
+
+			$scope.questions.alreadyMadeLifeInsInvestment = 'no';
+			$scope.questions.currentLifeInsurancePolicies.push({existingLifeInsPolicyName: '', existingLifeInsSumInsured: '', existingLifeInsYrlyPrem: ''});
+
+		}
+		
+	}
 
 	$scope.addThousandSeperator = function(fieldName) {
 		console.log('FieldName ' + fieldName);
