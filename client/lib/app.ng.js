@@ -18,7 +18,51 @@ angular.module('antkarma').controller('QuestionnaireCtrl', function($scope, $mod
 	$scope.submitted = false;
 	$scope.lifeInsuranceFieldCounter = 0;
 
+
+	$scope.questions.financialHelpTypes = [
+		{
+			text: 'I want to make tax saving investments efficiently', 
+			subtext:'We intend to help you do just that. Tax saving investments should be personalized to an invidual\'s needs and we will walk you through the steps over the next two sections.',
+			checked: false
+		},
+		{
+			text: 'I want to do financial goal planning effectively', 
+			subtext:'One has several goals in life and financial stability is necessary for achieving these goals. We intend to help you achieve your goals in life by simplifying and demistifying the financial planning process.',
+			checked: false
+		},
+		{
+			text: 'I\'d like to make the most of my savings.', 
+			subtext:'And everyone should do the same. We believe that good financial advice should be for everyone irrespective of their wealth or status. Our platform will enable effective investments with optimum growth for everyone.',
+			checked: false
+		}
+	]
+
 	$scope.questions.currentLifeInsurancePolicies = [{existingLifeInsPolicyName: '', existingLifeInsSumInsured: '', existingLifeInsYrlyPrem: ''}];
+	
+	// var outstandingLoanTemplate = {existingLoanType: '', existingLoanUnpaidAmt: ''};
+	
+
+	$scope.questions.currentOutStandingLoans = [];
+	$scope.questions.currentOutStandingLoans.push({existingLoanType: '', existingLoanUnpaidAmt: ''});
+
+	$scope.addOutstandingLoanDetails = function() {
+		
+		$scope.questions.currentOutStandingLoans.push({existingLoanType: '', existingLoanUnpaidAmt: ''});
+
+	}
+
+	$scope.removeOutstandingLoan = function(index) {
+		$scope.questions.currentOutStandingLoans.splice(index, 1);
+		
+		if ($scope.questions.currentOutStandingLoans.length == 0) {
+
+			$scope.questions.outstandingLoans = 'no';
+			$scope.questions.currentOutStandingLoans.push({existingLoanType: '', existingLoanUnpaidAmt: ''});
+
+		}
+		
+	}
+
 
 	$scope.addLifeInsurance = function() {
 		// var counter = $scope.lifeInsuranceFieldCounter++;

@@ -53,8 +53,8 @@
     box-shadow: none;
 }
 
-.questions h4 {
-    /*font-size: 16px;*/
+.questions label {
+    font-size: 16px;
 }
 .questions .fixed-width-label {
     width: 200px;
@@ -70,6 +70,42 @@
     font-size: 50%;
 }
 
+.questions .bg-checkbox {
+    /*background-color: #7f8c8d;*/
+    border: 1px solid #7f8c8d;
 
+}
+
+.questions .subtext {
+    color: #3c3e45;
+    background-color: #f2f7f7;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.questions .animate-hide {
+  transition: all linear 0.5s;
+  line-height: 20px;
+  opacity: 1;
+  padding: 10px;
+  border: 1px solid black;
+  background: white;
+}
+
+.questions.animate-hide.ng-hide {
+  line-height: 0;
+  opacity: 0;
+  padding: 0 10px;
+}
+
+.questions .check-element {
+  padding: 10px;
+  border: 1px solid black;
+  background: white;
+}
+
+.questions .input-custom {
+    min-width: 300px;
+}
 
 
