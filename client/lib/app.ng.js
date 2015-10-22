@@ -37,7 +37,7 @@ angular.module('antkarma').controller('QuestionnaireCtrl', function($scope, $mod
 		}
 	]
 
-	$scope.questions.currentLifeInsurancePolicies = [{existingLifeInsPolicyName: '', existingLifeInsSumInsured: '', existingLifeInsYrlyPrem: ''}];
+	
 	
 	// var outstandingLoanTemplate = {existingLoanType: '', existingLoanUnpaidAmt: ''};
 	
@@ -63,7 +63,7 @@ angular.module('antkarma').controller('QuestionnaireCtrl', function($scope, $mod
 		
 	}
 
-
+	$scope.questions.currentLifeInsurancePolicies = [{existingLifeInsPolicyName: '', existingLifeInsSumInsured: '', existingLifeInsYrlyPrem: ''}];
 	$scope.addLifeInsurance = function() {
 		// var counter = $scope.lifeInsuranceFieldCounter++;
 
@@ -83,6 +83,29 @@ angular.module('antkarma').controller('QuestionnaireCtrl', function($scope, $mod
 		}
 		
 	}
+
+	$scope.questions.existingHealthInsPolicies = [{existingHealthInsName: '', existingHealthInsCover: '', existingHealthInsYrlyPrem: '', dependents: { self: true, spouse: false, children: false, parents: false }}];
+
+	$scope.addHealthInsurance = function() {
+		// var counter = $scope.lifeInsuranceFieldCounter++;
+
+		$scope.questions.existingHealthInsPolicies.push({existingHealthInsName: '', existingHealthInsCover: '', existingHealthInsYrlyPrem: '', dependents: { self: true, spouse: false, children: false, parents: false }});
+
+	}
+
+	$scope.removeHealthInsurance = function(index) {
+		// var counter = $scope.lifeInsuranceFieldCounter++;
+		$scope.questions.existingHealthInsPolicies.splice(index, 1);
+		
+		if ($scope.questions.existingHealthInsPolicies.length == 0) {
+
+			$scope.questions.alreadyHaveHealthInsurance = 'no';
+			$scope.questions.existingHealthInsPolicies.push({existingHealthInsName: '', existingHealthInsCover: '', existingHealthInsYrlyPrem: '', dependents: { self: true, spouse: false, children: false, parents: false }});
+
+		}
+		
+	}
+
 
 	$scope.addThousandSeperator = function(fieldName) {
 		console.log('FieldName ' + fieldName);
@@ -107,6 +130,7 @@ angular.module('antkarma').controller('QuestionnaireCtrl', function($scope, $mod
 
 	}
 	$scope.submitForm = function(questions) {
+		console.log(questions);
 		$scope.submitted = true;
 		$scope.questionnaire.save(questions);
 		// $timeout(function() {
