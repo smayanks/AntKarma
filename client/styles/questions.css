@@ -83,7 +83,7 @@
     margin-right: 5px;
 }
 
-.questions .animate-hide {
+/*.questions .animate-hide {
   transition: all linear 0.5s;
   line-height: 20px;
   opacity: 1;
@@ -103,9 +103,11 @@
   border: 1px solid black;
   background: white;
 }
-
+*/
 .questions .input-custom {
     min-width: 300px;
 }
+
+
 
 

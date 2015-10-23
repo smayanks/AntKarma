@@ -14,6 +14,8 @@ angular.module('antkarma').controller('QuestionnaireCtrl', function($scope, $mod
 	$scope.questions.alreadyInvestedPPFAmount = 'no';
 	$scope.questions.alreadyMadeLifeInsInvestment = 'no';
 	$scope.questions.alreadyMadeHealthInsInvestment = 'no';
+	$scope.questions.alreadyHaveHealthInsurance = 'no';
+	$scope.questions.alreadyMadeTaxInvestment = 'no';
 	$scope.onlyNumbers = /^\d+$/;
 	$scope.submitted = false;
 	$scope.lifeInsuranceFieldCounter = 0;
