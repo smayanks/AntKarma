@@ -238,7 +238,7 @@
 				<div ng-form="step7Form">
 					<div class="well well-lg">
 						<h4>When making investments what do you focus more on?</h4>
-						<div class="radio">
+						<div class="radio col-sm-offset-1 col-md-offset-1">
 							<label class="radio">
 								<h4><input type="radio" name="investmentFocusOn" value="maximizeReturns" ng-model="questions.investmentFocusOn" required>Maximizing Returns</h4>
 							</label>
@@ -269,7 +269,7 @@
 				<div ng-form="step8Form">
 					<div class="well well-lg">
 						<h4>Market investments are volatile. If your entire investment portfolio lost 10% of its value in a month during a market decline, what would you do?</h4>
-						<div class="radio">
+						<div class="radio col-sm-offset-1 col-md-offset-1">
 							<label class="radio">
 								<h4><input type="radio" name="whenMarketVolatile" value="sellAll" ng-model="questions.whenMarketVolatile" required>Sell all your investments</h4>
 							</label>
@@ -315,8 +315,8 @@
 							<div class="help-block" ng-messages="step9Form.alreadyMadeTaxInvestmentAmount.$invalid" ng-if="step9Form.alreadyMadeTaxInvestmentAmount.$touched">
 								<div ng-messages-include="client/templates/messages.ng.html" ></div>
 							</div>
-							<h5>Detailed Description: </h5> <input type="checkbox" ng-model="detailedDescForAlreadyMadeTaxInvestment">
-							<div ng-if="detailedDescForAlreadyMadeTaxInvestment">
+							<label>Detailed Description: <input type="checkbox" ng-model="detailedDescForAlreadyMadeTaxInvestment"></label> 
+							<div ng-show="detailedDescForAlreadyMadeTaxInvestment">
 								<div class="form-horizontal">
 									<div class="form-group">
 										<div class="col-xs-4 col-sm-4 col-md-4">
@@ -351,11 +351,12 @@
 								</div>
 							</div>
 						</div>
+						<div class="text-center">
+							<a class="btn btn-info btn-custom-width btn-md prev" href="#">Previous</a>
+							<button class="btn btn-info btn-custom-width btn-md next" ng-disabled="step9Form.$invalid">Next</button>
+						</div>
 					</div>
-					<div class="text-center">
-						<a class="btn btn-info btn-custom-width btn-md prev" href="#">Previous</a>
-						<button class="btn btn-info btn-custom-width btn-md next" ng-disabled="step9Form.$invalid">Next</button>
-					</div>
+
 				</div>
 			</div>
 			<!-- Step 10 -->
