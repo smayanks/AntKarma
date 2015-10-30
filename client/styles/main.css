@@ -4,6 +4,14 @@ body {
     height: 100% !important;
 }
 
+section, h1, h2, h3, h4, h5, h6, li, img {
+    -moz-transition: height 1s ease-in-out, left 1.5s ease-in-out;
+    -webkit-transition: height 1s ease-in-out, left 1.5s ease-in-out;
+    -moz-transition: height 1s ease-in-out, left 1.5s ease-in-out;
+    -o-transition: height 1s ease-in-out, left 1.5s ease-in-out;
+    transition: height 1s ease-in-out, left 1.5s ease-in-out;
+}
+
 h1, h2, h3, h4, h5 {
     line-height: 1.5em;
   }
@@ -60,4 +68,47 @@ section {
 .error-message {
 	background-color: #e74c3c;
 	border: 1px solid #ecf0f1;
+}
+
+/* when hiding the div */
+.ng-hide-add         { animation:1s  fadeOutUp ease; }
+
+
+/* when showing the div */
+.ng-hide-remove      { animation:1s fadeInDown ease; }
+
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(-20px);
+    -ms-transform: translateY(-20px);
+    -webkit-transform: translateY(-20px);
+       -moz-transform: translateY(-20px);
+        -ms-transform: translateY(-20px);
+         -o-transform: translateY(-20px);
+            transform: translateY(-20px);
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+       -moz-transform: translateY(0);
+        -ms-transform: translateY(0);
+         -o-transform: translateY(0);
+            transform: translateY(0);
+    
+   
+  }
+}
+
+@keyframes fadeOutUp {
+  0% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    -webkit-transform: translateY(-20px);
+  }
 }

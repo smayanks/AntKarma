@@ -15,20 +15,18 @@
 }
 
 
-.questions .btn-custom-width {
+.questions .btn-custom {
 	width: 80px !important;
+    background-color: #f8f8f8   ;
+    color: #2c3e50;
 }
 
 .hidden-navbar {
 	display:none;
 }
 
-.ng-hide-add, .ng-hide-remove {
-    /* ensure visibility during the transition */
-    display: block !important; /* yes, important */
-}
 
-.cssSlideUp {
+/*.cssSlideUp {
     transition: .5s linear all;
     height: 200px;
     overflow: hidden;
@@ -43,7 +41,7 @@
 }
 .cssFade.ng-hide {
     opacity: 0;
-}
+}*/
 
 .questions .tab-content input {
 	font-size: 16px;
@@ -72,15 +70,15 @@
 
 .questions .bg-checkbox {
     /*background-color: #7f8c8d;*/
-    border: 1px solid #7f8c8d;
+    /*border: 1px solid #7f8c8d;*/
 
 }
 
 .questions .subtext {
-    color: #3c3e45;
+    /*color: #3c3e45;
     background-color: #f2f7f7;
     margin-left: 5px;
-    margin-right: 5px;
+    margin-right: 5px;*/
 }
 
 /*.questions .animate-hide {
@@ -105,7 +103,7 @@
 }
 */
 .questions .input-custom {
-    min-width: 300px;
+    /*min-width: 300px;*/
 }
 
 

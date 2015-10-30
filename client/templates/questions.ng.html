@@ -23,7 +23,6 @@
 		</div>
 		<!-- <form class="form" name="userForm" role="form" novalidate> -->
 		<div class="tab-content">
-			<h3 class="section-title">Hello {{questions.username}}! Lets start by understanding you better.</h3>
 			<!-- Set of questions being asked to the user for risk profiling -->
 			<!-- Step 1 -->
 			<div class="tab-pane fade in active" id="step1">
@@ -40,7 +39,7 @@
 							</div>
 						</div>
 						<div class="text-center">
-							<button class="btn btn-info btn-custom-width btn-md next" >Next</button>
+							<button class="btn btn-custom btn-md next" >Next</button>
 						</div>
 					</div>
 				</div>
@@ -49,23 +48,25 @@
 
 			<!-- Step 2 -->
 			<div class="tab-pane fade" id="step2">
+				<h3 class="section-title">Hello {{questions.username}}! Lets start by understanding you better.</h3>
 				<div class="well well-lg">
 					<div ng-form="step2Form">
 						<h4> What is your name?</h4>
 						<input class="form-control input-md" name="username" ng-model="questions.username" type="text" required>
-						<div class="help-block" ng-messages="step2Form.username.$error" ng-if="step2Form.username.$touched">
+						<!-- <div class="help-block" ng-messages="step2Form.username.$error" ng-show="step2Form.username.$touched">
 							<div ng-messages-include="client/templates/messages.ng.html" ></div>
-						</div>
+						</div> -->
 						<br>
 						<h4> What is your current age (in years)?</h4>
-						<input class="form-control input-md" name="currentAge" ng-model="questions.currentAge" type="text" ng-pattern="onlyNumbers" required>
-						<div class="help-block" ng-messages="step2Form.currentAge.$error" ng-if="step2Form.currentAge.$touched">
+						<input class="form-control input-md" name="currentAge" ng-model="questions.currentAge" type="text" fcsa-number="{maxDigits: 3, preventInvalidInput: true  }" required>
+						<!-- <div class="help-block" ng-messages="step2Form.currentAge.$error" ng-show="step2Form.currentAge.$touched">
 							<div ng-messages-include="client/templates/messages.ng.html" ></div>
-						</div>
+						</div> -->
 						<br>
 						<div class="text-center">
-							<a class="btn btn-info btn-custom-width btn-md prev" href="#">Previous</a>
-							<button class="btn btn-info btn-custom-width btn-md next" ng-disabled="step2Form.$invalid">Next</button>
+							<a class="btn btn-custom btn-md prev" href="#">Previous</a>
+							<!-- <button class="btn btn-custom btn-md next" ng-disabled="step2Form.$invalid">Next</button> -->
+							<button class="btn btn-custom btn-md next" >Next</button>
 						</div>
 					</div>
 				</div>
@@ -79,25 +80,26 @@
 						<h4> What is your annual salary before taxes?</h4>
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fs-2x fa-inr"></i></span>
-							<input class="form-control input-md" name="annualSalary" ng-model="questions.annualSalary" ng-pattern="onlyNumbers" required>
+							<input class="form-control input-md" name="annualSalary" ng-model="questions.annualSalary" numbers-only required>
 						</div>
-						<div class="help-block" ng-messages="step3Form.annualSalary.$error" ng-if="step3Form.annualSalary.$touched">
+						<!-- <div class="help-block" ng-messages="step3Form.annualSalary.$error" ng-if="step3Form.annualSalary.$touched">
 							<div ng-messages-include="client/templates/messages.ng.html" ></div>
-						</div>
+						</div> -->
 						<br>
 						<h4> Overall how much do you plan to invest this year?</h4>
 						<h5> (include both tax saving as well as other investments.)</h5>
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-inr"></i></span>
-							<input class="form-control input-md" name="taxInvestmentAmount" ng-model="questions.taxInvestmentAmount" ng-pattern="onlyNumbers" required>
+							<input class="form-control input-md" name="taxInvestmentAmount" ng-model="questions.taxInvestmentAmount" numbers-only required>
 						</div>
-						<div class="help-block" ng-messages="step3Form.taxInvestmentAmount.$error" ng-if="step3Form.taxInvestmentAmount.$touched">
+						<!-- <div class="help-block" ng-messages="step3Form.taxInvestmentAmount.$error" ng-if="step3Form.taxInvestmentAmount.$touched">
 							<div ng-messages-include="client/templates/messages.ng.html" ></div>
-						</div>
+						</div> -->
 					</div>
 					<div class="text-center">
-						<a class="btn btn-info btn-custom-width btn-md prev" href="#">Previous</a>
-						<button class="btn btn-info btn-custom-width btn-md next" ng-disabled="step3Form.$invalid">Next</button>
+						<a class="btn btn-custom btn-md prev" href="#">Previous</a>
+						<!-- <button class="btn btn-custom btn-md next" ng-disabled="step3Form.$invalid">Next</button> -->
+						<button class="btn btn-custom btn-md next" >Next</button>
 					</div>
 				</div>
 			</div>
@@ -105,6 +107,7 @@
 
 			<!-- Step 4 -->
 			<div class="tab-pane fade" id="step4">
+				<h3 class="section-title">We'll split this up into two parts - firstly insurance planning and secondly wealth planning. Why insurance? In short - it helps you transfer large risks, that prevent you from achieving your goals in life, from yourself to the insurer. Read this for more details. (hyperlinked to some URL with the details).</h3>
 				<div class="well well-lg">
 					<div ng-form="step4Form">
 						<h4>Do you have any dependents?</h4>
@@ -117,9 +120,9 @@
 								<h4><input type="radio" name="dependents" value="no" ng-model="questions.dependents" required>No</h4>
 							</label>
 						</div>
-						<div class="help-block" ng-messages="step4Form.dependents.$invalid" ng-if="step4Form.dependents.$touched">
+						<!-- <div class="help-block" ng-messages="step4Form.dependents.$invalid" ng-if="step4Form.dependents.$touched">
 							<div ng-messages-include="client/templates/messages.ng.html" ></div>
-						</div>
+						</div> -->
 						<h4>Do you have any outstanding loans to be paid?</h4>
 						<div class="radio">
 							<label class="radio-inline">
@@ -129,9 +132,9 @@
 								<h4><input type="radio" name="outstandingLoans" value="no" ng-model="questions.outstandingLoans" required>No</h4>
 							</label>
 						</div>
-						<div class="help-block" ng-messages="step4Form.outstandingLoans.$invalid" ng-if="step4Form.outstandingLoans.$touched">
+						<!-- <div class="help-block" ng-messages="step4Form.outstandingLoans.$invalid" ng-if="step4Form.outstandingLoans.$touched">
 							<div ng-messages-include="client/templates/messages.ng.html" ></div>
-						</div>
+						</div> -->
 						<div ng-if="questions.outstandingLoans == 'yes'" class="cssFade">
 							<h4>Please share more details about your outstanding loans.</h4>
 							<div ng-repeat="outLoan in questions.currentOutStandingLoans">
@@ -147,8 +150,9 @@
 						</div>
 					</div>
 					<div class="text-center">
-						<a class="btn btn-info btn-custom-width btn-md prev" href="#">Previous</a>
-						<button class="btn btn-info btn-custom-width btn-md next" ng-disabled="step4Form.$invalid">Next</button>
+						<a class="btn btn-custom btn-md prev" href="#">Previous</a>
+						<!-- <button class="btn btn-custom btn-md next" ng-disabled="step4Form.$invalid">Next</button> -->
+						<button class="btn btn-custom btn-md next" >Next</button>
 					</div>
 				</div>
 			</div>
@@ -182,8 +186,9 @@
 							</div>
 						</div>
 						<div class="text-center">
-							<a class="btn btn-info btn-custom-width btn-md prev" href="#">Previous</a>
-							<button class="btn btn-info btn-custom-width btn-md next" ng-disabled="step5Form.$invalid">Next</button>
+							<a class="btn btn-custom btn-md prev" href="#">Previous</a>
+							<!-- <button class="btn btn-custom btn-md next" ng-disabled="step5Form.$invalid">Next</button> -->
+							<button class="btn btn-custom btn-md next" >Next</button>
 						</div>
 					</div>
 				</div>
@@ -225,8 +230,9 @@
 							</div>
 						</div>
 						<div class="text-center">
-							<a class="btn btn-info btn-custom-width btn-md prev" href="#">Previous</a>
-							<button class="btn btn-info btn-custom-width btn-md next" ng-disabled="step6Form.$invalid">Next</button>
+							<a class="btn btn-custom btn-md prev" href="#">Previous</a>
+							<!-- <button class="btn btn-custom btn-md next" ng-disabled="step6Form.$invalid">Next</button> -->
+							<button class="btn btn-custom btn-md next" >Next</button>
 						</div>
 					</div>
 				</div>
@@ -249,13 +255,14 @@
 								<h4><input type="radio" name="investmentFocusOn" value="bothEqually" ng-model="questions.investmentFocusOn" required>Both equally</h4>
 							</label>
 						</div>
-						<div class="help-block" ng-messages="step7Form.investmentFocusOn.$error" ng-if="step7Form.investmentFocusOn.$touched">
+						<!-- <div class="help-block" ng-messages="step7Form.investmentFocusOn.$error" ng-if="step7Form.investmentFocusOn.$touched">
 							<div ng-messages-include="client/templates/messages.ng.html" ></div>
-						</div>
+						</div> -->
 
 						<div class="text-center">
-							<a class="btn btn-info btn-custom-width btn-md prev" href="#">Previous</a>
-							<button class="btn btn-info btn-custom-width btn-md next" ng-disabled="step7Form.$invalid">Next</button>
+							<a class="btn btn-custom btn-md prev" href="#">Previous</a>
+							<!-- <button class="btn btn-custom btn-md next" ng-disabled="step7Form.$invalid">Next</button> -->
+							<button class="btn btn-custom btn-md next" >Next</button>
 						</div>
 					</div>
 				</div>
@@ -283,12 +290,13 @@
 								<h4><input type="radio" name="whenMarketVolatile" value="buyMore" ng-model="questions.whenMarketVolatile" required>Buy more</h4>
 							</label>
 						</div>
-						<div class="help-block" ng-messages="step8Form.whenMarketVolatile.$error" ng-if="step8Form.whenMarketVolatile.$touched">
+						<!-- <div class="help-block" ng-messages="step8Form.whenMarketVolatile.$error" ng-if="step8Form.whenMarketVolatile.$touched">
 							<div ng-messages-include="client/templates/messages.ng.html" ></div>
-						</div>
+						</div> -->
 						<div class="text-center">
-							<a class="btn btn-info btn-custom-width btn-md prev" href="#">Previous</a>
-							<button class="btn btn-info btn-custom-width btn-md next" ng-disabled="step7Form.$invalid">Next</button>
+							<a class="btn btn-custom btn-md prev" href="#">Previous</a>
+							<!-- <button class="btn btn-custom btn-md next" ng-disabled="step7Form.$invalid">Next</button> -->
+							<button class="btn btn-custom btn-md next" >Next</button>
 						</div>
 					</div>
 				</div>
@@ -311,10 +319,10 @@
 						<div ng-if="questions.alreadyMadeTaxInvestment == 'yes'" class="cssFade">
 							<h4>How much have you invested overall?</h4>
 							<h5>Include all investments in life insurance, ELSS, tax saving fixed deposits, NSC, PPF and EPF.</h5>
-							<input class="form-control input-md" name="alreadyMadeTaxInvestmentAmount" ng-model="questions.alreadyMadeTaxInvestmentAmount" type="text" ng-pattern="onlyNumbers" required>
-							<div class="help-block" ng-messages="step9Form.alreadyMadeTaxInvestmentAmount.$invalid" ng-if="step9Form.alreadyMadeTaxInvestmentAmount.$touched">
+							<input class="form-control input-md" name="alreadyMadeTaxInvestmentAmount" ng-model="questions.alreadyMadeTaxInvestmentAmount" type="text" numbers-only required>
+							<!-- <div class="help-block" ng-messages="step9Form.alreadyMadeTaxInvestmentAmount.$invalid" ng-if="step9Form.alreadyMadeTaxInvestmentAmount.$touched">
 								<div ng-messages-include="client/templates/messages.ng.html" ></div>
-							</div>
+							</div> -->
 							<label>Detailed Description: <input type="checkbox" ng-model="detailedDescForAlreadyMadeTaxInvestment"></label> 
 							<div ng-show="detailedDescForAlreadyMadeTaxInvestment">
 								<div class="form-horizontal">
@@ -352,8 +360,9 @@
 							</div>
 						</div>
 						<div class="text-center">
-							<a class="btn btn-info btn-custom-width btn-md prev" href="#">Previous</a>
-							<button class="btn btn-info btn-custom-width btn-md next" ng-disabled="step9Form.$invalid">Next</button>
+							<a class="btn btn-custom btn-md prev" href="#">Previous</a>
+							<!-- <button class="btn btn-custom btn-md next" ng-disabled="step9Form.$invalid">Next</button> -->
+							<button class="btn btn-custom btn-md next" >Next</button>
 						</div>
 					</div>
 
@@ -375,12 +384,14 @@
                 	</label>
                 	<input type="email" class="form-control input-md" id="email" name="email" placeholder="happysaver@antkarma.com" ng-model="questions.email" required>
                 </div>
-                <div class="help-block" ng-messages="step10Form.email.$error" ng-if="step10Form.email.$touched">
+                <!-- <div class="help-block" ng-messages="step10Form.email.$error" ng-if="step10Form.email.$touched">
                 	<div ng-messages-include="client/templates/messages.ng.html" ></div>
-                </div>
+                </div> -->
                 <div class="text-center">
-                	<!-- <a class="btn btn-info btn-custom-width btn-md first" href="#">Back</a> -->
-                	<button type="submit" class="btn btn-info btn-custom-width btn-md" ng-disabled="step10Form.$invalid" ng-click="submitForm(questions)">Submit</button>
+                	<!-- <a class="btn btn-custom btn-md first" href="#">Back</a> -->
+                	<a class="btn btn-custom btn-md prev" href="#">Previous</a>
+                	<!-- <button type="submit" class="btn btn-custom btn-md" ng-disabled="step10Form.$invalid" ng-click="submitForm(questions)">Submit</button> -->
+                	<button type="submit" class="btn btn-custom btn-md" ng-click="submitForm(questions)">Submit</button>
                 </div>
               </div>
             </div>

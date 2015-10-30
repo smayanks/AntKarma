@@ -1,5 +1,5 @@
 
-angular.module('antkarma', ['angular-meteor', 'ngAnimate','ui.router',  'ui.bootstrap', 'ngMessages']);
+angular.module('antkarma', ['angular-meteor', 'ngAnimate','ui.router',  'ui.bootstrap', 'ngMessages', 'fcsa-number']);
 
 
 angular.module('antkarma').controller('QuestionnaireCtrl', function($scope, $modal, $meteor) {
@@ -109,28 +109,27 @@ angular.module('antkarma').controller('QuestionnaireCtrl', function($scope, $mod
 	}
 
 
-	$scope.addThousandSeperator = function(fieldName) {
-		console.log('FieldName ' + fieldName);
-		// console.log('FieldValue ' + fieldValue);
-		var inputVal = fieldName;
-		// var modelName = '$scope.'+fieldName;
-		// console.log("Model Name: " + modelName );
-		console.log('inputVal : ' + inputVal + " ---" + "isNum : " + isNaN(parseInt(inputVal)));
-		if (isNaN(parseInt(inputVal))) {
-			// return; 
-			$scope.fieldName = "";
-		} else {
-			var num2 = inputVal.toString().split('.');
-			var thousands = num2[0].split('').reverse().join('').match(/.{1,3}/g).join(',');
-			var decimals = (num2[1]) ? '.'+num2[1] : '';
-			var answer =  thousands.split('').reverse().join('')+decimals; 
-			console.log("Answer : " + answer);
-
-
-			$scope.questions.annualSalary = answer;
+	$scope.addThousandSeperator = function(str) {
+		console.log('addThousandSeparator fired');
+  		var sRegExp = new RegExp('(-?[0-9]+)([0-9]{3})'),
+		sValue = str + "", // to be sure we are dealing with a string
+		arrNum = [];
+		var thousandSeparator = ","; 
+		var decimalSeparator = "."; 
+		arrNum = sValue.split(decimalSeparator);
+		// let's be focused first only on the integer part
+		sValue = arrNum[0];
+		while(sRegExp.test(sValue)) {
+			sValue = sValue.replace(sRegExp, '$1' + thousandSeparator + '$2');
 		}
-
+		// time to add back the decimal part
+		if (arrNum.length > 1) {
+			sValue = sValue + decimalSeparator + arrNum[1];
+		}
+		$scope.amount  = sValue;
 	}
+
+
 	$scope.submitForm = function(questions) {
 		console.log(questions);
 		$scope.submitted = true;
@@ -173,5 +172,55 @@ angular.module('antkarma').controller('QuestionnaireCtrl', function($scope, $mod
 	};
 
 
-});
+})
+.directive ('numbersOnly', function() {
+	return {
 
+
+		require: 'ngModel',
+		link: function(scope, element, attrs, modelCtrl) {
+			modelCtrl.$parsers.push(function(inputValue) {
+
+			var transformedInput = inputValue;
+			var transformedInput = inputValue ? inputValue.replace(/[^\d.-]/g,'') : null;
+
+			if (transformedInput !== null ) {
+				if (transformedInput.split('.').length > 2) {
+					transformedInput = transformedInput.substring(0, transformedInput.length - 1);	
+				}
+				//Add thousand seperator
+
+				var regEx = new RegExp('(-?[0-9]+)([0-9]{3})'),
+					arrNum = [],
+					thousandSeparator = ",",
+					decimalSeparator = ".";
+					arrNum = transformedInput.split(decimalSeparator);
+					// let's be focused first only on the integer part
+					transformedInput = arrNum[0];
+
+					while (regEx.test(transformedInput)) {
+						transformedInput = transformedInput.replace(regEx, '$1' + thousandSeparator + '$2');
+					}
+					// time to add back the decimal part
+					if (arrNum.length > 1) {
+						transformedInput = transformedInput + arrNum[1];
+					}
+
+
+
+			// Add thousand seperator
+			// console.log('Adding thousand seperator');
+			// transformedInput = scope.addThousandSeparator(transformedInput);
+			}
+			if (transformedInput != inputValue) {
+
+				modelCtrl.$setViewValue(transformedInput);
+				modelCtrl.$render();
+			}
+
+			return transformedInput;
+		});
+		}
+	}
+
+});
