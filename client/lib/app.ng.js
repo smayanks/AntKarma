@@ -1,14 +1,10 @@
 
-angular.module('antkarma', ['angular-meteor', 'ngAnimate','ui.router',  'ui.bootstrap', 'ngMessages', 'fcsa-number']);
+angular.module('antkarma', ['angular-meteor', 'ngAnimate','ui.router',  'ui.bootstrap', 'ngMessages']);
 
 
 angular.module('antkarma').controller('QuestionnaireCtrl', function($scope, $modal, $meteor) {
 
-	// $scope.fullQuestionnaire = [];
-	// $scope.activeQuestionnaire = [];
-	
 	$scope.questionnaire = $meteor.collection(Questionnaire);
-
 	$scope.questions = {};
 	$scope.questions.username = '';
 	$scope.questions.alreadyInvestedPPFAmount = 'no';
@@ -40,10 +36,6 @@ angular.module('antkarma').controller('QuestionnaireCtrl', function($scope, $mod
 	]
 
 	
-	
-	// var outstandingLoanTemplate = {existingLoanType: '', existingLoanUnpaidAmt: ''};
-	
-
 	$scope.questions.currentOutStandingLoans = [];
 	$scope.questions.currentOutStandingLoans.push({existingLoanType: '', existingLoanUnpaidAmt: ''});
 
@@ -67,8 +59,6 @@ angular.module('antkarma').controller('QuestionnaireCtrl', function($scope, $mod
 
 	$scope.questions.currentLifeInsurancePolicies = [{existingLifeInsPolicyName: '', existingLifeInsSumInsured: '', existingLifeInsYrlyPrem: ''}];
 	$scope.addLifeInsurance = function() {
-		// var counter = $scope.lifeInsuranceFieldCounter++;
-
 		$scope.questions.currentLifeInsurancePolicies.push({existingLifeInsPolicyName: '', existingLifeInsSumInsured: '', existingLifeInsYrlyPrem: ''});
 
 	}
@@ -89,14 +79,13 @@ angular.module('antkarma').controller('QuestionnaireCtrl', function($scope, $mod
 	$scope.questions.existingHealthInsPolicies = [{existingHealthInsName: '', existingHealthInsCover: '', existingHealthInsYrlyPrem: '', dependents: { self: true, spouse: false, children: false, parents: false }}];
 
 	$scope.addHealthInsurance = function() {
-		// var counter = $scope.lifeInsuranceFieldCounter++;
 
 		$scope.questions.existingHealthInsPolicies.push({existingHealthInsName: '', existingHealthInsCover: '', existingHealthInsYrlyPrem: '', dependents: { self: true, spouse: false, children: false, parents: false }});
 
 	}
 
 	$scope.removeHealthInsurance = function(index) {
-		// var counter = $scope.lifeInsuranceFieldCounter++;
+		
 		$scope.questions.existingHealthInsPolicies.splice(index, 1);
 		
 		if ($scope.questions.existingHealthInsPolicies.length == 0) {
@@ -109,44 +98,10 @@ angular.module('antkarma').controller('QuestionnaireCtrl', function($scope, $mod
 	}
 
 
-	$scope.addThousandSeperator = function(str) {
-		console.log('addThousandSeparator fired');
-  		var sRegExp = new RegExp('(-?[0-9]+)([0-9]{3})'),
-		sValue = str + "", // to be sure we are dealing with a string
-		arrNum = [];
-		var thousandSeparator = ","; 
-		var decimalSeparator = "."; 
-		arrNum = sValue.split(decimalSeparator);
-		// let's be focused first only on the integer part
-		sValue = arrNum[0];
-		while(sRegExp.test(sValue)) {
-			sValue = sValue.replace(sRegExp, '$1' + thousandSeparator + '$2');
-		}
-		// time to add back the decimal part
-		if (arrNum.length > 1) {
-			sValue = sValue + decimalSeparator + arrNum[1];
-		}
-		$scope.amount  = sValue;
-	}
-
-
 	$scope.submitForm = function(questions) {
 		console.log(questions);
 		$scope.submitted = true;
 		$scope.questionnaire.save(questions);
-		// $timeout(function() {
-
-  //     		$scope.submitted = false;
-  //     		$window.location.href= "#page-top";
-  //     		// $location.hash('page-top');
-  //     		// anchorScroll();
-      		
-  //     	}, 5000);
-		// $timeout(function() {
-  //     		// $window.location.href = "#page-top";
-  //     		$location.hash('page-top');
-  //     		anchorScroll();
-  //     	}, 3000);
 		
 		$scope.data = {
 			boldTextTitle: "Congratulations!",
@@ -206,21 +161,81 @@ angular.module('antkarma').controller('QuestionnaireCtrl', function($scope, $mod
 						transformedInput = transformedInput + arrNum[1];
 					}
 
-
-
-			// Add thousand seperator
-			// console.log('Adding thousand seperator');
-			// transformedInput = scope.addThousandSeparator(transformedInput);
 			}
-			if (transformedInput != inputValue) {
+				if (transformedInput != inputValue) {
 
-				modelCtrl.$setViewValue(transformedInput);
-				modelCtrl.$render();
-			}
+					modelCtrl.$setViewValue(transformedInput);
+					modelCtrl.$render();
+				}
 
-			return transformedInput;
-		});
+				return transformedInput;
+			});
 		}
 	}
 
-});
+})
+.directive('inputMaxLengthNumber', [function () {
+	return {
+		require: 'ngModel',
+		restrict: 'A',
+		link: function (scope, element, attrs, modelCtrl) {
+			function fromUser(text) {
+				var maxlength = Number(attrs.maxlength);
+				if (String(text).length > maxlength) {
+					modelCtrl.$setViewValue(modelCtrl.$modelValue);
+					modelCtrl.$render();
+					return modelCtrl.$modelValue;
+				}
+				return text;
+			}
+			modelCtrl.$parsers.push(fromUser);
+		}
+	};
+}]);
+
+
+
+
+
+
+
+
+
+
+// myApp.directive('inputMaxLengthNumber', function() {
+//   return {
+//     require: 'ngModel',
+//     restrict: 'A',
+//     link: function (scope, element, attrs, ngModelCtrl) {
+//       function fromUser(text) {
+//         var maxlength = Number(attrs.maxlength);
+//         if (String(text).length > maxlength) {
+//           ngModelCtrl.$setViewValue(ngModelCtrl.$modelValue);
+//           ngModelCtrl.$render();
+//           return ngModelCtrl.$modelValue;
+//         }
+//         return text;
+//       }
+//       ngModelCtrl.$parsers.push(fromUser);
+//     }
+//   };
+// })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
