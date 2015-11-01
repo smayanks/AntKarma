@@ -2,6 +2,11 @@ body {
     background-color: rgba(0,0,0,.04);
     font-family: "Raleway",sans-serif, "PT Serif","Times New Roman",Times,serif;
     height: 100% !important;
+    
+}
+
+*, *:before, *:after {
+  -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
 }
 
 section, h1, h2, h3, h4, h5, h6, li, img {
@@ -24,9 +29,13 @@ input {
   font-family: "Open Sans", "Times New Roman",Times,serif;
   font-size: 0.8em;
   max-width: 300px;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
-
+.form-control {
+  padding: 3px 6px;
+}
 
 section {
 	min-height: 800px;

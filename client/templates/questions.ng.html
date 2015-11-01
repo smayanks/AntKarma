@@ -1,5 +1,5 @@
 <section id="questions" class="questions" ng-controller="QuestionnaireCtrl">
-	<div class="col-md-8 col-md-offset-2">
+	<div class="col-md-6 col-md-offset-3">
 		<div class="progress">
 			<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="10" style="width:20%;">
 				Step 1 of 11
@@ -365,9 +365,11 @@
 							<!-- <div class="help-block" ng-messages="step9Form.alreadyMadeTaxInvestmentAmount.$invalid" ng-if="step9Form.alreadyMadeTaxInvestmentAmount.$touched">
 								<div ng-messages-include="client/templates/messages.ng.html" ></div>
 							</div> -->
-							<label>Detailed Description: <input type="checkbox" ng-model="detailedDescForAlreadyMadeTaxInvestment"></label> 
+							<label>Detailed Description: <input type="checkbox" ng-model="detailedDescForAlreadyMadeTaxInvestment">
+							</label> 
+							<button ng-show="detailedDescForAlreadyMadeTaxInvestment" id="addTaxInv" class="btn btn-success btn-xs add-more" ng-click="addTaxInvestOption()">Add another investment</button>
 							<div ng-show="detailedDescForAlreadyMadeTaxInvestment">
-								<button id="addLoanButton" class="btn btn-success btn-xs add-loan" ng-click="addTaxInvestOption()">Add another investment</button>
+								
 								<div class="slide" ng-repeat="currentTaxInvest in questions.currentTaxInvestments">
 									<div class="form-inline" id="currentTaxInvestDetails">
 
