@@ -27,7 +27,7 @@
 			<!-- Set of questions being asked to the user for risk profiling -->
 			<!-- Step 1 -->
 			<div class="tab-pane fade in active" id="step1">
-				<h4 class="helper-message">Hello {{questions.username}}! Lets start by understanding you better.</h4>
+				<h4 class="helper-message">Lets start by understanding you better.</h4>
 				<div class="well well-lg">
 					<div ng-form="step1Form">
 						<h4 class="level1">What kind of financial help are you looking for?</h4>
@@ -131,8 +131,8 @@
 				</div>
 				<div class="text-center button-footer">
 					<a class="btn btn-custom btn-md prev" href="#">Previous</a>
-					<!-- <button class="btn btn-custom btn-md next" ng-disabled="step4Form.$invalid">Next</button> -->
-					<button class="btn btn-custom btn-md next" >Next</button>
+					<button class="btn btn-custom btn-md next" ng-disabled="step4Form.$invalid">Next</button>
+					<!-- <button class="btn btn-custom btn-md next" >Next</button> -->
 				</div>
 			</div>
 
@@ -143,7 +143,7 @@
 				</h4>
 				<div class="well well-lg">
 					
-				
+
 					<div ng-form="step5Form">
 						<h4 class="level1">Do you have any outstanding loans to be paid?</h4>
 						<div class="radio answers extra-padding">
@@ -160,144 +160,144 @@
 						<div ng-show="questions.outstandingLoans == 'yes'">
 							<div class="">
 								<h5>Please share more details about your outstanding loans.
-								<button id="addLoanButton" class="btn btn-success btn-xs add-loan" ng-click="addOutstandingLoanDetails()">Add another loan</button></h5>
-								<div class="slide" ng-repeat="outLoan in questions.currentOutStandingLoans">
-									<div class="form-inline" id="outstandinLoanDetails">
-										<!-- <span class="col-sm-12"> -->
-										<!-- <i class="fa fa-plus-circle" ng-click="addOutstandingLoanDetails()"></i> -->
-										<!-- <input class="form-control" name="{{'existingLoanType' + $index}}" ng-model="questions.currentOutStandingLoans[$index].existingLoanType" placeholder="Loan Type ex.Housing, Car, Personal etc"> -->
-										<select class="form-control" name="{{'existingLoanType' + $index}}" ng-model="questions.currentOutStandingLoans[$index].existingLoanType">
-													<!-- <div ng-repeat="loanType in loanTypes"> -->
-														<!-- <option value="" selected disabled>Please select</option> -->
-														<option value="Housing">Housing</option>
-														<option value="Auto">Auto</option>
-														<option value="Personal">Personal</option>
-														<option value="Other">Other</option>
+									<button id="addLoanButton" class="btn btn-success btn-xs add-loan" ng-click="addOutstandingLoanDetails()">Add another loan</button></h5>
+									<div class="slide" ng-repeat="outLoan in questions.currentOutStandingLoans">
+										<div class="form-inline" id="outstandinLoanDetails">
+											<!-- <span class="col-sm-12"> -->
+											<!-- <i class="fa fa-plus-circle" ng-click="addOutstandingLoanDetails()"></i> -->
+											<!-- <input class="form-control" name="{{'existingLoanType' + $index}}" ng-model="questions.currentOutStandingLoans[$index].existingLoanType" placeholder="Loan Type ex.Housing, Car, Personal etc"> -->
+											<select class="form-control" name="{{'existingLoanType' + $index}}" ng-model="questions.currentOutStandingLoans[$index].existingLoanType">
+												<!-- <div ng-repeat="loanType in loanTypes"> -->
+												<!-- <option value="" selected disabled>Please select</option> -->
+												<option value="Housing">Housing</option>
+												<option value="Auto">Auto</option>
+												<option value="Personal">Personal</option>
+												<option value="Other">Other</option>
 
-													<!-- </div> -->
-										</select>
+												<!-- </div> -->
+											</select>
 
-										<input class="form-control" name="{{'existingLoanUnpaidAmt' + $index}}" placeholder="Loan Unpaid Amount" ng-model="questions.currentOutStandingLoans[$index].existingLoanUnpaidAmt" numbers-only ng-required = "{{questions.outstandingLoans == 'yes'}}">
-										<input class="form-control" name="{{'comments' + $index}}" placeholder="Description" ng-model="questions.currentOutStandingLoans[$index].comments" ng-required = "{{questions.outstandingLoans == 'yes'}}">
-										<i class="fa fa-minus-circle" ng-click="removeOutstandingLoan($index)"></i>
-										<!-- </span> -->
-									</div>
-									
-
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="text-center button-footer">
-					<a class="btn btn-custom btn-md prev" href="#">Previous</a>
-					<button class="btn btn-custom btn-md next" ng-disabled="step5Form.$invalid">Next</button>
-					<!-- <button class="btn btn-custom btn-md next" >Next</button> -->
-				</div>
-			</div>
+											<input class="form-control" name="{{'existingLoanUnpaidAmt' + $index}}" placeholder="Loan Unpaid Amount" ng-model="questions.currentOutStandingLoans[$index].existingLoanUnpaidAmt" numbers-only ng-required = "questions.outstandingLoans == 'yes'">
+											<input class="form-control" name="{{'comments' + $index}}" placeholder="Description" ng-model="questions.currentOutStandingLoans[$index].comments" ng-required = "questions.outstandingLoans == 'yes'">
+											<i class="fa fa-minus-circle" ng-click="removeOutstandingLoan($index)"></i>
+											<!-- </span> -->
+										</div>
 
 
-			<!-- Step 6 -->
-			<div class="tab-pane fade" id="step6">
-				<h4 class="helper-message">Let's find the best life insurance coverage for you. We highly recommend life insurance since it helps
-					you transfer large risks that prevents you from achieving your goals in life, from yourself to the insurer.
-				</h4>
-				<div class="well well-lg">
-					<div ng-form="step6Form">
-						<h4 class="level1">Do you have life insurance cover?</h4>
-						<div class="radio answers">
-							<label class="radio-inline">
-								<h5><input type="radio" name="alreadyMadeLifeInsInvestment" value="yes" ng-model="questions.alreadyMadeLifeInsInvestment">Yes</h5>
-							</label>
-							<label class="radio-inline">
-								<h5><input type="radio" name="alreadyMadeLifeInsInvestment" value="no" ng-model="questions.alreadyMadeLifeInsInvestment">No</h5>
-							</label>
-							<div ng-show="questions.alreadyMadeLifeInsInvestment == 'yes'">
-								<h5>Please enter details about your life insurance investment.<button id="addLIButton" class="btn btn-success btn-xs add-loan" ng-click="addLifeInsurance()">Add another investment</button></h5>
-								<div class="slide" ng-repeat="lifeIns in questions.currentLifeInsurancePolicies">
-									<div class="form-inline" id="lifeInsuranceDetails">
-										<input class="form-control" name="{{'existingLifeInsPolicyName' + $index}}" ng-model="lifeIns.existingLifeInsPolicyName" placeholder="Policy Name" ng-required = "{{questions.alreadyMadeLifeInsInvestment == 'yes'}}">
-										<input class="form-control" name="{{'existingLifeInsSumInsured' + $index}}" placeholder="Sum Insured" ng-model="lifeIns.existingLifeInsSumInsured" numbers-only ng-required = "{{questions.alreadyMadeLifeInsInvestment == 'yes'}}">
-										<input class="form-control" name="{{'existingLifeInsYrlyPrem' + $index}}" placeholder="Yearly Premium" ng-model="lifeIns.existingLifeInsYrlyPrem" numbers-only ng-required = "{{questions.alreadyMadeLifeInsInvestment == 'yes'}}">
-										<i class="fa fa-minus-circle" ng-click="removeLifeInsurance($index)"></i>
-																				
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="text-center button-footer">
-					<a class="btn btn-custom btn-md prev" href="#">Previous</a>
-					<button class="btn btn-custom btn-md next" ng-disabled="step6Form.$invalid">Next</button>
-					<!-- <button class="btn btn-custom btn-md next" >Next</button> -->
-				</div>
-
-			</div>
-
-
-			<!-- Step 7 -->
-			<div class="tab-pane fade" id="step7">
-				<h4 class="helper-message">Let's understand your health insurance coverage requirements.</h4>
-				<div class="well well-lg">
-					<div ng-form="step7Form">
-						<h4 class="level1">Do you have health insurance cover?</h4>
-						<h5 class="answers"> Answer yes if you have a personal health insurance or one provided by your employer.</h5>
-						<div class="radio answers">
-							<label class="radio-inline">
-								<h5><input type="radio" name="alreadyHaveHealthInsurance" value="yes" ng-model="questions.alreadyHaveHealthInsurance">Yes</h5>
-							</label>
-							<label class="radio-inline">
-								<h5><input type="radio" name="alreadyHaveHealthInsurance" value="no" ng-model="questions.alreadyHaveHealthInsurance">No</h5>
-							</label>
-							<div ng-show="questions.alreadyHaveHealthInsurance == 'yes'">
-
-								<h5 class="level2">Please enter details about your health insurance coverage.<button id="addHIButton" class="btn btn-success btn-xs add-loan" ng-click="addHealthInsurance()">Add another insurance</button></h5>
-								
-								<div class="slide" ng-repeat="healthIns in questions.existingHealthInsPolicies">
-									<div class="form-inline" id="healthInsuranceDetails">
-										<!-- <i class="fa fa-plus-circle" ng-click="addHealthInsurance()"></i> -->
-										<input class="form-control " name="{{'existingHealthInsName' + $index}}" ng-model="healthIns.existingHealthInsName" placeholder="Insurance Name">
-										<input class="form-control" name="{{'existingHealthInsCover' + $index}}" placeholder="Insurance Coverage" ng-model="healthIns.existingHealthInsCover" numbers-only>
-										<input class="form-control" name="{{'existingHealthInsYrlyPrem' + $index}}" placeholder="Yearly Premium" ng-model="healthIns.existingLifeInsYrlyPrem" numbers-only>
-										<i class="fa fa-minus-circle" ng-click="removeHealthInsurance($index)"></i>
-									
-										<label class="small-text">Who all are covered?
-											<label><input type="checkbox"  ng-model="healthIns.dependents.self"> Self </label>
-											<label><input type="checkbox"  ng-model="healthIns.dependents.spouse"> Spouse </label>
-											<label><input type="checkbox"  ng-model="healthIns.dependents.children"> Children </label>
-											<label><input type="checkbox"  ng-model="healthIns.dependents.parents"> Parents </label>
-										</label>
-									</div>
-								</div>
-							</div>
-						</div>
+					<div class="text-center button-footer">
+						<a class="btn btn-custom btn-md prev" href="#">Previous</a>
+						<button class="btn btn-custom btn-md next" ng-disabled="step5Form.$invalid">Next</button>
+						<!-- <button class="btn btn-custom btn-md next" >Next</button> -->
 					</div>
 				</div>
-				<div class="text-center button-footer">
-					<a class="btn btn-custom btn-md prev" href="#">Previous</a>
-					<button class="btn btn-custom btn-md next" ng-disabled="step7Form.$invalid">Next</button>
-					<!-- <button class="btn btn-custom btn-md next" >Next</button> -->
-				</div>
-			</div>
-			<!-- Step 8 -->
 
-			<div class="tab-pane fade" id="step8">
-				<h4 class="helper-message">Let's understand your risk tolerance. An individuals risk tolerance depends on his life stage and the level of risk he's comfortable taking. </h4>
-				<div ng-form="step8Form">
+
+				<!-- Step 6 -->
+				<div class="tab-pane fade" id="step6">
+					<h4 class="helper-message">Let's find the best life insurance coverage for you. We highly recommend life insurance since it helps
+						you transfer large risks that prevents you from achieving your goals in life, from yourself to the insurer.
+					</h4>
 					<div class="well well-lg">
-						<h4 class="level1">When making investments what do you focus more on?</h4>
-						<div class="radio-inline col-sm-offset-1 col-md-offset-1 answers">
-							<label class="radio extra-padding">
-								<h4><input type="radio" name="investmentFocusOn" value="maximizeReturns" ng-model="questions.investmentFocusOn" required>Maximizing Returns</h4>
-							</label>
-							<label class="radio extra-padding">
-								<h4><input type="radio" name="investmentFocusOn" value="minimizeLosses" ng-model="questions.investmentFocusOn" required>Minimizing losses</h4>
-							</label>
-							<label class="radio extra-padding">
-								<h4><input type="radio" name="investmentFocusOn" value="bothEqually" ng-model="questions.investmentFocusOn" required>Both equally</h4>
-							</label>
+						<div ng-form="step6Form">
+							<h4 class="level1">Do you have life insurance cover?</h4>
+							<div class="radio answers">
+								<label class="radio-inline">
+									<h5><input type="radio" name="alreadyMadeLifeInsInvestment" value="yes" ng-model="questions.alreadyMadeLifeInsInvestment" required>Yes</h5>
+								</label>
+								<label class="radio-inline">
+									<h5><input type="radio" name="alreadyMadeLifeInsInvestment" value="no" ng-model="questions.alreadyMadeLifeInsInvestment" required>No</h5>
+								</label>
+								<div ng-show="questions.alreadyMadeLifeInsInvestment == 'yes'">
+									<h5>Please enter details about your life insurance investment.<button id="addLIButton" class="btn btn-success btn-xs add-loan" ng-click="addLifeInsurance()">Add another investment</button></h5>
+									<div class="slide" ng-repeat="lifeIns in questions.currentLifeInsurancePolicies">
+										<div class="form-inline" id="lifeInsuranceDetails">
+											<input class="form-control" name="{{'existingLifeInsPolicyName' + $index}}" ng-model="lifeIns.existingLifeInsPolicyName" placeholder="Policy Name" ng-required = "{{questions.alreadyMadeLifeInsInvestment == 'yes'}}">
+											<input class="form-control" name="{{'existingLifeInsSumInsured' + $index}}" placeholder="Sum Insured" ng-model="lifeIns.existingLifeInsSumInsured" numbers-only ng-required = "questions.alreadyMadeLifeInsInvestment == 'yes'">
+											<input class="form-control" name="{{'existingLifeInsYrlyPrem' + $index}}" placeholder="Yearly Premium" ng-model="lifeIns.existingLifeInsYrlyPrem" numbers-only ng-required = "questions.alreadyMadeLifeInsInvestment == 'yes'">
+											<i class="fa fa-minus-circle" ng-click="removeLifeInsurance($index)"></i>
+
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
+					</div>
+					<div class="text-center button-footer">
+						<a class="btn btn-custom btn-md prev" href="#">Previous</a>
+						<button class="btn btn-custom btn-md next" ng-disabled="step6Form.$invalid">Next</button>
+						<!-- <button class="btn btn-custom btn-md next" >Next</button> -->
+					</div>
+
+				</div>
+
+
+				<!-- Step 7 -->
+				<div class="tab-pane fade" id="step7">
+					<h4 class="helper-message">Let's understand your health insurance coverage requirements.</h4>
+					<div class="well well-lg">
+						<div ng-form="step7Form">
+							<h4 class="level1">Do you have health insurance cover?</h4>
+							<h5 class="answers"> Answer yes if you have a personal health insurance or one provided by your employer.</h5>
+							<div class="radio answers">
+								<label class="radio-inline">
+									<h5><input type="radio" name="alreadyHaveHealthInsurance" value="yes" ng-model="questions.alreadyHaveHealthInsurance" required>Yes</h5>
+								</label>
+								<label class="radio-inline">
+									<h5><input type="radio" name="alreadyHaveHealthInsurance" value="no" ng-model="questions.alreadyHaveHealthInsurance" required>No</h5>
+								</label>
+								<div ng-show="questions.alreadyHaveHealthInsurance == 'yes'">
+
+									<h5 class="level2">Please enter details about your health insurance coverage.<button id="addHIButton" class="btn btn-success btn-xs add-loan" ng-click="addHealthInsurance()">Add another insurance</button></h5>
+
+									<div class="slide" ng-repeat="healthIns in questions.existingHealthInsPolicies">
+										<div class="form-inline" id="healthInsuranceDetails">
+											<!-- <i class="fa fa-plus-circle" ng-click="addHealthInsurance()"></i> -->
+											<input class="form-control " name="{{'existingHealthInsName' + $index}}" ng-model="healthIns.existingHealthInsName" placeholder="Insurance Name" ng-required = "questions.alreadyHaveHealthInsurance == 'yes'">
+											<input class="form-control" name="{{'existingHealthInsCover' + $index}}" placeholder="Insurance Coverage" ng-model="healthIns.existingHealthInsCover" numbers-only ng-required = "questions.alreadyHaveHealthInsurance == 'yes'">
+											<input class="form-control" name="{{'existingHealthInsYrlyPrem' + $index}}" placeholder="Yearly Premium" ng-model="healthIns.existingLifeInsYrlyPrem" numbers-only ng-required = "questions.alreadyHaveHealthInsurance == 'yes'">
+											<i class="fa fa-minus-circle" ng-click="removeHealthInsurance($index)"></i>
+
+											<label class="small-text">Who all are covered?
+												<label><input type="checkbox"  ng-model="healthIns.dependents.self"> Self </label>
+												<label><input type="checkbox"  ng-model="healthIns.dependents.spouse"> Spouse </label>
+												<label><input type="checkbox"  ng-model="healthIns.dependents.children"> Children </label>
+												<label><input type="checkbox"  ng-model="healthIns.dependents.parents"> Parents </label>
+											</label>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="text-center button-footer">
+						<a class="btn btn-custom btn-md prev" href="#">Previous</a>
+						<button class="btn btn-custom btn-md next" ng-disabled="step7Form.$invalid">Next</button>
+						<!-- <button class="btn btn-custom btn-md next" >Next</button> -->
+					</div>
+				</div>
+				<!-- Step 8 -->
+
+				<div class="tab-pane fade" id="step8">
+					<h4 class="helper-message">Let's understand your risk tolerance. An individuals risk tolerance depends on his life stage and the level of risk he's comfortable taking. </h4>
+					<div ng-form="step8Form">
+						<div class="well well-lg">
+							<h4 class="level1">When making investments what do you focus more on?</h4>
+							<div class="radio-inline col-sm-offset-1 col-md-offset-1 answers">
+								<label class="radio extra-padding">
+									<h4><input type="radio" name="investmentFocusOn" value="maximizeReturns" ng-model="questions.investmentFocusOn" required>Maximizing Returns</h4>
+								</label>
+								<label class="radio extra-padding">
+									<h4><input type="radio" name="investmentFocusOn" value="minimizeLosses" ng-model="questions.investmentFocusOn" required>Minimizing losses</h4>
+								</label>
+								<label class="radio extra-padding">
+									<h4><input type="radio" name="investmentFocusOn" value="bothEqually" ng-model="questions.investmentFocusOn" required>Both equally</h4>
+								</label>
+							</div>
 						<!-- <div class="help-block" ng-messages="step7Form.investmentFocusOn.$error" ng-if="step7Form.investmentFocusOn.$touched">
 							<div ng-messages-include="client/templates/messages.ng.html" ></div>
 						</div> -->
@@ -361,7 +361,7 @@
 						<div ng-show="questions.alreadyMadeTaxInvestment == 'yes'">
 							<h4>How much have you invested overall?</h4>
 							<h5>Include all investments in life insurance, ELSS, tax saving fixed deposits, NSC, PPF and EPF.</h5>
-							<input class="form-control" name="alreadyMadeTaxInvestmentAmount" ng-model="questions.alreadyMadeTaxInvestmentAmount" type="text" numbers-only required>
+							<input class="form-control" name="alreadyMadeTaxInvestmentAmount" ng-model="questions.alreadyMadeTaxInvestmentAmount" type="text" numbers-only ng-required="questions.alreadyMadeTaxInvestment == 'yes'">
 							<!-- <div class="help-block" ng-messages="step9Form.alreadyMadeTaxInvestmentAmount.$invalid" ng-if="step9Form.alreadyMadeTaxInvestmentAmount.$touched">
 								<div ng-messages-include="client/templates/messages.ng.html" ></div>
 							</div> -->
@@ -371,7 +371,7 @@
 								<div class="slide" ng-repeat="currentTaxInvest in questions.currentTaxInvestments">
 									<div class="form-inline" id="currentTaxInvestDetails">
 
-										<select class="form-control" name="{{'existingTaxInvType' + $index}}" ng-model="questions.currentTaxInvestments[$index].existingLoanType">
+										<select class="form-control" name="{{'existingTaxInvType' + $index}}" ng-model="questions.currentTaxInvestments[$index].existingLoanType" ng-required="detailedDescForAlreadyMadeTaxInvestment">
 											<!-- $scope.taxInvestmentOptions = [ 'ELSS', 'PPF', 'NSC', 'Life Insurance', 'Tax Saving FD', 'EPF', 'Other']; -->
 											<option value="" selected disabled>Please select</option>
 											<option value="ELSS">ELSS</option>
@@ -382,8 +382,8 @@
 											<option value="EPF">EPF</option>
 											<option value="Other">Other</option>
 										</select>
-										<input class="form-control" name="{{'existingTaxInvAmt' + $index}}" placeholder="Invested Amount" ng-model="questions.currentTaxInvestments[$index].existingTaxInvAmt" numbers-only>
-										<input class="form-control" name="{{'comments' + $index}}" placeholder="Description" ng-model="questions.currentTaxInvestments[$index].comments">
+										<input class="form-control" name="{{'existingTaxInvAmt' + $index}}" placeholder="Invested Amount" ng-model="questions.currentTaxInvestments[$index].existingTaxInvAmt" numbers-only ng-required="detailedDescForAlreadyMadeTaxInvestment">
+										<input class="form-control" name="{{'comments' + $index}}" placeholder="Description" ng-model="questions.currentTaxInvestments[$index].comments" ng-required="detailedDescForAlreadyMadeTaxInvestment">
 										<i class="fa fa-minus-circle" ng-click="removeTaxInvestOption($index)"></i>
 									</div>
 								</div>
@@ -393,41 +393,42 @@
 				</div>
 				<div class="text-center button-footer">
 					<a class="btn btn-custom btn-md prev" href="#">Previous</a>
-					<!-- <button class="btn btn-custom btn-md next" ng-disabled="step10Form.$invalid">Next</button> -->
-					<button class="btn btn-custom btn-md next" >Next</button>
+					<button class="btn btn-custom btn-md next" ng-disabled="step10Form.$invalid">Next</button>
+					<!-- <button class="btn btn-custom btn-md next" >Next</button> -->
 				</div>				
 			</div>
 
 			<!-- Step 11 -->
 			<div class="tab-pane fade" id="step11">
 				<div ng-form="step11Form">
-					<div class="well well-lg">
+					<div class="well well-lg ">
 						<h4>Thank you for your patience. Your tax saving recommendation is just a click away.</h4>
-						<h4></h4>
-               <!-- 						<div class="alert alert-success alert-dismissible" ng-if="submitted" role="alert">
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <h5><strong>Congratulations!</strong> Check your email for your tax saving recommendation.</h5>
-                </div> -->
-                <div class="form-group">
-                	<label for="email">
-                		<h4>Please enter your email:</h4>
-                	</label>
-                	<input type="email" class="form-control input-custom" id="email" name="email" placeholder="happysaver@antkarma.com" ng-model="questions.email" required>
-                </div>
-                <!-- <div class="help-block" ng-messages="step10Form.email.$error" ng-if="step10Form.email.$touched">
-                	<div ng-messages-include="client/templates/messages.ng.html" ></div>
-                </div> -->
-                <div class="text-center">
-                	<!-- <a class="btn btn-custom btn-md first" href="#">Back</a> -->
-                	<a class="btn btn-custom btn-md prev" href="#">Previous</a>
-                	<!-- <button type="submit" class="btn btn-custom btn-md" ng-disabled="step11Form.$invalid" ng-click="submitForm(questions)">Submit</button> -->
-                	<button type="submit" class="btn btn-custom btn-md btn-primary" ng-click="submitForm(questions)">Submit</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- </form> -->
-        </div>
-      </div>
-    </section>
-    <!-- <div id="messages" class="alert alert-success" data-ng-if="messages" data-ng-bind="messages"></div> -->
+						<hr>
+						<!-- <div class="alert alert-success alert-dismissible" ng-if="submitted" role="alert">
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h5><strong>Congratulations {{questions.username}}!</strong> Check your email for your tax saving recommendation.</h5>
+						</div> -->
+						<div class="form-group">
+							<label for="email">
+								<h4>Please enter your email:</h4>
+							</label>
+							<input type="email" class="form-control input-custom" id="email" name="email" placeholder="happysaver@antkarma.com" ng-model="questions.email" required>
+						</div>
+						<div class="help-block" ng-messages="step11Form.email.$error" ng-if="step11Form.email.$touched">
+							<div ng-messages-include="client/templates/messages.ng.html" ></div>
+						</div>
+					</div>
+					<div class="text-center">
+						<!-- <a class="btn btn-custom btn-md first" href="#">Back</a> -->
+						<a class="btn btn-custom btn-md prev" href="#">Previous</a>
+						<button type="submit" class="btn btn-custom btn-md btn-success" ng-disabled="step11Form.$invalid" ng-click="submitForm(questions)">Submit</button>
+						<!-- <button type="submit" class="btn btn-custom btn-md btn-primary" ng-click="submitForm(questions)">Submit</button> -->
+					</div>
+
+				</div>
+			</div>
+			<!-- </form> -->          
+		</div>
+	</div>
+</section>
+<!-- <div id="messages" class="alert alert-success" data-ng-if="messages" data-ng-bind="messages"></div> -->

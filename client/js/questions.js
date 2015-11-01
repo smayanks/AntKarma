@@ -16,7 +16,7 @@ $(function() {
           var step = $(e.target).data('step');
           var percent = (parseInt(step) / 11) * 100;
           $('.progress-bar').css({width: percent + '%'});
-          $('.progress-bar').text("Step " + step + " of 10");
+          $('.progress-bar').text("Step " + step + " of 11");
           //e.relatedTarget // previous tab
         });
 

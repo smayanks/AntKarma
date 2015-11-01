@@ -7,16 +7,16 @@ angular.module('antkarma').controller('QuestionnaireCtrl', function($scope, $mod
 	$scope.questionnaire = $meteor.collection(Questionnaire);
 	$scope.questions = {};
 	$scope.questions.username = '';
-	$scope.questions.alreadyInvestedPPFAmount = 'no';
-	$scope.questions.alreadyMadeLifeInsInvestment = 'no';
-	$scope.questions.alreadyMadeHealthInsInvestment = 'no';
-	$scope.questions.alreadyHaveHealthInsurance = 'no';
-	$scope.questions.alreadyMadeTaxInvestment = 'no';
+	// $scope.questions.alreadyInvestedPPFAmount = 'no';
+	// $scope.questions.alreadyMadeLifeInsInvestment = 'no';
+	// $scope.questions.alreadyMadeHealthInsInvestment = 'no';
+	// $scope.questions.alreadyHaveHealthInsurance = 'no';
+	// $scope.questions.alreadyMadeTaxInvestment = 'no';
 	$scope.onlyNumbers = /^\d+$/;
 	$scope.submitted = false;
 	$scope.lifeInsuranceFieldCounter = 0;
-	$scope.questions.dependents = 'no';
-	$scope.questions.outstandingLoans = 'no';
+	// $scope.questions.dependents = 'no';
+	// $scope.questions.outstandingLoans = 'no';
 	// $scope.taxInvestmentOptions = [ 'ELSS', 'PPF', 'NSC', 'Life Insurance', 'Tax Saving FD', 'EPF', 'Other'];
 
 
@@ -114,7 +114,8 @@ angular.module('antkarma').controller('QuestionnaireCtrl', function($scope, $mod
 		
 		if ($scope.questions.currentTaxInvestments.length == 0) {
 
-			$scope.questions.alreadyMadeTaxInvestment = 'no';
+			// $scope.questions.alreadyMadeTaxInvestment = 'no';
+			$scope.detailedDescForAlreadyMadeTaxInvestment = false;
 			$scope.questions.currentTaxInvestments.push({existingTaxInvType: '', existingTaxInvAmt: '', comments: ''});
 
 		}
@@ -143,9 +144,9 @@ angular.module('antkarma').controller('QuestionnaireCtrl', function($scope, $mod
 		$scope.questionnaire.save(questions);
 		
 		$scope.data = {
-			boldTextTitle: "Congratulations!",
+			boldTextTitle: "Congratulations! " + $scope.questions.username,
 			textAlert : "Check your email for your tax saving recommendation.",
-			mode : 'info'
+			mode : 'success'
 		};
 
 		$scope.$modalInstance = $modal.open({

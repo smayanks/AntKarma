@@ -10,5 +10,6 @@
 }
 
 .alert-message {
-	color: #95a5a6;
+	/*color: #95a5a6;*/
+	color: #d9534f;
 }
