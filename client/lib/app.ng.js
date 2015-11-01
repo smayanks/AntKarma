@@ -15,6 +15,9 @@ angular.module('antkarma').controller('QuestionnaireCtrl', function($scope, $mod
 	$scope.onlyNumbers = /^\d+$/;
 	$scope.submitted = false;
 	$scope.lifeInsuranceFieldCounter = 0;
+	$scope.questions.dependents = 'no';
+	$scope.questions.outstandingLoans = 'no';
+	// $scope.taxInvestmentOptions = [ 'ELSS', 'PPF', 'NSC', 'Life Insurance', 'Tax Saving FD', 'EPF', 'Other'];
 
 
 	$scope.questions.financialHelpTypes = [
@@ -37,11 +40,11 @@ angular.module('antkarma').controller('QuestionnaireCtrl', function($scope, $mod
 
 	
 	$scope.questions.currentOutStandingLoans = [];
-	$scope.questions.currentOutStandingLoans.push({existingLoanType: '', existingLoanUnpaidAmt: ''});
+	$scope.questions.currentOutStandingLoans.push({existingLoanType: 'Housing', existingLoanUnpaidAmt: '', comments:''});
 
 	$scope.addOutstandingLoanDetails = function() {
 		
-		$scope.questions.currentOutStandingLoans.push({existingLoanType: '', existingLoanUnpaidAmt: ''});
+		$scope.questions.currentOutStandingLoans.push({existingLoanType: 'Housing', existingLoanUnpaidAmt: '', comments:''});
 
 	}
 
@@ -51,7 +54,7 @@ angular.module('antkarma').controller('QuestionnaireCtrl', function($scope, $mod
 		if ($scope.questions.currentOutStandingLoans.length == 0) {
 
 			$scope.questions.outstandingLoans = 'no';
-			$scope.questions.currentOutStandingLoans.push({existingLoanType: '', existingLoanUnpaidAmt: ''});
+			$scope.questions.currentOutStandingLoans.push({existingLoanType: 'Housing', existingLoanUnpaidAmt: '', comments:''});
 
 		}
 		
@@ -95,6 +98,42 @@ angular.module('antkarma').controller('QuestionnaireCtrl', function($scope, $mod
 
 		}
 		
+	}
+
+
+
+	$scope.questions.currentTaxInvestments = [{existingTaxInvType: '', existingTaxInvAmt: '', comments: ''}];
+	$scope.addTaxInvestOption = function() {
+		$scope.questions.currentTaxInvestments.push({existingTaxInvType: '', existingTaxInvAmt: '', comments: ''});
+
+	}
+
+	$scope.removeTaxInvestOption = function(index) {
+		// var counter = $scope.lifeInsuranceFieldCounter++;
+		$scope.questions.currentTaxInvestments.splice(index, 1);
+		
+		if ($scope.questions.currentTaxInvestments.length == 0) {
+
+			$scope.questions.alreadyMadeTaxInvestment = 'no';
+			$scope.questions.currentTaxInvestments.push({existingTaxInvType: '', existingTaxInvAmt: '', comments: ''});
+
+		}
+		
+	}
+
+	$scope.showHideSubtext = function(index) {
+		// .ng-hide-add 
+		// $('.subtext').addClass('ng-hide ng-hide-add');
+		// $('#helptypeSubtext_'+index).removeClass('ng-hide');
+		// $('#helptypeSubtext_'+index).addClass('ng-hide-remove');
+
+
+
+		for ( i=0; i<$scope.questions.financialHelpTypes.length; i++) {
+			if (index != i) {
+				$('#helptypeSubtext_'+i).addClass('ng-hide');
+			}
+		}
 	}
 
 
@@ -174,68 +213,22 @@ angular.module('antkarma').controller('QuestionnaireCtrl', function($scope, $mod
 	}
 
 })
-.directive('inputMaxLengthNumber', [function () {
-	return {
-		require: 'ngModel',
-		restrict: 'A',
-		link: function (scope, element, attrs, modelCtrl) {
-			function fromUser(text) {
-				var maxlength = Number(attrs.maxlength);
-				if (String(text).length > maxlength) {
-					modelCtrl.$setViewValue(modelCtrl.$modelValue);
-					modelCtrl.$render();
-					return modelCtrl.$modelValue;
-				}
-				return text;
-			}
-			modelCtrl.$parsers.push(fromUser);
-		}
-	};
-}]);
 
-
-
-
-
-
-
-
-
-
-// myApp.directive('inputMaxLengthNumber', function() {
-//   return {
-//     require: 'ngModel',
-//     restrict: 'A',
-//     link: function (scope, element, attrs, ngModelCtrl) {
-//       function fromUser(text) {
-//         var maxlength = Number(attrs.maxlength);
-//         if (String(text).length > maxlength) {
-//           ngModelCtrl.$setViewValue(ngModelCtrl.$modelValue);
-//           ngModelCtrl.$render();
-//           return ngModelCtrl.$modelValue;
-//         }
-//         return text;
-//       }
-//       ngModelCtrl.$parsers.push(fromUser);
-//     }
-//   };
-// })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.animation('.slide', function () {
+    return {
+        enter: function (element, done) {
+          console.log('enter');
+            element.hide().slideDown(1500, done);
+        },
+        move: function(element, done) {
+            console.log('move');
+            element.slideUp(1500, done);
+        },
+        leave: function(element, done) {
+          console.log('slide up', element.text())
+            element.slideUp(1200, done);
+        }
+    };
+    
+});
 

@@ -11,61 +11,65 @@
 
 .questions .well{
 	background: none;
+  height: 400px;
+  overflow: auto;
 
 }
 
 
 .questions .btn-custom {
 	width: 80px !important;
-    background-color: #f8f8f8   ;
-    color: #2c3e50;
+
 }
+
+.questions .next {
+  background-color: #5cb85c   ;
+  color: white;
+}
+
+.questions .prev {
+  background-color: #f8f8f8   ;
+  color: #2c3e50;
+}
+
+.questions .btn[disabled] {
+   
+   opacity: 0.30;
+}
+
+
 
 .hidden-navbar {
 	display:none;
 }
 
 
-/*.cssSlideUp {
-    transition: .5s linear all;
-    height: 200px;
-    overflow: hidden;
-}
-.cssSlideUp.ng-hide {
-    height:0;
-}
-
-.cssFade {
-    transition: 0.8s linear all;
-    opacity: 1;
-}
-.cssFade.ng-hide {
-    opacity: 0;
-}*/
 
 .questions .tab-content input {
-	font-size: 16px;
+	font-size: 14px;
 	background-color: #2c3e50;
 	color: white;
-    
-    box-shadow: none;
+  box-shadow: none;
 }
 
 .questions label {
     font-size: 16px;
 }
+
 .questions .fixed-width-label {
     width: 200px;
 }
 
 
 .questions .fa-plus-circle {
-    font-size: 50%;
+    font-size: 99%;
     padding-right: 5px; 
 }
 
 .questions .fa-minus-circle {
     font-size: 50%;
+    padding-top: 5px;
+    padding-left: 0;
 }
 
 .questions .bg-checkbox {
@@ -102,9 +106,88 @@
   background: white;
 }
 */
-.questions .input-custom {
-    /*min-width: 300px;*/
+
+
+
+.questions .helper-message {
+  height: 20%;
+  color: #c2c8cc;
 }
+
+
+.questions .button-footer {
+  height: 20%;
+}
+
+
+.questions .add-loan {
+
+  float: right;  
+
+}
+
+.questions .row {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+
+
+.cssSlideUp {
+    transition: .5s linear all;
+    height: 200px;
+    overflow: hidden;
+}
+.cssSlideUp.ng-hide {
+    height:0;
+}
+
+.cssFade {
+    transition: 0.8s linear all;
+    opacity: 1;
+}
+.cssFade.ng-hide {
+    opacity: 0;
+}
+
+.questions label.small-text {
+  font-size: 14px;
+  margin-top: 10px;
+}
+.questions .small-text > label {
+  font-size: 14px;
+}
+
+.questions .level1 {
+  /*padding-top: 4px;*/
+  padding-bottom: 5px;
+  /*border-top: 1px solid;*/
+  border-bottom: 1px solid;
+}
+.questions .level2 {
+  /*padding-top: 4px;*/
+  padding-bottom: 2px;
+  /*border-top: 1px solid;*/
+  border-bottom: 1px solid;
+}
+
+.questions .extra-padding {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  
+}
+
+.questions .answers {
+  color: #c2c8cc;
+}
+
+
+.questions .input-custom {
+  max-width: 800px !important;
+}
+
+
+
 
 
 
