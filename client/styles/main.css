@@ -87,6 +87,10 @@ section {
 
 }
 
+.reco {
+  background-color: #d35400;
+}
+
 .error-message {
 	background-color: #e74c3c;
 	border: 1px solid #ecf0f1;

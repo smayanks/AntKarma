@@ -2,23 +2,13 @@
 angular.module('antkarma', ['angular-meteor', 'ngAnimate','ui.router',  'ui.bootstrap', 'ngMessages']);
 
 
-angular.module('antkarma').controller('QuestionnaireCtrl', function($scope, $modal, $meteor) {
+angular.module('antkarma').controller('QuestionnaireCtrl', function($scope, $modal, $meteor, sharedProperties) {
 
 	$scope.questionnaire = $meteor.collection(Questionnaire);
 	$scope.questions = {};
 	$scope.questions.username = '';
-	// $scope.questions.alreadyInvestedPPFAmount = 'no';
-	// $scope.questions.alreadyMadeLifeInsInvestment = 'no';
-	// $scope.questions.alreadyMadeHealthInsInvestment = 'no';
-	// $scope.questions.alreadyHaveHealthInsurance = 'no';
-	// $scope.questions.alreadyMadeTaxInvestment = 'no';
-	$scope.onlyNumbers = /^\d+$/;
-	$scope.submitted = false;
+	$scope.submitted = sharedProperties.getSubmitted();
 	$scope.lifeInsuranceFieldCounter = 0;
-	// $scope.questions.dependents = 'no';
-	// $scope.questions.outstandingLoans = 'no';
-	// $scope.taxInvestmentOptions = [ 'ELSS', 'PPF', 'NSC', 'Life Insurance', 'Tax Saving FD', 'EPF', 'Other'];
-
 
 	$scope.questions.financialHelpTypes = [
 		{
@@ -140,35 +130,39 @@ angular.module('antkarma').controller('QuestionnaireCtrl', function($scope, $mod
 
 	$scope.submitForm = function(questions) {
 		console.log(questions);
-		$scope.submitted = true;
-		$scope.questionnaire.save(questions);
+		// $scope.submitted = true;
+		sharedProperties.setSubmitted(true);
+		// $scope.questionnaire.save(questions);
+
+		$('#goToReco').click();
 		
-		$scope.data = {
-			boldTextTitle: "Congratulations! " + $scope.questions.username,
-			textAlert : "Check your email for your tax saving recommendation.",
-			mode : 'success'
-		};
+		// $scope.data = {
+		// 	boldTextTitle: "Congratulations! " + $scope.questions.username,
+		// 	textAlert : "Check your email for your tax saving recommendation.",
+		// 	mode : 'success'
+		// };
 
-		$scope.$modalInstance = $modal.open({
-			scope: $scope,
-			templateUrl: 'client/templates/alertTemplate.ng.html',
-			size: 'lg',
-			backdrop: 'static',
-			keyboard: false
-		});
+		// $scope.$modalInstance = $modal.open({
+		// 	scope: $scope,
+		// 	templateUrl: 'client/templates/alertTemplate.ng.html',
+		// 	size: 'lg',
+		// 	backdrop: 'static',
+		// 	keyboard: false
+		// });
 
-		$scope.ok = function(){
-			$scope.$modalInstance.close();
-			$('div.modal').removeClass('fade').addClass('hidden');
-      		$('body').removeClass('modal-open');
-      		$('.modal-backdrop').remove();
-      		$('#goToPageTop').click();
-		}
+		// $scope.ok = function(){
+		// 	$scope.$modalInstance.close();
+		// 	$('div.modal').removeClass('fade').addClass('hidden');
+  //     		$('body').removeClass('modal-open');
+  //     		$('.modal-backdrop').remove();
+  //     		$('#goToPageTop').click();
+		// }
 	};
 
 
-})
-.directive ('numbersOnly', function() {
+});
+
+angular.module('antkarma').directive ('numbersOnly', function() {
 	return {
 
 
@@ -213,9 +207,31 @@ angular.module('antkarma').controller('QuestionnaireCtrl', function($scope, $mod
 		}
 	}
 
-})
+});
 
-.animation('.slide', function () {
+angular.module('antkarma').controller('RecommendationCtrl', function($scope, $modal, $meteor, sharedProperties) {
+	$scope.submitted = sharedProperties.getSubmitted();
+
+	console.log('From reco ctrl submitted value: ' + $scope.submitted);
+});
+
+angular.module('antkarma').service('sharedProperties', function() {
+	var submitted = false;
+
+	return {
+		getSubmitted: function() {
+			return submitted;
+		},
+
+		setSubmitted: function(value) {
+			submitted = value;
+		}
+
+	}
+
+});
+
+angular.module('antkarma').animation('.slide', function () {
     return {
         enter: function (element, done) {
           console.log('enter');
