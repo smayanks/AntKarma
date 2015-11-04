@@ -252,15 +252,28 @@ angular.module('antkarma').directive ('numbersOnly', function() {
 // Recommendation Controller : RecommendationCtrl
 
 angular.module('antkarma').controller('RecommendationCtrl', function($scope, $modal, $meteor, sharedProperties) {
-	$scope.submitted = sharedProperties.getSubmitted();
-
 
 	$scope.lifeInsRecos = [{ productName: 'HDFC Life', productSubtext: 'Click 2 Protect Plus - Life Option', sumAssured: '1 Crore', 
-	addinalCoverage: 'Only Basic Cover', claimSettlementRation: '90.5%', AnnualPremium: '12,000', otherDetails: ''},
+	additionalCoverage: 'Only Basic Cover', claimSettlementRatio: '90.5%', AnnualPremium: '12,000', 
+	coverageHightlights: ['Tax Benefits under Section 80C', 'Home Medicals', 'Multiple nominees', 'Special discount rate for non-smokers', 'Discounts for women', 'Joint life option', 'NRI (Non Resident Indians) friendly'],
+	criticalFactors: [{'Grievances Resolved': '99.8%'}, {'Grievances Resolved': '99.8%'}, {'Permium from new buyers': '2,592 Crore'}],
+	specialFeatures: ['Include your spouse later, if you are single at present.', 'Your nominee will have the option to take the death benefit in equal monthly installments over a period of 5 or 10 years.'],
+	downloads: [{'Product Brochure': 'www.brochure.com'}, {'Policy wording': 'www.brochure.com/policywording'}]
+	},
 	{ productName: 'Balaji Alliance', productSubtext: 'iSecure', sumAssured: '1 Crore', 
-	addinalCoverage: 'Only Basic Cover', claimSettlementRation: '91.9%', AnnualPremium: '12,000', otherDetails: ''}];
+	additionalCoverage: 'Only Basic Cover', claimSettlementRatio: '91.9%', AnnualPremium: '12,000', otherDetails: '',
+	coverageHightlights: ['Tax Benefits under Section 80C', 'Home Medicals', 'Multiple nominees', 'Special discount rate for non-smokers', 'Discounts for women', 'Joint life option', 'NRI (Non Resident Indians) friendly'],
+	criticalFactors: [{'Grievances Resolved': '99.8%'}, {'Grievances Resolved': '99.8%'}, {'Permium from new buyers': '2,592 Crore'}],
+	specialFeatures: ['Include your spouse later, if you are single at present.', 'Your nominee will have the option to take the death benefit in equal monthly installments over a period of 5 or 10 years.'],
+	downloads: [{'Product Brochure': 'www.brochure.com'}, {'Policy wording': 'www.brochure.com/policywording'}]
+	}];
 
-	console.log('From reco ctrl submitted value: ' + $scope.submitted);
+	$('.collapse').collapse("toggle");
+
+	$scope.toggleLifeInsDetails = function(index) {
+
+
+	}
 });
 
 

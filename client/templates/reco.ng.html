@@ -1,32 +1,44 @@
 <section id="reco" class="reco text-center">
 	<h3>Based on your answers, here is your customized plan</h3>
-	<div id="healthInsurance" class="health-insurance">
-		<div class="row-custom">
-			<ul class="reco-heading">
-				<li class="text-center col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1">Company Name</li>
-				<li class="text-center col-xs-1 col-sm-1 col-md-1 col-lg-1 ">Sum Insured</li>
-				<li class="text-center col-xs-1 col-sm-1 col-md-1 col-lg-1 ">Additional Coverage</li>
-				<li class="text-center col-xs-1 col-sm-1 col-md-1 col-lg-1 ">Claim Settlement Ratio</li>
-				<li class="text-center col-xs-1 col-sm-1 col-md-1 col-lg-1 ">Premium</li>
+	<div id="healthInsurance" class="health-insurance col-md-10 col-md-offset-1">
+		<table class="table">
+			<thead>
+				<tr>
+					<th class="text-center">Company Name</th>
+					<th class="text-center">Sum Insured</th>
+					<th class="text-center">Additional Coverage</th>
+					<th class="text-center">Claim Settlement Ratio</th>
+					<th class="text-center">Premium</th>
+				</tr>
+			</thead>
+			<tbody>
+					<tr ng-repeat-start= "lifeInsReco in lifeInsRecos">
+						<td class="text-center reco-section-column">
+							{{lifeInsReco.productName}}
+							<div ng-if="lifeInsReco.expanded" ng-click="lifeInsReco.expanded = false" class="details-footer btn-xs btn-danger">
+  								Details+
+							</div>
+							<div ng-if="!lifeInsReco.expanded" ng-click="lifeInsReco.expanded = true" class="details-footer btn-xs btn-danger">
+  								Details+
+							</div>
+						</td>
+						<td class="text-center reco-section-column"><i class="fa fa-inr"></i>{{lifeInsReco.sumAssured}}</td>
+						<td class="text-center reco-section-column">{{lifeInsReco.additionalCoverage}}</td>
+						<td class="text-center reco-section-column">{{lifeInsReco.claimSettlementRatio}}</td>
+						<td class="text-center reco-section-column"><i class="fa fa-inr"></i>{{lifeInsReco.AnnualPremium}}</td>
+						<td class="text-center reco-section-column">
+							<button class="btn btn-success btn-xs">Buy Now</button>
+						</td>
+					</tr>
+					<tr ng-show="lifeInsReco.expanded" ng-repeat-end="">
+						<td colspan="2">Coverage Highlights</td>
+						<td colspan="2">Critical Factors</td>
+						<td colspan="1">Special Features</td>
+						<td colspan="1">Downloads</td>
+					</tr>
 
-			</ul>
-		</div>
-		<div ng-repeat= "lifeInsReco in lifeInsRecos">
-			<div class="row-custom">
-				<ul>
 
-					<li class="text-center reco-section-column col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1">{{lifeInsReco.productName}}</li>
-					<li class="text-center reco-section-column col-xs-1 col-sm-1 col-md-1 col-lg-1 ">{{lifeInsReco.sumAssured}}</li>
-					<li class="text-center reco-section-column col-xs-1 col-sm-1 col-md-1 col-lg-1 ">{{lifeInsReco.addinalCoverage}}</li>
-					<li class="text-center reco-section-column col-xs-1 col-sm-1 col-md-1 col-lg-1 ">{{lifeInsReco.claimSettlementRation}}</li>
-					<li class="text-center reco-section-column col-xs-1 col-sm-1 col-md-1 col-lg-1 ">{{lifeInsReco.AnnualPremium}}</li>
-					<li class="text-center reco-section-column col-xs-1 col-sm-1 col-md-1 col-lg-1 ">
-						<button class="button btn-success btn-xs">Buy Now</button>
-					</li>
-				</ul>
-			</div>
-		</div>
-
-
+			</tbody>
+		</table>
 	</div>
 </section>

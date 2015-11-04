@@ -1,34 +1,49 @@
-.reco ul {
-	list-style-type: none;
-	margin: 0;
-	padding: 0; 
+
+.reco tr {
+	
+	height: 100px;
 }
 
-.reco li {
-	display: inline;
+.reco .table {
+	display: table;
 }
 
-.reco .row-custom {
-	height: 100%;
-    display: table;
-    width: 100%;
-    table-layout: fixed;
+
+.reco .table-row {
+	display: table-row;
+	height: 100px;
+}
+
+.reco .table-head {
+	display: table-row;
+	/*height: 100px;*/
+}
+.reco .table-cell {
+	display: table-cell;
+
 }
 
 .reco .reco-section-column {
-	/*padding: 10px;
-	margin: 10px;*/
 	border: 1px solid #fff;
-	min-height: 100px;
+	vertical-align: middle;
+	position: relative;
+
+	/*font-family: "Open Sans", "Times New Roman",Times,serif;*/
+/*	min-height: 100px;
 	margin-bottom: 10px;
-	/*border-bottom: 0;*/
-	/*vertical-align: middle;*/
+*/
 }
 
-.reco .reco-card-name {
-	/*display: inline-block;*/
-	/*vertical-align: middle*/
-	/*padding-top: 25%;*/
+
+
+.reco .details-footer {
+	position: absolute;
+	bottom: 0;
+	left:0;
+}
+
+.reco .fa-inr {
+	padding-right: 3px;
 }
 
 .reco img {
