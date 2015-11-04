@@ -2,7 +2,45 @@
 angular.module('antkarma', ['angular-meteor', 'ngAnimate','ui.router',  'ui.bootstrap', 'ngMessages']);
 
 
-angular.module('antkarma').controller('QuestionnaireCtrl', function($scope, $modal, $meteor, sharedProperties) {
+angular.module('antkarma').config(function ($urlRouterProvider, $stateProvider, $locationProvider) {
+	$locationProvider.html5Mode(true);
+
+	$stateProvider
+		.state('home', {
+			url: '/home',
+			templateUrl: 'client/templates/main.ng.html'
+		})
+		.state('process', {
+			url: '/process',
+			templateUrl: 'client/templates/process.ng.html'
+		})
+		.state('pricing', {
+			url: '/pricing',
+			templateUrl: 'client/templates/pricing.ng.html'
+		})
+		.state('team', {
+			url: '/team',
+			templateUrl: 'client/templates/team.ng.html'
+		})
+		.state('faq', {
+			url: '/faq',
+			templateUrl: 'client/templates/faq.ng.html'
+		})
+		.state('questions', {
+			url: '/questions',
+			templateUrl: 'client/templates/questions.ng.html',
+			controller: 'QuestionnaireCtrl'
+		})
+		.state('recommendations', {
+			url: '/recommendations',
+			templateUrl: 'client/templates/reco.ng.html',
+			controller: 'RecommendationCtrl'
+		});
+
+	$urlRouterProvider.otherwise('/home');
+});
+
+angular.module('antkarma').controller('QuestionnaireCtrl', function($scope, $modal, $meteor, $state, sharedProperties) {
 
 	$scope.questionnaire = $meteor.collection(Questionnaire);
 	$scope.questions = {};
@@ -132,9 +170,11 @@ angular.module('antkarma').controller('QuestionnaireCtrl', function($scope, $mod
 		console.log(questions);
 		// $scope.submitted = true;
 		sharedProperties.setSubmitted(true);
+		$state.go('recommendations');
 		// $scope.questionnaire.save(questions);
 
-		$('#goToReco').click();
+
+		// $('#goToReco').click();
 		
 		// $scope.data = {
 		// 	boldTextTitle: "Congratulations! " + $scope.questions.username,
@@ -209,11 +249,27 @@ angular.module('antkarma').directive ('numbersOnly', function() {
 
 });
 
+// Recommendation Controller : RecommendationCtrl
+
 angular.module('antkarma').controller('RecommendationCtrl', function($scope, $modal, $meteor, sharedProperties) {
 	$scope.submitted = sharedProperties.getSubmitted();
 
+
+	$scope.lifeInsRecos = [{ productName: 'HDFC Life', productSubtext: 'Click 2 Protect Plus - Life Option', sumAssured: '1 Crore', 
+	addinalCoverage: 'Only Basic Cover', claimSettlementRation: '90.5%', AnnualPremium: '12,000', otherDetails: ''},
+	{ productName: 'Balaji Alliance', productSubtext: 'iSecure', sumAssured: '1 Crore', 
+	addinalCoverage: 'Only Basic Cover', claimSettlementRation: '91.9%', AnnualPremium: '12,000', otherDetails: ''}];
+
 	console.log('From reco ctrl submitted value: ' + $scope.submitted);
 });
+
+
+
+
+
+
+
+
 
 angular.module('antkarma').service('sharedProperties', function() {
 	var submitted = false;
@@ -226,7 +282,6 @@ angular.module('antkarma').service('sharedProperties', function() {
 		setSubmitted: function(value) {
 			submitted = value;
 		}
-
 	}
 
 });

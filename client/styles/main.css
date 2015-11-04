@@ -39,9 +39,10 @@ input {
 
 section {
 	min-height: 800px;
+  height: 100% !important;
 	color: white;
-	font-size: 2em;
-	padding-top: 50px;
+	/*font-size: 2em;*/
+	padding-top: 75px;
 
 }
 
@@ -88,7 +89,8 @@ section {
 }
 
 .reco {
-  background-color: #d35400;
+  background-color: #3c90be;
+  /*color: #777*/
 }
 
 .error-message {

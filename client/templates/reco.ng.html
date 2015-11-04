@@ -1,3 +1,32 @@
-<section ng-show="submitted" id="reco" class="reco text-center">
-	This is recommendation page
+<section id="reco" class="reco text-center">
+	<h3>Based on your answers, here is your customized plan</h3>
+	<div id="healthInsurance" class="health-insurance">
+		<div class="row-custom">
+			<ul class="reco-heading">
+				<li class="text-center col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1">Company Name</li>
+				<li class="text-center col-xs-1 col-sm-1 col-md-1 col-lg-1 ">Sum Insured</li>
+				<li class="text-center col-xs-1 col-sm-1 col-md-1 col-lg-1 ">Additional Coverage</li>
+				<li class="text-center col-xs-1 col-sm-1 col-md-1 col-lg-1 ">Claim Settlement Ratio</li>
+				<li class="text-center col-xs-1 col-sm-1 col-md-1 col-lg-1 ">Premium</li>
+
+			</ul>
+		</div>
+		<div ng-repeat= "lifeInsReco in lifeInsRecos">
+			<div class="row-custom">
+				<ul>
+
+					<li class="text-center reco-section-column col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1">{{lifeInsReco.productName}}</li>
+					<li class="text-center reco-section-column col-xs-1 col-sm-1 col-md-1 col-lg-1 ">{{lifeInsReco.sumAssured}}</li>
+					<li class="text-center reco-section-column col-xs-1 col-sm-1 col-md-1 col-lg-1 ">{{lifeInsReco.addinalCoverage}}</li>
+					<li class="text-center reco-section-column col-xs-1 col-sm-1 col-md-1 col-lg-1 ">{{lifeInsReco.claimSettlementRation}}</li>
+					<li class="text-center reco-section-column col-xs-1 col-sm-1 col-md-1 col-lg-1 ">{{lifeInsReco.AnnualPremium}}</li>
+					<li class="text-center reco-section-column col-xs-1 col-sm-1 col-md-1 col-lg-1 ">
+						<button class="button btn-success btn-xs">Buy Now</button>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+
+	</div>
 </section>

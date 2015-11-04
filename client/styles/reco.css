@@ -1,0 +1,39 @@
+.reco ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0; 
+}
+
+.reco li {
+	display: inline;
+}
+
+.reco .row-custom {
+	height: 100%;
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.reco .reco-section-column {
+	/*padding: 10px;
+	margin: 10px;*/
+	border: 1px solid #fff;
+	min-height: 100px;
+	margin-bottom: 10px;
+	/*border-bottom: 0;*/
+	/*vertical-align: middle;*/
+}
+
+.reco .reco-card-name {
+	/*display: inline-block;*/
+	/*vertical-align: middle*/
+	/*padding-top: 25%;*/
+}
+
+.reco img {
+	width: 50px;
+	height: 50px;
+	vertical-align: middle;
+	border: 0;
+}
