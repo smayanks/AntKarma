@@ -1,0 +1,1 @@
+LifeInsurances = new Mongo.Collection("life_insurances");

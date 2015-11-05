@@ -256,15 +256,23 @@ angular.module('antkarma').directive ('numbersOnly', function() {
 angular.module('antkarma').controller('RecommendationCtrl', function($scope, $modal, $meteor, $timeout, sharedProperties) {
 
 
-	// $scope.coverageAmount = sharedProperties.getAnnualSalary() * 10;
-	$scope.coverageAmount = 10000000;
+	$scope.coverageAmount = sharedProperties.getAnnualSalary() * 10;
+	// $scope.coverageAmount = 10000000;
 	$scope.sliderValue = 1;
 	var delayRefresh;
+	$scope.query = {sumAssured: $scope.coverageAmount};
+	// $scope.lifeInsRecos	 = $meteor.collection(function(){
+ //    	return LifeInsurances.find($scope.getReactively('query'));
+ // 	}, 1500);
 
+
+	// 
 	$scope.updateLIRecos = function() {
+		console.log('updateLIRecos called');
 		if (delayRefresh) $timeout.cancel(delayRefresh);
+		
+			$('.table-reload').fadeOut( "slow" );
 
-		delayRefresh = $timeout(function() {
 			if($scope.sliderValue == 0) {
 				
 				$scope.displayCoverageAmount = "50 Lacs";
@@ -276,27 +284,26 @@ angular.module('antkarma').controller('RecommendationCtrl', function($scope, $mo
 			} else {
 				$scope.displayCoverageAmount = "2 Crores";
 				$scope.coverageAmount = "20000000";
-			}
+			} 
+	        $scope.query = {sumAssured: $scope.coverageAmount};
 
-			 
-	            $scope.query = {sumAssured: $scope.coverageAmount};
-	        
+	        delayRefresh = $timeout(function() {
+				$('.table-reload').fadeIn( "slow" );
+			}, 300);
 			
-			console.log('Query: ' + $scope.query);			
+			// console.log('Query: ' + $scope.query);			
 
-		}, 1000);
+	};
 
+	$scope.updateLIRecos();
+
+	$scope.lifeInsRecos	 = $meteor.collection(function(){
 		
+    		return LifeInsurances.find($scope.getReactively('query'));
+    	
+ 	});
 
-	}
 
-		$scope.lifeInsRecos	 = $meteor.collection(function(){
-        	return LifeInsurances.find($scope.getReactively('query'));
-     	});
- //    delayRefresh = $timeout(function() {
-	// }, 1000);
-	// $scope.$apply ();
-	
 });
 
 
@@ -325,6 +332,24 @@ angular.module('antkarma').service('sharedProperties', function() {
 });
 
 angular.module('antkarma').animation('.slide', function () {
+    return {
+        enter: function (element, done) {
+          console.log('enter');
+            element.hide().slideDown(1500, done);
+        },
+        move: function(element, done) {
+            console.log('move');
+            element.slideUp(1500, done);
+        },
+        leave: function(element, done) {
+          console.log('slide up', element.text())
+            element.slideUp(1200, done);
+        }
+    };
+    
+});
+
+angular.module('antkarma').animation('.table-reload', function () {
     return {
         enter: function (element, done) {
           console.log('enter');
