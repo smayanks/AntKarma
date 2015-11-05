@@ -263,31 +263,38 @@ angular.module('antkarma').controller('RecommendationCtrl', function($scope, $mo
 
 	$scope.updateLIRecos = function() {
 		if (delayRefresh) $timeout.cancel(delayRefresh);
-		if($scope.sliderValue == 0) {
+
+		delayRefresh = $timeout(function() {
+			if($scope.sliderValue == 0) {
+				
+				$scope.displayCoverageAmount = "50 Lacs";
+				$scope.coverageAmount = "5000000";
+
+			} else if ($scope.sliderValue == 1) {
+				$scope.displayCoverageAmount = "1 Crore";
+				$scope.coverageAmount = "10000000";
+			} else {
+				$scope.displayCoverageAmount = "2 Crores";
+				$scope.coverageAmount = "20000000";
+			}
+
+			 
+	            $scope.query = {sumAssured: $scope.coverageAmount};
+	        
 			
-			$scope.displayCoverageAmount = "50 Lacs";
-			$scope.coverageAmount = "5000000";
+			console.log('Query: ' + $scope.query);			
 
-		} else if ($scope.sliderValue == 1) {
-			$scope.displayCoverageAmount = "1 Crore";
-			$scope.coverageAmount = "10000000";
-		} else {
-			$scope.displayCoverageAmount = "2 Crores";
-			$scope.coverageAmount = "20000000";
-		}
+		}, 1000);
 
-		 
-            $scope.query = {sumAssured: $scope.coverageAmount};
-        
 		
-		console.log('Query: ' + $scope.query);
 
 	}
-	delayRefresh = $timeout(function() {
+
 		$scope.lifeInsRecos	 = $meteor.collection(function(){
         	return LifeInsurances.find($scope.getReactively('query'));
      	});
-	}, 1000);
+ //    delayRefresh = $timeout(function() {
+	// }, 1000);
 	// $scope.$apply ();
 	
 });
