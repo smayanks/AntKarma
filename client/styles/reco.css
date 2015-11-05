@@ -1,26 +1,11 @@
 
 .reco tr {
 	
-	height: 100px;
-}
-
-.reco .table {
-	display: table;
-}
-
-
-.reco .table-row {
-	display: table-row;
-	height: 100px;
-}
-
-.reco .table-head {
-	display: table-row;
 	/*height: 100px;*/
 }
-.reco .table-cell {
-	display: table-cell;
 
+.reco .table > thead > tr > th {
+	border-bottom: 0px;
 }
 
 .reco .reco-section-column {
@@ -34,7 +19,22 @@
 */
 }
 
+.reco .details-title {
+	border-bottom: 1px solid #000;
+	text-align: left;
+	padding-top: 5px;
+	margin-top: 5px;
+	padding-bottom: 5px;
+	margin-bottom: 5px;
 
+}
+
+.reco .details-content {
+
+	text-align: left;
+	padding-top: 5px;
+
+}
 
 .reco .details-footer {
 	position: absolute;
@@ -42,13 +42,57 @@
 	left:0;
 }
 
+.reco .details-title-half {
+	height: 50% !important;
+	/*display: table-row;*/
+}
+
 .reco .fa-inr {
 	padding-right: 3px;
 }
 
-.reco img {
-	width: 50px;
-	height: 50px;
-	vertical-align: middle;
-	border: 0;
+.reco .expanded-details {
+	background-color: #fff;
+	color: #444;
+	border: 1px solid #fff;
+}
+
+.reco .product-info {
+/*	display: inline-block;
+	vertical-align: top;
+	left: 0;*/
+}
+
+.reco .well {
+	background: none;
+	overflow: auto;
+}
+
+
+.reco .ins-heading {
+	font-family: "Raleway",sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	/*text-align: center;*/
+	margin: 0 0 30px;
+	/*padding:  0;*/
+	color: white !important;
+
+}
+
+.reco input {
+	font-size: 14px;
+	background-color: #3c90be;
+	color: white;
+  	box-shadow: none;
+  	border: 1px solid #ccc;
+    /*border-radius: 4px;*/
+    text-shadow: none;
+    -moz-border-radius:5px; /* Firefox */
+    -webkit-border-radius: 5px; /* Safari, Chrome */
+    -khtml-border-radius: 5px; /* KHTML */
+    border-radius: 5px; /* CSS3 */
+    text-align: center;
 }

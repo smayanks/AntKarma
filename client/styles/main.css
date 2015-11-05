@@ -91,6 +91,7 @@ section {
 .reco {
   background-color: #3c90be;
   /*color: #777*/
+  overflow: auto;
 }
 
 .error-message {

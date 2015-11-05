@@ -1,6 +1,13 @@
-<section id="reco" class="reco text-center">
-	<h3>Based on your answers, here is your customized plan</h3>
-	<div id="healthInsurance" class="health-insurance col-md-10 col-md-offset-1">
+<section id="reco" class="reco">
+	<div class="col-md-8 col-md-offset-2">
+		<h4 class="text-center section-title">Based on your answers, here is your customized plan
+			<a href="/questions" class="btn btn-info btn-xs pull-right">Change answers</a>
+		</h4>
+	</div>
+	<div id="healthInsurance" class="health-insurance well col-md-10 col-md-offset-1">
+		<h4 class="ins-heading">Life Insurance  <span class="pull-right">Recommended coverage amount: <span id="displayCoverageAmount" name="displayCoverageAmount">{{displayCoverageAmount}}</span></span>
+		</h4>
+		<span class="pull-right">Change Coverage<input type="range" name="sliderValue" ng-model="sliderValue" ng-mouseup="updateLIRecos()" min="0" max="2" step="1" ></span>
 		<table class="table">
 			<thead>
 				<tr>
@@ -12,33 +19,61 @@
 				</tr>
 			</thead>
 			<tbody>
-					<tr ng-repeat-start= "lifeInsReco in lifeInsRecos">
-						<td class="text-center reco-section-column">
-							{{lifeInsReco.productName}}
-							<div ng-if="lifeInsReco.expanded" ng-click="lifeInsReco.expanded = false" class="details-footer btn-xs btn-danger">
-  								Details+
-							</div>
-							<div ng-if="!lifeInsReco.expanded" ng-click="lifeInsReco.expanded = true" class="details-footer btn-xs btn-danger">
-  								Details+
-							</div>
-						</td>
-						<td class="text-center reco-section-column"><i class="fa fa-inr"></i>{{lifeInsReco.sumAssured}}</td>
-						<td class="text-center reco-section-column">{{lifeInsReco.additionalCoverage}}</td>
-						<td class="text-center reco-section-column">{{lifeInsReco.claimSettlementRatio}}</td>
-						<td class="text-center reco-section-column"><i class="fa fa-inr"></i>{{lifeInsReco.AnnualPremium}}</td>
-						<td class="text-center reco-section-column">
-							<button class="btn btn-success btn-xs">Buy Now</button>
-						</td>
-					</tr>
-					<tr ng-show="lifeInsReco.expanded" ng-repeat-end="">
-						<td colspan="2">Coverage Highlights</td>
-						<td colspan="2">Critical Factors</td>
-						<td colspan="1">Special Features</td>
-						<td colspan="1">Downloads</td>
-					</tr>
+				<tr ng-repeat-start= "lifeInsReco in lifeInsRecos">
+					<td class="text-center reco-section-column">
+						<img class="product-info" src="{{lifeInsReco.img}}" alt="{{lifeInsReco.productName}}">
+						<div class="product-info">{{lifeInsReco.productName}}
+							<div class="subtext">{{lifeInsReco.productSubtext}}</div>
+						</div>
+
+						<div ng-if="lifeInsReco.expanded" ng-click="lifeInsReco.expanded = false" class="details-footer btn-xs btn-danger">
+							Details -
+						</div>
+						<div ng-if="!lifeInsReco.expanded" ng-click="lifeInsReco.expanded = true" class="details-footer btn-xs btn-danger">
+							Details +
+						</div>
+					</td>
+					<td class="text-center reco-section-column"><i class="fa fa-inr"></i>{{lifeInsReco.sumAssured}}</td>
+					<td class="text-center reco-section-column">{{lifeInsReco.additionalCoverage}}</td>
+					<td class="text-center reco-section-column">{{lifeInsReco.claimSettlementRatio}}</td>
+					<td class="text-center reco-section-column"><i class="fa fa-inr"></i>{{lifeInsReco.AnnualPremium}}</td>
+					<td class="text-center reco-section-column">
+						<button class="btn btn-success btn-xs">Select</button>
+					</td>
+				</tr>
+				<tr ng-if="lifeInsReco.expanded" ng-repeat-end="" class= "if-element expanded-details">
+					<td colspan="2">
+						<!-- {{lifeInsReco.coverageHightlights}} -->
+						<div class="details-title">Coverage Highlights</div>
+						<div class="details-content" ng-repeat = "coverageHighlight in lifeInsReco.coverageHightlights">
+							<span>{{coverageHighlight}}</span>
+						</div>
+					</td>
+
+					<td colspan="2">
+						<div class="details-title details-title-half">Critical Factors</div>
+						<div class="details-content" ng-repeat = "criticalFactor in lifeInsReco.criticalFactors">
+							<span>{{criticalFactor.text}}</span>
+							<br>
+							<span>{{criticalFactor.value}}</span>
+						</div>
+
+
+						<div class="details-title details-title-half">Special Features</div>
+						<div class="details-content" ng-repeat = "specialFeature in lifeInsReco.specialFeatures">
+							<span>{{specialFeature}}</span>
+						</div>
+
+
+					</td>
+					<td colspan="2">
+						<div class="details-title">Downloads</div>
+					</td>
+				</tr>
 
 
 			</tbody>
 		</table>
 	</div>
+
 </section>
