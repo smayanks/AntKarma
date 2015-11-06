@@ -257,6 +257,8 @@ angular.module('antkarma').controller('RecommendationCtrl', function($scope, $mo
 
 
 	$scope.coverageAmount = sharedProperties.getAnnualSalary() * 10;
+
+	var recommendedCoverageAmount = $scope.coverageAmount;
 	// $scope.coverageAmount = 10000000;
 	$scope.sliderValue = 1;
 	var delayRefresh;
@@ -267,11 +269,42 @@ angular.module('antkarma').controller('RecommendationCtrl', function($scope, $mo
 
 
 	// 
+
+	$scope.isArrowDown = true;
+
+	$scope.toggleArrowIcon = function() {
+		if ($scope.isArrowDown) {
+			$scope.isArrowDown = false;
+		} else {
+			$scope.isArrowDown = true;
+		}
+
+	}
+
+	$('#collapseLITable').on('shown', function () {
+       $(".fa-chevron-down").removeClass("fa-chevron-down").addClass("fa-chevron-up");
+    });
+
+    $('#collapseLITable').on('hidden', function () {
+       $(".fa-chevron-up").removeClass("fa-chevron-up").addClass("fa-chevron-down");
+    });
+
+
 	$scope.updateLIRecos = function() {
 		console.log('updateLIRecos called');
 		if (delayRefresh) $timeout.cancel(delayRefresh);
+
+			// $('#collapseOne').collapse('toggle');
 		
 			$('.table-reload').fadeOut( "slow" );
+
+			// if ($scope.coverageAmount == recommendedCoverageAmount) {
+			// 	$('.showHideRecommended').fadeOut();
+
+			// } else {
+			// 	$('.showHideRecommended').fadeIn();	
+			// }
+			
 
 			if($scope.sliderValue == 0) {
 				

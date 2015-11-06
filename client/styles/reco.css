@@ -79,6 +79,7 @@
 	margin: 0 0 30px;
 	/*padding:  0;*/
 	color: white !important;
+	position: relative;
 
 }
 
@@ -95,4 +96,15 @@
     -khtml-border-radius: 5px; /* KHTML */
     border-radius: 5px; /* CSS3 */
     text-align: center;
+}
+
+.reco #collapseOne {
+	border: 1px solide #fff;
+	margin-right: 0px;
+	padding-right: 0px;
+}
+
+.reco a.special-a {
+	text-decoration: none;
+	color: #fff;
 }
