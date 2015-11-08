@@ -152,18 +152,16 @@ angular.module('antkarma').controller('QuestionnaireCtrl', function($scope, $mod
 	}
 
 	$scope.showHideSubtext = function(index) {
-		// .ng-hide-add 
-		// $('.subtext').addClass('ng-hide ng-hide-add');
-		// $('#helptypeSubtext_'+index).removeClass('ng-hide');
-		// $('#helptypeSubtext_'+index).addClass('ng-hide-remove');
 
 
+		if ($scope.questions.financialHelpTypes[index].checked == true) {
 
-		for ( i=0; i<$scope.questions.financialHelpTypes.length; i++) {
-			if (index != i) {
-				$('#helptypeSubtext_'+i).addClass('ng-hide');
-			}
+			$('#helpTypeAccordion').find('.collapse.in').collapse('hide');
+			$('#collapseHelpType_'+index).collapse('toggle');	
+		} else {
+			$('#collapseHelpType_'+index).collapse('hide');				
 		}
+		
 	}
 
 

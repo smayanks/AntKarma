@@ -199,7 +199,10 @@
 }
 
 
-
+.questions a.special-a {
+  text-decoration: none;
+  color: #fff;
+}
 
 
 

@@ -24,4 +24,9 @@ $(function() {
     $('[href=#step1]').tab('show');
   });
 
+  var $accordion = $('#accordion');
+  $accordion.on('show','.collapse', function() {
+    $accordion.find('.collapse.in').collapse('hide');
+});
+
 });

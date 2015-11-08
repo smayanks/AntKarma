@@ -30,13 +30,15 @@
 				<h4 class="helper-message">Lets start by understanding you better.</h4>
 				<div class="well well-lg">
 					<div ng-form="step1Form">
-						<h4 class="level1">What kind of financial help are you looking for?</h4>
-						
-						<div class="extra-padding" ng-repeat="helpType in questions.financialHelpTypes">
-							<div class="checkbox checkbox-wrapper col-md-offset-1 ">
-								<label><input type="checkbox"  ng-model="helpType.checked" ng-click="showHideSubtext($index)"> {{helpType.text}} </label>
-								<div id="helptypeSubtext_{{$index}}" class="form-group subtext" ng-show="helpType.checked">
-									<h5 class="subtext answers">{{helpType.subtext}}</h5>
+						<h4  class="level1">What kind of financial help are you looking for?</h4>
+						<div id="helpTypeAccordion">
+							<div class="extra-padding" ng-repeat="helpType in questions.financialHelpTypes">
+								<div class="checkbox checkbox-wrapper col-md-offset-1 ">
+									
+									<label class="special-a"><input type="checkbox" ng-model="helpType.checked" ng-click="showHideSubtext($index)"> {{helpType.text}}</label>
+									<div id="collapseHelpType_{{$index}}" class="panel-collapse collapse subtext" >
+										<h5 class="subtext answers">{{helpType.subtext}}</h5>
+									</div>
 								</div>
 							</div>
 						</div>
