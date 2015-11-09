@@ -261,7 +261,7 @@
 											<!-- <i class="fa fa-plus-circle" ng-click="addHealthInsurance()"></i> -->
 											<input class="form-control " name="{{'existingHealthInsName' + $index}}" ng-model="healthIns.existingHealthInsName" placeholder="Insurance Name" ng-required = "questions.alreadyHaveHealthInsurance == 'yes'">
 											<input class="form-control" name="{{'existingHealthInsCover' + $index}}" placeholder="Insurance Coverage" ng-model="healthIns.existingHealthInsCover" numbers-only ng-required = "questions.alreadyHaveHealthInsurance == 'yes'">
-											<input class="form-control" name="{{'existingHealthInsYrlyPrem' + $index}}" placeholder="Yearly Premium" ng-model="healthIns.existingLifeInsYrlyPrem" numbers-only ng-required = "questions.alreadyHaveHealthInsurance == 'yes'">
+											<input class="form-control" name="{{'existingHealthInsYrlyPrem' + $index}}" placeholder="Yearly Premium" ng-model="healthIns.existingHealthInsYrlyPrem" numbers-only ng-required = "questions.alreadyHaveHealthInsurance == 'yes'">
 											<i class="fa fa-minus-circle" ng-click="removeHealthInsurance($index)"></i>
 
 											<label class="small-text">Who all are covered?
@@ -375,7 +375,7 @@
 								<div class="slide" ng-repeat="currentTaxInvest in questions.currentTaxInvestments">
 									<div class="form-inline" id="currentTaxInvestDetails">
 
-										<select class="form-control" name="{{'existingTaxInvType' + $index}}" ng-model="questions.currentTaxInvestments[$index].existingLoanType" ng-required="detailedDescForAlreadyMadeTaxInvestment">
+										<select class="form-control" name="{{'existingTaxInvType' + $index}}" ng-model="questions.currentTaxInvestments[$index].existingTaxInvType" ng-required="detailedDescForAlreadyMadeTaxInvestment">
 											<!-- $scope.taxInvestmentOptions = [ 'ELSS', 'PPF', 'NSC', 'Life Insurance', 'Tax Saving FD', 'EPF', 'Other']; -->
 											<option value="" selected disabled>Please select</option>
 											<option value="ELSS">ELSS</option>

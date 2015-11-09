@@ -49,6 +49,7 @@ angular.module('antkarma').controller('QuestionnaireCtrl', function($scope, $mod
 	$scope.lifeInsuranceFieldCounter = 0;
 
 
+
 	$scope.questions.financialHelpTypes = [
 		{
 			text: 'I want to make tax saving investments efficiently', 
@@ -164,13 +165,114 @@ angular.module('antkarma').controller('QuestionnaireCtrl', function($scope, $mod
 		
 	}
 
+	function computeScore(questions) {
+
+		var baseScore = 10;
+		var currentScore = 0
+		var currentAgeScore = getAgeScore(questions.currentAge);
+
+
+		var currentAttitudeScoreForLossGain = getAttitudeScoreForLossGain(questions.investmentFocusOn);
+
+		var currentAttitudeScoreForBuySell = getAttitudeScoreForBuySell(questions.whenMarketVolatile);
+
+		currentScore = baseScore - currentAttitudeScoreForLossGain - currentAttitudeScoreForBuySell;
+		return currentScore;
+
+	}
+
+	function getAttitudeScoreForBuySell(whenMarketVolatile) {
+
+		var attitudeScoreForBuySell = 0;
+		if (whenMarketVolatile == 'sellAll') {
+			attitudeScoreForLossGain = 4;
+		}
+		else if (whenMarketVolatile == 'sellSome'){
+			attitudeScoreForBuySell = 2;
+		}
+
+		else if (whenMarketVolatile == 'maintainAll') {
+			attitudeScoreForBuySell = 1;
+		}
+		else if (whenMarketVolatile == 'buyMore') {
+			attitudeScoreForBuySell = 0;
+		}
+
+
+		return attitudeScoreForBuySell;
+
+	}
+
+	function getAttitudeScoreForLossGain(investmentFocusOn) {
+		var attitudeScoreForLossGain = 0;
+		if (investmentFocusOn == 'maximizeReturns') {
+			attitudeScoreForLossGain = 0;
+		}
+		else if (investmentFocusOn == 'minimizeLosses'){
+			attitudeScoreForLossGain = 5;
+		}
+
+		else if (investmentFocusOn == 'bothEqually') {
+			attitudeScoreForLossGain = 1;
+		}
+
+		return attitudeScoreForLossGain;
+
+	}
+
+	function getAgeScore(age) {
+		var ageScore = 0;
+
+		if (age < 29) {
+			ageScore = -1;
+		}	
+		else if (age >=29 && age <=34) {
+			ageScore = 0;
+		}
+		else if (age >=35 && age <=39) {
+			ageScore = 0.5;
+		}
+		else if (age >=40 && age <=44) {
+			ageScore = 1;
+		}
+		else if (age >=45 && age <=46) {
+			ageScore = 2;
+		}
+		else if (age >=47 && age <=49) {
+			ageScore = 3;
+		}
+		else if (age >=50 && age <=52) {
+			ageScore = 4;
+		}
+		else if (age >=53 && age <=56) {
+			ageScore = 5;
+		}
+		else if (age >=57 && age <=59) {
+			ageScore = 6;
+		}
+		else if (age >=60) {
+			ageScore = 6;
+		}
+
+		return ageScore;
+
+	}
+
+	function createAgeScoreMatrix() {
+
+	}
 
 	$scope.submitForm = function(questions) {
-		console.log(questions);
+		console.log(JSON.stringify(questions));
+
+		console.log("Your Risk Score: " + computeScore(questions));
 		// $scope.submitted = true;
 		sharedProperties.setSubmitted(true);
 		sharedProperties.setAnnualSalary($scope.questions.annualSalary);
-		$state.go('recommendations');
+
+
+
+		// $state.go('recommendations');
 		// $scope.questionnaire.save(questions);
 
 
