@@ -1,0 +1,260 @@
+{
+   "username":"Saurabh",
+   "financialHelpTypes":[
+      {
+         "text":"I want to make tax saving investments efficiently",
+         "subtext":"We intend to help you do just that. Tax saving investments should be personalized to an invidual's needs and we will walk you through the steps over the next two sections.",
+         "checked":true,
+         "$$hashKey":"object:5"
+      },
+      {
+         "text":"I want to do financial goal planning effectively",
+         "subtext":"One has several goals in life and financial stability is necessary for achieving these goals. We intend to help you achieve your goals in life by simplifying and demistifying the financial planning process.",
+         "checked":true,
+         "$$hashKey":"object:6"
+      },
+      {
+         "text":"I'd like to make the most of my savings.",
+         "subtext":"And everyone should do the same. We believe that good financial advice should be for everyone irrespective of their wealth or status. Our platform will enable effective investments with optimum growth for everyone.",
+         "checked":false,
+         "$$hashKey":"object:7"
+      }
+   ],
+   "currentOutStandingLoans":[
+      {
+         "existingLoanType":"Housing",
+         "existingLoanUnpaidAmt":"",
+         "comments":"",
+         "$$hashKey":"object:11"
+      }
+   ],
+   "currentLifeInsurancePolicies":[
+      {
+         "existingLifeInsPolicyName":"",
+         "existingLifeInsSumInsured":"",
+         "existingLifeInsYrlyPrem":"",
+         "$$hashKey":"object:13"
+      }
+   ],
+   "existingHealthInsPolicies":[
+      {
+         "existingHealthInsName":"",
+         "existingHealthInsCover":"",
+         "existingHealthInsYrlyPrem":"",
+         "dependents":{
+            "self":true,
+            "spouse":false,
+            "children":false,
+            "parents":false
+         },
+         "$$hashKey":"object:15"
+      }
+   ],
+   "currentTaxInvestments":[
+      {
+         "existingTaxInvType":"",
+         "existingTaxInvAmt":"",
+         "comments":"",
+         "$$hashKey":"object:17"
+      }
+   ],
+   "currentAge":"32",
+   "annualSalary":"100,000",
+   "taxInvestmentAmount":"500,000",
+   "dependents":"yes",
+   "outstandingLoans":"no",
+   "alreadyMadeLifeInsInvestment":"no",
+   "alreadyHaveHealthInsurance":"no",
+   "investmentFocusOn":"maximizeReturns",
+   "whenMarketVolatile":"maintainAll",
+   "alreadyMadeTaxInvestment":"no",
+   "email":"saurabh@antkarma.com"
+}
+
+-------------------
+
+
+{
+   "username":"Saurabh",
+   "financialHelpTypes":[
+      {
+         "text":"I want to make tax saving investments efficiently",
+         "subtext":"We intend to help you do just that. Tax saving investments should be personalized to an invidual's needs and we will walk you through the steps over the next two sections.",
+         "checked":true,
+         "$$hashKey":"object:5"
+      },
+      {
+         "text":"I want to do financial goal planning effectively",
+         "subtext":"One has several goals in life and financial stability is necessary for achieving these goals. We intend to help you achieve your goals in life by simplifying and demistifying the financial planning process.",
+         "checked":true,
+         "$$hashKey":"object:6"
+      },
+      {
+         "text":"I'd like to make the most of my savings.",
+         "subtext":"And everyone should do the same. We believe that good financial advice should be for everyone irrespective of their wealth or status. Our platform will enable effective investments with optimum growth for everyone.",
+         "checked":false,
+         "$$hashKey":"object:7"
+      }
+   ],
+   "currentOutStandingLoans":[
+      {
+         "existingLoanType":"Auto",
+         "existingLoanUnpaidAmt":"600,000",
+         "comments":"Car Loan",
+         "$$hashKey":"object:11"
+      },
+      {
+         "existingLoanType":"Housing",
+         "existingLoanUnpaidAmt":"3,000,000",
+         "comments":"House Loan",
+         "$$hashKey":"object:143"
+      }
+   ],
+   "currentLifeInsurancePolicies":[
+      {
+         "existingLifeInsPolicyName":"HDFC",
+         "existingLifeInsSumInsured":"10,000,000",
+         "existingLifeInsYrlyPrem":"12,000",
+         "$$hashKey":"object:13"
+      }
+   ],
+   "existingHealthInsPolicies":[
+      {
+         "existingHealthInsName":"Reliance",
+         "existingHealthInsCover":"2,000,000",
+         "existingHealthInsYrlyPrem":"",
+         "dependents":{
+            "self":true,
+            "spouse":true,
+            "children":false,
+            "parents":false
+         },
+         "$$hashKey":"object:15",
+         "existingLifeInsYrlyPrem":"9,000"
+      },
+      {
+         "existingHealthInsName":"Reliance Extended",
+         "existingHealthInsCover":"500,000",
+         "existingHealthInsYrlyPrem":"",
+         "dependents":{
+            "self":true,
+            "spouse":false,
+            "children":false,
+            "parents":true
+         },
+         "$$hashKey":"object:165",
+         "existingLifeInsYrlyPrem":"2,000"
+      }
+   ],
+   "currentTaxInvestments":[
+      {
+         "existingTaxInvType":"",
+         "existingTaxInvAmt":"30,000",
+         "comments":"ELSS savings",
+         "$$hashKey":"object:17",
+         "existingLoanType":"ELSS"
+      },
+      {
+         "existingTaxInvType":"",
+         "existingTaxInvAmt":"60,000",
+         "comments":"PPF",
+         "$$hashKey":"object:186",
+         "existingLoanType":"PPF"
+      },
+      {
+         "existingTaxInvType":"",
+         "existingTaxInvAmt":"10,000",
+         "comments":"ICICI",
+         "$$hashKey":"object:193",
+         "existingLoanType":"Tax Saving FD"
+      }
+   ],
+   "currentAge":"32",
+   "annualSalary":"100,000",
+   "taxInvestmentAmount":"500,000",
+   "dependents":"yes",
+   "outstandingLoans":"yes",
+   "alreadyMadeLifeInsInvestment":"yes",
+   "alreadyHaveHealthInsurance":"yes",
+   "investmentFocusOn":"maximizeReturns",
+   "whenMarketVolatile":"maintainAll",
+   "alreadyMadeTaxInvestment":"yes",
+   "email":"saurabh124@antkarma.com",
+   "alreadyMadeTaxInvestmentAmount":"100,000"
+}
+
+---------------
+
+
+{
+    "username": "asda",
+    "financialHelpTypes": [
+        {
+            "text": "I want to make tax saving investments efficiently",
+            "subtext": "We intend to help you do just that. Tax saving investments should be personalized to an invidual's needs and we will walk you through the steps over the next two sections.",
+            "checked": true,
+            "$$hashKey": "object:5"
+        },
+        {
+            "text": "I want to do financial goal planning effectively",
+            "subtext": "One has several goals in life and financial stability is necessary for achieving these goals. We intend to help you achieve your goals in life by simplifying and demistifying the financial planning process.",
+            "checked": true,
+            "$$hashKey": "object:6"
+        },
+        {
+            "text": "I'd like to make the most of my savings.",
+            "subtext": "And everyone should do the same. We believe that good financial advice should be for everyone irrespective of their wealth or status. Our platform will enable effective investments with optimum growth for everyone.",
+            "checked": false,
+            "$$hashKey": "object:7"
+        }
+    ],
+    "currentOutStandingLoans": [
+        {
+            "existingLoanType": "Housing",
+            "existingLoanUnpaidAmt": "",
+            "comments": "",
+            "$$hashKey": "object:11"
+        }
+    ],
+    "currentLifeInsurancePolicies": [
+        {
+            "existingLifeInsPolicyName": "",
+            "existingLifeInsSumInsured": "",
+            "existingLifeInsYrlyPrem": "",
+            "$$hashKey": "object:13"
+        }
+    ],
+    "existingHealthInsPolicies": [
+        {
+            "existingHealthInsName": "",
+            "existingHealthInsCover": "",
+            "existingHealthInsYrlyPrem": "",
+            "dependents": {
+                "self": true,
+                "spouse": false,
+                "children": false,
+                "parents": false
+            },
+            "$$hashKey": "object:15"
+        }
+    ],
+    "currentTaxInvestments": [
+        {
+            "existingTaxInvType": "",
+            "existingTaxInvAmt": "",
+            "comments": "",
+            "$$hashKey": "object:17"
+        }
+    ],
+    "currentAge": "30",
+    "annualSalary": "1,000,000",
+    "taxInvestmentAmount": "312,333",
+    "dependents": "no",
+    "outstandingLoans": "no",
+    "alreadyMadeLifeInsInvestment": "no",
+    "alreadyHaveHealthInsurance": "no",
+    "investmentFocusOn": "maximizeReturns",
+    "whenMarketVolatile": "maintainAll",
+    "alreadyMadeTaxInvestment": "no",
+    "email": "adas@gamil.com"
+}

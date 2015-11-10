@@ -1,78 +1,130 @@
-
-
-if (Meteor.isServer) {
   Meteor.startup(function () {
     if (LifeInsurances.find().count() === 0) {
-		var lifeInsRecos = [{ productName: 'HDFC Life', productSubtext: 'Click 2 Protect Plus - Life Option',img: '/images/hdfc.png',  sumAssured: "10000000", 
-			additionalCoverage: 'Only Basic Cover', claimSettlementRatio: '90.5%', AnnualPremium: '12,000', 
-			coverageHightlights: ['Tax Benefits under Section 80C', 'Home Medicals', 'Multiple nominees', 'Special discount rate for non-smokers', 'Discounts for women', 'Joint life option', 'NRI (Non Resident Indians) friendly'],
-			criticalFactors: [{text: 'Grievances Resolved', value: '99.8%'}, {text: 'Permium from new buyers', value: '2,592 Crore'}],
-			specialFeatures: ['Include your spouse later, if you are single at present.', 'Your nominee will have the option to take the death benefit in equal monthly installments over a period of 5 or 10 years.'],
-			downloads: [{'Product Brochure': 'www.brochure.com'}, {'Policy wording': 'www.brochure.com/policywording'}]
-			},
-			{ productName: 'Reliance Life', productSubtext: 'Online Term',img: '/images/reli.png', sumAssured: "10000000", 
-			additionalCoverage: 'Only Basic Cover', claimSettlementRatio: '83.2%', AnnualPremium: '8,500', otherDetails: '',
-			coverageHightlights: ['Tax Benefits under Section 80C', 'Home Medicals', 'Multiple nominees', 'Special discount rate for non-smokers', 'Discounts for women', 'Joint life option', 'NRI (Non Resident Indians) friendly'],
-			criticalFactors: [ {text: 'Grievances Resolved', value: '99.8%'}, {text: 'Permium from new buyers', value: '2,592 Crore'}],
-			specialFeatures: ['Include your spouse later, if you are single at present.', 'Your nominee will have the option to take the death benefit in equal monthly installments over a period of 5 or 10 years.'],
-			downloads: [{'Product Brochure': 'www.brochure.com'}, {'Policy wording': 'www.brochure.com/policywording'}]
-			},
-			{ productName: 'Balaji Alliance', productSubtext: 'iSecure',img: '/images/ba.png', sumAssured: "10000000", 
-			additionalCoverage: 'Only Basic Cover', claimSettlementRatio: '91.9%', AnnualPremium: '12,000', otherDetails: '',
-			coverageHightlights: ['Tax Benefits under Section 80C', 'Home Medicals', 'Multiple nominees', 'Special discount rate for non-smokers', 'Discounts for women', 'Joint life option', 'NRI (Non Resident Indians) friendly'],
-			criticalFactors: [{text: 'Grievances Resolved', value: '99.8%'}, {text: 'Permium from new buyers', value: '2,592 Crore'}],
-			specialFeatures: ['Include your spouse later, if you are single at present.', 'Your nominee will have the option to take the death benefit in equal monthly installments over a period of 5 or 10 years.'],
-			downloads: [{'Product Brochure': 'www.brochure.com'}, {'Policy wording': 'www.brochure.com/policywording'}]
-			},
-			{ productName: 'AEGON', productSubtext: 'iTerm + ADB Rider + WOP Rider + iCI Rider',img: '/images/ar.png', sumAssured: "20000000", 
-			additionalCoverage: 'Only Basic Cover', claimSettlementRatio: '91.9%', AnnualPremium: '24,000', otherDetails: '',
-			coverageHightlights: ['Tax Benefits under Section 80C', 'Home Medicals', 'Multiple nominees', 'Special discount rate for non-smokers', 'Discounts for women', 'Joint life option', 'NRI (Non Resident Indians) friendly'],
-			criticalFactors: [{text: 'Grievances Resolved', value: '99.8%'}, {text: 'Permium from new buyers', value: '2,592 Crore'}],
-			specialFeatures: ['Include your spouse later, if you are single at present.', 'Your nominee will have the option to take the death benefit in equal monthly installments over a period of 5 or 10 years.'],
-			downloads: [{'Product Brochure': 'www.brochure.com'}, {'Policy wording': 'www.brochure.com/policywording'}]
-			},
-			{ productName: 'HDFC Life', productSubtext: 'Click 2 Protect Plus - Life Option',img: '/images/hdfc.png',  sumAssured: "20000000", 
-			additionalCoverage: 'Only Basic Cover', claimSettlementRatio: '90.5%', AnnualPremium: '24,000', 
-			coverageHightlights: ['Tax Benefits under Section 80C', 'Home Medicals', 'Multiple nominees', 'Special discount rate for non-smokers', 'Discounts for women', 'Joint life option', 'NRI (Non Resident Indians) friendly'],
-			criticalFactors: [{text: 'Grievances Resolved', value: '99.8%'}, {text: 'Permium from new buyers', value: '2,592 Crore'}],
-			specialFeatures: ['Include your spouse later, if you are single at present.', 'Your nominee will have the option to take the death benefit in equal monthly installments over a period of 5 or 10 years.'],
-			downloads: [{'Product Brochure': 'www.brochure.com'}, {'Policy wording': 'www.brochure.com/policywording'}]
-			},
-			{ productName: 'Reliance Life', productSubtext: 'Online Term',img: '/images/reli.png', sumAssured: "20000000", 
-			additionalCoverage: 'Only Basic Cover', claimSettlementRatio: '83.2%', AnnualPremium: '16,500', otherDetails: '',
-			coverageHightlights: ['Tax Benefits under Section 80C', 'Home Medicals', 'Multiple nominees', 'Special discount rate for non-smokers', 'Discounts for women', 'Joint life option', 'NRI (Non Resident Indians) friendly'],
-			criticalFactors: [ {text: 'Grievances Resolved', value: '99.8%'}, {text: 'Permium from new buyers', value: '2,592 Crore'}],
-			specialFeatures: ['Include your spouse later, if you are single at present.', 'Your nominee will have the option to take the death benefit in equal monthly installments over a period of 5 or 10 years.'],
-			downloads: [{'Product Brochure': 'www.brochure.com'}, {'Policy wording': 'www.brochure.com/policywording'}]
-			}
-			,
-			{ productName: 'Max Life', productSubtext: 'Online Term Plan Life Cover + Increasing Monthly Income + Comprehensive Accidental Benefit Rider',img: '/images/max.png',  sumAssured: "5000000",
-			additionalCoverage: 'Only Basic Cover', claimSettlementRatio: '94.5%', AnnualPremium: '6,000', 
-			coverageHightlights: ['Tax Benefits under Section 80C', 'Home Medicals', 'Multiple nominees', 'Special discount rate for non-smokers', 'Discounts for women', 'Joint life option', 'NRI (Non Resident Indians) friendly'],
-			criticalFactors: [{text: 'Grievances Resolved', value: '99.8%'}, {text: 'Permium from new buyers', value: '2,592 Crore'}],
-			specialFeatures: ['Include your spouse later, if you are single at present.', 'Your nominee will have the option to take the death benefit in equal monthly installments over a period of 5 or 10 years.'],
-			downloads: [{'Product Brochure': 'www.brochure.com'}, {'Policy wording': 'www.brochure.com/policywording'}]
-			},
-			{ productName: 'Reliance Life', productSubtext: 'Online Term',img: '/images/reli.png', sumAssured: "5000000",
-			additionalCoverage: 'Only Basic Cover', claimSettlementRatio: '83.2%', AnnualPremium: '5,500', otherDetails: '',
-			coverageHightlights: ['Tax Benefits under Section 80C', 'Home Medicals', 'Multiple nominees', 'Special discount rate for non-smokers', 'Discounts for women', 'Joint life option', 'NRI (Non Resident Indians) friendly'],
-			criticalFactors: [ {text: 'Grievances Resolved', value: '99.8%'}, {text: 'Permium from new buyers', value: '2,592 Crore'}],
-			specialFeatures: ['Include your spouse later, if you are single at present.', 'Your nominee will have the option to take the death benefit in equal monthly installments over a period of 5 or 10 years.'],
-			downloads: [{'Product Brochure': 'www.brochure.com'}, {'Policy wording': 'www.brochure.com/policywording'}]
-			},
-			{ productName: 'Balaji Alliance', productSubtext: 'iSecure',img: '/images/ba.png', sumAssured: "5000000", 
-			additionalCoverage: 'Only Basic Cover', claimSettlementRatio: '91.9%', AnnualPremium: '6,000', otherDetails: '',
-			coverageHightlights: ['Tax Benefits under Section 80C', 'Home Medicals', 'Multiple nominees', 'Special discount rate for non-smokers', 'Discounts for women', 'Joint life option', 'NRI (Non Resident Indians) friendly'],
-			criticalFactors: [{text: 'Grievances Resolved', value: '99.8%'}, {text: 'Permium from new buyers', value: '2,592 Crore'}],
-			specialFeatures: ['Include your spouse later, if you are single at present.', 'Your nominee will have the option to take the death benefit in equal monthly installments over a period of 5 or 10 years.'],
-			downloads: [{'Product Brochure': 'www.brochure.com'}, {'Policy wording': 'www.brochure.com/policywording'}]
-			}
-		];
+    	var lifeInsRecos = {};
+
+    	lifeInsRecos = JSON.parse(Assets.getText("life_insurance_data.json"));
+		
 
       for (var i = 0; i < lifeInsRecos.length; i++)
         LifeInsurances.insert(lifeInsRecos[i]);
     }
+
+    Meteor.methods({
+    	submitQuestionnaire: function(questions) {
+
+    		var riskScore = computeScore(questions.currentAge, questions.investmentFocusOn,questions.whenMarketVolatile);
+    		console.log("Your Risk Score: " + riskScore);
+
+    		Questionnaire.insert({
+    			questions: questions,
+    			createdAt: new Date(),
+    			userAge: questions.currentAge,
+    			email: questions.email,
+    			name: questions.username,
+    			riskScore: riskScore
+    		});
+    	}
+
+    	// getLIRecommendations: function(query) {
+    	// 	reurn LifeInsurances.find($scope.getReactively('query'));
+    	// }
+    });
+
+
+    function computeScore(age, investmentFocusOn, whenMarketVolatile) {
+
+		var baseScore = 10;
+		var currentScore = 0
+		var currentAgeScore = getAgeScore(age);
+
+
+		var currentAttitudeScoreForLossGain = getAttitudeScoreForLossGain(investmentFocusOn);
+
+		var currentAttitudeScoreForBuySell = getAttitudeScoreForBuySell(whenMarketVolatile);
+
+		currentScore = baseScore - currentAttitudeScoreForLossGain - currentAttitudeScoreForBuySell;
+		return currentScore;
+
+	}
+
+	function getAttitudeScoreForBuySell(whenMarketVolatile) {
+
+		var attitudeScoreForBuySell = 0;
+		if (whenMarketVolatile == 'sellAll') {
+			attitudeScoreForLossGain = 4;
+		}
+		else if (whenMarketVolatile == 'sellSome'){
+			attitudeScoreForBuySell = 2;
+		}
+
+		else if (whenMarketVolatile == 'maintainAll') {
+			attitudeScoreForBuySell = 1;
+		}
+		else if (whenMarketVolatile == 'buyMore') {
+			attitudeScoreForBuySell = 0;
+		}
+
+
+		return attitudeScoreForBuySell;
+
+	}
+
+	function getAttitudeScoreForLossGain(investmentFocusOn) {
+		var attitudeScoreForLossGain = 0;
+		if (investmentFocusOn == 'maximizeReturns') {
+			attitudeScoreForLossGain = 0;
+		}
+		else if (investmentFocusOn == 'minimizeLosses'){
+			attitudeScoreForLossGain = 5;
+		}
+
+		else if (investmentFocusOn == 'bothEqually') {
+			attitudeScoreForLossGain = 1;
+		}
+
+		return attitudeScoreForLossGain;
+
+	}
+
+	function getAgeScore(age) {
+		var ageScore = 0;
+
+		if (age < 29) {
+			ageScore = -1;
+		}	
+		else if (age >=29 && age <=34) {
+			ageScore = 0;
+		}
+		else if (age >=35 && age <=39) {
+			ageScore = 0.5;
+		}
+		else if (age >=40 && age <=44) {
+			ageScore = 1;
+		}
+		else if (age >=45 && age <=46) {
+			ageScore = 2;
+		}
+		else if (age >=47 && age <=49) {
+			ageScore = 3;
+		}
+		else if (age >=50 && age <=52) {
+			ageScore = 4;
+		}
+		else if (age >=53 && age <=56) {
+			ageScore = 5;
+		}
+		else if (age >=57 && age <=59) {
+			ageScore = 6;
+		}
+		else if (age >=60) {
+			ageScore = 6;
+		}
+
+		return ageScore;
+
+	}
+
   });
-}
+
 
 

@@ -2,43 +2,7 @@
 angular.module('antkarma', ['angular-meteor', 'ngAnimate','ui.router',  'ui.bootstrap', 'ngMessages']);
 
 
-angular.module('antkarma').config(function ($urlRouterProvider, $stateProvider, $locationProvider) {
-	$locationProvider.html5Mode(true);
 
-	$stateProvider
-		.state('home', {
-			url: '/home',
-			templateUrl: 'client/templates/main.ng.html'
-		})
-		.state('process', {
-			url: '/process',
-			templateUrl: 'client/templates/process.ng.html'
-		})
-		.state('pricing', {
-			url: '/pricing',
-			templateUrl: 'client/templates/pricing.ng.html'
-		})
-		.state('team', {
-			url: '/team',
-			templateUrl: 'client/templates/team.ng.html'
-		})
-		.state('faq', {
-			url: '/faq',
-			templateUrl: 'client/templates/faq.ng.html'
-		})
-		.state('questions', {
-			url: '/questions',
-			templateUrl: 'client/templates/questions.ng.html',
-			controller: 'QuestionnaireCtrl'
-		})
-		.state('recommendations', {
-			url: '/recommendations',
-			templateUrl: 'client/templates/reco.ng.html',
-			controller: 'RecommendationCtrl'
-		});
-
-	$urlRouterProvider.otherwise('/home');
-});
 
 angular.module('antkarma').controller('QuestionnaireCtrl', function($scope, $modal, $meteor, $state, sharedProperties) {
 
@@ -47,7 +11,8 @@ angular.module('antkarma').controller('QuestionnaireCtrl', function($scope, $mod
 	$scope.questions.username = '';
 	$scope.submitted = sharedProperties.getSubmitted();
 	$scope.lifeInsuranceFieldCounter = 0;
-
+	$scope.questions.currentOutStandingLoans = [];
+	$scope.questions.currentOutStandingLoans.push({existingLoanType: '', existingLoanUnpaidAmt: '', comments:''});
 
 
 	$scope.questions.financialHelpTypes = [
@@ -68,13 +33,10 @@ angular.module('antkarma').controller('QuestionnaireCtrl', function($scope, $mod
 		}
 	]
 
-	
-	$scope.questions.currentOutStandingLoans = [];
-	$scope.questions.currentOutStandingLoans.push({existingLoanType: 'Housing', existingLoanUnpaidAmt: '', comments:''});
 
 	$scope.addOutstandingLoanDetails = function() {
 		
-		$scope.questions.currentOutStandingLoans.push({existingLoanType: 'Housing', existingLoanUnpaidAmt: '', comments:''});
+		$scope.questions.currentOutStandingLoans.push({existingLoanType: '', existingLoanUnpaidAmt: '', comments:''});
 
 	}
 
@@ -84,7 +46,7 @@ angular.module('antkarma').controller('QuestionnaireCtrl', function($scope, $mod
 		if ($scope.questions.currentOutStandingLoans.length == 0) {
 
 			$scope.questions.outstandingLoans = 'no';
-			$scope.questions.currentOutStandingLoans.push({existingLoanType: 'Housing', existingLoanUnpaidAmt: '', comments:''});
+			$scope.questions.currentOutStandingLoans.push({existingLoanType: '', existingLoanUnpaidAmt: '', comments:''});
 
 		}
 		
@@ -131,7 +93,6 @@ angular.module('antkarma').controller('QuestionnaireCtrl', function($scope, $mod
 	}
 
 
-
 	$scope.questions.currentTaxInvestments = [{existingTaxInvType: '', existingTaxInvAmt: '', comments: ''}];
 	$scope.addTaxInvestOption = function() {
 		$scope.questions.currentTaxInvestments.push({existingTaxInvType: '', existingTaxInvAmt: '', comments: ''});
@@ -165,114 +126,16 @@ angular.module('antkarma').controller('QuestionnaireCtrl', function($scope, $mod
 		
 	}
 
-	function computeScore(questions) {
-
-		var baseScore = 10;
-		var currentScore = 0
-		var currentAgeScore = getAgeScore(questions.currentAge);
-
-
-		var currentAttitudeScoreForLossGain = getAttitudeScoreForLossGain(questions.investmentFocusOn);
-
-		var currentAttitudeScoreForBuySell = getAttitudeScoreForBuySell(questions.whenMarketVolatile);
-
-		currentScore = baseScore - currentAttitudeScoreForLossGain - currentAttitudeScoreForBuySell;
-		return currentScore;
-
-	}
-
-	function getAttitudeScoreForBuySell(whenMarketVolatile) {
-
-		var attitudeScoreForBuySell = 0;
-		if (whenMarketVolatile == 'sellAll') {
-			attitudeScoreForLossGain = 4;
-		}
-		else if (whenMarketVolatile == 'sellSome'){
-			attitudeScoreForBuySell = 2;
-		}
-
-		else if (whenMarketVolatile == 'maintainAll') {
-			attitudeScoreForBuySell = 1;
-		}
-		else if (whenMarketVolatile == 'buyMore') {
-			attitudeScoreForBuySell = 0;
-		}
-
-
-		return attitudeScoreForBuySell;
-
-	}
-
-	function getAttitudeScoreForLossGain(investmentFocusOn) {
-		var attitudeScoreForLossGain = 0;
-		if (investmentFocusOn == 'maximizeReturns') {
-			attitudeScoreForLossGain = 0;
-		}
-		else if (investmentFocusOn == 'minimizeLosses'){
-			attitudeScoreForLossGain = 5;
-		}
-
-		else if (investmentFocusOn == 'bothEqually') {
-			attitudeScoreForLossGain = 1;
-		}
-
-		return attitudeScoreForLossGain;
-
-	}
-
-	function getAgeScore(age) {
-		var ageScore = 0;
-
-		if (age < 29) {
-			ageScore = -1;
-		}	
-		else if (age >=29 && age <=34) {
-			ageScore = 0;
-		}
-		else if (age >=35 && age <=39) {
-			ageScore = 0.5;
-		}
-		else if (age >=40 && age <=44) {
-			ageScore = 1;
-		}
-		else if (age >=45 && age <=46) {
-			ageScore = 2;
-		}
-		else if (age >=47 && age <=49) {
-			ageScore = 3;
-		}
-		else if (age >=50 && age <=52) {
-			ageScore = 4;
-		}
-		else if (age >=53 && age <=56) {
-			ageScore = 5;
-		}
-		else if (age >=57 && age <=59) {
-			ageScore = 6;
-		}
-		else if (age >=60) {
-			ageScore = 6;
-		}
-
-		return ageScore;
-
-	}
-
-	function createAgeScoreMatrix() {
-
-	}
-
+	
+	
 	$scope.submitForm = function(questions) {
 		console.log(JSON.stringify(questions));
 
-		console.log("Your Risk Score: " + computeScore(questions));
-		// $scope.submitted = true;
 		sharedProperties.setSubmitted(true);
 		sharedProperties.setAnnualSalary($scope.questions.annualSalary);
 
-
-
-		// $state.go('recommendations');
+		$meteor.call('submitQuestionnaire',  angular.copy($scope.questions));
+		$state.go('recommendations');
 		// $scope.questionnaire.save(questions);
 
 
@@ -392,6 +255,7 @@ angular.module('antkarma').controller('RecommendationCtrl', function($scope, $mo
 
 	$scope.updateLIRecos = function() {
 		console.log('updateLIRecos called');
+		console.log('JSON : ' + JSON.stringify($scope.lifeInsRecos));
 		if (delayRefresh) $timeout.cancel(delayRefresh);
 
 			// $('#collapseOne').collapse('toggle');
@@ -424,7 +288,8 @@ angular.module('antkarma').controller('RecommendationCtrl', function($scope, $mo
 				$('.table-reload').fadeIn( "slow" );
 			}, 300);
 			
-			// console.log('Query: ' + $scope.query);			
+			// $meteor.call('getLIRecommendations',  angular.copy($scope.query))
+			console.log('Query: ' + $scope.query);			
 
 	};
 

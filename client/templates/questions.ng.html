@@ -165,18 +165,12 @@
 									<button id="addLoanButton" class="btn btn-success btn-xs add-loan" ng-click="addOutstandingLoanDetails()">Add another loan</button></h5>
 									<div class="slide" ng-repeat="outLoan in questions.currentOutStandingLoans">
 										<div class="form-inline" id="outstandinLoanDetails">
-											<!-- <span class="col-sm-12"> -->
-											<!-- <i class="fa fa-plus-circle" ng-click="addOutstandingLoanDetails()"></i> -->
-											<!-- <input class="form-control" name="{{'existingLoanType' + $index}}" ng-model="questions.currentOutStandingLoans[$index].existingLoanType" placeholder="Loan Type ex.Housing, Car, Personal etc"> -->
 											<select class="form-control" name="{{'existingLoanType' + $index}}" ng-model="questions.currentOutStandingLoans[$index].existingLoanType">
-												<!-- <div ng-repeat="loanType in loanTypes"> -->
-												<!-- <option value="" selected disabled>Please select</option> -->
+												<option value="" selected disabled>Please select</option>
 												<option value="Housing">Housing</option>
 												<option value="Auto">Auto</option>
 												<option value="Personal">Personal</option>
 												<option value="Other">Other</option>
-
-												<!-- </div> -->
 											</select>
 
 											<input class="form-control" name="{{'existingLoanUnpaidAmt' + $index}}" placeholder="Loan Unpaid Amount" ng-model="questions.currentOutStandingLoans[$index].existingLoanUnpaidAmt" numbers-only ng-required = "questions.outstandingLoans == 'yes'">
