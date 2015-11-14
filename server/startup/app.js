@@ -9,6 +9,10 @@
         LifeInsurances.insert(lifeInsRecos[i]);
     }
 
+    Meteor.publish('lifeInsRecos', function() {
+    	return LifeInsurances.find();
+    });
+
     Meteor.methods({
     	submitQuestionnaire: function(questions) {
 
@@ -23,12 +27,18 @@
     			name: questions.username,
     			riskScore: riskScore
     		});
-    	}
+    	},
 
     	// getLIRecommendations: function(query) {
-    	// 	reurn LifeInsurances.find($scope.getReactively('query'));
+    	// 	return LifeInsurances.find($scope.getReactively('query'));
     	// }
     });
+
+    function computeLIRecommendation(age, isSmoker, annualSalary) {
+
+    	// var li_recommendation = {}
+
+    }
 
 
     function computeScore(age, investmentFocusOn, whenMarketVolatile) {

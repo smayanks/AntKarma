@@ -4,96 +4,67 @@
 			<a href="/questions" class="btn btn-info btn-xs pull-right">Change answers</a>
 		</h4>
 	</div>
-	<div id="mainAccordion">
+	<div id="">
 		<div id="lifeInsurance" class="life-insurance well col-md-10 col-md-offset-1">
 			<div class="row">
-				<h4 class="ins-heading col-md-3">
-					<a class="special-a" data-toggle="collapse" data-parent="#mainAccordion" href="#collapseLITable" ng-click="toggleArrowIcon()">Life Insurance
-					</a><i ng-if="isArrowDown" class="fa fa-angle-down"></i><i ng-if="!isArrowDown" class="fa fa-angle-up"></i>	
-				</h4>
-				<span class="pull-right ins-heading">Recommended coverage amount: 
-					<input id="displayCoverageAmount" name="displayCoverageAmount" ng-model="displayCoverageAmount"  readonly>
-					<a data-toggle="collapse" data-parent="#accordion" class="btn btn-xs btn-info" href="#collapseOne">Edit</a>
-					<div id="collapseOne" class="panel-collapse collapse">
-						<div class="row">
-							<h6 class="col-md-2 col-md-offset-5 ">Change Coverage</h6>
-							<h6 class="col-md-5">
-							<i class="fa fa-inr">50L</i><i class="fa fa-inr pull-right">2Cr</i><input type="range" name="sliderValue" ng-model="sliderValue" ng-mouseup="updateLIRecos()" min="0" max="2" step="1" class="">
-							</h6>			
-						</div>
-					</div>
-				</span>
+				<h4 class="ins-heading col-md-3">Life Insurance</h4>
+				<div class="col-md-8">
+					<div class="col-md-6">
+						<h5 class="ins-heading col-md-10 col-md-offset-1"><div ng-show="isRecommended">Recommended</div>Coverage Amount: 
+							<span class="display-amount"> {{ displayCoverageAmount}}</span>
+
+							<input type="range" name="sliderValue" ng-model="sliderValue" ng-mouseup="updateLIRecos()" min="0" max="2" step="1">
+							<div class="slider-label" id="sliderLabel"></div>
+
+						</h5> 
+					</div>				
+					<div class="col-md-6">
+						<h5 class="ins-heading col-md-10 col-md-offset-1"><div ng-show="isRecommended">Recommended</div>Policy Term: 
+							<span class="display-amount"> {{ displayPolicyTerm}}</span>
+
+							<input type="range" name="policyTermSlider" ng-model="policyTermSlider" ng-mouseup="updateLIRecos()" min="0" max="2" step="1">
+							<div class="slider-label" id="policyTermSliderLabel"></div>
+
+						</h5> 
+					</div>				
+				</div>
+				<div class="col-md-1"><a class="special-a btn btn-success btn-xs" ng-click="showAllLIReco()">Show all</a></div>
 			</div>
-			
-			<!-- <span ng-show="loading"><i class="fa fa-spinner fa-spin"></i></span> -->
-			<div id="collapseLITable" class="panel-collapse collapse">
-				<table  class="table table-reload">
-					<thead >
-						<tr>
-							<th class="text-center">Company Name</th>
-							<th class="text-center">Sum Insured</th>
-							<th class="text-center">Additional Coverage</th>
-							<th class="text-center">Claim Settlement Ratio</th>
-							<th class="text-center">Premium</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat-start= "lifeInsReco in lifeInsRecos">
-							<td class="text-center reco-section-column">
-								<img class="product-info" src="{{lifeInsReco.img}}" alt="{{lifeInsReco.productName}}">
-								<div class="product-info">{{lifeInsReco.productName}}
-									<div class="subtext">{{lifeInsReco.productSubtext}}</div>
-								</div>
+				
+			<table  class="table table-rel" ng-init="initialize()">
+				<thead >
+					<tr>
+						<th class="text-center">Product Name</th>
+						<th class="text-center">Sum Insured</th>
+						<th class="text-center">Additional Coverage</th>
+						<th class="text-center">Claim Settlement Ratio</th>
+						<th class="text-center">Premium</th>
+						<th class="text-center">Policy Term</th>
+						<th class="text-center">Max Coverage Upto</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat= "lifeInsReco in lifeInsRecos" ng-class="$index == 0 ? 'first' : ''">
+						<td class="text-center reco-section-column">
+							<img class="product-info" src="{{lifeInsReco.img}}" alt="{{lifeInsReco.productName}}">
+							<div class="product-info">{{lifeInsReco.policy_name}}
+								<!-- <div class="subtext">{{lifeInsReco.productSubtext}}</div> -->
+							</div>
+						</td>
+						<td class="text-center reco-section-column"><i class="fa fa-inr"></i>{{displayCoverageAmount}}</td>
+						<td class="text-center reco-section-column">{{lifeInsReco.additional_features}}</td>
+						<td class="text-center reco-section-column">{{lifeInsReco.claim_settlement_ratio * 100}} %</td>
+						<td class="text-center reco-section-column"><i class="fa fa-inr"></i>{{lifeInsReco.premium}}</td>
+						<td class="text-center reco-section-column">{{lifeInsReco.payment_term}} years</td>
+						<td class="text-center reco-section-column">{{lifeInsReco.max_age_at_maturity}} years</td>
+						<td class="text-center reco-section-column">
+							<!-- <button ng-show="$index == 0" class="btn btn-success btn-xs ">Select</button> -->
+							<button class="btn btn-success btn-xs select-li-reco" ng-click="selectLI($event, $index)"></button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
 
-								<div ng-if="lifeInsReco.expanded" ng-click="lifeInsReco.expanded = false" class="details-footer btn-xs btn-danger">
-									Details <i class="fa fa-angle-up"></i>
-								</div>
-								<div ng-if="!lifeInsReco.expanded" ng-click="lifeInsReco.expanded = true" class="details-footer btn-xs btn-danger">
-									Details <i class="fa fa-angle-down"></i>
-								</div>
-							</td>
-							<td class="text-center reco-section-column"><i class="fa fa-inr"></i>{{lifeInsReco.sumAssured}}</td>
-							<td class="text-center reco-section-column">{{lifeInsReco.additionalCoverage}}</td>
-							<td class="text-center reco-section-column">{{lifeInsReco.claimSettlementRatio}}</td>
-							<td class="text-center reco-section-column"><i class="fa fa-inr"></i>{{lifeInsReco.AnnualPremium}}</td>
-							<td class="text-center reco-section-column">
-								<button class="btn btn-success btn-xs">Select</button>
-							</td>
-						</tr>
-						<tr ng-if="lifeInsReco.expanded" ng-repeat-end="" class= "if-element expanded-details">
-							<td colspan="2">
-								<!-- {{lifeInsReco.coverageHightlights}} -->
-								<div class="details-title">Coverage Highlights</div>
-								<div class="details-content" ng-repeat = "coverageHighlight in lifeInsReco.coverageHightlights">
-									<span>{{coverageHighlight}}</span>
-								</div>
-							</td>
-
-							<td colspan="2">
-								<div class="details-title details-title-half">Critical Factors</div>
-								<div class="details-content" ng-repeat = "criticalFactor in lifeInsReco.criticalFactors">
-									<span>{{criticalFactor.text}}</span>
-									<br>
-									<span>{{criticalFactor.value}}</span>
-								</div>
-
-
-								<div class="details-title details-title-half">Special Features</div>
-								<div class="details-content" ng-repeat = "specialFeature in lifeInsReco.specialFeatures">
-									<span>{{specialFeature}}</span>
-								</div>
-
-
-							</td>
-							<td colspan="2">
-								<div class="details-title">Downloads</div>
-							</td>
-						</tr>
-
-
-					</tbody>
-				</table>
-			</div>
 		</div>
 		<div id="healthInsurance" class="health-insurance well col-md-10 col-md-offset-1">
 			<div class="row">

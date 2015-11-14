@@ -133,6 +133,7 @@ angular.module('antkarma').controller('QuestionnaireCtrl', function($scope, $mod
 
 		sharedProperties.setSubmitted(true);
 		sharedProperties.setAnnualSalary($scope.questions.annualSalary);
+		sharedProperties.setAge($scope.questions.currentAge);
 
 		$meteor.call('submitQuestionnaire',  angular.copy($scope.questions));
 		$state.go('recommendations');
@@ -163,6 +164,34 @@ angular.module('antkarma').controller('QuestionnaireCtrl', function($scope, $mod
   //     		$('#goToPageTop').click();
 		// }
 	};
+
+
+	// questionnaire navigation between tabs
+	$('.next').click(function(){
+    	var nextId = $(this).parents('.tab-pane').next().attr("id");
+    	console.log('nextId : ' + nextId);
+    	$('[href=#'+nextId+']').tab('show');
+    	return false;
+  	});
+
+	$('.prev').click(function(){
+		var prevId = $(this).parents('.tab-pane').prev().attr("id");
+		console.log('prevId : ' + prevId);
+		$('[href=#'+prevId+']').tab('show');
+		return false;
+	});
+	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+      //update progress
+      var step = $(e.target).data('step');
+      var percent = (parseInt(step) / 11) * 100;
+      $('.progress-bar').css({width: percent + '%'});
+      $('.progress-bar').text("Step " + step + " of 11");
+      //e.relatedTarget // previous tab
+	});
+
+  	$('.first').click(function(){
+    	$('[href=#step1]').tab('show');
+  	});
 
 
 });
@@ -218,88 +247,130 @@ angular.module('antkarma').directive ('numbersOnly', function() {
 
 angular.module('antkarma').controller('RecommendationCtrl', function($scope, $modal, $meteor, $timeout, sharedProperties) {
 
-
-	$scope.coverageAmount = sharedProperties.getAnnualSalary() * 10;
-
-	var recommendedCoverageAmount = $scope.coverageAmount;
-	// $scope.coverageAmount = 10000000;
-	$scope.sliderValue = 1;
-	var delayRefresh;
-	$scope.query = {sumAssured: $scope.coverageAmount};
-	// $scope.lifeInsRecos	 = $meteor.collection(function(){
- //    	return LifeInsurances.find($scope.getReactively('query'));
- // 	}, 1500);
+	// Subscribing to life_insurances
+	$scope.$meteorSubscribe('lifeInsRecos');
 
 
-	// 
+
 
 	$scope.isArrowDown = true;
 
-	$scope.toggleArrowIcon = function() {
-		if ($scope.isArrowDown) {
-			$scope.isArrowDown = false;
-		} else {
-			$scope.isArrowDown = true;
-		}
+	$scope.initialize = function() {
+		console.log('initialize called');
+		$('table tbody tr:first').addClass('reco-selected');
+		$('table tbody tr button.select-li-reco').text("Select");
+		$('table tbody tr:first button.select-li-reco').text("Selected");
 
+		$('table tbody tr').not(':first').hide();
+
+	}	
+
+	$scope.initialize();
+
+	$scope.showAllLIReco = function() {
+		$('table tbody tr').not(':first').fadeToggle("slow");
 	}
 
-	$('#collapseLITable').on('shown', function () {
-       $(".fa-chevron-down").removeClass("fa-chevron-down").addClass("fa-chevron-up");
-    });
+	$scope.selectLI = function(event, index) {
 
-    $('#collapseLITable').on('hidden', function () {
-       $(".fa-chevron-up").removeClass("fa-chevron-up").addClass("fa-chevron-down");
-    });
-
-
-	$scope.updateLIRecos = function() {
-		console.log('updateLIRecos called');
-		console.log('JSON : ' + JSON.stringify($scope.lifeInsRecos));
-		if (delayRefresh) $timeout.cancel(delayRefresh);
-
-			// $('#collapseOne').collapse('toggle');
+		$('table tbody tr button.select-li-reco').text("Select");
 		
-			$('.table-reload').fadeOut( "slow" );
+		var element = event.target;
+		element.textContent = "Selected";
+		if (index == 0) {
 
-			// if ($scope.coverageAmount == recommendedCoverageAmount) {
-			// 	$('.showHideRecommended').fadeOut();
+		}
+		
+		$("table tr").removeClass("reco-selected");
+		$(element).closest("tr").addClass("reco-selected");
+	}
 
-			// } else {
-			// 	$('.showHideRecommended').fadeIn();	
-			// }
-			
+	// Logic for recommended coverage amount is annual salary * 15
+	var recommendedCoverageAmount = sharedProperties.getAnnualSalary() * 15;
+	
+	// Age is requried to get query life_insrances 
+	// $scope.age = sharedProperties.getAge();
+	$scope.age = '32';  //hardcoded temporarily to 32
+	// $scope.sliderValue = 2;
+	// $scope.policyTermSlider = 1;
+	$scope.displayCoverageAmount = "50 Lacs";
+	$scope.displayPolicyTerm = "25 yrs";
+	$scope.coverageAmount = "10000000";
 
-			if($scope.sliderValue == 0) {
-				
-				$scope.displayCoverageAmount = "50 Lacs";
-				$scope.coverageAmount = "5000000";
+	// query life_insurances based on age of user
+    $scope.query = {age: $scope.age, sum_assured_in_lacs: "50", payment_term: "25"};		
 
-			} else if ($scope.sliderValue == 1) {
-				$scope.displayCoverageAmount = "1 Crore";
-				$scope.coverageAmount = "10000000";
-			} else {
-				$scope.displayCoverageAmount = "2 Crores";
-				$scope.coverageAmount = "20000000";
-			} 
-	        $scope.query = {sumAssured: $scope.coverageAmount};
+    console.log('Query: ' + $scope.query);
+    $scope.lifeInsRecos	 = $meteor.collection(function(){
+	    	return LifeInsurances.find($scope.getReactively('query'));
+	});
 
-	        delayRefresh = $timeout(function() {
-				$('.table-reload').fadeIn( "slow" );
-			}, 300);
-			
-			// $meteor.call('getLIRecommendations',  angular.copy($scope.query))
-			console.log('Query: ' + $scope.query);			
+	// $scope.premium = $scope.lifeInsRecos.premium;
+		
+	// $('.table-reload').fadeOut( "slow" );
+
+
+
+    console.log('Premium value: ' + $scope.premium);
+    var displayCoverageAmountArr = ["25 Lacs", "50 Lacs", "1 Crore"];
+    var actualCoverageAmountArr = ["25", "50", "100"];
+    var displayPolicyTermArr = ["20 yrs", "25 yrs", "30 yrs"];
+    var actualPolicyTermArr = ["20", "25", "30"];
+
+
+    //Setting recommended values of slider
+    var min = 0, max = 2;
+	$("#sliderLabel").text("50 Lacs");
+	$("#sliderLabel").css("margin-left", (1-min)/(max-min)*100+"%");
+	$("#sliderLabel").css("left", "-25px");
+	$("#policyTermSliderLabel").text("25 yrs");
+	$("#policyTermSliderLabel").css("margin-left", (1-min)/(max-min)*100+"%");
+	$("#policyTermSliderLabel").css("left", "-25px");
+	$scope.isRecommended = true;
+	$scope.policyTermSlider = 1;
+
+	var delayRefresh;
+    $scope.updateLIRecos = function() {
+
+		$scope.isRecommended = false;		
+		console.log('JSON : ' + JSON.stringify($scope.lifeInsRecos));
+		console.log('SLider value : ' + $scope.sliderValue);
+
+		//slider related attributes
+
+	    $("#sliderLabel").text(displayCoverageAmountArr[$scope.sliderValue]);
+    	$("#sliderLabel").css("margin-left", ($scope.sliderValue-min)/(max-min)*100+"%");
+    	$("#sliderLabel").css("left", "-25px");
+
+	    $("#policyTermSliderLabel").text(displayPolicyTermArr[$scope.policyTermSlider]);
+    	$("#policyTermSliderLabel").css("margin-left", ($scope.policyTermSlider-min)/(max-min)*100+"%");
+    	$("#policyTermSliderLabel").css("left", "-25px");    	
+
+    	$scope.displayCoverageAmount = displayCoverageAmountArr[$scope.sliderValue];
+    	$scope.displayPolicyTerm = displayPolicyTermArr[$scope.policyTermSlider];
+
+    	//Change query parameters based on change in slider values
+
+    	if (delayRefresh) {
+			console.log('Canceling delay refresh');
+			$timeout.cancel(delayRefresh);	
+		} 
+		
+		$('.table-rel').fadeOut( "slow" );
+
+		delayRefresh = $timeout(function() {
+			$('.table-rel').fadeIn( "slow" );
+		}, 300);
+
+    	$scope.query = {age: $scope.age, sum_assured_in_lacs: actualCoverageAmountArr[$scope.sliderValue], payment_term: actualPolicyTermArr[$scope.policyTermSlider]};	
+
+
+
+
 
 	};
 
-	$scope.updateLIRecos();
 
-	$scope.lifeInsRecos	 = $meteor.collection(function(){
-		
-    		return LifeInsurances.find($scope.getReactively('query'));
-    	
- 	});
 
 
 });
@@ -308,6 +379,7 @@ angular.module('antkarma').controller('RecommendationCtrl', function($scope, $mo
 angular.module('antkarma').service('sharedProperties', function() {
 	var submitted = false;
 	var annularSalary = 0;
+	var age;
 
 	return {
 		getSubmitted: function() {
@@ -324,6 +396,14 @@ angular.module('antkarma').service('sharedProperties', function() {
 
 		setAnnualSalary: function(value) {
 			annularSalary = Number(value);
+		},
+
+		getAge: function() {
+			return age;
+		},
+
+		setAge: function(value) {
+			age = value;
 		}
 	}
 

@@ -71,7 +71,7 @@
 
 .reco .ins-heading {
 	font-family: "Raleway",sans-serif;
-	font-size: 16px;
+	font-size: 12px;
 	font-weight: 400;
 	text-transform: uppercase;
 	letter-spacing: 0.1em;
@@ -79,7 +79,8 @@
 	margin: 0 0 30px;
 	/*padding:  0;*/
 	color: white !important;
-	position: relative;
+	/*position: relative;*/
+	text-align: left;
 
 }
 
@@ -108,3 +109,100 @@
 	text-decoration: none;
 	color: #fff;
 }
+
+
+.reco input[type=range]{
+    -webkit-appearance: none;
+    display: inline-block;
+}
+
+.reco input[type=range]::-webkit-slider-runnable-track {
+    width: 150px;
+    height: 5px;
+    background: #ddd;
+    border: none;
+    border-radius: 3px;
+}
+
+.reco input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: goldenrod;
+    margin-top: -4px;
+}
+
+.reco input[type=range]:focus {
+    outline: none;
+}
+
+.reco input[type=range]:focus::-webkit-slider-runnable-track {
+    background: #ccc;
+}
+
+.reco .slider-label{
+    margin-bottom:5px;
+    /*border : 1px solid red;*/
+    width : 60px;
+    height : 20px;
+    line-height : 20px;
+    position:relative;
+    text-align : center;
+}
+
+.reco .display-amount {
+	font-family: "Open Sans";
+	border: 1px solid #ccc;
+	width: 80px !important;
+	font-size: 14px;
+	background-color: #ccc;
+	color: #333;
+	padding-left: 5px;
+	margin-left: 5px;
+	text-align: center;
+
+}
+
+
+.reco .reco-selected {
+	/*font-family: "Open Sans";*/
+	/*border: 1px solid #ccc;*/
+	/*width: 80px !important;*/
+	/*font-size: 14px;*/
+	background-color: #ccc;
+	color: #333;
+	/*padding-left: 5px;*/
+	/*margin-left: 5px;*/
+	/*text-align: center;*/
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
