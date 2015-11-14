@@ -7,13 +7,16 @@
 	<div id="">
 		<div id="lifeInsurance" class="life-insurance well col-md-10 col-md-offset-1">
 			<div class="row">
-				<h4 class="ins-heading col-md-3">Life Insurance</h4>
-				<div class="col-md-8">
+				<h4 class="ins-main-heading col-md-3">Life Insurance
+					<button class="ins-heading btn btn-success btn-xs toggleLIReco" ng-click="showAllLIReco($event)">+ More Options</button>
+				</h4>
+
+				<div class="col-md-8 col-md-offset-1">
 					<div class="col-md-6">
 						<h5 class="ins-heading col-md-10 col-md-offset-1"><div ng-show="isRecommended">Recommended</div>Coverage Amount: 
 							<span class="display-amount"> {{ displayCoverageAmount}}</span>
 
-							<input type="range" name="sliderValue" ng-model="sliderValue" ng-mouseup="updateLIRecos()" min="0" max="2" step="1">
+							<input type="range" name="sliderValue" ng-model="sliderValue" ng-mouseup="updateLIRecos($event)" min="0" max="2" step="1">
 							<div class="slider-label" id="sliderLabel"></div>
 
 						</h5> 
@@ -22,13 +25,12 @@
 						<h5 class="ins-heading col-md-10 col-md-offset-1"><div ng-show="isRecommended">Recommended</div>Policy Term: 
 							<span class="display-amount"> {{ displayPolicyTerm}}</span>
 
-							<input type="range" name="policyTermSlider" ng-model="policyTermSlider" ng-mouseup="updateLIRecos()" min="0" max="2" step="1">
+							<input type="range" name="policyTermSlider" ng-model="policyTermSlider" ng-mouseup="updateLIRecos($event)" min="0" max="2" step="1">
 							<div class="slider-label" id="policyTermSliderLabel"></div>
 
 						</h5> 
 					</div>				
 				</div>
-				<div class="col-md-1"><a class="special-a btn btn-success btn-xs" ng-click="showAllLIReco()">Show all</a></div>
 			</div>
 				
 			<table  class="table table-rel" ng-init="initialize()">
@@ -44,7 +46,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat= "lifeInsReco in lifeInsRecos" ng-class="$index == 0 ? 'first' : ''">
+					<tr ng-repeat= "lifeInsReco in lifeInsRecos" ng-class="$index == 0 ? 'first reco-selected' : ''" ng-click="selectLI($event, $index)">
 						<td class="text-center reco-section-column">
 							<img class="product-info" src="{{lifeInsReco.img}}" alt="{{lifeInsReco.productName}}">
 							<div class="product-info">{{lifeInsReco.policy_name}}

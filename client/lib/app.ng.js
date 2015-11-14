@@ -250,39 +250,79 @@ angular.module('antkarma').controller('RecommendationCtrl', function($scope, $mo
 	// Subscribing to life_insurances
 	$scope.$meteorSubscribe('lifeInsRecos');
 
-
-
-
-	$scope.isArrowDown = true;
-
-	$scope.initialize = function() {
-		console.log('initialize called');
-		$('table tbody tr:first').addClass('reco-selected');
+	function init() {
+		// $('table tbody tr:first').addClass('reco-selected');
 		$('table tbody tr button.select-li-reco').text("Select");
 		$('table tbody tr:first button.select-li-reco').text("Selected");
-
 		$('table tbody tr').not(':first').hide();
+	}
 
-	}	
 
-	$scope.initialize();
+	//Need to fix this: hacky way to render function after dom is rendered
 
-	$scope.showAllLIReco = function() {
-		$('table tbody tr').not(':first').fadeToggle("slow");
+	function delayTableReload() {
+		$timeout(function() {
+			init();	
+		}, 300);	
+	};
+	
+	delayTableReload();
+	// $scope.initialize();
+
+	$scope.hideLIReco = true;
+
+	$scope.$watch('hideLIReco',function(){
+		if ($scope.hideLIReco) {
+			$(".toggleLIReco").text("+ More options");
+		} else {
+			$(".toggleLIReco").text("- Hide Options");
+		}
+
+	});
+
+	$scope.showAllLIReco = function(event) {
+		// event.preventDefault();
+
+		var target = $(event.target);
+
+
+
+		if ($scope.hideLIReco) {
+			$scope.hideLIReco = false;
+			
+		} else {
+			$scope.hideLIReco = true;
+			
+		}
+
+		if ($scope.hideLIReco) {
+			$('table tbody tr').not('.reco-selected').fadeOut("slow");
+			// reco-selected
+		} else {
+			$('table tbody tr').not('.reco-selected').fadeIn("slow");
+		}
+
 	}
 
 	$scope.selectLI = function(event, index) {
 
 		$('table tbody tr button.select-li-reco').text("Select");
 		
-		var element = event.target;
-		element.textContent = "Selected";
-		if (index == 0) {
 
-		}
+		//find the tr element of clicked row
+
+		var target = $(event.target);
+
+		var tableRow = $(target).closest("tr");
+
+		// console.log("Target: " + target);
+
+		$(tableRow).find('button.select-li-reco').text("Selected");
+		// var element = event.target;
+		// element.textContent = "Selected";
 		
 		$("table tr").removeClass("reco-selected");
-		$(element).closest("tr").addClass("reco-selected");
+		$(tableRow).addClass("reco-selected");
 	}
 
 	// Logic for recommended coverage amount is annual salary * 15
@@ -330,7 +370,14 @@ angular.module('antkarma').controller('RecommendationCtrl', function($scope, $mo
 	$scope.policyTermSlider = 1;
 
 	var delayRefresh;
-    $scope.updateLIRecos = function() {
+    $scope.updateLIRecos = function(event) {
+
+    	$scope.hideLIReco = false;
+    	// var target = $(event.target);
+    	// $(target).closest(".toggleLIReco").text("- Hide Options");
+
+    	// $(target).closest(".row").find(".toggleLIReco").text("- Hide Options");
+
 
 		$scope.isRecommended = false;		
 		console.log('JSON : ' + JSON.stringify($scope.lifeInsRecos));
@@ -360,13 +407,14 @@ angular.module('antkarma').controller('RecommendationCtrl', function($scope, $mo
 
 		delayRefresh = $timeout(function() {
 			$('.table-rel').fadeIn( "slow" );
+			$('table tbody tr:first').addClass('reco-selected');
+			$('table tbody tr button.select-li-reco').text("Select");
+			$('table tbody tr:first button.select-li-reco').text("Selected");
 		}, 300);
 
+		// delayTableReload();
+
     	$scope.query = {age: $scope.age, sum_assured_in_lacs: actualCoverageAmountArr[$scope.sliderValue], payment_term: actualPolicyTermArr[$scope.policyTermSlider]};	
-
-
-
-
 
 	};
 
