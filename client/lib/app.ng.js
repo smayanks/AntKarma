@@ -345,6 +345,8 @@ angular.module('antkarma').controller('RecommendationCtrl', function($scope, $mo
 	    	return LifeInsurances.find($scope.getReactively('query'));
 	});
 
+	// console.log("lifeInsRecos count : " + $scope.lifeInsRecos.count());
+
 	// $scope.premium = $scope.lifeInsRecos.premium;
 		
 	// $('.table-reload').fadeOut( "slow" );
@@ -370,51 +372,55 @@ angular.module('antkarma').controller('RecommendationCtrl', function($scope, $mo
 	$scope.policyTermSlider = 1;
 
 	var delayRefresh;
+
+	$scope.noRecordsFound = false;
     $scope.updateLIRecos = function(event) {
 
-    	$scope.hideLIReco = false;
-    	// var target = $(event.target);
-    	// $(target).closest(".toggleLIReco").text("- Hide Options");
-
-    	// $(target).closest(".row").find(".toggleLIReco").text("- Hide Options");
-
-
-		$scope.isRecommended = false;		
-		console.log('JSON : ' + JSON.stringify($scope.lifeInsRecos));
-		console.log('SLider value : ' + $scope.sliderValue);
-
-		//slider related attributes
-
-	    $("#sliderLabel").text(displayCoverageAmountArr[$scope.sliderValue]);
-    	$("#sliderLabel").css("margin-left", ($scope.sliderValue-min)/(max-min)*100+"%");
-    	$("#sliderLabel").css("left", "-25px");
-
-	    $("#policyTermSliderLabel").text(displayPolicyTermArr[$scope.policyTermSlider]);
-    	$("#policyTermSliderLabel").css("margin-left", ($scope.policyTermSlider-min)/(max-min)*100+"%");
-    	$("#policyTermSliderLabel").css("left", "-25px");    	
-
-    	$scope.displayCoverageAmount = displayCoverageAmountArr[$scope.sliderValue];
-    	$scope.displayPolicyTerm = displayPolicyTermArr[$scope.policyTermSlider];
-
-    	//Change query parameters based on change in slider values
-
-    	if (delayRefresh) {
-			console.log('Canceling delay refresh');
-			$timeout.cancel(delayRefresh);	
-		} 
-		
-		$('.table-rel').fadeOut( "slow" );
-
-		delayRefresh = $timeout(function() {
-			$('.table-rel').fadeIn( "slow" );
-			$('table tbody tr:first').addClass('reco-selected');
-			$('table tbody tr button.select-li-reco').text("Select");
-			$('table tbody tr:first button.select-li-reco').text("Selected");
-		}, 300);
-
-		// delayTableReload();
-
     	$scope.query = {age: $scope.age, sum_assured_in_lacs: actualCoverageAmountArr[$scope.sliderValue], payment_term: actualPolicyTermArr[$scope.policyTermSlider]};	
+
+
+   		if ($scope.lifeInsRecos.length == 0) {
+   			$scope.noRecordsFound = true;
+   		} else {
+	    	$scope.hideLIReco = false;
+	    	// var target = $(event.target);
+	    	// $(target).closest(".toggleLIReco").text("- Hide Options");
+
+	    	// $(target).closest(".row").find(".toggleLIReco").text("- Hide Options");
+			$scope.isRecommended = false;		
+
+			//slider related attributes
+		    $("#sliderLabel").text(displayCoverageAmountArr[$scope.sliderValue]);
+	    	$("#sliderLabel").css("margin-left", ($scope.sliderValue-min)/(max-min)*100+"%");
+	    	$("#sliderLabel").css("left", "-25px");
+
+		    $("#policyTermSliderLabel").text(displayPolicyTermArr[$scope.policyTermSlider]);
+	    	$("#policyTermSliderLabel").css("margin-left", ($scope.policyTermSlider-min)/(max-min)*100+"%");
+	    	$("#policyTermSliderLabel").css("left", "-25px");    	
+
+	    	$scope.displayCoverageAmount = displayCoverageAmountArr[$scope.sliderValue];
+	    	$scope.displayPolicyTerm = displayPolicyTermArr[$scope.policyTermSlider];
+
+	    	//Change query parameters based on change in slider values
+
+	    	if (delayRefresh) {
+				console.log('Canceling delay refresh');
+				$timeout.cancel(delayRefresh);	
+			} 
+			
+			$('.table-rel').fadeOut( "slow" );
+
+			delayRefresh = $timeout(function() {
+				$('.table-rel').fadeIn( "slow" );
+				$('table tbody tr:first').addClass('reco-selected');
+				$('table tbody tr button.select-li-reco').text("Select");
+				$('table tbody tr:first button.select-li-reco').text("Selected");
+			}, 300);
+
+			// delayTableReload();
+
+   		}
+
 
 	};
 

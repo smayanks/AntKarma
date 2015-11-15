@@ -32,8 +32,8 @@
 					</div>				
 				</div>
 			</div>
-				
-			<table  class="table table-rel" ng-init="initialize()">
+			<h4 ng-show="noRecordsFound" class="ins-heading col-md-8 col-md-offset-2">No recommended policy found. Please change coverage or term years</h4>	
+			<table  ng-show="!noRecordsFound" class="table table-rel" ng-init="initialize()">
 				<thead >
 					<tr>
 						<th class="text-center">Product Name</th>
