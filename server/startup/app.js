@@ -9,8 +9,22 @@
         LifeInsurances.insert(lifeInsRecos[i]);
     }
 
+    if (ELSS.find().count() === 0) {
+    	var elss = {};
+
+    	elss = JSON.parse(Assets.getText("elss_data.json"));
+		
+
+      for (var i = 0; i < elss.length; i++)
+        ELSS.insert(elss[i]);
+    }
+
     Meteor.publish('lifeInsRecos', function() {
     	return LifeInsurances.find();
+    });
+
+    Meteor.publish('elss', function() {
+    	return ELSS.find();
     });
 
     Meteor.methods({

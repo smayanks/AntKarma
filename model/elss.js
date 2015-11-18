@@ -1,0 +1,1 @@
+ELSS = new Mongo.Collection("elss");

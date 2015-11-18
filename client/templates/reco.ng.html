@@ -8,7 +8,7 @@
 		<div id="lifeInsurance" class="life-insurance well col-md-10 col-md-offset-1">
 			<div class="row">
 				<h4 class="ins-main-heading col-md-3">Life Insurance
-					<button class="ins-heading btn btn-success btn-xs toggleLIReco" ng-click="showAllLIReco($event)">+ More Options</button>
+					<button class="ins-heading btn btn-success btn-xs toggleLIReco" ng-click="show_all_li_recos($event)">+ More Options</button>
 				</h4>
 
 				<div class="col-md-8 col-md-offset-1">
@@ -16,7 +16,7 @@
 						<h5 class="ins-heading col-md-10 col-md-offset-1"><div ng-show="isRecommended">Recommended</div>Coverage Amount: 
 							<span class="display-amount"> {{ displayCoverageAmount}}</span>
 
-							<input type="range" name="sliderValue" ng-model="sliderValue" ng-mouseup="updateLIRecos($event)" min="0" max="2" step="1">
+							<input type="range" name="sliderValue" ng-model="sliderValue" ng-mouseup="update_life_ins_reco($event)" min="0" max="2" step="1">
 							<div class="slider-label" id="sliderLabel"></div>
 
 						</h5> 
@@ -25,7 +25,7 @@
 						<h5 class="ins-heading col-md-10 col-md-offset-1"><div ng-show="isRecommended">Recommended</div>Policy Term: 
 							<span class="display-amount"> {{ displayPolicyTerm}}</span>
 
-							<input type="range" name="policyTermSlider" ng-model="policyTermSlider" ng-mouseup="updateLIRecos($event)" min="0" max="2" step="1">
+							<input type="range" name="policyTermSlider" ng-model="policyTermSlider" ng-mouseup="update_life_ins_reco($event)" min="0" max="2" step="1">
 							<div class="slider-label" id="policyTermSliderLabel"></div>
 
 						</h5> 
@@ -33,20 +33,20 @@
 				</div>
 			</div>
 			<h4 ng-show="noRecordsFound" class="ins-heading col-md-8 col-md-offset-2">No recommended policy found. Please change coverage or term years</h4>	
-			<table  ng-show="!noRecordsFound" class="table table-rel" ng-init="initialize()">
+			<table  ng-show="!noRecordsFound" class="table table-rel" id="liTable">
 				<thead >
 					<tr>
 						<th class="text-center">Product Name</th>
 						<th class="text-center">Sum Insured</th>
 						<th class="text-center">Additional Coverage</th>
 						<th class="text-center">Claim Settlement Ratio</th>
-						<th class="text-center">Premium</th>
+						<th class="text-center">Annnual Premium</th>
 						<th class="text-center">Policy Term</th>
 						<th class="text-center">Max Coverage Upto</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat= "lifeInsReco in lifeInsRecos" ng-class="$index == 0 ? 'first reco-selected' : ''" ng-click="selectLI($event, $index)">
+					<tr ng-repeat= "lifeInsReco in lifeInsRecos" ng-class="$index == 0 ? 'first reco-selected' : ''" ng-click="select_recommendation($event, $index, 'life_insurance')">
 						<td class="text-center reco-section-column">
 							<img class="product-info" src="{{lifeInsReco.img}}" alt="{{lifeInsReco.productName}}">
 							<div class="product-info">{{lifeInsReco.policy_name}}
@@ -61,12 +61,54 @@
 						<td class="text-center reco-section-column">{{lifeInsReco.max_age_at_maturity}} years</td>
 						<td class="text-center reco-section-column">
 							<!-- <button ng-show="$index == 0" class="btn btn-success btn-xs ">Select</button> -->
-							<button class="btn btn-success btn-xs select-li-reco" ng-click="selectLI($event, $index)"></button>
+							<button class="btn btn-success btn-xs select-li-reco" ng-click="select_recommendation($event, $index, 'li_insurance')"></button>
 						</td>
 					</tr>
 				</tbody>
 			</table>
 
+		</div>
+		<div id="elssPPF" class="elss-ppf well col-md-10 col-md-offset-1">
+			<div class="row">
+				<h4 class="ins-main-heading col-md-3">ELSS Investments</h4>
+
+				<div class="col-md-8 col-md-offset-1">
+					<div class="col-md-6 col-md-offset-6">
+						<h5 class="ins-heading col-md-10 col-md-offset-2"><div ng-show="isRecommended">Recommended</div>ELSS Amount: 
+							<span class="display-amount"> {{ elssAmount }}</span>
+							<input type="range" name="elssSliderValue" ng-model="elssSliderValue" ng-mouseup="update_elss_reco($event)" min="1000" max="{{displayMaxELSSPPFAmount}}" step="1000">
+							<div class="slider-label" id="elssSliderLabel"></div>
+
+						</h5> 
+					</div>				
+				</div>
+			</div>
+			<table class="table" id="elssTable">
+				<thead >
+					<tr>
+						<th class="text-center">Fund Name</th>
+						<th class="text-center">Annualized 5 year return</th>
+						<th class="text-center">Risk</th>
+						<th class="text-center">MorningStar rating</th>
+						<th class="text-center">Policy Details</th>
+						<th class="text-center">Investment Amount</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat= "el in elss">
+						<td class="text-center reco-section-column">
+							<!-- <img class="product-info" src="{{el.img}}" alt="{{el.elss_fund_name}}"> -->
+							<div class="product-info">{{el.elss_fund_name}}
+							</div>
+						</td>
+						<td class="text-center reco-section-column">{{el.annualized_returns_5_yrs * 100}} %</td>
+						<td class="text-center reco-section-column">{{el.fund_risk}}</td>
+						<td class="text-center reco-section-column">{{el.morning_star_rating}}</td>
+						<td class="text-center reco-section-column"><a class="special-a" href="{{el.policy_link}}" target="_blank">Link</a></td>
+						<td class="text-center reco-section-column">{{elss_investment_amount}}</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 		<div id="healthInsurance" class="health-insurance well col-md-10 col-md-offset-1">
 			<div class="row">
@@ -74,43 +116,8 @@
 					<a class="special-a" data-toggle="collapse" data-parent="#mainAccordion" href="#collapseHITable" ng-click="toggleArrowIcon()">Health Insurance
 					</a><i ng-if="isArrowDown" class="fa fa-angle-down"></i><i ng-if="!isArrowDown" class="fa fa-angle-up"></i>	
 				</h4>
-<!-- 				<span class="pull-right ins-heading">Recommended coverage amount: 
-					<input id="displayCoverageAmount" name="displayCoverageAmount" ng-model="displayCoverageAmount"  readonly>
-					<a data-toggle="collapse" data-parent="#accordion" class="btn btn-xs btn-info" href="#collapseOne">Edit</a>
-					<div id="collapseOne" class="panel-collapse collapse">
-						<div class="row">
-							<h6 class="col-md-2 col-md-offset-5 ">Change Coverage</h6>
-							<h6 class="col-md-5">
-							<i class="fa fa-inr">50L</i><i class="fa fa-inr pull-right">2Cr</i><input type="range" name="sliderValue" ng-model="sliderValue" ng-mouseup="updateLIRecos()" min="0" max="2" step="1" class="">
-							</h6>			
-						</div>
-					</div>
-				</span> -->
 			</div>
 			<div id="collapseHITable" class="panel-collapse collapse">
-				<table></table>
-			</div>
-		</div>
-		<div id="elssPPF" class="elss-ppf well col-md-10 col-md-offset-1">
-			<div class="row">
-				<h4 class="ins-heading col-md-3">
-					<a class="special-a" data-toggle="collapse" data-parent="#mainAccordion" href="#collapseELSSTable" ng-click="toggleArrowIcon()">ELSS - PPF Investments
-					</a><i ng-if="isArrowDown" class="fa fa-angle-down"></i><i ng-if="!isArrowDown" class="fa fa-angle-up"></i>	
-				</h4>
-<!-- 				<span class="pull-right ins-heading">Recommended coverage amount: 
-					<input id="displayCoverageAmount" name="displayCoverageAmount" ng-model="displayCoverageAmount"  readonly>
-					<a data-toggle="collapse" data-parent="#accordion" class="btn btn-xs btn-info" href="#collapseOne">Edit</a>
-					<div id="collapseOne" class="panel-collapse collapse">
-						<div class="row">
-							<h6 class="col-md-2 col-md-offset-5 ">Change Coverage</h6>
-							<h6 class="col-md-5">
-							<i class="fa fa-inr">50L</i><i class="fa fa-inr pull-right">2Cr</i><input type="range" name="sliderValue" ng-model="sliderValue" ng-mouseup="updateLIRecos()" min="0" max="2" step="1" class="">
-							</h6>			
-						</div>
-					</div>
-				</span> -->
-			</div>
-			<div id="collapseELSSTable" class="panel-collapse collapse">
 				<table></table>
 			</div>
 		</div>
@@ -120,18 +127,6 @@
 					<a class="special-a" data-toggle="collapse" data-parent="#mainAccordion" href="#collapseMFTable" ng-click="toggleArrowIcon()">Mutual Fund Investments
 					</a><i ng-if="isArrowDown" class="fa fa-angle-down"></i><i ng-if="!isArrowDown" class="fa fa-angle-up"></i>	
 				</h4>
-<!-- 				<span class="pull-right ins-heading">Recommended coverage amount: 
-					<input id="displayCoverageAmount" name="displayCoverageAmount" ng-model="displayCoverageAmount"  readonly>
-					<a data-toggle="collapse" data-parent="#accordion" class="btn btn-xs btn-info" href="#collapseOne">Edit</a>
-					<div id="collapseOne" class="panel-collapse collapse">
-						<div class="row">
-							<h6 class="col-md-2 col-md-offset-5 ">Change Coverage</h6>
-							<h6 class="col-md-5">
-							<i class="fa fa-inr">50L</i><i class="fa fa-inr pull-right">2Cr</i><input type="range" name="sliderValue" ng-model="sliderValue" ng-mouseup="updateLIRecos()" min="0" max="2" step="1" class="">
-							</h6>			
-						</div>
-					</div>
-				</span> -->
 			</div>
 			<div id="collapseMFTable" class="panel-collapse collapse">
 				<table></table>
