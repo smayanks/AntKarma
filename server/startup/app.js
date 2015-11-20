@@ -1,24 +1,5 @@
   Meteor.startup(function () {
-    if (LifeInsurances.find().count() === 0) {
-    	var lifeInsRecos = {};
-
-    	lifeInsRecos = JSON.parse(Assets.getText("life_insurance_data.json"));
-		
-
-      for (var i = 0; i < lifeInsRecos.length; i++)
-        LifeInsurances.insert(lifeInsRecos[i]);
-    }
-
-    if (ELSS.find().count() === 0) {
-    	var elss = {};
-
-    	elss = JSON.parse(Assets.getText("elss_data.json"));
-		
-
-      for (var i = 0; i < elss.length; i++)
-        ELSS.insert(elss[i]);
-    }
-
+    
     Meteor.publish('lifeInsRecos', function() {
     	return LifeInsurances.find();
     });
@@ -26,7 +7,9 @@
     Meteor.publish('elss', function() {
     	return ELSS.find();
     });
-
+    Meteor.publish('reco_life_insurance', function() {
+    	return RecommendedLifeInsurance.find();
+    });
     Meteor.methods({
     	submitQuestionnaire: function(questions) {
 
@@ -43,14 +26,103 @@
     		});
     	},
 
-    	// getLIRecommendations: function(query) {
-    	// 	return LifeInsurances.find($scope.getReactively('query'));
-    	// }
+  //   	{
+  //   "policy_name": "HDFC Life Click 2 Protect Plus",
+  //   "img": "/images/HDFC_Life_logo.png",
+  //   "age": "25",
+  //   "sum_assured_in_lacs": "100",
+  //   "premium": "7,833",
+  //   "payment_term": "20",
+  //   "claim_settlement_ratio": "0.94",
+  //   "max_policy_term": "40",
+  //   "max_age_at_maturity": "75",
+  //   "comments": "",
+  //   "additional_features": "Accidental Death Benefit, Increasing life cover",
+  //   "policy_link": "http://ops.hdfclife.com/ops/click2protectPlus.do?source=W_HP_BIOBox_CPP"
+  // }
+    	getLifeInsuranceRecos: function(query) {
+    		// 1. Get list of all recommendations
+
+    		console.log('getLifeInsuranceRecos is called');
+    		recoLifeIsurances = function() {
+    			console.log('inside recoLifeIsurances');
+    			var values = [];
+    				RecommendedLifeInsurance.find({}).forEach(function(value) {
+    					console.log('value : ' + JSON.stringify(value));	
+    					values.push(value);
+    				});
+    				return values;
+    		}
+
+    		recoLifeIsurancesSync = Meteor.wrapAsync(recoLifeIsurances);
+    		recoLifeIsurancesResult = recoLifeIsurancesSync();
+
+    		console.log('recoLifeIsurancesResult : ' + recoLifeIsurancesResult.length);
+
+    		getOtherData = function(input)  {
+    			console.log('getOtherData value of input:  ' + JSON.stringify(input));
+	    		var recommendedData = [];
+	    		var insuranceId;
+	    		if (input.length > 0) {
+	    			// 2. For each of the recos compute premium based on Ids
+	    			for (lifeInsurance in input) {
+	    				insuranceId = lifeInsurance.id;
+	    				
+	    				if (insuranceId == 1) {
+	    					// 2.1 Query hdfc_data collection
+	    					// var hdfcRecos = get_hdfc_data(query);
+	    					lifeInsurance.premium = 12345;
+	    				} 
+	    					// 2.2 Query rest of life insurance recommendations
+	    					// var restOfRecos = LifeInsurances.find(query);
+	    					recommendedData.push(lifeInsurance);
+	    				
+	    			}
+	    		}
+
+	    		console.log('Returning data : ' + JSON.stringify(recommendedData));
+
+	    		return recommendedData;
+	    		// console.log('Query from server: ' + JSON.stringify(query));
+	    		// return LifeInsurances.find(query);
+
+    		}
+
+    		// getOtherDataSync = Meteor.wrapAsync(getOtherData);
+
+    		getOtherDataResult = getOtherData(recoLifeIsurancesResult);
+
+    		console.log('getOtherDataResult : ' + JSON.stringify(getOtherDataResult));
+
+    		return getOtherDataResult;
+
+    	}
     });
 
-    function computeLIRecommendation(age, isSmoker, annualSalary) {
 
-    	// var li_recommendation = {}
+
+    function get_hdfc_data(query) {
+
+    	var age = query.age;
+    	var gender = query.gender;
+    	var smoker = query.smoker;
+    	var coverageAmount = query.coverageAmount;
+    	var policy_term = query.policy_term;
+
+    	var hdfc_query_string;
+
+    	hdfc_query_string = age;
+
+    	if (gender == 'male') {
+    		hdfc_query_string += 'M';
+    	} else {
+    		hdfc_query_string += 'F';
+    	}
+
+
+
+
+
 
     }
 

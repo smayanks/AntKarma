@@ -112,21 +112,27 @@
 
 			<!-- Step 4 -->
 			<div class="tab-pane fade" id="step4">
-				<h4 class="helper-message">Let's find the best life insurance coverage for you. We highly recommend life insurance since it helps
-					you transfer large risks that prevents you from achieving your goals in life, from yourself to the insurer.
-				</h4>
+				<h4 class="helper-message">Hello {{questions.username}}! Lets start by understanding you better.</h4>
 				<div class="well well-lg">
 					
 					<!-- <hr> -->
 					<div ng-form="step4Form">
-						<h4 class="level1">Do you have any dependents?</h4>
-						<h5 class="answers">If you are married, or if you provide for some of the expenses for your parents or relatives or intend to do so in the future - the answer would be yes.</h5>
+						<h4 class="level1">What is your gender?</h4>
 						<div class="radio">
 							<label class="radio-inline">
-								<h5><input type="radio" name="dependents" value="yes" ng-model="questions.dependents" required>Yes</h5>
+								<h5><input type="radio" name="gender" value="male" ng-model="questions.gender" required>Male</h5>
 							</label>
 							<label class="radio-inline">
-								<h5><input type="radio" name="dependents" value="no" ng-model="questions.dependents" required>No</h5>
+								<h5><input type="radio" name="gender" value="female" ng-model="questions.gender" required>Female</h5>
+							</label>
+						</div>
+						<h4 class="level1">Do you smoke?</h4>
+						<div class="radio">
+							<label class="radio-inline">
+								<h5><input type="radio" name="smoker" value="yes" ng-model="questions.smoker" required>Yes</h5>
+							</label>
+							<label class="radio-inline">
+								<h5><input type="radio" name="smoker" value="no" ng-model="questions.smoker" required>No</h5>
 							</label>
 						</div>
 					</div>
@@ -147,6 +153,16 @@
 					
 
 					<div ng-form="step5Form">
+						<h4 class="level1">Do you have any dependents?</h4>
+						<h5 class="answers">If you are married, or if you provide for some of the expenses for your parents or relatives or intend to do so in the future - the answer would be yes.</h5>
+						<div class="radio">
+							<label class="radio-inline">
+								<h5><input type="radio" name="dependents" value="yes" ng-model="questions.dependents" required>Yes</h5>
+							</label>
+							<label class="radio-inline">
+								<h5><input type="radio" name="dependents" value="no" ng-model="questions.dependents" required>No</h5>
+							</label>
+						</div>
 						<h4 class="level1">Do you have any outstanding loans to be paid?</h4>
 						<div class="radio answers extra-padding">
 							<label class="radio-inline">
@@ -163,7 +179,7 @@
 							<div class="">
 								<h5>Please share more details about your outstanding loans.
 									<button id="addLoanButton" class="btn btn-success btn-xs add-loan" ng-click="addOutstandingLoanDetails()">Add another loan</button></h5>
-									<div class="slide" ng-repeat="outLoan in questions.currentOutStandingLoans">
+									<div class="slide extra-padding" ng-repeat="outLoan in questions.currentOutStandingLoans">
 										<div class="form-inline" id="outstandinLoanDetails">
 											<select class="form-control" name="{{'existingLoanType' + $index}}" ng-model="questions.currentOutStandingLoans[$index].existingLoanType">
 												<option value="" selected disabled>Please select</option>

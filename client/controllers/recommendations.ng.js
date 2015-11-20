@@ -2,27 +2,71 @@
 
 angular.module('antkarma').controller('RecommendationCtrl', function($scope, $modal, $meteor, $timeout, sharedProperties) {
 
+	//--------------Variable declaration-----------------------//
 	var TAX_SAVING_LIMIT = 150000;
+	var selectedLifeInsuance; // variable to track the selected life insurance
+	var totalTaxSavingAmount = TAX_SAVING_LIMIT;
+	var recoAmountForELSSandPPF, recoELSSamount, recoPPFamount ;
+	var recommendedCoverageAmount = sharedProperties.getAnnualSalary() * 15; // Logic for recommended coverage amount is annual salary * 15
+    var displayCoverageAmountArr = ["25 Lacs", "50 Lacs", "1 Crore"];
+    var actualCoverageAmountArr = ["25", "50", "100"];
+    var displayPolicyTermArr = ["20 yrs", "25 yrs", "30 yrs"];
+    var actualPolicyTermArr = ["20", "25", "30"];
+	var delayRefresh;
 
-	// Subscribing to life_insurances	
-	$scope.$meteorSubscribe('lifeInsRecos');
+	//--------------DB/Collection related calls-----------------------//
+	// $scope.$meteorSubscribe('lifeInsRecos');
 	$scope.$meteorSubscribe('elss');
+	$scope.$meteorSubscribe('reco_life_insurance');
 
 	$scope.elss	 = $meteor.collection(function(){
 	    	return ELSS.find({});
 	});
 
+	$scope.reco_life_insurance	 = $meteor.collection(function(){
+	    	return RecommendedLifeInsurance.find({});
+	});
 
-	// Initially hide all the life insurance options except the recommended one
-	$scope.hideLIReco = true;
-	// variable to track the selected life insurance
-	var selectedLifeInsuance;
+	//--------------Scope Variables-----------------------//
 
-	//  All ELSS and PPF related content
+	// $scope.age = sharedProperties.getAge();
+	$scope.age = '32';  //hardcoded temporarily to 32
+	$scope.displayPolicyTerm = "25 yrs";
+	$scope.coverageAmount = "10000000";
+	$scope.isRecommended = true;
+	$scope.policyTermSlider = 1;
+	$scope.noRecordsFound = false;
+	$scope.hideLIReco = true; // Initially hide all the life insurance options except the recommended one
 
-	var totalTaxSavingAmount = TAX_SAVING_LIMIT;
+	// query life_insurances based on age of user
+    $scope.query = {age: $scope.age, gender: 'male', smoker : 'no', sum_assured_in_lacs: "50", policy_term: "25"};		
 
-	var recoAmountForELSSandPPF, recoELSSamount, recoPPFamount ;
+ //    $scope.lifeInsRecos	 = $meteor.collection(function(){
+	//     	return LifeInsurances.find($scope.getReactively('query'));
+	// });
+
+	$scope.lifeInsRecos	 = $meteor.call('getLifeInsuranceRecos', $scope.query); 
+
+
+	function convert_number_to_text_currency(amount) {
+		return "50 lacs";
+	}
+
+	$scope.displayCoverageAmount = convert_number_to_text_currency(recommendedCoverageAmount);
+
+    function set_slider_attributes(sliderId, text, value, min, max) {
+    	$(sliderId).text(text);
+		$(sliderId).css("margin-left", (value-min)/(max-min)*100+"%");
+		$(sliderId).css("left", "-25px");	
+    }
+    
+    //Setting recommended values of sliders
+    set_slider_attributes("#sliderLabel", "50 lacs", 1, 0 , 2);
+    set_slider_attributes("#policyTermSliderLabel", "25 yrs", 1, 0 , 2);
+    
+
+
+
 
 
 	// console.log('Risk score from client: ' + $scope.lifeInsRecos.riskScore);
@@ -36,59 +80,63 @@ angular.module('antkarma').controller('RecommendationCtrl', function($scope, $mo
 		compute_elss_ppf_details();
 	}
 
+	$scope.$watch('selectedLifeInsuance.premium', function(){
+		// recoAmountForELSSandPPF = totalTaxSavingAmount - Number(selectedLifeInsuance.premium.replace(',',''));
+		$scope.elssAmount = recoELSSamount;	
+		$scope.elssSliderValue = recoELSSamount;
+		$scope.elss_investment_amount = $scope.elssAmount/2;		
+
+	});
+
+	$scope.compute_premium = function(id) {
+
+		if (id == 1) { //i.e. HDFC
+			return id * 100000;
+		} else {
+			return -1;
+		}
+		
+	}
+
 	function compute_elss_ppf_details() {
 
-		recoAmountForELSSandPPF = totalTaxSavingAmount - Number(selectedLifeInsuance.premium.replace(',',''));		
-		console.log('Premium amount: ' + selectedLifeInsuance.premium.replace(',',''));
+		// recoAmountForELSSandPPF = totalTaxSavingAmount - Number(selectedLifeInsuance.premium.replace(',',''));	
+
+		// console.log('Premium amount: ' + selectedLifeInsuance.premium.replace(',',''));
 		console.log("Amount for ELSS and PPF : " + recoAmountForELSSandPPF);
 
 		//use the risk score to get PPF and ELSS percentage
-		var ppfELSS = compute_ppf_elss_percent(8);
-		console.log("PPF ELSS : " + JSON.stringify(ppfELSS));
-
-		//Rouding up the amount to the nearest multiple of 1000
-		// $scope.ppfAmount = Math.ceil((recoAmountForELSSandPPF * ppfELSS.ppf)/1000)*1000 ;
-		// $scope.elssAmount = Math.ceil((recoAmountForELSSandPPF * ppfELSS.elss)/1000)*1000 ;
+		var riskScore = 8;
+		var ppfELSS = compute_ppf_elss_percent(riskScore);
+		
+		//Rounding up the amount to the nearest multiple of 1000
 		recoPPFamount = Math.ceil((recoAmountForELSSandPPF * ppfELSS.ppf)/1000)*1000 ;
 		$scope.ppfAmount = recoPPFamount;
-
-		recoELSSamount = Math.ceil((recoAmountForELSSandPPF * ppfELSS.elss)/1000)*1000 ;
-
-		if (typeof $scope.elssSliderValue == "undefined") {
-			$scope.elssAmount = recoELSSamount;	
-			$scope.elssSliderValue = recoELSSamount;
-			elss_investment_amount = $scope.elssAmount/2;
-		} else {
-			$scope.elssAmount = $scope.elssSliderValue;
-		}
-
+		recoELSSamount = Math.ceil((recoAmountForELSSandPPF * ppfELSS.elss)/1000)*1000;
+		$scope.elssAmount = recoELSSamount;	
+		$scope.elssSliderValue = recoELSSamount;
 		$scope.elss_investment_amount = Math.ceil($scope.elssAmount/2);
-		
-		
-
-		$scope.displayMaxELSSPPFAmount =  Math.ceil(recoAmountForELSSandPPF/1000)*1000;
-
-		set_slider_attributes("#elssSliderLabel", $scope.elssSliderValue, $scope.elssSliderValue, 1000 , $scope.displayMaxELSSPPFAmount);
+		$scope.displayMaxELSSPPFAmount =  Math.ceil(recoAmountForELSSandPPF);
 
 	}
 
 	function compute_ppf_elss_percent(riskScore) {
 		var ppf, elss;
 		if (riskScore <=2 ) {
-			ppf = 0.08;
-			elss = 0.02;
+			ppf = 0.8;
+			elss = 0.2;
 		} else if (riskScore > 2 && riskScore <= 4) {
-			ppf = 0.06;
-			elss = 0.04;
+			ppf = 0.6;
+			elss = 0.4;
 		} else if (riskScore > 4 && riskScore <= 6 ) {
-			ppf = 0.05;
-			elss = 0.05;
+			ppf = 0.5;
+			elss = 0.5;
 		} else if (riskScore > 6 && riskScore <= 8 ) {
-			ppf = 0.04;
-			elss = 0.06;
+			ppf = 0.4;
+			elss = 0.6;
 		} else if (riskScore > 9) {
-			ppf = 0.02;
-			elss = 0.08;
+			ppf = 0.2;
+			elss = 0.8;
 		}
 
 		return {"ppf" : ppf, "elss" : elss};
@@ -115,53 +163,11 @@ angular.module('antkarma').controller('RecommendationCtrl', function($scope, $mo
 	});
 
 
-	// Logic for recommended coverage amount is annual salary * 15
-	var recommendedCoverageAmount = sharedProperties.getAnnualSalary() * 15;
-	
-	// Age is requried to get query life_insrances 
-	// $scope.age = sharedProperties.getAge();
-	$scope.age = '32';  //hardcoded temporarily to 32
-	// $scope.sliderValue = 2;
-	// $scope.policyTermSlider = 1;
-	$scope.displayCoverageAmount = "50 Lacs";
-	$scope.displayPolicyTerm = "25 yrs";
-	$scope.coverageAmount = "10000000";
-
-	// query life_insurances based on age of user
-    $scope.query = {age: $scope.age, sum_assured_in_lacs: "50", payment_term: "25"};		
-
-    $scope.lifeInsRecos	 = $meteor.collection(function(){
-	    	return LifeInsurances.find($scope.getReactively('query'));
-	});
-
-    var displayCoverageAmountArr = ["25 Lacs", "50 Lacs", "1 Crore"];
-    var actualCoverageAmountArr = ["25", "50", "100"];
-    var displayPolicyTermArr = ["20 yrs", "25 yrs", "30 yrs"];
-    var actualPolicyTermArr = ["20", "25", "30"];
-
-    function set_slider_attributes(sliderId, text, value, min, max) {
-    	$(sliderId).text(text);
-		$(sliderId).css("margin-left", (value-min)/(max-min)*100+"%");
-		$(sliderId).css("left", "-25px");	
-    }
-    //Setting recommended values of slider
-    // var min = 0, max = 2;
-    //setting the default values
-    set_slider_attributes("#sliderLabel", "50 lacs", 1, 0 , 2);
-    set_slider_attributes("#policyTermSliderLabel", "25 yrs", 1, 0 , 2);
-    set_slider_attributes("#elssSliderLabel", 8000, 8000, 1000 , 140000);
-    
-	$scope.isRecommended = true;
-	$scope.policyTermSlider = 1;
-
-	var delayRefresh;
-	$scope.noRecordsFound = false;
-
     $scope.update_life_ins_reco = function(event) {
 
-    	$scope.query = {age: $scope.age, sum_assured_in_lacs: actualCoverageAmountArr[$scope.sliderValue], payment_term: actualPolicyTermArr[$scope.policyTermSlider]};	
+    	$scope.query = {age: $scope.age, sum_assured_in_lacs: actualCoverageAmountArr[$scope.sliderValue], policy_term: actualPolicyTermArr[$scope.policyTermSlider]};	
 
-
+    	$scope.lifeInsRecos	 = $meteor.call('getLifeInsuranceRecos', $scope.query); 
    		if ($scope.lifeInsRecos.length == 0) {
    			$scope.noRecordsFound = true;
    		} else {
@@ -201,46 +207,23 @@ angular.module('antkarma').controller('RecommendationCtrl', function($scope, $mo
 
 	}
 
+	// $scope.show_all_li_recos = function(event) {
 
-	$scope.update_elss_reco = function(event) {
+	// 	var target = $(event.target);
+	// 	if ($scope.hideLIReco) {
+	// 		$scope.hideLIReco = false;			
+	// 	} else {
+	// 		$scope.hideLIReco = true;
+	// 	}
 
-    	// $scope.query = {age: $scope.age, sum_assured_in_lacs: actualCoverageAmountArr[$scope.sliderValue], payment_term: actualPolicyTermArr[$scope.policyTermSlider]};	
+	// 	if ($scope.hideLIReco) {
+	// 		$('#liTable tbody tr').not('.reco-selected').fadeOut("slow");
+	// 		// reco-selected
+	// 	} else {
+	// 		$('#liTable tbody tr').not('.reco-selected').fadeIn("slow");
+	// 	}
 
-			// $scope.isRecommended = false;		
-
-			//slider related attributes
-			
-			set_slider_attributes("#elssSliderLabel", $scope.elssSliderValue, $scope.elssSliderValue, 1000 , $scope.displayMaxELSSPPFAmount);
-	    	
-	    	$scope.elssAmount = $scope.elssSliderValue;
-	    	
-	    	// refresh_table("#elssTable");
-
-	    	$("#elssTable").fadeOut( "slow" );
-	    	$timeout(function() {
-	    		$("#elssTable").fadeIn( "slow" );
-	    	}, 300);
-
-			compute_elss_ppf_details();
-	};
-
-	$scope.show_all_li_recos = function(event) {
-
-		var target = $(event.target);
-		if ($scope.hideLIReco) {
-			$scope.hideLIReco = false;			
-		} else {
-			$scope.hideLIReco = true;
-		}
-
-		if ($scope.hideLIReco) {
-			$('#liTable tbody tr').not('.reco-selected').fadeOut("slow");
-			// reco-selected
-		} else {
-			$('#liTable tbody tr').not('.reco-selected').fadeIn("slow");
-		}
-
-	}
+	// }
 
 	$scope.select_recommendation = function(event, index, type) {
 
@@ -254,9 +237,9 @@ angular.module('antkarma').controller('RecommendationCtrl', function($scope, $mo
 		$("table tr").removeClass("reco-selected");
 		$(tableRow).addClass("reco-selected");
 		
-		if (type == 'life_insurance') {
-			selectedLifeInsuance = $scope.lifeInsRecos[index];	
-		} 
+		
+		selectedLifeInsuance = $scope.lifeInsRecos[index];	
+		
 
 		compute_elss_ppf_details();
 	}

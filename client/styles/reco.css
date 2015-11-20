@@ -2,7 +2,7 @@
 .reco tbody tr {
 	
 	height: 100px;
-	font-family: "Open Sans";
+
 }
 
 .reco .table > thead > tr > th {
@@ -70,6 +70,7 @@
 .reco .well {
 	background: none;
 	overflow: auto;
+	border:none;
 }
 
 
@@ -177,12 +178,14 @@
 .reco .display-amount {
 	font-family: "Open Sans";
 	border: 1px solid #ccc;
-	width: 80px !important;
-	font-size: 14px;
+	width: 100px !important;
+	font-size: 18px;
 	background-color: #ccc;
 	color: #333;
 	padding-left: 5px;
+	padding-right: 5px;
 	margin-left: 5px;
+	margin-right: 5px;
 	text-align: center;
 
 }

@@ -72,7 +72,8 @@ angular.module('antkarma').service('sharedProperties', function() {
 		},
 
 		setAnnualSalary: function(value) {
-			annularSalary = Number(value);
+			// annularSalary = Number(value);
+			annularSalary = 1000000;
 		},
 
 		getAge: function() {

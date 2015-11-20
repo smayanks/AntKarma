@@ -3,6 +3,7 @@
 		<h4 class="text-center section-title">Based on your answers, here is your customized plan
 			<a href="/questions" class="btn btn-info btn-xs pull-right">Change answers</a>
 		</h4>
+		<hr>	
 	</div>
 	<div id="">
 		<div id="lifeInsurance" class="life-insurance well col-md-10 col-md-offset-1">
@@ -14,13 +15,11 @@
 				<div class="col-md-8 col-md-offset-1">
 					<div class="col-md-6">
 						<h5 class="ins-heading col-md-10 col-md-offset-1"><div ng-show="isRecommended">Recommended</div>Coverage Amount: 
-							<span class="display-amount"> {{ displayCoverageAmount}}</span>
-
+							<span class="display-amount">{{displayCoverageAmount}}</span>
 							<input type="range" name="sliderValue" ng-model="sliderValue" ng-mouseup="update_life_ins_reco($event)" min="0" max="2" step="1">
 							<div class="slider-label" id="sliderLabel"></div>
-
 						</h5> 
-					</div>				
+					</div>
 					<div class="col-md-6">
 						<h5 class="ins-heading col-md-10 col-md-offset-1"><div ng-show="isRecommended">Recommended</div>Policy Term: 
 							<span class="display-amount"> {{ displayPolicyTerm}}</span>
@@ -29,10 +28,10 @@
 							<div class="slider-label" id="policyTermSliderLabel"></div>
 
 						</h5> 
-					</div>				
+					</div>
 				</div>
 			</div>
-			<h4 ng-show="noRecordsFound" class="ins-heading col-md-8 col-md-offset-2">No recommended policy found. Please change coverage or term years</h4>	
+			<h4 ng-show="noRecordsFound" class="ins-heading col-md-8 col-md-offset-2">No recommended policy found. Please change coverage or term years</h4>
 			<table  ng-show="!noRecordsFound" class="table table-rel" id="liTable">
 				<thead >
 					<tr>
@@ -46,7 +45,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat= "lifeInsReco in lifeInsRecos" ng-class="$index == 0 ? 'first reco-selected' : ''" ng-click="select_recommendation($event, $index, 'life_insurance')">
+					<tr ng-repeat= "lifeInsReco in reco_life_insurance" ng-class="$index == 0 ? 'first reco-selected' : ''" ng-click="select_recommendation($event, $index, 'life_insurance')">
 						<td class="text-center reco-section-column">
 							<img class="product-info" src="{{lifeInsReco.img}}" alt="{{lifeInsReco.productName}}">
 							<div class="product-info">{{lifeInsReco.policy_name}}
@@ -73,16 +72,12 @@
 				<h4 class="ins-main-heading col-md-3">ELSS Investments</h4>
 
 				<div class="col-md-8 col-md-offset-1">
-					<div class="col-md-6 col-md-offset-6">
-						<h5 class="ins-heading col-md-10 col-md-offset-2"><div ng-show="isRecommended">Recommended</div>ELSS Amount: 
-							<span class="display-amount"> {{ elssAmount }}</span>
-							<input type="range" name="elssSliderValue" ng-model="elssSliderValue" ng-mouseup="update_elss_reco($event)" min="1000" max="{{displayMaxELSSPPFAmount}}" step="1000">
-							<div class="slider-label" id="elssSliderLabel"></div>
-
-						</h5> 
+					<div class="pull-right">
+						<div class="ins-main-heading">ELSS Investment Amount: <span class="display-amount"> {{ elssAmount }}</span></div> 
 					</div>				
 				</div>
 			</div>
+			<hr>
 			<table class="table" id="elssTable">
 				<thead >
 					<tr>
@@ -108,26 +103,45 @@
 						<td class="text-center reco-section-column">{{elss_investment_amount}}</td>
 					</tr>
 				</tbody>
-			</table>
+			</table>			
+		</div>
+
+		<div id="elssPPF" class="elss-ppf well col-md-10 col-md-offset-1">
+			<div class="row">
+				<h4 class="ins-main-heading col-md-3">PPF Investments</h4>
+
+				<div class="col-md-8 col-md-offset-1">
+					<div class="pull-right">
+						<div class="ins-main-heading">Recommended Investment Amount: <span class="display-amount"> {{ ppfAmount }}</span></div> 
+					</div>				
+				</div>
+			</div>
+			<hr>
+			<h5>You can visit your local SBI or ICICI bank to open a new account.</h5>
+			<h5><a class="special-a btn btn-large btn-success" href="https://www.sbi.co.in/portal/web/personal-banking/public-provident-fund-ppf" target="_blank">Open SBI PPF Account</a></h5>
+			<h5><a class="special-a btn btn-large btn-success" href="http://www.icicibank.com/Personal-Banking/investments/ppf/ppf.page" target="_blank">Open ICICI bank PPF Account</a></h5>
+			<h5>Call our customer care in case you need any help or have any questions how to open PPF account.</h5>
 		</div>
 		<div id="healthInsurance" class="health-insurance well col-md-10 col-md-offset-1">
 			<div class="row">
-				<h4 class="ins-heading col-md-3">
+				<h4 class="ins-main-heading col-md-3">
 					<a class="special-a" data-toggle="collapse" data-parent="#mainAccordion" href="#collapseHITable" ng-click="toggleArrowIcon()">Health Insurance
 					</a><i ng-if="isArrowDown" class="fa fa-angle-down"></i><i ng-if="!isArrowDown" class="fa fa-angle-up"></i>	
 				</h4>
 			</div>
+			<hr>
 			<div id="collapseHITable" class="panel-collapse collapse">
 				<table></table>
 			</div>
 		</div>
 		<div id="mutualFund" class="mutual-fund well col-md-10 col-md-offset-1">
 			<div class="row">
-				<h4 class="ins-heading col-md-3">
+				<h4 class="ins-main-heading col-md-3">
 					<a class="special-a" data-toggle="collapse" data-parent="#mainAccordion" href="#collapseMFTable" ng-click="toggleArrowIcon()">Mutual Fund Investments
 					</a><i ng-if="isArrowDown" class="fa fa-angle-down"></i><i ng-if="!isArrowDown" class="fa fa-angle-up"></i>	
 				</h4>
 			</div>
+			<hr>
 			<div id="collapseMFTable" class="panel-collapse collapse">
 				<table></table>
 			</div>
