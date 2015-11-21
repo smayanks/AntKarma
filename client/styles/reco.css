@@ -54,6 +54,14 @@
 	margin-bottom: 0px;
 }
 
+.reco .well-custom {
+	background: none;
+	overflow: auto;
+	border: 1px solid #fff;
+	margin-bottom: 0px;
+}
+
+
 
 .reco .ins-heading {
 	font-family: "Raleway",sans-serif;
@@ -99,8 +107,9 @@
 /*row */
 .reco .row {
 	/*padding-top: 25px;*/
-	/*padding-bottom: 25px;*/
-	/*border-top: 1px solid #fff;*/
+/*	padding-bottom: 25px;
+	margin-bottom: 20px
+	border: 1px solid #ccc;*/
 }
 .reco .row .reco-section-column {
 	min-height: 50px !important;
@@ -109,6 +118,7 @@
 
 .reco .row .reco-section-column img{
 	padding-bottom: 10px;
+
 }
 
 
@@ -116,18 +126,8 @@
 	
 	font-size: 12px;
 	font-weight: bold;
+
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 .reco input[type=range]{

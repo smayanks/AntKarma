@@ -18,7 +18,7 @@
     	submitQuestionnaire: function(questions) {
 
     		var riskScore = computeScore(questions.currentAge, questions.investmentFocusOn,questions.whenMarketVolatile);
-    		console.log("Your Risk Score: " + riskScore);
+    		// console.log("Your Risk Score: " + riskScore);
 
     		Questionnaire.insert({
     			questions: questions,
@@ -65,7 +65,7 @@
 				// 	var queryData = SBIlifeInsuance.findOne(query);
 				// 	val.premium = querydata;
 				// }
-				console.log("Values : " + JSON.stringify(values));
+				// console.log("Values : " + JSON.stringify(values));
 				return values;
 
     	},
@@ -75,12 +75,47 @@
     		var hdfcData = { policy_id: "1", policy_name: "HDFC Life Click 2 Protect Plus", claim_settlement_ratio: "0.94", 
     		max_policy_term: "40", max_age_at_maturity: "75", additional_features: "Accidental Death Benefit, Increasing life cover",
     		img: "/images/HDFC_Life_logo.png",policy_link: "http://ops.hdfclife.com/ops/click2protectPlus.do?source=W_HP_BIOBox_CPP"};
+    		console.log('hdfc query in server: ' + JSON.stringify(query));
+    		var queryString = "";
+    		var coverageAmount = query.sum_assured;
+    		var smoker = query.smoker;
+    		var gender = query.gender;
+    		var policy_term = query.payment_term;
+    		var age = query.age;
 
-    		var coverageAmount = 5000000;
-    		var query = {id: "32MNA749999910"} ;
-    		var doc = HDFClifeInsurance.findOne(query);
-    		var premium = (coverageAmount * doc.mortality_rate_per_1000)/1000;
-    		console.log('HDFC Premium : ' + premium);
+    		//build query string for lookup for HDFCData
+    		// Format: [Age][Gender][Smoker][CoverageAmountRange][PolicyTerm]
+    		queryString = age;
+
+    		if (gender == 'male') {
+    			queryString += 'M';
+    		} else if (gender == 'female') {
+    			queryString += 'F';
+    		}
+
+    		if (smoker == 'yes') {
+    			queryString += 'S';
+    		} else {
+    			queryString += 'NA';
+    		}
+
+    		if (coverageAmount <= 7499999) {
+    			queryString += "7499999";
+    		} else if (coverageAmount > 7499999 && coverageAmount <= 9999999) {
+    			queryString += "9999999";
+    		} else if (coverageAmount > 9999999 && coverageAmount <= 1000000000) {
+    			queryString += "1000000000";
+    		}
+    		queryString += policy_term;
+
+    		// console.log("Created query string: " + queryString);
+
+    		var findById = {id: queryString} ;
+    		var doc = HDFClifeInsurance.findOne(findById);
+    		var premiumBeforeTax = (coverageAmount * doc.mortality_rate_per_1000)/1000;
+    		var taxes = premiumBeforeTax * 0.145;  //Assuming 14.5 in taxes
+    		var premium = Math.ceil(premiumBeforeTax + taxes);
+    		// console.log('HDFC Premium : ' + premium);
     		hdfcData.premium = premium;
     		hdfcData.sum_assured = coverageAmount;
     		hdfcData.payment_term = doc.policy_term;
@@ -94,27 +129,27 @@
 
     	get_sbi_data: function(query) {
     		var doc ;
-    		console.log('sbi query in server: ' + JSON.stringify(query));
+    		// console.log('sbi query in server: ' + JSON.stringify(query));
 
     		doc = SBIlifeInsurance.findOne(query);
-    		console.log(doc);
+    		// console.log(doc);
     		return doc;
     		
     	},
 
     	get_lic_data: function(query) {
     		var doc ;
-    		console.log('lic query in server: ' + JSON.stringify(query));
+    		// console.log('lic query in server: ' + JSON.stringify(query));
     		doc = LIClifeInsurance.findOne(query);
-    		console.log(doc);
+    		// console.log(doc);
     		return doc;
     	},
 
     	get_icici_data: function(query) {
     		var doc ;
-    		console.log('lic query in server: ' + JSON.stringify(query));
+    		// console.log('lic query in server: ' + JSON.stringify(query));
     		doc = ICICIlifeInsurance.findOne(query);
-    		console.log(doc);
+    		// console.log(doc);
     		return doc;
     	}
 

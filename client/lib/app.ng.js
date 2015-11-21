@@ -55,8 +55,10 @@ angular.module('antkarma').directive ('numbersOnly', function() {
 
 angular.module('antkarma').service('sharedProperties', function() {
 	var submitted = false;
-	var annularSalary = 0;
+	var annualSalary = 0;
 	var age;
+	var smoker;
+	var gender;
 
 	return {
 		getSubmitted: function() {
@@ -68,12 +70,12 @@ angular.module('antkarma').service('sharedProperties', function() {
 		},
 
 		getAnnualSalary: function() {
-			return annularSalary;
+			return annualSalary;
 		},
 
 		setAnnualSalary: function(value) {
 			// annularSalary = Number(value);
-			annularSalary = 1000000;
+			annualSalary = 1000000;
 		},
 
 		getAge: function() {
@@ -82,6 +84,20 @@ angular.module('antkarma').service('sharedProperties', function() {
 
 		setAge: function(value) {
 			age = value;
+		},
+		getSmokerStatus: function() {
+			return smoker;
+		},
+
+		setSmokerStatus: function(value) {
+			smoker = value;
+		},
+		getGender: function() {
+			return gender;
+		},
+
+		setGender: function(value) {
+			gender = value;
 		}
 	}
 
