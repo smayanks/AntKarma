@@ -1,28 +1,14 @@
 
-.reco tbody tr {
-	
-	height: 100px;
-
-}
-
-.reco .table > thead > tr > th {
-	border-bottom: 0px;
-}
-
 .reco .reco-section-column {
-	border: 1px solid #fff;
+	/*border: 1px solid #fff;*/
 	vertical-align: middle;
 	position: relative;
-
 	/*font-family: "Open Sans", "Times New Roman",Times,serif;*/
 /*	min-height: 100px;
 	margin-bottom: 10px;
 */
 }
 
-.reco .reco-selected td {
-	border-right: 1px solid #ccc !important;
-}
 .reco .details-title {
 	border-bottom: 1px solid #000;
 	text-align: left;
@@ -61,27 +47,21 @@
 	border: 1px solid #fff;
 }
 
-.reco .product-info {
-/*	display: inline-block;
-	vertical-align: top;
-	left: 0;*/
-}
-
 .reco .well {
 	background: none;
 	overflow: auto;
 	border:none;
+	margin-bottom: 0px;
 }
 
 
 .reco .ins-heading {
 	font-family: "Raleway",sans-serif;
-	font-size: 12px;
 	font-weight: 400;
 	text-transform: uppercase;
 	letter-spacing: 0.1em;
-	/*text-align: center;*/
-	margin: 0 0 30px;
+	text-align: center !important;
+	/*margin: 0 0 30px;*/
 	/*padding:  0;*/
 	color: white !important;
 	/*position: relative;*/
@@ -89,21 +69,6 @@
 
 }
 
-.reco .ins-main-heading {
-	font-family: "Raleway",sans-serif;
-	font-weight: 400;
-	text-transform: uppercase;
-	letter-spacing: 0.1em;
-	/*text-align: center;*/
-	/*margin: 0 0 30px;*/
-	/*padding:  0;*/
-	/*color: white !important;*/
-	/*position: relative;*/
-	text-align: left;
-	margin-top: 0;
-	margin-bottom: 0;
-
-}
 
 .reco input {
 	font-size: 14px;
@@ -130,6 +95,39 @@
 	text-decoration: none;
 	color: #fff;
 }
+
+/*row */
+.reco .row {
+	/*padding-top: 25px;*/
+	/*padding-bottom: 25px;*/
+	/*border-top: 1px solid #fff;*/
+}
+.reco .row .reco-section-column {
+	min-height: 50px !important;
+	font-size: 12px;
+}
+
+.reco .row .reco-section-column img{
+	padding-bottom: 10px;
+}
+
+
+.reco .row.heading div {
+	
+	font-size: 12px;
+	font-weight: bold;
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 .reco input[type=range]{

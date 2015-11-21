@@ -1,3 +1,12 @@
+<!-- <section id="reco" class="reco">
+	<h2>Listing all recommendations</h2>
+	<ul>
+		<li ng-repeat = "reco in reco_life_insurance">
+			<h5>{{reco.policy_name}}  {{reco.premium}}</h5>
+		</li>
+	</ul>
+</section> -->
+
 <section id="reco" class="reco">
 	<div class="col-md-10 col-md-offset-1">
 		<h4 class="text-center section-title">Based on your answers, here is your customized plan
@@ -8,7 +17,7 @@
 	<div id="">
 		<div id="lifeInsurance" class="life-insurance well col-md-10 col-md-offset-1">
 			<div class="row">
-				<h4 class="ins-main-heading col-md-3">Life Insurance
+				<h4 class="ins-heading col-md-3">Life Insurance
 					<button class="ins-heading btn btn-success btn-xs toggleLIReco" ng-click="show_all_li_recos($event)">+ More Options</button>
 				</h4>
 
@@ -31,122 +40,68 @@
 					</div>
 				</div>
 			</div>
-			<h4 ng-show="noRecordsFound" class="ins-heading col-md-8 col-md-offset-2">No recommended policy found. Please change coverage or term years</h4>
-			<table  ng-show="!noRecordsFound" class="table table-rel" id="liTable">
-				<thead >
-					<tr>
-						<th class="text-center">Product Name</th>
-						<th class="text-center">Sum Insured</th>
-						<th class="text-center">Additional Coverage</th>
-						<th class="text-center">Claim Settlement Ratio</th>
-						<th class="text-center">Annnual Premium</th>
-						<th class="text-center">Policy Term</th>
-						<th class="text-center">Max Coverage Upto</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat= "lifeInsReco in reco_life_insurance" ng-class="$index == 0 ? 'first reco-selected' : ''" ng-click="select_recommendation($event, $index, 'life_insurance')">
-						<td class="text-center reco-section-column">
-							<img class="product-info" src="{{lifeInsReco.img}}" alt="{{lifeInsReco.productName}}">
-							<div class="product-info">{{lifeInsReco.policy_name}}
-								<!-- <div class="subtext">{{lifeInsReco.productSubtext}}</div> -->
-							</div>
-						</td>
-						<td class="text-center reco-section-column"><i class="fa fa-inr"></i>{{displayCoverageAmount}}</td>
-						<td class="text-center reco-section-column">{{lifeInsReco.additional_features}}</td>
-						<td class="text-center reco-section-column">{{lifeInsReco.claim_settlement_ratio * 100}} %</td>
-						<td class="text-center reco-section-column"><i class="fa fa-inr"></i>{{lifeInsReco.premium}}</td>
-						<td class="text-center reco-section-column">{{lifeInsReco.payment_term}} years</td>
-						<td class="text-center reco-section-column">{{lifeInsReco.max_age_at_maturity}} years</td>
-						<td class="text-center reco-section-column">
-							<!-- <button ng-show="$index == 0" class="btn btn-success btn-xs ">Select</button> -->
-							<button class="btn btn-success btn-xs select-li-reco" ng-click="select_recommendation($event, $index, 'li_insurance')"></button>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-
-		</div>
-		<div id="elssPPF" class="elss-ppf well col-md-10 col-md-offset-1">
-			<div class="row">
-				<h4 class="ins-main-heading col-md-3">ELSS Investments</h4>
-
-				<div class="col-md-8 col-md-offset-1">
-					<div class="pull-right">
-						<div class="ins-main-heading">ELSS Investment Amount: <span class="display-amount"> {{ elssAmount }}</span></div> 
-					</div>				
+			<div class="row heading" >
+					<div class="col-md-2 col-md-offset-1  ins-heading">Product Name</div>
+					<div class="col-md-1  ins-heading">Sum Insured</div>
+					<div class="col-md-3  ins-heading">Additional Coverage</div>
+					<div class="col-md-1  ins-heading">Claim Settlement Ratio</div>
+					<div class="col-md-1  ins-heading">Annnual Premium</div>
+					<div class="col-md-1  ins-heading">Policy Term</div>
+					<div class="col-md-1  ins-heading">Max Coverage Upto</div>
+			</div>
+			<!-- <hr class="col-md-10 col-md-offset-1"> -->
+			<div id="hdfcData" class="row well">
+				<div class="col-md-2 col-md-offset-1  ins-heading reco-section-column">
+					<img class="product-info" src="{{hdfcData.img}}" alt="{{hdfcData.productName}}">
+					<div class="product-info">{{hdfcData.policy_name}}</div>
 				</div>
+				<div class="col-md-1  ins-heading reco-section-column"><i class="fa fa-inr"></i>{{hdfcData.sum_assured}}</div>
+				<div class="col-md-3  ins-heading reco-section-column">{{hdfcData.additional_features}}</div>
+				<div class="col-md-1  ins-heading reco-section-column">{{hdfcData.claim_settlement_ratio * 100}} %</div>
+				<div class="col-md-1  ins-heading reco-section-column"><i class="fa fa-inr"></i>{{hdfcData.premium}}</div>
+				<div class="col-md-1  ins-heading reco-section-column">{{hdfcData.payment_term}} years</div>
+				<div class="col-md-1  ins-heading reco-section-column">{{hdfcData.max_age_at_maturity}} years</div>
 			</div>
-			<hr>
-			<table class="table" id="elssTable">
-				<thead >
-					<tr>
-						<th class="text-center">Fund Name</th>
-						<th class="text-center">Annualized 5 year return</th>
-						<th class="text-center">Risk</th>
-						<th class="text-center">MorningStar rating</th>
-						<th class="text-center">Policy Details</th>
-						<th class="text-center">Investment Amount</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat= "el in elss">
-						<td class="text-center reco-section-column">
-							<!-- <img class="product-info" src="{{el.img}}" alt="{{el.elss_fund_name}}"> -->
-							<div class="product-info">{{el.elss_fund_name}}
-							</div>
-						</td>
-						<td class="text-center reco-section-column">{{el.annualized_returns_5_yrs * 100}} %</td>
-						<td class="text-center reco-section-column">{{el.fund_risk}}</td>
-						<td class="text-center reco-section-column">{{el.morning_star_rating}}</td>
-						<td class="text-center reco-section-column"><a class="special-a" href="{{el.policy_link}}" target="_blank">Link</a></td>
-						<td class="text-center reco-section-column">{{elss_investment_amount}}</td>
-					</tr>
-				</tbody>
-			</table>			
-		</div>
-
-		<div id="elssPPF" class="elss-ppf well col-md-10 col-md-offset-1">
-			<div class="row">
-				<h4 class="ins-main-heading col-md-3">PPF Investments</h4>
-
-				<div class="col-md-8 col-md-offset-1">
-					<div class="pull-right">
-						<div class="ins-main-heading">Recommended Investment Amount: <span class="display-amount"> {{ ppfAmount }}</span></div> 
-					</div>				
+			<!-- <hr class="col-md-10 col-md-offset-1"> -->
+			<div id="sbiData"  class="row well">
+				<div class="col-md-2 col-md-offset-1  ins-heading reco-section-column">
+					<img class="product-info" src="{{sbiData.img}}" alt="{{sbiData.productName}}">
+					<div class="product-info">{{sbiData.policy_name}}</div>
 				</div>
+				<div class="col-md-1  ins-heading reco-section-column"><i class="fa fa-inr"></i>{{sbiData.sum_assured}}</div>
+				<div class="col-md-3  ins-heading reco-section-column">{{sbiData.additional_features}}</div>
+				<div class="col-md-1  ins-heading reco-section-column">{{sbiData.claim_settlement_ratio * 100}} %</div>
+				<div class="col-md-1  ins-heading reco-section-column"><i class="fa fa-inr"></i>{{sbiData.premium}}</div>
+				<div class="col-md-1  ins-heading reco-section-column">{{sbiData.payment_term}} years</div>
+				<div class="col-md-1  ins-heading reco-section-column">{{sbiData.max_age_at_maturity}} years</div>
 			</div>
-			<hr>
-			<h5>You can visit your local SBI or ICICI bank to open a new account.</h5>
-			<h5><a class="special-a btn btn-large btn-success" href="https://www.sbi.co.in/portal/web/personal-banking/public-provident-fund-ppf" target="_blank">Open SBI PPF Account</a></h5>
-			<h5><a class="special-a btn btn-large btn-success" href="http://www.icicibank.com/Personal-Banking/investments/ppf/ppf.page" target="_blank">Open ICICI bank PPF Account</a></h5>
-			<h5>Call our customer care in case you need any help or have any questions how to open PPF account.</h5>
+			<!-- <hr class="col-md-10 col-md-offset-1"> -->
+			<div id="licData" class="row well">
+				<div class="col-md-2 col-md-offset-1  ins-heading reco-section-column">
+					<img class="product-info" src="{{licData.img}}" alt="{{licData.productName}}">
+					<div class="product-info">{{licData.policy_name}}</div>
+				</div>
+				<div class="col-md-1  ins-heading reco-section-column"><i class="fa fa-inr"></i>{{licData.sum_assured}}</div>
+				<div class="col-md-3  ins-heading reco-section-column">{{licData.additional_features}}</div>
+				<div class="col-md-1  ins-heading reco-section-column">{{licData.claim_settlement_ratio * 100}} %</div>
+				<div class="col-md-1  ins-heading reco-section-column"><i class="fa fa-inr"></i>{{licData.premium}}</div>
+				<div class="col-md-1  ins-heading reco-section-column">{{licData.payment_term}} years</div>
+				<div class="col-md-1  ins-heading reco-section-column">{{licData.max_age_at_maturity}} years</div>
+			</div>
+			<!-- <hr class="col-md-10 col-md-offset-1"> -->
+			<div id="iciciData" class="row well">
+				<div class="col-md-2 col-md-offset-1  ins-heading reco-section-column">
+					<img class="product-info" src="{{iciciData.img}}" alt="{{iciciData.productName}}">
+					<div class="product-info">{{iciciData.policy_name}}</div>
+				</div>
+				<div class="col-md-1  ins-heading reco-section-column"><i class="fa fa-inr"></i>{{iciciData.sum_assured}}</div>
+				<div class="col-md-3  ins-heading reco-section-column">{{iciciData.additional_features}}</div>
+				<div class="col-md-1  ins-heading reco-section-column">{{iciciData.claim_settlement_ratio * 100}} %</div>
+				<div class="col-md-1  ins-heading reco-section-column"><i class="fa fa-inr"></i>{{iciciData.premium}}</div>
+				<div class="col-md-1  ins-heading reco-section-column">{{iciciData.payment_term}} years</div>
+				<div class="col-md-1  ins-heading reco-section-column">{{iciciData.max_age_at_maturity}} years</div>
+			</div>
+				<!-- <hr class="col-md-10 col-md-offset-1"> -->
 		</div>
-		<div id="healthInsurance" class="health-insurance well col-md-10 col-md-offset-1">
-			<div class="row">
-				<h4 class="ins-main-heading col-md-3">
-					<a class="special-a" data-toggle="collapse" data-parent="#mainAccordion" href="#collapseHITable" ng-click="toggleArrowIcon()">Health Insurance
-					</a><i ng-if="isArrowDown" class="fa fa-angle-down"></i><i ng-if="!isArrowDown" class="fa fa-angle-up"></i>	
-				</h4>
-			</div>
-			<hr>
-			<div id="collapseHITable" class="panel-collapse collapse">
-				<table></table>
-			</div>
-		</div>
-		<div id="mutualFund" class="mutual-fund well col-md-10 col-md-offset-1">
-			<div class="row">
-				<h4 class="ins-main-heading col-md-3">
-					<a class="special-a" data-toggle="collapse" data-parent="#mainAccordion" href="#collapseMFTable" ng-click="toggleArrowIcon()">Mutual Fund Investments
-					</a><i ng-if="isArrowDown" class="fa fa-angle-down"></i><i ng-if="!isArrowDown" class="fa fa-angle-up"></i>	
-				</h4>
-			</div>
-			<hr>
-			<div id="collapseMFTable" class="panel-collapse collapse">
-				<table></table>
-			</div>
-		</div>
-
 	</div>
-
 </section>

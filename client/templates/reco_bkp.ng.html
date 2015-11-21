@@ -1,0 +1,152 @@
+<section id="reco" class="reco">
+	<div class="col-md-10 col-md-offset-1">
+		<h4 class="text-center section-title">Based on your answers, here is your customized plan
+			<a href="/questions" class="btn btn-info btn-xs pull-right">Change answers</a>
+		</h4>
+		<hr>	
+	</div>
+	<div id="">
+		<div id="lifeInsurance" class="life-insurance well col-md-10 col-md-offset-1">
+			<div class="row">
+				<h4 class="ins-main-heading col-md-3">Life Insurance
+					<button class="ins-heading btn btn-success btn-xs toggleLIReco" ng-click="show_all_li_recos($event)">+ More Options</button>
+				</h4>
+
+				<div class="col-md-8 col-md-offset-1">
+					<div class="col-md-6">
+						<h5 class="ins-heading col-md-10 col-md-offset-1"><div ng-show="isRecommended">Recommended</div>Coverage Amount: 
+							<span class="display-amount">{{displayCoverageAmount}}</span>
+							<input type="range" name="sliderValue" ng-model="sliderValue" ng-mouseup="update_life_ins_reco($event)" min="0" max="2" step="1">
+							<div class="slider-label" id="sliderLabel"></div>
+						</h5> 
+					</div>
+					<div class="col-md-6">
+						<h5 class="ins-heading col-md-10 col-md-offset-1"><div ng-show="isRecommended">Recommended</div>Policy Term: 
+							<span class="display-amount"> {{ displayPolicyTerm}}</span>
+
+							<input type="range" name="policyTermSlider" ng-model="policyTermSlider" ng-mouseup="update_life_ins_reco($event)" min="0" max="2" step="1">
+							<div class="slider-label" id="policyTermSliderLabel"></div>
+
+						</h5> 
+					</div>
+				</div>
+			</div>
+			<h4 ng-show="noRecordsFound" class="ins-heading col-md-8 col-md-offset-2">No recommended policy found. Please change coverage or term years</h4>
+			<table  ng-show="!noRecordsFound" class="table table-rel" id="liTable">
+				<thead >
+					<tr>
+						<th class="text-center">Product Name</th>
+						<th class="text-center">Sum Insured</th>
+						<th class="text-center">Additional Coverage</th>
+						<th class="text-center">Claim Settlement Ratio</th>
+						<th class="text-center">Annnual Premium</th>
+						<th class="text-center">Policy Term</th>
+						<th class="text-center">Max Coverage Upto</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat= "lifeInsReco in reco_life_insurance" ng-class="$index == 0 ? 'first reco-selected' : ''" ng-click="select_recommendation($event, $index, 'life_insurance')">
+						<td class="text-center reco-section-column">
+							<img class="product-info" src="{{lifeInsReco.img}}" alt="{{lifeInsReco.productName}}">
+							<div class="product-info">{{lifeInsReco.policy_name}}
+								<!-- <div class="subtext">{{lifeInsReco.productSubtext}}</div> -->
+							</div>
+						</td>
+						<td class="text-center reco-section-column"><i class="fa fa-inr"></i>{{displayCoverageAmount}}</td>
+						<td class="text-center reco-section-column">{{lifeInsReco.additional_features}}</td>
+						<td class="text-center reco-section-column">{{lifeInsReco.claim_settlement_ratio * 100}} %</td>
+						<td class="text-center reco-section-column"><i class="fa fa-inr"></i>{{lifeInsReco.premium}}</td>
+						<td class="text-center reco-section-column">{{lifeInsReco.payment_term}} years</td>
+						<td class="text-center reco-section-column">{{lifeInsReco.max_age_at_maturity}} years</td>
+						<td class="text-center reco-section-column">
+							<!-- <button ng-show="$index == 0" class="btn btn-success btn-xs ">Select</button> -->
+							<button class="btn btn-success btn-xs select-li-reco" ng-click="select_recommendation($event, $index, 'li_insurance')"></button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+		</div>
+		<div id="elssPPF" class="elss-ppf well col-md-10 col-md-offset-1">
+			<div class="row">
+				<h4 class="ins-main-heading col-md-3">ELSS Investments</h4>
+
+				<div class="col-md-8 col-md-offset-1">
+					<div class="pull-right">
+						<div class="ins-main-heading">ELSS Investment Amount: <span class="display-amount"> {{ elssAmount }}</span></div> 
+					</div>				
+				</div>
+			</div>
+			<hr>
+			<table class="table" id="elssTable">
+				<thead >
+					<tr>
+						<th class="text-center">Fund Name</th>
+						<th class="text-center">Annualized 5 year return</th>
+						<th class="text-center">Risk</th>
+						<th class="text-center">MorningStar rating</th>
+						<th class="text-center">Policy Details</th>
+						<th class="text-center">Investment Amount</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat= "el in elss">
+						<td class="text-center reco-section-column">
+							<!-- <img class="product-info" src="{{el.img}}" alt="{{el.elss_fund_name}}"> -->
+							<div class="product-info">{{el.elss_fund_name}}
+							</div>
+						</td>
+						<td class="text-center reco-section-column">{{el.annualized_returns_5_yrs * 100}} %</td>
+						<td class="text-center reco-section-column">{{el.fund_risk}}</td>
+						<td class="text-center reco-section-column">{{el.morning_star_rating}}</td>
+						<td class="text-center reco-section-column"><a class="special-a" href="{{el.policy_link}}" target="_blank">Link</a></td>
+						<td class="text-center reco-section-column">{{elss_investment_amount}}</td>
+					</tr>
+				</tbody>
+			</table>			
+		</div>
+
+		<div id="elssPPF" class="elss-ppf well col-md-10 col-md-offset-1">
+			<div class="row">
+				<h4 class="ins-main-heading col-md-3">PPF Investments</h4>
+
+				<div class="col-md-8 col-md-offset-1">
+					<div class="pull-right">
+						<div class="ins-main-heading">Recommended Investment Amount: <span class="display-amount"> {{ ppfAmount }}</span></div> 
+					</div>				
+				</div>
+			</div>
+			<hr>
+			<h5>You can visit your local SBI or ICICI bank to open a new account.</h5>
+			<h5><a class="special-a btn btn-large btn-success" href="https://www.sbi.co.in/portal/web/personal-banking/public-provident-fund-ppf" target="_blank">Open SBI PPF Account</a></h5>
+			<h5><a class="special-a btn btn-large btn-success" href="http://www.icicibank.com/Personal-Banking/investments/ppf/ppf.page" target="_blank">Open ICICI bank PPF Account</a></h5>
+			<h5>Call our customer care in case you need any help or have any questions how to open PPF account.</h5>
+		</div>
+		<div id="healthInsurance" class="health-insurance well col-md-10 col-md-offset-1">
+			<div class="row">
+				<h4 class="ins-main-heading col-md-3">
+					<a class="special-a" data-toggle="collapse" data-parent="#mainAccordion" href="#collapseHITable" ng-click="toggleArrowIcon()">Health Insurance
+					</a><i ng-if="isArrowDown" class="fa fa-angle-down"></i><i ng-if="!isArrowDown" class="fa fa-angle-up"></i>	
+				</h4>
+			</div>
+			<hr>
+			<div id="collapseHITable" class="panel-collapse collapse">
+				<table></table>
+			</div>
+		</div>
+		<div id="mutualFund" class="mutual-fund well col-md-10 col-md-offset-1">
+			<div class="row">
+				<h4 class="ins-main-heading col-md-3">
+					<a class="special-a" data-toggle="collapse" data-parent="#mainAccordion" href="#collapseMFTable" ng-click="toggleArrowIcon()">Mutual Fund Investments
+					</a><i ng-if="isArrowDown" class="fa fa-angle-down"></i><i ng-if="!isArrowDown" class="fa fa-angle-up"></i>	
+				</h4>
+			</div>
+			<hr>
+			<div id="collapseMFTable" class="panel-collapse collapse">
+				<table></table>
+			</div>
+		</div>
+
+	</div>
+
+</section>
