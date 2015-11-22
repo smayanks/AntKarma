@@ -13,7 +13,7 @@ angular.module('antkarma').controller('RecommendationCtrl', function($scope, $mo
 	$scope.maxCoverageAmount = MAX_COVERAGE_AMOUNT;
 	$scope.minPolicyTerm = MIN_POLICY_TERM;
 	$scope.maxPolicyTerm = MAX_POLICY_TERM;
-	$scope.hideLifeInsranceReco = true;
+	$scope.hideLifeInsranceReco = false;
 	
 	$scope.$meteorSubscribe('elss');
 	$scope.elss	 = $meteor.collection(function(){
@@ -64,7 +64,7 @@ angular.module('antkarma').controller('RecommendationCtrl', function($scope, $mo
 		$scope.noICICIdata = false;
 		$meteor.call('get_sbi_data', query).then(
 	      function(data){
-	        console.log('success sbi', data);
+	        console.log('success sbi', new Date().getTime() / 1000);
 	        $scope.sbiDataSpinner = false;
 	        if (typeof data == "undefined"){
 	        	$scope.noSBIdata = true;
@@ -79,7 +79,7 @@ angular.module('antkarma').controller('RecommendationCtrl', function($scope, $mo
 
 		$meteor.call('get_lic_data', query).then(
 	      function(data){
-	        console.log('success lic', data);
+	        console.log('success lic', new Date().getTime() / 1000);
 	        $scope.licDataSpinner = false;
 	        if (typeof data == "undefined"){
 	        	$scope.noLICdata = true;
@@ -95,7 +95,7 @@ angular.module('antkarma').controller('RecommendationCtrl', function($scope, $mo
 
 		$meteor.call('get_icici_data', query).then(
 	      function(data){
-	        console.log('success icici', data);
+	        console.log('success icici', new Date().getTime() / 1000);
 	        
 	        $scope.iciciDataSpinner = false;
 	        if (typeof data == "undefined"){
@@ -111,7 +111,8 @@ angular.module('antkarma').controller('RecommendationCtrl', function($scope, $mo
 
 		$meteor.call('get_hdfc_data', hdfcQuery).then(
 	      function(data){
-	        console.log('success hdfc', data);
+	        console.log('success hdfc', new Date().getTime() / 1000);
+	        $scope.toggleLifeInsurance();
 	        $scope.hdfcDataSpinner = false;
 	        if (typeof data == "undefined"){
 	        	$scope.noHDFCdata = true;
@@ -145,8 +146,19 @@ angular.module('antkarma').controller('RecommendationCtrl', function($scope, $mo
 
    	// Show only recommended content of initial page load
 	$scope.toggleLifeInsurance = function() {
-		$scope.hideLifeInsranceReco = $scope.hideLifeInsranceReco === false ? true : false;
-		console.log('$scope.hideLifeInsranceReco : ' + $scope.hideLifeInsranceReco);
+
+		if ($scope.hideLifeInsranceReco === false) {
+			$scope.hideLifeInsranceReco = true;
+			$('.li-insurance-content').hide();
+			$('.reco-selected').show();
+		} else {
+			$scope.hideLifeInsranceReco = false;
+			$('.li-insurance-content').show();
+
+		}
+		// $scope.hideLifeInsranceReco = $scope.hideLifeInsranceReco === false ? true : false;
+
+
 	}
 
 	$scope.select_life_insurance = function(id) {

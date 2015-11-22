@@ -68,7 +68,7 @@
 	font-weight: 400;
 	text-transform: uppercase;
 	letter-spacing: 0.1em;
-	color: white ;
+	/*color: white ;*/
 	text-align: center;
 
 }
@@ -103,11 +103,11 @@
 
 
 .reco .li-insurance-content {
-	opacity: 0.4;
+	/*opacity: 0.4;*/
 }
 
 .reco .li-insurance-content:hover {
-	opacity: 1;
+	/*opacity: 1;*/
 /*	background-color: #f8f8f8;
 	color: #7d7d7d !important;*/
 }
@@ -194,9 +194,9 @@
 
 .reco .reco-selected {
 
-/*	background-color: #f8f8f8;
-	color: #7d7d7d !important;*/
-	opacity: 1;
+	background-color: #f8f8f8;
+	color: #7d7d7d !important;
+	/*opacity: 1;*/
 }
 
 .reco .message {

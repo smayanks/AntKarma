@@ -36,40 +36,6 @@
     		return data;
     	},
 
-    	getAllInuranceInfo: function() {
-    		
-    		// return RecommendedLifeInsurance.find();
-
-			var values = [];
-				RecommendedLifeInsurance.find({policy_id: {$gt: "0"}}).forEach(function(value) {
-					// console.log('value : ' + JSON.stringify(value));	
-					var query = {age: "32", sum_assured_in_lacs: "100", payment_term: "20"};
-					if (value.policy_id == "1") {
-						var doc = get_hdfc_premium1(query);
-						value.premium = doc.premium;
-					} else if (value.policy_id == "2") {
-						var doc = ICICIlifeInsurance.findOne(query);
-    					value.premium = doc.premium;
-					} else if (value.policy_id == "3") {
-						var doc = LIClifeInsurance.findOne(query);
-    					value.premium = doc.premium;
-					} else if (value.policy_id == "4") {
-						var doc = SBIlifeInsurance.findOne(query);
-    					value.premium = doc.premium;
-					}
-					values.push(value);
-				});
-
-				// for (val in values) {
-				// 	var query = {age: "32", sum_assured_in_lacs: "100", policy_term: "20"};
-				// 	var queryData = SBIlifeInsuance.findOne(query);
-				// 	val.premium = querydata;
-				// }
-				// console.log("Values : " + JSON.stringify(values));
-				return values;
-
-    	},
-
     	get_hdfc_data: function(query) {
 
     		var hdfcData = { policy_id: "1", policy_name: "HDFC Life Click 2 Protect Plus", claim_settlement_ratio: "0.94", 
@@ -119,7 +85,9 @@
     		hdfcData.premium = premium;
     		hdfcData.sum_assured = coverageAmount;
     		hdfcData.payment_term = doc.policy_term;
-    		return hdfcData;
+			return hdfcData;
+    		// setTimeout(function() {return hdfcData;}, 1000);
+    		
 
     	},
 
@@ -134,6 +102,8 @@
     		doc = SBIlifeInsurance.findOne(query);
     		// console.log(doc);
     		return doc;
+
+    		// setTimeout(function() {return doc;}, 2000);
     		
     	},
 
@@ -143,6 +113,7 @@
     		doc = LIClifeInsurance.findOne(query);
     		// console.log(doc);
     		return doc;
+    		// setTimeout(function() {return doc;}, 3000);
     	},
 
     	get_icici_data: function(query) {
@@ -151,6 +122,7 @@
     		doc = ICICIlifeInsurance.findOne(query);
     		// console.log(doc);
     		return doc;
+    		// setTimeout(function() {return doc;}, 4000);
     	}
 
     });

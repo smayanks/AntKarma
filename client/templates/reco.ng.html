@@ -72,7 +72,7 @@
 		<!-- <label class="selected-label">Selected</label> -->
 		<!-- <hr class="col-md-10 col-md-offset-1"> -->
 		
-		<div id="sbiData"  class="row well li-insurance-content" ng-if="!hideLifeInsranceReco" ng-click="select_life_insurance('sbiData')">
+		<div id="sbiData"  class="row well li-insurance-content"  ng-click="select_life_insurance('sbiData')">
 			<span class="col-md-6 col-md-offset-6" ng-show="sbiDataSpinner"><i class="fa fa-refresh fa-spin"></i></span>
 			<span class="col-md-6 col-md-offset-3 message" ng-show="noSBIdata"> No data found for sbi life insurance</span>
 			<div ng-show="!sbiDataSpinner && !noSBIdata" >
@@ -91,7 +91,7 @@
 		</div>
 		<!-- <hr class="col-md-10 col-md-offset-1"> -->
 		
-		<div id="licData" class="row well li-insurance-content" ng-if="!hideLifeInsranceReco" ng-click="select_life_insurance('licData')">
+		<div id="licData" class="row well li-insurance-content" ng-click="select_life_insurance('licData')">
 			<span class="col-md-6 col-md-offset-6" ng-show="licDataSpinner"><i class="fa fa-refresh fa-spin"></i></span>
 			<span class="col-md-6 col-md-offset-3 message" ng-show="noLICdata"> No data found for lic life insurance</span>
 			<div ng-show="!licDataSpinner && !noLICdata" >
@@ -110,7 +110,7 @@
 		</div>
 		<!-- <hr class="col-md-10 col-md-offset-1"> -->
 		
-		<div id="iciciData" class="row well li-insurance-content" ng-if="!hideLifeInsranceReco" ng-click="select_life_insurance('iciciData')">
+		<div id="iciciData" class="row well li-insurance-content"  ng-click="select_life_insurance('iciciData')">
 			<span class="col-md-6 col-md-offset-6" ng-show="iciciDataSpinner"><i class="fa fa-refresh fa-spin"></i></span>
 			<span class="col-md-6 col-md-offset-3 message" ng-show="noICICIdata"> No data found for icici life insurance</span>
 			<div ng-show="!iciciDataSpinner && !noICICIdata" >
