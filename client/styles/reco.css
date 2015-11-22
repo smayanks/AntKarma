@@ -51,14 +51,14 @@
 	background: none;
 	overflow: auto;
 	border:none;
-	margin-bottom: 0px;
+	/*margin-bottom: 0px;*/
 }
 
 .reco .well-custom {
 	background: none;
 	overflow: auto;
 	border: 1px solid #fff;
-	margin-bottom: 0px;
+	/*margin-bottom: 0px;*/
 }
 
 
@@ -68,12 +68,8 @@
 	font-weight: 400;
 	text-transform: uppercase;
 	letter-spacing: 0.1em;
-	text-align: center !important;
-	/*margin: 0 0 30px;*/
-	/*padding:  0;*/
-	color: white !important;
-	/*position: relative;*/
-	text-align: left;
+	color: white ;
+	text-align: center;
 
 }
 
@@ -104,13 +100,18 @@
 	color: #fff;
 }
 
-/*row */
-.reco .row {
-	/*padding-top: 25px;*/
-/*	padding-bottom: 25px;
-	margin-bottom: 20px
-	border: 1px solid #ccc;*/
+
+
+.reco .li-insurance-content {
+	opacity: 0.4;
 }
+
+.reco .li-insurance-content:hover {
+	opacity: 1;
+/*	background-color: #f8f8f8;
+	color: #7d7d7d !important;*/
+}
+
 .reco .row .reco-section-column {
 	min-height: 50px !important;
 	font-size: 12px;
@@ -126,6 +127,8 @@
 	
 	font-size: 12px;
 	font-weight: bold;
+	/*opacity: 1;*/
+
 
 }
 
@@ -190,49 +193,14 @@
 
 
 .reco .reco-selected {
-	/*font-family: "Open Sans";*/
-	/*border: 1px solid #ccc;*/
-	/*width: 80px !important;*/
-	/*font-size: 14px;*/
-	background-color: #f8f8f8;
-	color: #7d7d7d !important;
+
+/*	background-color: #f8f8f8;
+	color: #7d7d7d !important;*/
+	opacity: 1;
+}
+
+.reco .message {
 	
-	/*padding-left: 5px;*/
-	/*margin-left: 5px;*/
-	/*text-align: center;*/
+	color: #ccc;
+	text-align: center;
 }
-
-.reco .reco-selected a {
-	color: #7d7d7d !important;
-}
-.reco .reco-selected > td {
-	/*border: 1px solid #f8f8f8;*/
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

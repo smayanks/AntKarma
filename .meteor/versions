@@ -8,7 +8,6 @@ angular:angular-animate@1.4.6
 angular:angular-messages@1.4.6
 angularui:angular-ui-bootstrap@0.13.0
 angularui:angular-ui-router@0.2.15
-autopublish@1.0.4
 autoupdate@1.2.4
 babel-compiler@5.8.24_1
 babel-runtime@0.1.4

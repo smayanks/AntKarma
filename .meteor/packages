@@ -30,5 +30,4 @@ angular:angular-messages
 npm-bcrypt
 natestrauser:animate-css
 insecure
-autopublish
 sacha:spin
