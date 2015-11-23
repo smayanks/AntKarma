@@ -1,5 +1,8 @@
 angular.module('antkarma').controller('QuestionnaireCtrl', function($scope, $modal, $meteor, $state, sharedProperties) {
-
+	$scope.$on("$routeChangeSuccess", function (scope, next, current) {
+        $scope.transitionState = "active"
+    });
+    
 	$scope.questionnaire = $meteor.collection(Questionnaire);
 	$scope.questions = {};
 	$scope.questions.username = '';

@@ -1,0 +1,52 @@
+.process {
+	/*background-color: green;*/
+	height:100%;
+    position: relative;
+    /*background: url("../images/bg5.png") center center;*/
+    background-color: #f6f9f9;
+    width: 100%;
+    background-size: cover;
+    overflow: hidden;
+    margin-bottom: 0px;
+    color: white;
+    padding-bottom: 5%;
+
+
+}
+
+.process .ins-heading {
+	font-family: "Raleway",sans-serif;
+	font-weight: 400;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	color: #333;
+	font-size: 16px;
+	/*text-align: center;*/
+
+}
+
+.process .process-title {
+
+    font-family: "Raleway",sans-serif;
+    /*font-size: 16px;*/
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    text-align: center;
+    text-transform: uppercase;
+    margin: 0 0 30px;
+    font-family: "Open Sans", sans-serif;
+    font-size: 2rem;
+    /*font-weight: 700;*/
+    color: #333 !important;
+    /*color: white !important;*/
+
+}
+
+.process .process-text {
+	color: #333;
+    /*color: white !important;*/
+    font-size: 14px;
+    font-family: "Raleway", sans-serif;
+
+}
+

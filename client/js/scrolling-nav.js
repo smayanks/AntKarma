@@ -16,4 +16,10 @@ $(function() {
         }, 1500, 'easeInOutExpo');
         event.preventDefault();
     });
+
+    // adding logic for smooth scroll across.
+
+    // $('.smoothScroll').localScroll({
+    //        target:'body'
+    // });
 });

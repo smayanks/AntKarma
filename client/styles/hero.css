@@ -1,23 +1,47 @@
-.jumbotron {
+.hero {
 	/*background-color: #288FEB;*/
 	height:100%;
     position: relative;
-    /*background: #000 url("../images/bg2.jpg") center center;*/
-    background-color: #3498db;
+    background: url("../images/bg5.png") center center;
+    /*background-color: #3498db;*/
     width: 100%;
-    height: 50%;
     background-size: cover;
     overflow: hidden;
-    margin-bottom: 0px;
+    padding-bottom: 5%;
 }
 
-.hero .section-title {
+.hero .hero-title {
 
-	padding-top: 20% !important;
+    font-family: "Raleway",sans-serif;
+    /*font-size: 16px;*/
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    /*text-align: center;*/
+    text-transform: uppercase;
+	padding-top: 5% !important;
+    font-family: "Open Sans", sans-serif;
+    font-size: 4rem;
+    width: 60%;
+    color: white !important;
 
 }
 
-.section-text {
-	color: white !important;
+.hero .hero-text {
+	/*color: #333;*/
+    color: #f2f2f2 !important;
+    font-size: 18px;
+    width: 60%;
+    font-family: "Raleway", sans-serif;
 
+}
+
+
+#greywrap h1, h2, h3, h4, h5, h6 {
+  /*font-family: 'Grand Hotel',"Raleway",sans-serif, "PT Serif","Times New Roman",Times,serif;*/
+/*    font-family: "Raleway",sans-serif;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;*/
+    /*color: white ;*/
+    /*text-align: center;*/
 }
