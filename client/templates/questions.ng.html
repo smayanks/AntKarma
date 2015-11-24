@@ -1,7 +1,7 @@
 <section id="questions" class="questions">
-	<div class="col-md-6 col-md-offset-3">
+	<div class="col-md-6 col-md-offset-3 question-bg">
 		<div class="progress">
-			<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="10" style="width:20%;">
+			<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="10" style="width:20%;">
 				Step 1 of 11
 			</div>
 		</div>
@@ -178,7 +178,7 @@
 						<div ng-show="questions.outstandingLoans == 'yes'">
 							<div class="">
 								<h5>Please share more details about your outstanding loans.
-									<button id="addLoanButton" class="btn btn-success btn-xs add-loan" ng-click="addOutstandingLoanDetails()">Add another loan</button></h5>
+									<button id="addLoanButton" class="btn btn-info btn-xs add-loan" ng-click="addOutstandingLoanDetails()">Add another loan</button></h5>
 									<div class="slide extra-padding" ng-repeat="outLoan in questions.currentOutStandingLoans">
 										<div class="form-inline" id="outstandinLoanDetails">
 											<select class="form-control" name="{{'existingLoanType' + $index}}" ng-model="questions.currentOutStandingLoans[$index].existingLoanType">
@@ -225,9 +225,9 @@
 									<h5><input type="radio" name="alreadyMadeLifeInsInvestment" value="no" ng-model="questions.alreadyMadeLifeInsInvestment" required>No</h5>
 								</label>
 								<div ng-show="questions.alreadyMadeLifeInsInvestment == 'yes'">
-									<h5>Please enter details about your life insurance investment.<button id="addLIButton" class="btn btn-success btn-xs add-loan" ng-click="addLifeInsurance()">Add another investment</button></h5>
+									<h5>Please enter details about your life insurance investment.<button id="addLIButton" class="btn btn-info btn-xs add-loan" ng-click="addLifeInsurance()">Add</button></h5>
 									<div class="slide" ng-repeat="lifeIns in questions.currentLifeInsurancePolicies">
-										<div class="form-inline" id="lifeInsuranceDetails">
+										<div class="form-inline extra-padding" id="lifeInsuranceDetails">
 											<input class="form-control" name="{{'existingLifeInsPolicyName' + $index}}" ng-model="lifeIns.existingLifeInsPolicyName" placeholder="Policy Name" ng-required = "{{questions.alreadyMadeLifeInsInvestment == 'yes'}}">
 											<input class="form-control" name="{{'existingLifeInsSumInsured' + $index}}" placeholder="Sum Insured" ng-model="lifeIns.existingLifeInsSumInsured" numbers-only ng-required = "questions.alreadyMadeLifeInsInvestment == 'yes'">
 											<input class="form-control" name="{{'existingLifeInsYrlyPrem' + $index}}" placeholder="Yearly Premium" ng-model="lifeIns.existingLifeInsYrlyPrem" numbers-only ng-required = "questions.alreadyMadeLifeInsInvestment == 'yes'">
@@ -264,10 +264,10 @@
 								</label>
 								<div ng-show="questions.alreadyHaveHealthInsurance == 'yes'">
 
-									<h5 class="level2">Please enter details about your health insurance coverage.<button id="addHIButton" class="btn btn-success btn-xs add-loan" ng-click="addHealthInsurance()">Add another insurance</button></h5>
+									<h5 class="level2">Please enter details about your health insurance coverage.<button id="addHIButton" class="btn btn-info btn-xs add-loan" ng-click="addHealthInsurance()">Add another insurance</button></h5>
 
 									<div class="slide" ng-repeat="healthIns in questions.existingHealthInsPolicies">
-										<div class="form-inline" id="healthInsuranceDetails">
+										<div class="form-inline extra-padding" id="healthInsuranceDetails">
 											<!-- <i class="fa fa-plus-circle" ng-click="addHealthInsurance()"></i> -->
 											<input class="form-control " name="{{'existingHealthInsName' + $index}}" ng-model="healthIns.existingHealthInsName" placeholder="Insurance Name" ng-required = "questions.alreadyHaveHealthInsurance == 'yes'">
 											<input class="form-control" name="{{'existingHealthInsCover' + $index}}" placeholder="Insurance Coverage" ng-model="healthIns.existingHealthInsCover" numbers-only ng-required = "questions.alreadyHaveHealthInsurance == 'yes'">
@@ -379,7 +379,7 @@
 							</div> -->
 							<label>Detailed Description: <input type="checkbox" ng-model="detailedDescForAlreadyMadeTaxInvestment">
 							</label> 
-							<button ng-show="detailedDescForAlreadyMadeTaxInvestment" id="addTaxInv" class="btn btn-success btn-xs add-more" ng-click="addTaxInvestOption()">Add another investment</button>
+							<button ng-show="detailedDescForAlreadyMadeTaxInvestment" id="addTaxInv" class="btn btn-info btn-xs add-more" ng-click="addTaxInvestOption()">Add another investment</button>
 							<div ng-show="detailedDescForAlreadyMadeTaxInvestment">
 								
 								<div class="slide" ng-repeat="currentTaxInvest in questions.currentTaxInvestments">
@@ -435,7 +435,7 @@
 					<div class="text-center">
 						<!-- <a class="btn btn-custom btn-md first" href="#">Back</a> -->
 						<a class="btn btn-custom btn-md prev" href="#">Previous</a>
-						<button type="submit" class="btn btn-custom btn-md btn-success" ng-disabled="step11Form.$invalid" ng-click="submitForm(questions)">Submit</button>
+						<button type="submit" class="btn btn-custom btn-md btn-info" ng-disabled="step11Form.$invalid" ng-click="submitForm(questions)">Submit</button>
 						<!-- <button type="submit" class="btn btn-custom btn-md btn-primary" ng-click="submitForm(questions)">Submit</button> -->
 					</div>
 

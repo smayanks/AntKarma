@@ -1,16 +1,25 @@
 .questions {
-	height: 100%;
+	height: 90%;
+  background: url("../images/bg5.png") center center;
+  /*background: url("../images/bg11.jpg") center center;*/
+  background-size: cover;
+  color: white;
 }
 .questions form {
 	background-color: clear;
 }
 
+.questions .question-bg {
+  /*padding-top: 10px;*/
+  /*background: url("../images/bg11.jpg") center center;*/
+}
 .questions .section-title {
 
 }
 
 .questions .well{
 	background: none;
+
   height: 400px;
   overflow: auto;
 
@@ -19,11 +28,12 @@
 
 .questions .btn-custom {
 	width: 80px !important;
+  margin-bottom: 20px;
 
 }
 
 .questions .next {
-  background-color: #5cb85c   ;
+  background-color: #31b0d5   ;
   color: white;
 }
 
@@ -47,7 +57,9 @@
 
 .questions .tab-content input {
 	font-size: 14px;
-	background-color: #2c3e50;
+	/*background-color: #2c3e50;*/
+  background: transparent;
+  border-bottom: 1px solid #ccc;
 	color: white;
   box-shadow: none;
 
@@ -114,12 +126,12 @@
 
 .questions .helper-message {
   height: 20%;
-  color: #c2c8cc;
+  color: #ccc;
 }
 
 .questions .help-block {
   
-  color: #c2c8cc;
+  color: #ccc;
 }
 
 
@@ -186,7 +198,7 @@
 }
 
 .questions .answers {
-  color: #c2c8cc;
+  /*color: #c2c8cc;*/
 }
 
 
@@ -204,5 +216,19 @@
   color: #fff;
 }
 
+/*CSS for placeholder text*/
 
-
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    #fff !important;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #fff !important;
+   opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #fff !important;
+   opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    #fff !important;
+}

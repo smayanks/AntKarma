@@ -24,6 +24,12 @@ angular.module('antkarma').controller('RecommendationCtrl', function($scope, $mo
 
 	$scope.coverageAmount = Number(sharedProperties.getAnnualSalary()) * 15;
 
+	var username = sharedProperties.getUsername();
+	if (typeof username == "undefined") {
+		$scope.username = "Happy Saver";
+	} else {
+		$scope.username = username;
+	}
 	if ($scope.coverageAmount == 0) $scope.coverageAmount = "5000000";
 
 	var age = sharedProperties.getAge();
@@ -172,6 +178,20 @@ angular.module('antkarma').controller('RecommendationCtrl', function($scope, $mo
 		compute_elss_ppf_details();
 	}
 
+	$scope.openDialog = function() {
+		$( "#dialog" ).dialog({
+	      autoOpen: false,
+	      show: {
+	        effect: "blind",
+	        duration: 1000
+	      },
+	      hide: {
+	        effect: "explode",
+	        duration: 1000
+	      }
+    	});
+	}
+
 	function compute_elss_ppf_details() {
 
 		recoAmountForELSSandPPF = totalTaxSavingAmount - Number($scope[selectedLifeInsurance].premium);
@@ -217,6 +237,8 @@ angular.module('antkarma').controller('RecommendationCtrl', function($scope, $mo
 		return {"ppf" : ppf, "elss" : elss};
 
 	}
+
+
 });
 
 

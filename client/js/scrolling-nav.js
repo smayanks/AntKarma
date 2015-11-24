@@ -19,7 +19,7 @@ $(function() {
 
     // adding logic for smooth scroll across.
 
-    // $('.smoothScroll').localScroll({
-    //        target:'body'
-    // });
+    $('.smoothScroll').localScroll({
+           target:'body'
+    });
 });

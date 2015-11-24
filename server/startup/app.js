@@ -41,7 +41,7 @@
     		var hdfcData = { policy_id: "1", policy_name: "HDFC Life Click 2 Protect Plus", claim_settlement_ratio: "0.94", 
     		max_policy_term: "40", max_age_at_maturity: "75", additional_features: "Accidental Death Benefit, Increasing life cover",
     		img: "/images/HDFC_Life_logo.png",policy_link: "http://ops.hdfclife.com/ops/click2protectPlus.do?source=W_HP_BIOBox_CPP"};
-    		// console.log('hdfc query in server: ' + JSON.stringify(query));
+    		console.log('hdfc query in server: ' + JSON.stringify(query));
     		var queryString = "";
     		var coverageAmount = query.sum_assured;
     		var smoker = query.smoker;

@@ -59,6 +59,7 @@ angular.module('antkarma').service('sharedProperties', function() {
 	var age;
 	var smoker;
 	var gender;
+	var username;
 
 	return {
 		getSubmitted: function() {
@@ -98,24 +99,37 @@ angular.module('antkarma').service('sharedProperties', function() {
 
 		setGender: function(value) {
 			gender = value;
+		},
+		getUsername: function() {
+			return username;
+		},
+
+		setUsername: function(value) {
+			username = value;
 		}
 	}
 
 });
 
 angular.module('antkarma').animation('.slide', function () {
+	var options = { direction: 'left' };
+	var effect = 'slide';
+    // Set the duration (default: 400 milliseconds)
+    var duration = 500;
+
+    // return $(element).toggle(effect, options, duration);
     return {
         enter: function (element, done) {
           console.log('enter');
-            element.hide().slideDown(1500, done);
+            element.hide().slideDown(500, done);
         },
         move: function(element, done) {
             console.log('move');
-            element.slideUp(1500, done);
+            element.slideUp(500, done);
         },
         leave: function(element, done) {
           console.log('slide up', element.text())
-            element.slideUp(1200, done);
+            element.slideUp(500, done);
         }
     };
     
@@ -137,6 +151,30 @@ angular.module('antkarma').animation('.table-reload', function () {
         }
     };
     
+});
+
+angular.module('antkarma').animation('.slide-animation', function () {
+        return {
+            addClass: function (element, className, done) {
+                if (className == 'ng-hide') {
+                    TweenMax.to(element, 0.5, {left: -element.parent().width(), onComplete: done });
+                }
+                else {
+                    done();
+                }
+            },
+            removeClass: function (element, className, done) {
+                if (className == 'ng-hide') {
+                    element.removeClass('ng-hide');
+
+                    TweenMax.set(element, { left: element.parent().width() });
+                    TweenMax.to(element, 0.5, {left: 0, onComplete: done });
+                }
+                else {
+                    done();
+                }
+            }
+        };
 });
 
 angular.module('antkarma').animation('.if-element', function() {

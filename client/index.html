@@ -8,13 +8,21 @@
 	<link href='https://fonts.googleapis.com/css?family=Merriweather' rel='stylesheet' type='text/css'>
 	<link href='https://fonts.googleapis.com/css?family=Grand+Hotel' rel='stylesheet' type='text/css'>
 	<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.11.8/TweenMax.min.js"></script>
 	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"> -->
 
 	<!-- <base href="/"> -->
 </head>
 <body ng-app="antkarma" id="page-top">
 	<div ng-include="'client/templates/navbar.ng.html'"></div>
-	<div ui-view class="slideup"></div>
+	<div ui-view class="slide"></div>
+	<div ng-include="'client/templates/process.ng.html'"></div>
+	<div ng-include="'client/templates/why-us.ng.html'" ></div>
+	
+	<div ng-include="'client/templates/faq.ng.html'" ></div>
+	<div ng-include="'client/templates/team.ng.html'" ></div>
+	
+	<div ng-include="'client/templates/contact.ng.html'" ></div>
 	<!-- <div ng-include="'client/templates/main.ng.html'"></div> -->
 	
 	<!-- <div ng-include="'index.ng.html'"></div> -->
