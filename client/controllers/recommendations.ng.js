@@ -8,6 +8,9 @@ angular.module('antkarma').controller('RecommendationCtrl', function($scope, $mo
 	var MIN_POLICY_TERM = 20;
 	var MAX_POLICY_TERM = 40;
 	var TAX_SAVING_LIMIT = 150000;
+	var DEFAULT_RISK_SCORE = 6;
+	var DEFAULT_USERNAME = "Happy Saver";
+	var DEFAULT_COVERAGE_AMOUNT = 5000000;
 	var totalTaxSavingAmount = TAX_SAVING_LIMIT;
 	$scope.minCoverageAmount = MIN_COVERAGE_AMOUNT;
 	$scope.maxCoverageAmount = MAX_COVERAGE_AMOUNT;
@@ -22,15 +25,21 @@ angular.module('antkarma').controller('RecommendationCtrl', function($scope, $mo
 	var RECOMMENDED_LIFE_INSURANCE =  "hdfcData";
 	var selectedLifeInsurance = RECOMMENDED_LIFE_INSURANCE;
 
-	$scope.coverageAmount = Number(sharedProperties.getAnnualSalary()) * 15;
-
+	$scope.coverageAmount = (Number(sharedProperties.getAnnualSalary().replace(',','')) * 15) + '';
+	if ($scope.coverageAmount == "0") {
+		$scope.coverageAmount = DEFAULT_COVERAGE_AMOUNT + '';
+	}
 	var username = sharedProperties.getUsername();
 	if (typeof username == "undefined") {
-		$scope.username = "Happy Saver";
+		$scope.username = DEFAULT_USERNAME;
 	} else {
 		$scope.username = username;
 	}
-	if ($scope.coverageAmount == 0) $scope.coverageAmount = "5000000";
+
+	$scope.riskScore = Number(sharedProperties.getRiskScore());
+	if ($scope.riskScore == 0) {
+		$scope.riskScore = DEFAULT_RISK_SCORE; 
+	}
 
 	var age = sharedProperties.getAge();
 	if (typeof age == "undefined") age = "32";
@@ -196,13 +205,9 @@ angular.module('antkarma').controller('RecommendationCtrl', function($scope, $mo
 
 		recoAmountForELSSandPPF = totalTaxSavingAmount - Number($scope[selectedLifeInsurance].premium);
 
-
-		console.log('Premium amount: ' + $scope[selectedLifeInsurance].premium);
-		console.log("Amount for ELSS and PPF : " + recoAmountForELSSandPPF);
-
 		//use the risk score to get PPF and ELSS percentage
-		var riskScore = 8;
-		var ppfELSS = compute_ppf_elss_percent(riskScore);
+		// var riskScore = 8;
+		var ppfELSS = compute_ppf_elss_percent($scope.riskScore);
 		
 		//Rounding up the amount to the nearest multiple of 1000
 		recoPPFamount = Math.ceil((recoAmountForELSSandPPF * ppfELSS.ppf)/1000)*1000 ;

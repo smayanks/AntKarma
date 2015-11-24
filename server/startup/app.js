@@ -28,6 +28,8 @@
     			name: questions.username,
     			riskScore: riskScore
     		});
+
+            return riskScore;
     	},
 
     	myMethod: function() {

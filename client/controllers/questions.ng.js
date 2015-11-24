@@ -126,54 +126,45 @@ angular.module('antkarma').controller('QuestionnaireCtrl', function($scope, $mod
 	
 	
 	$scope.submitForm = function(questions) {
-		console.log(JSON.stringify(questions));
+		// console.log(JSON.stringify(questions));
 
 		sharedProperties.setSubmitted(true);
 		sharedProperties.setAnnualSalary($scope.questions.annualSalary);
 		sharedProperties.setAge($scope.questions.currentAge);
+		sharedProperties.setSmokerStatus($scope.questions.smoker);
+		sharedProperties.setGender($scope.questions.gender);
+		sharedProperties.setUsername($scope.questions.username);
 
-		$meteor.call('submitQuestionnaire',  angular.copy($scope.questions));
-		$state.go('recommendations');
-		// $scope.questionnaire.save(questions);
+		$meteor.call('submitQuestionnaire', angular.copy($scope.questions)).then(
+	      function(data){
+	        console.log('Questionnaire submitted succesfully', new Date().getTime() / 1000);
+	        // $scope.sbiDataSpinner = false;
+	        
+	       	var computedRiskScore = data;	
+	       	// console.log('computedRiskScore : ' + computedRiskScore);
+	       	sharedProperties.setRiskScore(computedRiskScore);
+	        
+	      },
+	      function(err){
+	        console.log('Questionnaire submission failed', err);
+	      }
+	    );
 
-
-		// $('#goToReco').click();
+		$state.go('recommendations');	
 		
-		// $scope.data = {
-		// 	boldTextTitle: "Congratulations! " + $scope.questions.username,
-		// 	textAlert : "Check your email for your tax saving recommendation.",
-		// 	mode : 'success'
-		// };
-
-		// $scope.$modalInstance = $modal.open({
-		// 	scope: $scope,
-		// 	templateUrl: 'client/templates/alertTemplate.ng.html',
-		// 	size: 'lg',
-		// 	backdrop: 'static',
-		// 	keyboard: false
-		// });
-
-		// $scope.ok = function(){
-		// 	$scope.$modalInstance.close();
-		// 	$('div.modal').removeClass('fade').addClass('hidden');
-  //     		$('body').removeClass('modal-open');
-  //     		$('.modal-backdrop').remove();
-  //     		$('#goToPageTop').click();
-		// }
+		
 	};
 
 
 	// questionnaire navigation between tabs
 	$('.next').click(function(){
     	var nextId = $(this).parents('.tab-pane').next().attr("id");
-    	console.log('nextId : ' + nextId);
     	$('[href=#'+nextId+']').tab('show');
     	return false;
   	});
 
 	$('.prev').click(function(){
 		var prevId = $(this).parents('.tab-pane').prev().attr("id");
-		console.log('prevId : ' + prevId);
 		$('[href=#'+prevId+']').tab('show');
 		return false;
 	});
@@ -189,6 +180,15 @@ angular.module('antkarma').controller('QuestionnaireCtrl', function($scope, $mod
   	$('.first').click(function(){
     	$('[href=#step1]').tab('show');
   	});
+
+  	$( "#currentAge" ).validate({
+  		rules: {
+    	field: {
+      	required: true,
+      	range: [18, 65]
+    }
+  }
+});
 
 
 });

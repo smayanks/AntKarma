@@ -55,11 +55,12 @@ angular.module('antkarma').directive ('numbersOnly', function() {
 
 angular.module('antkarma').service('sharedProperties', function() {
 	var submitted = false;
-	var annualSalary = 0;
+	var annualSalary;
 	var age;
 	var smoker;
 	var gender;
 	var username;
+	var riskScore;
 
 	return {
 		getSubmitted: function() {
@@ -75,8 +76,7 @@ angular.module('antkarma').service('sharedProperties', function() {
 		},
 
 		setAnnualSalary: function(value) {
-			// annularSalary = Number(value);
-			annualSalary = 1000000;
+			annualSalary = value;
 		},
 
 		getAge: function() {
@@ -106,7 +106,14 @@ angular.module('antkarma').service('sharedProperties', function() {
 
 		setUsername: function(value) {
 			username = value;
-		}
+		},
+		getRiskScore: function() {
+			return riskScore;
+		},
+
+		setRiskScore: function(value) {
+			riskScore = value;
+		}		
 	}
 
 });
@@ -117,18 +124,15 @@ angular.module('antkarma').animation('.slide', function () {
     // Set the duration (default: 400 milliseconds)
     var duration = 500;
 
-    // return $(element).toggle(effect, options, duration);
+   
     return {
         enter: function (element, done) {
-          console.log('enter');
             element.hide().slideDown(500, done);
         },
         move: function(element, done) {
-            console.log('move');
             element.slideUp(500, done);
         },
         leave: function(element, done) {
-          console.log('slide up', element.text())
             element.slideUp(500, done);
         }
     };
@@ -138,15 +142,12 @@ angular.module('antkarma').animation('.slide', function () {
 angular.module('antkarma').animation('.table-reload', function () {
     return {
         enter: function (element, done) {
-          console.log('enter');
             element.hide().slideDown(1500, done);
         },
         move: function(element, done) {
-            console.log('move');
             element.slideUp(1500, done);
         },
         leave: function(element, done) {
-          console.log('slide up', element.text())
             element.slideUp(1200, done);
         }
     };
