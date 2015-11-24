@@ -25,7 +25,7 @@ angular.module('antkarma').controller('RecommendationCtrl', function($scope, $mo
 	var RECOMMENDED_LIFE_INSURANCE =  "hdfcData";
 	var selectedLifeInsurance = RECOMMENDED_LIFE_INSURANCE;
 
-	$scope.coverageAmount = (Number(sharedProperties.getAnnualSalary().replace(',','')) * 15) + '';
+	$scope.coverageAmount = (Number(sharedProperties.getAnnualSalary().replace(/,/g,'')) * 15) + '';
 	if ($scope.coverageAmount == "0") {
 		$scope.coverageAmount = DEFAULT_COVERAGE_AMOUNT + '';
 	}
@@ -124,6 +124,21 @@ angular.module('antkarma').controller('RecommendationCtrl', function($scope, $mo
 	      }
 	    );
 
+	    $meteor.call('get_hdfc_policy_info').then(
+	      function(data){
+	        console.log('success hdfc policy info', new Date().getTime() / 1000);
+	        if (typeof data == "undefined"){
+	        	$scope.noHDFCpolicyInfo = true;
+	        } else {
+	        	$scope.hdfcData = data;
+	        	// compute_elss_ppf_details();
+	        }
+	      },
+	      function(err){
+	        console.log('failed get_hdfc_policy_info', err);
+	      }
+	    );
+
 		$meteor.call('get_hdfc_data', hdfcQuery).then(
 	      function(data){
 	        console.log('success hdfc', new Date().getTime() / 1000);
@@ -132,7 +147,14 @@ angular.module('antkarma').controller('RecommendationCtrl', function($scope, $mo
 	        if (typeof data == "undefined"){
 	        	$scope.noHDFCdata = true;
 	        } else {
-	        	$scope.hdfcData = data;
+	        	// $scope.hdfcData = data;
+	        	var premiumBeforeTax = ($scope.coverageAmount * data.mortality_rate_per_1000)/1000;
+    			var taxes = premiumBeforeTax * 0.145;  //Assuming 14.5 in taxes
+    			var premium = Math.ceil(premiumBeforeTax + taxes);
+    			// console.log('HDFC Premium : ' + premium);
+    			$scope.hdfcData.premium = premium;
+    			$scope.hdfcData.sum_assured = $scope.coverageAmount;
+    			$scope.hdfcData.payment_term = data.policy_term;
 	        	compute_elss_ppf_details();
 	        }
 	      },

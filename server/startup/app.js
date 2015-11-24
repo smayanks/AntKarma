@@ -38,11 +38,16 @@
     		return data;
     	},
 
+        get_hdfc_policy_info: function() {
+            var hdfcData = { policy_id: "1", policy_name: "HDFC Life Click 2 Protect Plus", claim_settlement_ratio: "0.94", 
+            max_policy_term: "40", max_age_at_maturity: "75", additional_features: "Accidental Death Benefit, Increasing life cover",
+            img: "/images/HDFC_Life_logo.png",policy_link: "http://ops.hdfclife.com/ops/click2protectPlus.do?source=W_HP_BIOBox_CPP"};
+            
+            return hdfcData;
+        },
+
     	get_hdfc_data: function(query) {
 
-    		var hdfcData = { policy_id: "1", policy_name: "HDFC Life Click 2 Protect Plus", claim_settlement_ratio: "0.94", 
-    		max_policy_term: "40", max_age_at_maturity: "75", additional_features: "Accidental Death Benefit, Increasing life cover",
-    		img: "/images/HDFC_Life_logo.png",policy_link: "http://ops.hdfclife.com/ops/click2protectPlus.do?source=W_HP_BIOBox_CPP"};
     		console.log('hdfc query in server: ' + JSON.stringify(query));
     		var queryString = "";
     		var coverageAmount = query.sum_assured;
@@ -76,18 +81,11 @@
     		}
     		queryString += policy_term;
 
-    		// console.log("Created query string: " + queryString);
+    		console.log("Created query string: " + queryString);
 
     		var findById = {id: queryString} ;
     		var doc = HDFClifeInsurance.findOne(findById);
-    		var premiumBeforeTax = (coverageAmount * doc.mortality_rate_per_1000)/1000;
-    		var taxes = premiumBeforeTax * 0.145;  //Assuming 14.5 in taxes
-    		var premium = Math.ceil(premiumBeforeTax + taxes);
-    		// console.log('HDFC Premium : ' + premium);
-    		hdfcData.premium = premium;
-    		hdfcData.sum_assured = coverageAmount;
-    		hdfcData.payment_term = doc.policy_term;
-			return hdfcData;
+            return doc;
     		// setTimeout(function() {return hdfcData;}, 1000);
     		
 
