@@ -10,7 +10,7 @@
 <section id="reco" class="reco">
 	<div class="col-md-10 col-md-offset-1">
 		<h4 class="text-center section-title">Hello {{username}}! Based on your answers, here is your customized plan.
-			<span class="pull-right">Your Risk Score: {{riskScore}}</span>
+			<span class="display-amount pull-right">Your Risk Score: {{displayRiskScore}}</span>
 		</h4>
 		
 	</div>
@@ -19,120 +19,132 @@
 	<a href="/signup" class="btn btn-danger" ng-click="openDialog()">Everything is good. Let's Sign up</a></span>
 	</div>	
 	<div id="dialog" ng-show="false">Thank you for your interest. We are working on the submission form and integrating with payment gateways. We'll get back to you shortly.</div>
-	<div id="lifeInsurance" class="life-insurance well well-custom col-md-10 col-md-offset-1">
-		<div class="row">
-			<h4 class="ins-heading col-md-3">Life Insurance
-				<button ng-if="hideLifeInsranceReco" class="ins-heading btn btn-success btn-xs btn-custom toggleLIReco" ng-click="toggleLifeInsurance()">+ More Options</button>
-				<button ng-if="!hideLifeInsranceReco" class="ins-heading btn btn-success btn-xs btn-custom toggleLIReco" ng-click="toggleLifeInsurance()">- Less Options</button>
 
-			</h4>
+	<div id="lifeInsurance"  class="life-insurance well well-custom col-md-10 col-md-offset-1">
+		<div ng-if="!showLifeIns" >
+			
+			<h4 class="ins-heading col-md-3">Life Insurance</h4>
+			
+			<h5 class="col-md-6 col-md-offset-3">
+				Great! Based on your answers you are already covered for <span class="display-amount">{{coverageAmount}}</span>
+				It's good that you are suffciently covered for Life Insurance.
+			</h5>
+		</div>
+		<div ng-if="showLifeIns">
+			<div class="row">
+				<h4 class="ins-heading col-md-3">Life Insurance
+					<button ng-if="hideLifeInsranceReco" class="ins-heading btn btn-success btn-xs btn-custom toggleLIReco" ng-click="toggleLifeInsurance()">+ More Options</button>
+					<button ng-if="!hideLifeInsranceReco" class="ins-heading btn btn-success btn-xs btn-custom toggleLIReco" ng-click="toggleLifeInsurance()">- Less Options</button>
 
-			<div class="col-md-8 col-md-offset-1">
-				<div class="col-md-6">
-					<h5 class="ins-heading  col-md-11">Coverage Amount: 
-						<span class="display-amount">{{coverageAmount}}</span>
-						<input type="range" name="sliderValue" ng-model="coverageAmount" ng-mouseup="update_life_ins_reco($event)" min="{{minCoverageAmount}}" max="{{maxCoverageAmount}}" step="100000">
-						<div class="slider-label" id="coverageAmountSlider">{{coverageAmount}}</div>
-					</h5> 
-				</div>
-				<div class="col-md-6">
-					<h5 class="ins-heading col-md-10 col-md-offset-1">Policy Term: 
-						<span class="display-amount"> {{paymentTerm}} yrs</span>
+				</h4>
 
-						<input type="range" name="policyTermSlider" ng-model="paymentTerm" ng-mouseup="update_life_ins_reco($event)" min="{{minPolicyTerm}}" max="{{maxPolicyTerm}}" step="1">
-						<div class="slider-label" id="policyTermSlider">{{ paymentTerm}}</div>
+				<div class="col-md-8 col-md-offset-1">
+					<div class="col-md-6">
+						<h5 class="ins-heading  col-md-11">Coverage Amount: 
+							<span class="display-amount">{{coverageAmount}}</span>
+							<input type="range" name="sliderValue" ng-model="coverageAmount" ng-mouseup="update_life_ins_reco($event)" min="{{minCoverageAmount}}" max="{{maxCoverageAmount}}" step="100000">
+							<div class="slider-label" id="coverageAmountSlider">{{coverageAmount}}</div>
+						</h5> 
+					</div>
+					<div class="col-md-6">
+						<h5 class="ins-heading col-md-10 col-md-offset-1">Policy Term: 
+							<span class="display-amount"> {{paymentTerm}} yrs</span>
 
-					</h5> 
+							<input type="range" name="policyTermSlider" ng-model="paymentTerm" ng-mouseup="update_life_ins_reco($event)" min="{{minPolicyTerm}}" max="{{maxPolicyTerm}}" step="1">
+							<div class="slider-label" id="policyTermSlider">{{ paymentTerm}}</div>
+
+						</h5> 
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="row heading" >
-				<div class="col-md-2 col-md-offset-1  ins-heading text-center">Product Name</div>
-				<!-- <div class="col-md-1  ins-heading text-center">Sum Insured</div> -->
-				<div class="col-md-3  ins-heading text-center">Additional Coverage</div>
-				<div class="col-md-1  ins-heading text-center">Claim Settlement Ratio</div>
-				<div class="col-md-1  ins-heading text-center">Policy Term</div>
-				<div class="col-md-1  ins-heading text-center">Max Coverage Upto</div>
-				<div class="col-md-1  ins-heading text-center">Annnual Premium</div>
-		</div>
-		<!-- <hr class="col-md-10 col-md-offset-1"> -->
 		
-		<div id="hdfcData" class="row well li-insurance-content reco-selected" ng-click="select_life_insurance('hdfcData')">
-			<span class="col-md-6 col-md-offset-6" ng-show="hdfcDataSpinner"><i class="fa fa-refresh fa-spin"></i></span>
-			<span class="col-md-6 col-md-offset-3 message" ng-show="noHDFCdata"> No data found for icici life insurance</span>
-			<div ng-show="!hdfcDataSpinner && !noHDFCdata">
-				<div class="col-md-2 col-md-offset-1  ins-heading text-center reco-section-column">
-					<img class="product-info" src="{{hdfcData.img}}" alt="{{hdfcData.productName}}">
-					<div class="product-info">{{hdfcData.policy_name}}</div>
-				</div>
-				<!-- <div class="col-md-1  ins-heading text-center reco-section-column"><i class="fa fa-inr"></i>{{hdfcData.sum_assured}}</div> -->
-				<div class="col-md-3  ins-heading text-center reco-section-column">{{hdfcData.additional_features}}</div>
-				<div class="col-md-1  ins-heading text-center reco-section-column">{{hdfcData.claim_settlement_ratio * 100}} %</div>
-				<div class="col-md-1  ins-heading text-center reco-section-column">{{hdfcData.payment_term}} years</div>
-				<div class="col-md-1  ins-heading text-center reco-section-column">{{hdfcData.max_age_at_maturity}} years</div>
-				<div class="col-md-1  ins-heading text-center reco-section-column"><i class="fa fa-inr"></i>{{hdfcData.premium}}</div>
-				<button class="btn btn-success btn-xs select-li-reco" ng-click="select_life_insurance('hdfcData')">Selected</button>
+			<div class="row heading" >
+					<div class="col-md-2 col-md-offset-1  ins-heading text-center">Product Name</div>
+					<!-- <div class="col-md-1  ins-heading text-center">Sum Insured</div> -->
+					<div class="col-md-3  ins-heading text-center">Additional Coverage</div>
+					<div class="col-md-1  ins-heading text-center">Claim Settlement Ratio</div>
+					<div class="col-md-1  ins-heading text-center">Policy Term</div>
+					<div class="col-md-1  ins-heading text-center">Max Coverage Upto</div>
+					<div class="col-md-1  ins-heading text-center">Annnual Premium</div>
 			</div>
-		</div>
-		<!-- <label class="selected-label">Selected</label> -->
-		<!-- <hr class="col-md-10 col-md-offset-1"> -->
-		
-		<div id="sbiData"  class="row well li-insurance-content"  ng-click="select_life_insurance('sbiData')">
-			<span class="col-md-6 col-md-offset-6" ng-show="sbiDataSpinner"><i class="fa fa-refresh fa-spin"></i></span>
-			<span class="col-md-6 col-md-offset-3 message" ng-show="noSBIdata"> No data found for sbi life insurance</span>
-			<div ng-show="!sbiDataSpinner && !noSBIdata" >
-				<div class="col-md-2 col-md-offset-1  ins-heading text-center reco-section-column">
-					<img class="product-info" src="{{sbiData.img}}" alt="{{sbiData.productName}}">
-					<div class="product-info">{{sbiData.policy_name}}</div>
-				</div>
-				<!-- <div class="col-md-1  ins-heading text-center reco-section-column"><i class="fa fa-inr"></i>{{sbiData.sum_assured}}</div> -->
-				<div class="col-md-3  ins-heading text-center reco-section-column">{{sbiData.additional_features}}</div>
-				<div class="col-md-1  ins-heading text-center reco-section-column">{{sbiData.claim_settlement_ratio * 100}} %</div>
-				<div class="col-md-1  ins-heading text-center reco-section-column">{{sbiData.payment_term}} years</div>
-				<div class="col-md-1  ins-heading text-center reco-section-column">{{sbiData.max_age_at_maturity}} years</div>
-				<div class="col-md-1  ins-heading text-center reco-section-column"><i class="fa fa-inr"></i>{{sbiData.premium}}</div>
-				<button class="btn btn-success btn-xs select-li-reco" ng-click="select_life_insurance('sbiData')">Select</button>
-			</div>
-		</div>
-		<!-- <hr class="col-md-10 col-md-offset-1"> -->
-		
-		<div id="licData" class="row well li-insurance-content" ng-click="select_life_insurance('licData')">
-			<span class="col-md-6 col-md-offset-6" ng-show="licDataSpinner"><i class="fa fa-refresh fa-spin"></i></span>
-			<span class="col-md-6 col-md-offset-3 message" ng-show="noLICdata"> No data found for lic life insurance</span>
-			<div ng-show="!licDataSpinner && !noLICdata" >
-				<div class="col-md-2 col-md-offset-1  ins-heading text-center reco-section-column">
-					<img class="product-info" src="{{licData.img}}" alt="{{licData.productName}}">
-					<div class="product-info">{{licData.policy_name}}</div>
-				</div>
-				<!-- <div class="col-md-1  ins-heading text-center reco-section-column"><i class="fa fa-inr"></i>{{licData.sum_assured}}</div> -->
-				<div class="col-md-3  ins-heading text-center reco-section-column">{{licData.additional_features}}</div>
-				<div class="col-md-1  ins-heading text-center reco-section-column">{{licData.claim_settlement_ratio * 100}} %</div>
-				<div class="col-md-1  ins-heading text-center reco-section-column">{{licData.payment_term}} years</div>
-				<div class="col-md-1  ins-heading text-center reco-section-column">{{licData.max_age_at_maturity}} years</div>
-				<div class="col-md-1  ins-heading text-center reco-section-column"><i class="fa fa-inr"></i>{{licData.premium}}</div>
-				<button class="btn btn-success btn-xs select-li-reco" ng-click="select_life_insurance('licData')">Select</button>
-			</div>
-		</div>
-		<!-- <hr class="col-md-10 col-md-offset-1"> -->
-		
-		<div id="iciciData" class="row well li-insurance-content"  ng-click="select_life_insurance('iciciData')">
-			<span class="col-md-6 col-md-offset-6" ng-show="iciciDataSpinner"><i class="fa fa-refresh fa-spin"></i></span>
-			<span class="col-md-6 col-md-offset-3 message" ng-show="noICICIdata"> No data found for icici life insurance</span>
-			<div ng-show="!iciciDataSpinner && !noICICIdata" >
-				<div class="col-md-2 col-md-offset-1  ins-heading text-center reco-section-column">
-					<img class="product-info" src="{{iciciData.img}}" alt="{{iciciData.productName}}">
-					<div class="product-info">{{iciciData.policy_name}}</div>
-				</div>
-				<!-- <div class="col-md-1  ins-heading text-center reco-section-column"><i class="fa fa-inr"></i>{{iciciData.sum_assured}}</div> -->
-				<div class="col-md-3  ins-heading text-center reco-section-column">{{iciciData.additional_features}}</div>
-				<div class="col-md-1  ins-heading text-center reco-section-column">{{iciciData.claim_settlement_ratio * 100}} %</div>
-				<div class="col-md-1  ins-heading text-center reco-section-column">{{iciciData.payment_term}} years</div>
-				<div class="col-md-1  ins-heading text-center reco-section-column">{{iciciData.max_age_at_maturity}} years</div>
-				<div class="col-md-1  ins-heading text-center reco-section-column"><i class="fa fa-inr"></i>{{iciciData.premium}}</div>
-				<button class="btn btn-success btn-xs select-li-reco" ng-click="select_life_insurance('iciciData')">Select</button>
-			</div>
-		</div>
 			<!-- <hr class="col-md-10 col-md-offset-1"> -->
+			
+			<div id="hdfcData" class="row well li-insurance-content reco-selected" ng-click="select_life_insurance('hdfcData')">
+				<span class="col-md-6 col-md-offset-6" ng-show="hdfcDataSpinner"><i class="fa fa-refresh fa-spin"></i></span>
+				<span class="col-md-6 col-md-offset-3 message" ng-show="noHDFCdata"> No data found for icici life insurance</span>
+				<div ng-show="!hdfcDataSpinner && !noHDFCdata">
+					<div class="col-md-2 col-md-offset-1  ins-heading text-center reco-section-column">
+						<img class="product-info" src="{{hdfcData.img}}" alt="{{hdfcData.productName}}">
+						<div class="product-info">{{hdfcData.policy_name}}</div>
+					</div>
+					<!-- <div class="col-md-1  ins-heading text-center reco-section-column"><i class="fa fa-inr"></i>{{hdfcData.sum_assured}}</div> -->
+					<div class="col-md-3  ins-heading text-center reco-section-column">{{hdfcData.additional_features}}</div>
+					<div class="col-md-1  ins-heading text-center reco-section-column">{{hdfcData.claim_settlement_ratio * 100}} %</div>
+					<div class="col-md-1  ins-heading text-center reco-section-column">{{hdfcData.payment_term}} years</div>
+					<div class="col-md-1  ins-heading text-center reco-section-column">{{hdfcData.max_age_at_maturity}} years</div>
+					<div class="col-md-1  ins-heading text-center reco-section-column"><i class="fa fa-inr"></i>{{hdfcData.premium}}</div>
+					<button class="btn btn-success btn-xs select-li-reco" ng-click="select_life_insurance('hdfcData')">Selected</button>
+				</div>
+			</div>
+			<!-- <label class="selected-label">Selected</label> -->
+			<!-- <hr class="col-md-10 col-md-offset-1"> -->
+			
+			<div id="sbiData"  class="row well li-insurance-content"  ng-click="select_life_insurance('sbiData')">
+				<span class="col-md-6 col-md-offset-6" ng-show="sbiDataSpinner"><i class="fa fa-refresh fa-spin"></i></span>
+				<span class="col-md-6 col-md-offset-3 message" ng-show="noSBIdata"> No data found for sbi life insurance</span>
+				<div ng-show="!sbiDataSpinner && !noSBIdata" >
+					<div class="col-md-2 col-md-offset-1  ins-heading text-center reco-section-column">
+						<img class="product-info" src="{{sbiData.img}}" alt="{{sbiData.productName}}">
+						<div class="product-info">{{sbiData.policy_name}}</div>
+					</div>
+					<!-- <div class="col-md-1  ins-heading text-center reco-section-column"><i class="fa fa-inr"></i>{{sbiData.sum_assured}}</div> -->
+					<div class="col-md-3  ins-heading text-center reco-section-column">{{sbiData.additional_features}}</div>
+					<div class="col-md-1  ins-heading text-center reco-section-column">{{sbiData.claim_settlement_ratio * 100}} %</div>
+					<div class="col-md-1  ins-heading text-center reco-section-column">{{sbiData.payment_term}} years</div>
+					<div class="col-md-1  ins-heading text-center reco-section-column">{{sbiData.max_age_at_maturity}} years</div>
+					<div class="col-md-1  ins-heading text-center reco-section-column"><i class="fa fa-inr"></i>{{sbiData.premium}}</div>
+					<button class="btn btn-success btn-xs select-li-reco" ng-click="select_life_insurance('sbiData')">Select</button>
+				</div>
+			</div>
+			<!-- <hr class="col-md-10 col-md-offset-1"> -->
+			
+			<div id="licData" class="row well li-insurance-content" ng-click="select_life_insurance('licData')">
+				<span class="col-md-6 col-md-offset-6" ng-show="licDataSpinner"><i class="fa fa-refresh fa-spin"></i></span>
+				<span class="col-md-6 col-md-offset-3 message" ng-show="noLICdata"> No data found for lic life insurance</span>
+				<div ng-show="!licDataSpinner && !noLICdata" >
+					<div class="col-md-2 col-md-offset-1  ins-heading text-center reco-section-column">
+						<img class="product-info" src="{{licData.img}}" alt="{{licData.productName}}">
+						<div class="product-info">{{licData.policy_name}}</div>
+					</div>
+					<!-- <div class="col-md-1  ins-heading text-center reco-section-column"><i class="fa fa-inr"></i>{{licData.sum_assured}}</div> -->
+					<div class="col-md-3  ins-heading text-center reco-section-column">{{licData.additional_features}}</div>
+					<div class="col-md-1  ins-heading text-center reco-section-column">{{licData.claim_settlement_ratio * 100}} %</div>
+					<div class="col-md-1  ins-heading text-center reco-section-column">{{licData.payment_term}} years</div>
+					<div class="col-md-1  ins-heading text-center reco-section-column">{{licData.max_age_at_maturity}} years</div>
+					<div class="col-md-1  ins-heading text-center reco-section-column"><i class="fa fa-inr"></i>{{licData.premium}}</div>
+					<button class="btn btn-success btn-xs select-li-reco" ng-click="select_life_insurance('licData')">Select</button>
+				</div>
+			</div>
+			<!-- <hr class="col-md-10 col-md-offset-1"> -->
+			
+			<div id="iciciData" class="row well li-insurance-content"  ng-click="select_life_insurance('iciciData')">
+				<span class="col-md-6 col-md-offset-6" ng-show="iciciDataSpinner"><i class="fa fa-refresh fa-spin"></i></span>
+				<span class="col-md-6 col-md-offset-3 message" ng-show="noICICIdata"> No data found for icici life insurance</span>
+				<div ng-show="!iciciDataSpinner && !noICICIdata" >
+					<div class="col-md-2 col-md-offset-1  ins-heading text-center reco-section-column">
+						<img class="product-info" src="{{iciciData.img}}" alt="{{iciciData.productName}}">
+						<div class="product-info">{{iciciData.policy_name}}</div>
+					</div>
+					<!-- <div class="col-md-1  ins-heading text-center reco-section-column"><i class="fa fa-inr"></i>{{iciciData.sum_assured}}</div> -->
+					<div class="col-md-3  ins-heading text-center reco-section-column">{{iciciData.additional_features}}</div>
+					<div class="col-md-1  ins-heading text-center reco-section-column">{{iciciData.claim_settlement_ratio * 100}} %</div>
+					<div class="col-md-1  ins-heading text-center reco-section-column">{{iciciData.payment_term}} years</div>
+					<div class="col-md-1  ins-heading text-center reco-section-column">{{iciciData.max_age_at_maturity}} years</div>
+					<div class="col-md-1  ins-heading text-center reco-section-column"><i class="fa fa-inr"></i>{{iciciData.premium}}</div>
+					<button class="btn btn-success btn-xs select-li-reco" ng-click="select_life_insurance('iciciData')">Select</button>
+				</div>
+			</div>
+		</div>
 	</div>
 	<div id="elssPPF" class="elss-ppf well well-custom col-md-10 col-md-offset-1">
 		<div class="row">

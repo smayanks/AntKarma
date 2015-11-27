@@ -1,6 +1,8 @@
 
 .reco {
-	background: url("../images/bg11.jpg") center center;
+	/*background: url("../images/bg11.jpg") center center;*/
+	background-color: #2b2724;
+	overflow: auto;
 	color: #fff;
 }
 

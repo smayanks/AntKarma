@@ -1,4 +1,4 @@
-angular.module('antkarma').config(function ($urlRouterProvider, $stateProvider, $locationProvider) {
+angular.module('myApp').config(function ($urlRouterProvider, $stateProvider, $locationProvider) {
 	$locationProvider.html5Mode(true);
 
 	$stateProvider

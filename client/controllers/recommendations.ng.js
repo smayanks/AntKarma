@@ -1,8 +1,13 @@
 // Recommendation Controller : RecommendationCtrl
 
-angular.module('antkarma').controller('RecommendationCtrl', function($scope, $modal, $meteor, $timeout, sharedProperties) {
+angular.module('myApp').controller('RecommendationCtrl', function($scope, $modal, $state, $meteor, $timeout,$rootScope, sharedProperties) {
 
-
+	// console.log('rootScope.submitted : ' + $rootScope.submitted);
+	if ( typeof $rootScope.submitted == "undefined" || !$rootScope.submitted) {
+		$state.go('home');	
+		return;
+	}
+		
 	var MIN_COVERAGE_AMOUNT = 2500000;
 	var MAX_COVERAGE_AMOUNT = 50000000;
 	var MIN_POLICY_TERM = 20;
@@ -11,12 +16,18 @@ angular.module('antkarma').controller('RecommendationCtrl', function($scope, $mo
 	var DEFAULT_RISK_SCORE = 6;
 	var DEFAULT_USERNAME = "Happy Saver";
 	var DEFAULT_COVERAGE_AMOUNT = 5000000;
+	var COVERAGE_AMOUNT_FACTOR = 10;
+	var MIN_COVERAGE_AMOUNT = 1000000;
 	var totalTaxSavingAmount = TAX_SAVING_LIMIT;
+	var id = sharedProperties.getId();
+
+	console.log('Value of id in reco: ' + id);
 	$scope.minCoverageAmount = MIN_COVERAGE_AMOUNT;
 	$scope.maxCoverageAmount = MAX_COVERAGE_AMOUNT;
 	$scope.minPolicyTerm = MIN_POLICY_TERM;
 	$scope.maxPolicyTerm = MAX_POLICY_TERM;
 	$scope.hideLifeInsranceReco = false;
+	$scope.showLifeIns = true;
 	
 	$scope.$meteorSubscribe('elss');
 	$scope.elss	 = $meteor.collection(function(){
@@ -25,29 +36,78 @@ angular.module('antkarma').controller('RecommendationCtrl', function($scope, $mo
 	var RECOMMENDED_LIFE_INSURANCE =  "hdfcData";
 	var selectedLifeInsurance = RECOMMENDED_LIFE_INSURANCE;
 
-	$scope.coverageAmount = (Number(sharedProperties.getAnnualSalary().replace(/,/g,'')) * 15) + '';
-	if ($scope.coverageAmount == "0") {
-		$scope.coverageAmount = DEFAULT_COVERAGE_AMOUNT + '';
-	}
-	var username = sharedProperties.getUsername();
+	var questions = sharedProperties.getQuestionnaire();
+
+	var username = questions.username;
 	if (typeof username == "undefined") {
 		$scope.username = DEFAULT_USERNAME;
 	} else {
 		$scope.username = username;
 	}
 
-	$scope.riskScore = Number(sharedProperties.getRiskScore());
-	if ($scope.riskScore == 0) {
-		$scope.riskScore = DEFAULT_RISK_SCORE; 
+
+
+	function compute_coverage_amount() {
+		var coverageAmount = 0;
+		if (questions.annualSalary) {
+			coverageAmount = (Number(questions.annualSalary.replace(/,/g,'')) * COVERAGE_AMOUNT_FACTOR) + '';	
+		} else {
+			console.log('Error no annual salary found');
+			// $scope.coverageAmount = DEFAULT_COVERAGE_AMOUNT + '';
+		}
+		if (coverageAmount == "0") {
+			coverageAmount = DEFAULT_COVERAGE_AMOUNT + '';
+		}
+		console.log('Returning compute_coverage_amount : ' + coverageAmount);
+		return coverageAmount;
 	}
 
-	var age = sharedProperties.getAge();
+	$scope.coverageAmount = compute_coverage_amount();
+
+
+	//Get the life insurance policy details if user has already invested money
+
+	function check_for_life_insurance(coverage) {
+		var alreadyInvestedLifeInsurance = 0;
+
+		if (questions.currentLifeInsurancePolicies) {
+			var currentLIArray = [];
+
+			currentLIArray = questions.currentLifeInsurancePolicies;
+			var existingSumAssured = 0;
+			for ( i = 0; i < currentLIArray.length; i++) {
+				var amount = currentLIArray[i].existingLifeInsSumInsured;
+				console.log('value of amount : ' + amount);
+				if (amount) {
+					amount = Number(amount.replace(/,/g,''))
+				}
+				existingSumAssured += amount;
+			}
+			console.log('existingSumAssured : ' + existingSumAssured);
+			var amountDiff = coverage - existingSumAssured;
+
+			console.log('amountDiff : ' + amountDiff);
+
+			if (amountDiff > MIN_COVERAGE_AMOUNT) {
+				$scope.coverageAmount = amountDiff;
+				return true;
+			} else {
+				return false
+			}
+
+		}
+
+	}
+
+	$scope.showLifeIns = check_for_life_insurance($scope.coverageAmount);
+
+	var age = questions.currentAge;
 	if (typeof age == "undefined") age = "32";
 	
-	var smoker = sharedProperties.getSmokerStatus();
+	var smoker = questions.smoker;
 	if (typeof smoker == "undefined") smoker = "no";
 	
-	var gender = sharedProperties.getGender();
+	var gender = questions.gender;
 	if (typeof gender == "undefined" ) gender = "male";
 
 	var paymentTerm = "25";
@@ -79,7 +139,7 @@ angular.module('antkarma').controller('RecommendationCtrl', function($scope, $mo
 		$scope.noICICIdata = false;
 		$meteor.call('get_sbi_data', query).then(
 	      function(data){
-	        console.log('success sbi', new Date().getTime() / 1000);
+	        // console.log('success sbi', new Date().getTime() / 1000);
 	        $scope.sbiDataSpinner = false;
 	        if (typeof data == "undefined"){
 	        	$scope.noSBIdata = true;
@@ -94,7 +154,7 @@ angular.module('antkarma').controller('RecommendationCtrl', function($scope, $mo
 
 		$meteor.call('get_lic_data', query).then(
 	      function(data){
-	        console.log('success lic', new Date().getTime() / 1000);
+	        // console.log('success lic', new Date().getTime() / 1000);
 	        $scope.licDataSpinner = false;
 	        if (typeof data == "undefined"){
 	        	$scope.noLICdata = true;
@@ -110,7 +170,7 @@ angular.module('antkarma').controller('RecommendationCtrl', function($scope, $mo
 
 		$meteor.call('get_icici_data', query).then(
 	      function(data){
-	        console.log('success icici', new Date().getTime() / 1000);
+	        // console.log('success icici', new Date().getTime() / 1000);
 	        
 	        $scope.iciciDataSpinner = false;
 	        if (typeof data == "undefined"){
@@ -126,7 +186,7 @@ angular.module('antkarma').controller('RecommendationCtrl', function($scope, $mo
 
 	    $meteor.call('get_hdfc_policy_info').then(
 	      function(data){
-	        console.log('success hdfc policy info', new Date().getTime() / 1000);
+	        // console.log('success hdfc policy info', new Date().getTime() / 1000);
 	        if (typeof data == "undefined"){
 	        	$scope.noHDFCpolicyInfo = true;
 	        } else {
@@ -141,7 +201,7 @@ angular.module('antkarma').controller('RecommendationCtrl', function($scope, $mo
 
 		$meteor.call('get_hdfc_data', hdfcQuery).then(
 	      function(data){
-	        console.log('success hdfc', new Date().getTime() / 1000);
+	        // console.log('success hdfc', new Date().getTime() / 1000);
 	        $scope.toggleLifeInsurance();
 	        $scope.hdfcDataSpinner = false;
 	        if (typeof data == "undefined"){
@@ -163,8 +223,12 @@ angular.module('antkarma').controller('RecommendationCtrl', function($scope, $mo
 	      }
 	    );
 	}
-
-	refresh_life_insurance(query, hdfcQuery);
+	if ($scope.showLifeIns) {
+		refresh_life_insurance(query, hdfcQuery);	
+	} else {
+		compute_elss_ppf_details();
+	}
+	
 
     $scope.update_life_ins_reco = function(event) {
 	    
@@ -225,44 +289,75 @@ angular.module('antkarma').controller('RecommendationCtrl', function($scope, $mo
 
 	function compute_elss_ppf_details() {
 
-		recoAmountForELSSandPPF = totalTaxSavingAmount - Number($scope[selectedLifeInsurance].premium);
+		if (questions.taxInvestmentAmount) {
+			var planToInvest = Number(questions.taxInvestmentAmount.replace(/,/g,''));	
+		} else {
+			console.log('Error no plan to invest amount found - returning from compute_elss_ppf_details');
+			return;
+			// planToInvest = 
+		}
+		var premium = 0;
+		if ($scope[selectedLifeInsurance] && $scope[selectedLifeInsurance].premium) {
+			premium = Number($scope[selectedLifeInsurance].premium);
+			console.log('Number($scope[selectedLifeInsurance].premium) : ' + premium)
+		}
+		console.log('Number($scope[selectedLifeInsurance].premium) : ' + premium)
+		recoAmountForELSSandPPF = planToInvest - premium;
 
-		//use the risk score to get PPF and ELSS percentage
-		// var riskScore = 8;
-		var ppfELSS = compute_ppf_elss_percent($scope.riskScore);
+		if (! $scope.riskScore) {
+			// computeScore(questions.currentAge, questions.investmentFocusOn,questions.whenMarketVolatile);
+			$meteor.call('get_risk_score', questions.currentAge, questions.investmentFocusOn, questions.whenMarketVolatile).then(
+		      function(data){
+		      		console.log("assigning risk score from server: " + data);
+		        	$scope.riskScore = data;
+		        	compute_ppf_elss_percent($scope.riskScore);
+		      },
+		      function(err){
+		        console.log('Error in getting risk score', err);
+		      }
+		    );
+			
+		} else {
+			
+			compute_ppf_elss_percent($scope.riskScore);
+			$scope.displayRiskScore = $scope.riskScore;
+			console.log('Inside else part $scope.displayRiskScore  : ' + $scope.displayRiskScore );
+		}
 		
-		//Rounding up the amount to the nearest multiple of 1000
-		recoPPFamount = Math.ceil((recoAmountForELSSandPPF * ppfELSS.ppf)/1000)*1000 ;
-		$scope.ppfAmount = recoPPFamount;
-		recoELSSamount = Math.ceil((recoAmountForELSSandPPF * ppfELSS.elss)/1000)*1000;
-		$scope.elssAmount = recoELSSamount;	
-		$scope.elssSliderValue = recoELSSamount;
-		$scope.elss_investment_amount = Math.ceil($scope.elssAmount/2);
-		$scope.displayMaxELSSPPFAmount =  Math.ceil(recoAmountForELSSandPPF);
 
 	}
 
-	function compute_ppf_elss_percent(riskScore) {
+	function compute_ppf_elss_percent(score) {
 		var ppf, elss;
-		if (riskScore <=2 ) {
+		if (score <=2 ) {
 			ppf = 0.8;
 			elss = 0.2;
-		} else if (riskScore > 2 && riskScore <= 4) {
+		} else if (score > 2 && score <= 4) {
 			ppf = 0.6;
 			elss = 0.4;
-		} else if (riskScore > 4 && riskScore <= 6 ) {
+		} else if (score > 4 && score <= 6 ) {
 			ppf = 0.5;
 			elss = 0.5;
-		} else if (riskScore > 6 && riskScore <= 8 ) {
+		} else if (score > 6 && score <= 8 ) {
 			ppf = 0.4;
 			elss = 0.6;
-		} else if (riskScore > 9) {
+		} else if (score > 8) {
 			ppf = 0.2;
 			elss = 0.8;
 		}
 
-		return {"ppf" : ppf, "elss" : elss};
+		var ppfELSS =  {"ppf" : ppf, "elss" : elss};
 
+		console.log('ppfELSS : ' + JSON.stringify(ppfELSS));
+		//Rounding up the amount to the nearest multiple of 1000
+		var recoPPFamount = Math.ceil((recoAmountForELSSandPPF * ppfELSS.ppf)/1000)*1000 ;
+		$scope.ppfAmount = recoPPFamount;
+		var recoELSSamount = Math.ceil((recoAmountForELSSandPPF * ppfELSS.elss)/1000)*1000;
+		$scope.elssAmount = recoELSSamount;	
+		$scope.elssSliderValue = recoELSSamount;
+		$scope.elss_investment_amount = Math.ceil($scope.elssAmount/2);
+		$scope.displayMaxELSSPPFAmount =  Math.ceil(recoAmountForELSSandPPF);
+		$scope.displayRiskScore = $scope.riskScore;
 	}
 
 

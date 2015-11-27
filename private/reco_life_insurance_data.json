@@ -1,0 +1,42 @@
+[
+  {
+    "policy_id": "1",
+    "policy_name": "HDFC Life Click 2 Protect Plus",
+    "claim_settlement_ratio": "0.94",
+    "max_policy_term": "40",
+    "max_age_at_maturity": "75",
+    "additional_features": "Accidental Death Benefit, Increasing life cover",
+    "img": "/images/HDFC_Life_logo.png",
+    "policy_link": "http://ops.hdfclife.com/ops/click2protectPlus.do?source=W_HP_BIOBox_CPP"
+  },
+  {
+    "policy_id": "2",
+    "policy_name": "ICICI Pru i Care 2",
+    "claim_settlement_ratio": "0.94",
+    "max_policy_term": "30",
+    "max_age_at_maturity": "65",
+    "additional_features": "Accidental Death Benefit, ",
+    "img": "/images/icicipru-life-logo-small.png",
+    "policy_link": "http://www.iciciprulife.com/public/term-insurance-plans/buy-term-plan.htm?"
+  },
+  {
+    "policy_id": "3",
+    "policy_name": "LIC e-Term",
+    "claim_settlement_ratio": "0.98",
+    "max_policy_term": "35",
+    "max_age_at_maturity": "75",
+    "additional_features": "Only Basic Features",
+    "img": "/images/liclogo.png",
+    "policy_link": "http://e2e.licindia.in:8080/onlinePlansIndex/login.do"
+  },
+  {
+    "policy_id": "4",
+    "policy_name": "SBI e-Shield",
+    "claim_settlement_ratio": "0.91",
+    "max_policy_term": "30",
+    "max_age_at_maturity": "70",
+    "additional_features": "Accidental Death Benefit, Increasing life cover",
+    "img": "/images/SBI_logo.png",
+    "policy_link": "http://www.sbilife.co.in/sbilife/content/9_6971"
+  }
+]

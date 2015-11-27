@@ -1,0 +1,18 @@
+[
+  {
+    "elss_fund_name": "Axis Long Term Equity Fund - G",
+    "img": "/images/axis_elss.jpg",
+    "annualized_returns_5_yrs": "0.179",
+    "fund_risk": "Below Average",
+    "morning_star_rating": "5 star",
+    "policy_link": "http://morningstar.in/mutualfunds/f000005ntx/axis-long-term-equity-growth/overview.aspx"
+  },
+  {
+    "elss_fund_name": "Franklin India Taxshield - G",
+    "annualized_returns_5_yrs": "0.138",
+    "img": "/images/frk_elss.png",
+    "fund_risk": "Low",
+    "morning_star_rating": "5 star",
+    "policy_link": "http://morningstar.in/mutualfunds/f0gbr06si5/franklin-india-taxshield-fund-growth/overview.aspx"
+  }
+]

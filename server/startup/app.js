@@ -1,5 +1,78 @@
   Meteor.startup(function () {
     
+
+    function loadData1() {
+
+        if (ELSS.find().count() === 0) {
+            var data = {};
+            data = JSON.parse(Assets.getText("elss_data.json"));
+
+            for (var i = 0; i < data.length; i++)
+                ELSS.insert(data[i]);
+        }
+
+    }
+
+    function loadData2() {
+
+        if (ICICIlifeInsurance.find().count() === 0) {
+            var data = {};
+            data = JSON.parse(Assets.getText("icici_data.json"));
+
+            for (var i = 0; i < data.length; i++)
+                ICICIlifeInsurance.insert(data[i]);
+        }
+
+    }
+
+    function loadData3() {
+
+        if (LIClifeInsurance.find().count() === 0) {
+            var data = {};
+            data = JSON.parse(Assets.getText("lic_data.json"));
+
+            for (var i = 0; i < data.length; i++)
+                LIClifeInsurance.insert(data[i]);
+        }
+
+    }
+
+    function loadData4() {
+
+        if (SBIlifeInsurance.find().count() === 0) {
+            var data = {};
+            data = JSON.parse(Assets.getText("sbi_data.json"));
+
+            for (var i = 0; i < data.length; i++)
+                SBIlifeInsurance.insert(data[i]);
+        }
+
+    }
+
+    function loadData5() {
+
+        if (HDFClifeInsurance.find().count() === 0) {
+            var data = {};
+            data = JSON.parse(Assets.getText("hdfc_data_do_not_delete.json"));
+
+            for (var i = 0; i < data.length; i++)
+                HDFClifeInsurance.insert(data[i]);
+        }
+
+    }
+    loadData1();
+    loadData2();
+    loadData3();
+    loadData4();
+    loadData5();
+
+
+    // loadData("ELSS", "elss_data.json");
+    // loadData("ICICIlifeInsurance", "icici_data.json");
+    // loadData("LIClifeInsurance", "lic_data.json");
+    // loadData("SBIlifeInsurance", "sbi_data.json");
+    // loadData("HDFClifeInsurance", "hdfc_data.json");
+
     Meteor.publish('lifeInsRecos', function() {
     	return LifeInsurances.find();
     });
@@ -97,7 +170,7 @@
 
     	get_sbi_data: function(query) {
     		var doc ;
-    		// console.log('sbi query in server: ' + JSON.stringify(query));
+    		console.log('sbi query in server: ' + JSON.stringify(query));
 
     		doc = SBIlifeInsurance.findOne(query);
     		// console.log(doc);
@@ -123,7 +196,13 @@
     		// console.log(doc);
     		return doc;
     		// setTimeout(function() {return doc;}, 4000);
-    	}
+    	},
+
+        get_risk_score: function(age, focus, marketVolatile) {
+            var riskScore = computeScore(age, focus, marketVolatile);
+            console.log('get_risk_score : riskScore : ' + riskScore);
+            return riskScore;
+        }
 
     });
 

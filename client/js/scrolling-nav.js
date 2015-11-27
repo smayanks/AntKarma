@@ -22,4 +22,5 @@ $(function() {
     $('.smoothScroll').localScroll({
            target:'body'
     });
+
 });

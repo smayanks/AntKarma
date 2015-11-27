@@ -1,9 +1,9 @@
 
-angular.module('antkarma', ['angular-meteor', 'ngAnimate','ui.router',  'ui.bootstrap', 'ngMessages']);
+angular.module('myApp', ['angular-meteor', 'ngAnimate','ui.router',  'ui.bootstrap', 'ngMessages']);
 
 
 
-angular.module('antkarma').directive ('numbersOnly', function() {
+angular.module('myApp').directive ('numbersOnly', function() {
 	return {
 
 
@@ -53,16 +53,27 @@ angular.module('antkarma').directive ('numbersOnly', function() {
 
 
 
-angular.module('antkarma').service('sharedProperties', function() {
+angular.module('myApp').service('sharedProperties', function() {
 	var submitted = false;
+	var questionnaire;
 	var annualSalary;
 	var age;
 	var smoker;
 	var gender;
 	var username;
-	var riskScore;
+	var planToInvest;
+	var currentLifeInsValue;
+	var id;
 
 	return {
+
+		getQuestionnaire: function() {
+			return questionnaire;
+		},
+
+		setQuestionnaire: function(value) {
+			questionnaire = value;
+		},
 		getSubmitted: function() {
 			return submitted;
 		},
@@ -70,76 +81,85 @@ angular.module('antkarma').service('sharedProperties', function() {
 		setSubmitted: function(value) {
 			submitted = value;
 		},
+		getId: function() {
+			return id;
+		},
+		setId: function(value) {
+			id = value;
+		}
 
-		getAnnualSalary: function() {
-			return annualSalary;
-		},
+		// getAnnualSalary: function() {
+		// 	return annualSalary;
+		// },
 
-		setAnnualSalary: function(value) {
-			annualSalary = value;
-		},
+		// setAnnualSalary: function(value) {
+		// 	annualSalary = value;
+		// },
 
-		getAge: function() {
-			return age;
-		},
+		// getAge: function() {
+		// 	return age;
+		// },
 
-		setAge: function(value) {
-			age = value;
-		},
-		getSmokerStatus: function() {
-			return smoker;
-		},
+		// setAge: function(value) {
+		// 	age = value;
+		// },
+		// getSmokerStatus: function() {
+		// 	return smoker;
+		// },
 
-		setSmokerStatus: function(value) {
-			smoker = value;
-		},
-		getGender: function() {
-			return gender;
-		},
+		// setSmokerStatus: function(value) {
+		// 	smoker = value;
+		// },
+		// getGender: function() {
+		// 	return gender;
+		// },
 
-		setGender: function(value) {
-			gender = value;
-		},
-		getUsername: function() {
-			return username;
-		},
+		// setGender: function(value) {
+		// 	gender = value;
+		// },
+		// getUsername: function() {
+		// 	return username;
+		// },
 
-		setUsername: function(value) {
-			username = value;
-		},
-		getRiskScore: function() {
-			return riskScore;
-		},
+		// setUsername: function(value) {
+		// 	username = value;
+		// },
+		// getPlanToInvest: function() {
+		// 	return planToInvest;
+		// },
 
-		setRiskScore: function(value) {
-			riskScore = value;
-		}		
+		// setPlanToInvest: function(value) {
+		// 	planToInvest = value;
+		// },
+		// getCurrentLifeInsurance: function() {
+		// 	return currentLifeInsValue;
+		// },
+		// setCurrentLifeInsurance: function(value) {
+		// 	currentLifeInsValue = value;
+		// }
+		
 	}
 
 });
 
-angular.module('antkarma').animation('.slide', function () {
-	var options = { direction: 'left' };
-	var effect = 'slide';
-    // Set the duration (default: 400 milliseconds)
-    var duration = 500;
+angular.module('myApp').animation('.slide', function () {
 
    
     return {
         enter: function (element, done) {
-            element.hide().slideDown(500, done);
+            element.hide().slideDown(900, done);
         },
         move: function(element, done) {
-            element.slideUp(500, done);
+            element.slideUp(900, done);
         },
         leave: function(element, done) {
-            element.slideUp(500, done);
+            element.slideUp(900, done);
         }
     };
     
 });
 
-angular.module('antkarma').animation('.table-reload', function () {
+angular.module('myApp').animation('.table-reload', function () {
     return {
         enter: function (element, done) {
             element.hide().slideDown(1500, done);
@@ -154,7 +174,7 @@ angular.module('antkarma').animation('.table-reload', function () {
     
 });
 
-angular.module('antkarma').animation('.slide-animation', function () {
+angular.module('myApp').animation('.slide-animation', function () {
         return {
             addClass: function (element, className, done) {
                 if (className == 'ng-hide') {
@@ -178,7 +198,7 @@ angular.module('antkarma').animation('.slide-animation', function () {
         };
 });
 
-angular.module('antkarma').animation('.if-element', function() {
+angular.module('myApp').animation('.if-element', function() {
   return {
     enter : function(element, done) {
       element.css('opacity',0);

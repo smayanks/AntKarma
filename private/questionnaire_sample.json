@@ -1,0 +1,75 @@
+{
+  "_id": "uReG7ECkaJXHDyrbQ",
+  "questions": {
+    "username": "saurabh0908",
+    "currentOutStandingLoans": [
+      {
+        "existingLoanType": "",
+        "existingLoanUnpaidAmt": "",
+        "comments": ""
+      }
+    ],
+    "financialHelpTypes": [
+      {
+        "text": "I want to make tax saving investments efficiently",
+        "subtext": "We intend to help you do just that. Tax saving investments should be personalized to an invidual's needs and we will walk you through the steps over the next two sections.",
+        "checked": true
+      },
+      {
+        "text": "I want to do financial goal planning effectively",
+        "subtext": "One has several goals in life and financial stability is necessary for achieving these goals. We intend to help you achieve your goals in life by simplifying and demistifying the financial planning process.",
+        "checked": false
+      },
+      {
+        "text": "I'd like to make the most of my savings.",
+        "subtext": "And everyone should do the same. We believe that good financial advice should be for everyone irrespective of their wealth or status. Our platform will enable effective investments with optimum growth for everyone.",
+        "checked": false
+      }
+    ],
+    "currentLifeInsurancePolicies": [
+      {
+        "existingLifeInsPolicyName": "",
+        "existingLifeInsSumInsured": "",
+        "existingLifeInsYrlyPrem": ""
+      }
+    ],
+    "existingHealthInsPolicies": [
+      {
+        "existingHealthInsName": "",
+        "existingHealthInsCover": "",
+        "existingHealthInsYrlyPrem": "",
+        "dependents": {
+          "self": true,
+          "spouse": false,
+          "children": false,
+          "parents": false
+        }
+      }
+    ],
+    "currentTaxInvestments": [
+      {
+        "existingTaxInvType": "",
+        "existingTaxInvAmt": "",
+        "comments": ""
+      }
+    ],
+    "currentAge": "40",
+    "annualSalary": "200,000",
+    "taxInvestmentAmount": "100,000",
+    "gender": "female",
+    "smoker": "yes",
+    "dependents": "no",
+    "outstandingLoans": "no",
+    "alreadyMadeLifeInsInvestment": "no",
+    "alreadyHaveHealthInsurance": "no",
+    "investmentFocusOn": "minimizeLosses",
+    "whenMarketVolatile": "buyMore",
+    "alreadyMadeTaxInvestment": "no",
+    "email": "asd9@gmail.com"
+  },
+  "createdAt": "2015-11-24T15:24:05.895Z",
+  "userAge": "40",
+  "email": "asd9@gmail.com",
+  "name": "saurabh0908",
+  "riskScore": 5
+}

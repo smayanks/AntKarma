@@ -1,16 +1,25 @@
-angular.module('antkarma').controller('QuestionnaireCtrl', function($scope, $modal, $meteor, $state, sharedProperties) {
+angular.module('myApp').controller('QuestionnaireCtrl', function($scope, $modal, $meteor, $state, $rootScope, sharedProperties) {
 	$scope.$on("$routeChangeSuccess", function (scope, next, current) {
         $scope.transitionState = "active"
     });
     
 	$scope.questionnaire = $meteor.collection(Questionnaire);
-	$scope.questions = {};
-	$scope.questions.username = '';
-	$scope.submitted = sharedProperties.getSubmitted();
-	$scope.lifeInsuranceFieldCounter = 0;
-	$scope.questions.currentOutStandingLoans = [];
-	$scope.questions.currentOutStandingLoans.push({existingLoanType: '', existingLoanUnpaidAmt: '', comments:''});
 
+	// $meteor.session('questions').bind(scope, quesions);
+
+	var questions = Session.get('questions');
+	if (! questions) {
+		$scope.questions = {};
+		$scope.questions.username = '';
+		$scope.submitted = sharedProperties.getSubmitted();
+		$scope.lifeInsuranceFieldCounter = 0;
+		$scope.questions.currentOutStandingLoans = [];
+		$scope.questions.currentOutStandingLoans.push({existingLoanType: '', existingLoanUnpaidAmt: '', comments:''});
+	
+	} else {
+		$scope.questions = questions;
+	}
+	
 
 	$scope.questions.financialHelpTypes = [
 		{
@@ -126,14 +135,21 @@ angular.module('antkarma').controller('QuestionnaireCtrl', function($scope, $mod
 	
 	
 	$scope.submitForm = function(questions) {
-		// console.log(JSON.stringify(questions));
+		var randomId = Random.id;
+		console.log(JSON.stringify(questions));
+		sharedProperties.setId(randomId);
 
+		console.log('Random id : ' + randomId);
+		Session.set('questions', $scope.questions);
+		sharedProperties.setQuestionnaire($scope.questions);
 		sharedProperties.setSubmitted(true);
-		sharedProperties.setAnnualSalary($scope.questions.annualSalary);
-		sharedProperties.setAge($scope.questions.currentAge);
-		sharedProperties.setSmokerStatus($scope.questions.smoker);
-		sharedProperties.setGender($scope.questions.gender);
-		sharedProperties.setUsername($scope.questions.username);
+		// sharedProperties.setAnnualSalary($scope.questions.annualSalary);
+		// sharedProperties.setAge($scope.questions.currentAge);
+		// sharedProperties.setSmokerStatus($scope.questions.smoker);
+		// sharedProperties.setGender($scope.questions.gender);
+		// sharedProperties.setUsername($scope.questions.username);
+		// sharedProperties.setPlanToInvest($scope.questions.taxInvestmentAmount);
+		// sharedProperties.setCurrentLifeInsurance(questions.currentLifeInsurancePolicies);
 
 		$meteor.call('submitQuestionnaire', angular.copy($scope.questions)).then(
 	      function(data){
@@ -141,8 +157,11 @@ angular.module('antkarma').controller('QuestionnaireCtrl', function($scope, $mod
 	        // $scope.sbiDataSpinner = false;
 	        
 	       	var computedRiskScore = data;	
-	       	// console.log('computedRiskScore : ' + computedRiskScore);
-	       	sharedProperties.setRiskScore(computedRiskScore);
+	       	console.log('computedRiskScore : ' + computedRiskScore);
+	       	// sharedProperties.setRiskScore(computedRiskScore);
+	       	$rootScope.riskScore = computedRiskScore;
+	       	// Session.set('riskScore', computedRiskScore);
+
 	        
 	      },
 	      function(err){
@@ -150,6 +169,7 @@ angular.module('antkarma').controller('QuestionnaireCtrl', function($scope, $mod
 	      }
 	    );
 
+	    $rootScope.submitted = true;
 		$state.go('recommendations');	
 		
 		
