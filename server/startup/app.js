@@ -1,5 +1,6 @@
   Meteor.startup(function () {
     
+    process.env.MAIL_URL = "smtp://postmaster@sandbox36da93257751471db69ded9a0b65ee9c.mailgun.org:62cb7bf9dcc5e7da22a1c01155dd0c0f@smtp.mailgun.org:587";
 
     function loadData1() {
 
@@ -202,6 +203,41 @@
             var riskScore = computeScore(age, focus, marketVolatile);
             console.log('get_risk_score : riskScore : ' + riskScore);
             return riskScore;
+        },
+
+        send_email: function(query) {
+
+            var toEmail = query.email;
+            var fromEmail = "MintingWorks <saurabh@antkarma.com>";
+            var subject = "Your investment plan form MintingWorks";
+            var life_insurance = query.life_insurance;
+            var elss_amount = query.elss_amount;
+            var ppf_amount = query.elss_amount;
+            var total_amount = Number(life_insurance.premium) + Number(elss_amount) + Number(ppf_amount);
+            console.log('life_insurance : ' + JSON.stringify(life_insurance));
+            console.log('Sending emails to: ' + toEmail + " from: " + fromEmail);
+
+            SSR.compileTemplate( 'htmlEmail', Assets.getText( 'email_template.html' ) );
+
+            var emailData = {
+              policy_name: life_insurance.policy_name,
+              img_link: life_insurance.img,
+              amount: life_insurance.sum_assured,
+              premium: life_insurance.premium,
+              payment_term: life_insurance.payment_term,
+              policy_link: life_insurance.policy_link, 
+              elss_amount: elss_amount,
+              ppf_amount: ppf_amount,
+              total_amount: total_amount
+            };
+
+            // Email.send({
+            //   to: toEmail,
+            //   from: fromEmail,
+            //   subject: subject,
+            //   html: SSR.render( 'htmlEmail', emailData )
+            // });
+            console.log('emailData: ' + JSON.stringify(emailData));
         }
 
     });

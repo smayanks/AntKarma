@@ -16,10 +16,8 @@
 	</div>
 	<div class="row">
 		<span class="col-md-6 col-md-offset-4"><a href="/questions" class="btn btn-header btn-warning">Change answers</a>
-	<a href="/signup" class="btn btn-danger" ng-click="openDialog()">Everything is good. Let's Sign up</a></span>
+		<a class="btn btn-danger" ng-click="open()">Looks great! Email me this plan.</a></span>
 	</div>	
-	<div id="dialog" ng-show="false">Thank you for your interest. We are working on the submission form and integrating with payment gateways. We'll get back to you shortly.</div>
-
 	<div id="lifeInsurance"  class="life-insurance well well-custom col-md-10 col-md-offset-1">
 		<div ng-if="!showLifeIns" >
 			
@@ -42,7 +40,7 @@
 					<div class="col-md-6">
 						<h5 class="ins-heading  col-md-11">Coverage Amount: 
 							<span class="display-amount">{{coverageAmount}}</span>
-							<input type="range" name="sliderValue" ng-model="coverageAmount" ng-mouseup="update_life_ins_reco($event)" min="{{minCoverageAmount}}" max="{{maxCoverageAmount}}" step="100000">
+							<input type="range" name="sliderValue" ng-model="coverageAmount" ng-mouseup="update_life_ins_reco($event,'coverageAmountSlider')" min="{{minCoverageAmount}}" max="{{maxCoverageAmount}}" step="500000">
 							<div class="slider-label" id="coverageAmountSlider">{{coverageAmount}}</div>
 						</h5> 
 					</div>
@@ -50,7 +48,7 @@
 						<h5 class="ins-heading col-md-10 col-md-offset-1">Policy Term: 
 							<span class="display-amount"> {{paymentTerm}} yrs</span>
 
-							<input type="range" name="policyTermSlider" ng-model="paymentTerm" ng-mouseup="update_life_ins_reco($event)" min="{{minPolicyTerm}}" max="{{maxPolicyTerm}}" step="1">
+							<input type="range" name="policyTermSlider" ng-model="paymentTerm" ng-mouseup="update_life_ins_reco($event,'policyTermSlider')" min="{{minPolicyTerm}}" max="{{maxPolicyTerm}}" step="1">
 							<div class="slider-label" id="policyTermSlider">{{ paymentTerm}}</div>
 
 						</h5> 
@@ -190,7 +188,7 @@
 			<div class="col-md-8 col-md-offset-1">
 				<div class="pull-right">
 					<div class="ins-main-heading">Recommended Investment Amount: <span class="display-amount"> {{ ppfAmount }}</span></div> 
-				</div>				
+				</div>
 			</div>
 		</div>
 		<hr>
@@ -199,6 +197,20 @@
 		<h5><a class="special-a btn btn-large btn-success" href="http://www.icicibank.com/Personal-Banking/investments/ppf/ppf.page" target="_blank">Open ICICI bank PPF Account</a></h5>
 		<h5>Call our customer care in case you need any help or have any questions how to open PPF account.</h5>
 	</div>
-	
-
 </section>
+
+<script type="text/ng-template" id="firstDialog">
+
+				<div class="modal-display" ng-form="dialogForm">
+
+					<h4>Here is your investplan plan</h4>
+					<hr>
+					<h5>Enter your email to recieve this plan via email to review it later.</h5>
+					<input class="form-control input-md" name="email" ng-model="email" type="email" required>
+					<div class="text-center">
+						<!-- <button class="btn btn-success" ng-click="emailPlan(email)" ng-disabled="dialogForm.$invalid">GET THE PLAN</button> -->
+						<button class="btn btn-success" ng-disabled="dialogForm.$invalid" ng-click=confirm(email)>GET THE PLAN</button>
+					</div>
+					<!-- <div ng-show="showMessage" class="alert alert-info" role="alert">{{message}}</div> -->
+				</div>
+</script>

@@ -27,7 +27,7 @@
 
 
 .questions .btn-custom {
-	width: 80px !important;
+	width: 120px !important;
   margin-bottom: 20px;
 
 }
@@ -99,28 +99,6 @@
     margin-left: 5px;
     margin-right: 5px;*/
 }
-
-/*.questions .animate-hide {
-  transition: all linear 0.5s;
-  line-height: 20px;
-  opacity: 1;
-  padding: 10px;
-  border: 1px solid black;
-  background: white;
-}
-
-.questions.animate-hide.ng-hide {
-  line-height: 0;
-  opacity: 0;
-  padding: 0 10px;
-}
-
-.questions .check-element {
-  padding: 10px;
-  border: 1px solid black;
-  background: white;
-}
-*/
 
 
 
@@ -231,4 +209,22 @@
 }
 :-ms-input-placeholder { /* Internet Explorer 10-11 */
    color:    #fff !important;
+}
+
+.ngdialog-content {
+  background-color: #f6f9f9 !important;
+}
+.modal-display {
+  font-family: "Raleway",sans-serif;
+  /*font-size: 16px;*/
+  background-color: #f6f9f9;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-align: center;
+  margin: 0 0 30px;
+}
+
+.modal-display button {
+  margin-top : 20px;
 }

@@ -1,4 +1,4 @@
-angular.module('myApp').controller('QuestionnaireCtrl', function($scope, $modal, $meteor, $state, $rootScope, sharedProperties) {
+angular.module('myApp').controller('QuestionnaireCtrl', function($scope, $modal, $meteor, $state, $rootScope, ngDialog, sharedProperties) {
 	$scope.$on("$routeChangeSuccess", function (scope, next, current) {
         $scope.transitionState = "active"
     });
@@ -39,6 +39,10 @@ angular.module('myApp').controller('QuestionnaireCtrl', function($scope, $modal,
 		}
 	]
 
+	$scope.resetOutStandingLoans = function() {
+		$scope.questions.currentOutStandingLoans = [];
+		$scope.questions.currentOutStandingLoans.push({existingLoanType: '', existingLoanUnpaidAmt: '', comments:''});
+	}
 
 	$scope.addOutstandingLoanDetails = function() {
 		
@@ -135,11 +139,8 @@ angular.module('myApp').controller('QuestionnaireCtrl', function($scope, $modal,
 	
 	
 	$scope.submitForm = function(questions) {
-		var randomId = Random.id;
+		
 		console.log(JSON.stringify(questions));
-		sharedProperties.setId(randomId);
-
-		console.log('Random id : ' + randomId);
 		Session.set('questions', $scope.questions);
 		sharedProperties.setQuestionnaire($scope.questions);
 		sharedProperties.setSubmitted(true);
@@ -176,6 +177,8 @@ angular.module('myApp').controller('QuestionnaireCtrl', function($scope, $modal,
 	};
 
 
+
+
 	// questionnaire navigation between tabs
 	$('.next').click(function(){
     	var nextId = $(this).parents('.tab-pane').next().attr("id");
@@ -191,9 +194,9 @@ angular.module('myApp').controller('QuestionnaireCtrl', function($scope, $modal,
 	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
       //update progress
       var step = $(e.target).data('step');
-      var percent = (parseInt(step) / 11) * 100;
+      var percent = (parseInt(step) / 8) * 100;
       $('.progress-bar').css({width: percent + '%'});
-      $('.progress-bar').text("Step " + step + " of 11");
+      $('.progress-bar').text("Step " + step + " of 8");
       //e.relatedTarget // previous tab
 	});
 
@@ -201,14 +204,15 @@ angular.module('myApp').controller('QuestionnaireCtrl', function($scope, $modal,
     	$('[href=#step1]').tab('show');
   	});
 
-  	$( "#currentAge" ).validate({
-  		rules: {
-    	field: {
-      	required: true,
-      	range: [18, 65]
-    }
-  }
-});
+ //  	$( "#step2Form" ).validate({
+ //  		rules: {
+ //    		currentAge: {
+ //      			required: true,
+ //      			range: [18, 65]
+ //    	}
+ //  	}
+
+	// });
 
 
 });

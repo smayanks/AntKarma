@@ -1,6 +1,6 @@
 // Recommendation Controller : RecommendationCtrl
 
-angular.module('myApp').controller('RecommendationCtrl', function($scope, $modal, $state, $meteor, $timeout,$rootScope, sharedProperties) {
+angular.module('myApp').controller('RecommendationCtrl', function($scope, $modal, $state, $meteor, $timeout,$rootScope, ngDialog, sharedProperties) {
 
 	// console.log('rootScope.submitted : ' + $rootScope.submitted);
 	if ( typeof $rootScope.submitted == "undefined" || !$rootScope.submitted) {
@@ -18,16 +18,17 @@ angular.module('myApp').controller('RecommendationCtrl', function($scope, $modal
 	var DEFAULT_COVERAGE_AMOUNT = 5000000;
 	var COVERAGE_AMOUNT_FACTOR = 10;
 	var MIN_COVERAGE_AMOUNT = 1000000;
+	var PAYMENT_TERM_FACTOR = "60";
 	var totalTaxSavingAmount = TAX_SAVING_LIMIT;
 	var id = sharedProperties.getId();
 
-	console.log('Value of id in reco: ' + id);
 	$scope.minCoverageAmount = MIN_COVERAGE_AMOUNT;
 	$scope.maxCoverageAmount = MAX_COVERAGE_AMOUNT;
 	$scope.minPolicyTerm = MIN_POLICY_TERM;
 	$scope.maxPolicyTerm = MAX_POLICY_TERM;
 	$scope.hideLifeInsranceReco = false;
 	$scope.showLifeIns = true;
+	$scope.showMessage = false;
 	
 	$scope.$meteorSubscribe('elss');
 	$scope.elss	 = $meteor.collection(function(){
@@ -45,25 +46,36 @@ angular.module('myApp').controller('RecommendationCtrl', function($scope, $modal
 		$scope.username = username;
 	}
 
+	$scope.finalRecommendation = {life_insurance : ''};
+
 
 
 	function compute_coverage_amount() {
 		var coverageAmount = 0;
 		if (questions.annualSalary) {
-			coverageAmount = (Number(questions.annualSalary.replace(/,/g,'')) * COVERAGE_AMOUNT_FACTOR) + '';	
+			coverageAmount = Number(questions.annualSalary.replace(/,/g,'')) * COVERAGE_AMOUNT_FACTOR ;
+			// coverageAmount is of type Number after above statement
 		} else {
 			console.log('Error no annual salary found');
 			// $scope.coverageAmount = DEFAULT_COVERAGE_AMOUNT + '';
 		}
-		if (coverageAmount == "0") {
-			coverageAmount = DEFAULT_COVERAGE_AMOUNT + '';
+
+		var outstandingLoanAmount = 0;
+		if (questions.currentOutStandingLoans && questions.currentOutStandingLoans.length > 0) {
+			for (i = 0; i < questions.currentOutStandingLoans.length; i++) {
+				outstandingLoanAmount += Number(questions.currentOutStandingLoans[i].existingLoanUnpaidAmt.replace(/,/g,''));
+			}
 		}
-		console.log('Returning compute_coverage_amount : ' + coverageAmount);
-		return coverageAmount;
+
+		if (coverageAmount == "0") {
+			coverageAmount = DEFAULT_COVERAGE_AMOUNT;
+		}
+
+		var totalCoverageAmount = (coverageAmount + outstandingLoanAmount).toString();
+		console.log('Returning compute_coverage_amount : ' + totalCoverageAmount);
+
+		return totalCoverageAmount;
 	}
-
-	$scope.coverageAmount = compute_coverage_amount();
-
 
 	//Get the life insurance policy details if user has already invested money
 
@@ -89,7 +101,7 @@ angular.module('myApp').controller('RecommendationCtrl', function($scope, $modal
 			console.log('amountDiff : ' + amountDiff);
 
 			if (amountDiff > MIN_COVERAGE_AMOUNT) {
-				$scope.coverageAmount = amountDiff;
+				$scope.coverageAmount = amountDiff + '';
 				return true;
 			} else {
 				return false
@@ -99,7 +111,11 @@ angular.module('myApp').controller('RecommendationCtrl', function($scope, $modal
 
 	}
 
-	$scope.showLifeIns = check_for_life_insurance($scope.coverageAmount);
+	// $timeout(function() {
+		$scope.coverageAmount = compute_coverage_amount() + '';	
+		$scope.showLifeIns = check_for_life_insurance($scope.coverageAmount);
+	// }, 300);
+	
 
 	var age = questions.currentAge;
 	if (typeof age == "undefined") age = "32";
@@ -110,7 +126,9 @@ angular.module('myApp').controller('RecommendationCtrl', function($scope, $modal
 	var gender = questions.gender;
 	if (typeof gender == "undefined" ) gender = "male";
 
-	var paymentTerm = "25";
+	var paymentTerm = (PAYMENT_TERM_FACTOR - age) + '';
+
+
 	$scope.paymentTerm = paymentTerm;
 	var query = {age: age, sum_assured: $scope.coverageAmount, payment_term: $scope.paymentTerm};
 	var hdfcQuery = {age: age, sum_assured: $scope.coverageAmount, payment_term: $scope.paymentTerm, gender: gender, smoker: smoker};
@@ -129,6 +147,9 @@ angular.module('myApp').controller('RecommendationCtrl', function($scope, $modal
 
 	function refresh_life_insurance(query, hdfcQuery) {
 
+		console.log('refresh_life_insurance query: ' + query);
+		console.log('refresh_life_insurance hdfcQuery: ' + hdfcQuery);
+
 		$scope.sbiDataSpinner = true;
 		$scope.hdfcDataSpinner = true;
 		$scope.licDataSpinner = true;
@@ -139,7 +160,8 @@ angular.module('myApp').controller('RecommendationCtrl', function($scope, $modal
 		$scope.noICICIdata = false;
 		$meteor.call('get_sbi_data', query).then(
 	      function(data){
-	        // console.log('success sbi', new Date().getTime() / 1000);
+	        // console.log('success sbi', JSON.stringify(data));
+	        console.log('success sbi', JSON.stringify(data));
 	        $scope.sbiDataSpinner = false;
 	        if (typeof data == "undefined"){
 	        	$scope.noSBIdata = true;
@@ -154,7 +176,7 @@ angular.module('myApp').controller('RecommendationCtrl', function($scope, $modal
 
 		$meteor.call('get_lic_data', query).then(
 	      function(data){
-	        // console.log('success lic', new Date().getTime() / 1000);
+	        console.log('success lic', JSON.stringify(data));
 	        $scope.licDataSpinner = false;
 	        if (typeof data == "undefined"){
 	        	$scope.noLICdata = true;
@@ -170,7 +192,7 @@ angular.module('myApp').controller('RecommendationCtrl', function($scope, $modal
 
 		$meteor.call('get_icici_data', query).then(
 	      function(data){
-	        // console.log('success icici', new Date().getTime() / 1000);
+	        console.log('success icici', JSON.stringify(data));
 	        
 	        $scope.iciciDataSpinner = false;
 	        if (typeof data == "undefined"){
@@ -186,7 +208,7 @@ angular.module('myApp').controller('RecommendationCtrl', function($scope, $modal
 
 	    $meteor.call('get_hdfc_policy_info').then(
 	      function(data){
-	        // console.log('success hdfc policy info', new Date().getTime() / 1000);
+	        console.log('success hdfc policy info', JSON.stringify(data));
 	        if (typeof data == "undefined"){
 	        	$scope.noHDFCpolicyInfo = true;
 	        } else {
@@ -201,7 +223,7 @@ angular.module('myApp').controller('RecommendationCtrl', function($scope, $modal
 
 		$meteor.call('get_hdfc_data', hdfcQuery).then(
 	      function(data){
-	        // console.log('success hdfc', new Date().getTime() / 1000);
+	        console.log('success hdfc', JSON.stringify(data));
 	        $scope.toggleLifeInsurance();
 	        $scope.hdfcDataSpinner = false;
 	        if (typeof data == "undefined"){
@@ -230,9 +252,17 @@ angular.module('myApp').controller('RecommendationCtrl', function($scope, $modal
 	}
 	
 
-    $scope.update_life_ins_reco = function(event) {
+    $scope.update_life_ins_reco = function(event, slider) {
+
+    	var target = event.target;
+    	if (slider == "coverageAmountSlider") {
+    		$scope.coverageAmount = $(target).val();
+    	} else if (slider == "policyTermSlider") {
+    		$scope.paymentTerm = $(target).val();
+    	}
+    	
 	    
-	    set_slider_attributes("#coverageAmountSlider", $scope.coverageAmount, $scope.minCoverageAmount , $scope.maxCoverageAmount );
+	    set_slider_attributes("#coverageAmountSlider",$scope.coverageAmount, $scope.minCoverageAmount , $scope.maxCoverageAmount );
     	set_slider_attributes("#policyTermSlider", $scope.paymentTerm, $scope.minPolicyTerm , $scope.maxPolicyTerm);
     	
     	$scope.select_life_insurance(RECOMMENDED_LIFE_INSURANCE);
@@ -262,6 +292,13 @@ angular.module('myApp').controller('RecommendationCtrl', function($scope, $modal
 
 	}
 
+	function update_reco_object(selectedLifeInsurance, elssAmount, ppfamount) {
+		$scope.finalRecommendation.life_insurance =  $scope[selectedLifeInsurance];
+		$scope.finalRecommendation.elss_amount =  elssAmount;
+		$scope.finalRecommendation.ppf_amount =  ppfamount;
+		sharedProperties.setFinalReco($scope.finalRecommendation);
+	}
+
 	$scope.select_life_insurance = function(id) {
 
 		$("button.select-li-reco").text("Select");
@@ -273,19 +310,65 @@ angular.module('myApp').controller('RecommendationCtrl', function($scope, $modal
 		compute_elss_ppf_details();
 	}
 
-	$scope.openDialog = function() {
-		$( "#dialog" ).dialog({
-	      autoOpen: false,
-	      show: {
-	        effect: "blind",
-	        duration: 1000
-	      },
-	      hide: {
-	        effect: "explode",
-	        duration: 1000
-	      }
-    	});
-	}
+	$scope.emailPlan = function(email) {
+  		
+  		// var query = angular.copy(questions);
+  		
+  		var query = sharedProperties.getFinalReco();
+  		query.email = email;
+  		
+  		console.log('Inside emailPlan SendEmailCtrl: ' + JSON.stringify(query));
+  		return true;
+
+  		// $meteor.call('send_email', query).then(
+	   //    function(data){
+	   //      console.log('Email sent successfully');	        
+	   //    },
+	   //    function(err){
+	   //      console.log('Questionnaire submission failed', err);
+	   //    }
+	   //  );
+	    
+
+  	}
+
+	$scope.open = function () {
+
+    	// ngDialog.open({ 
+    	// 	template: 'firstDialog' ,
+    	// 	controller: 'SendEmailCtrl',
+    	// 	scope: $scope
+    	// });
+
+    	ngDialog.openConfirm({template: 'firstDialog',
+			scope: $scope //Pass the scope object if you need to access in the template
+		}).then(
+			function(value) {
+				//You need to implement the saveForm() method which should return a promise object
+				var query = sharedProperties.getFinalReco();
+  				query.email = value;
+		  		$meteor.call('send_email', query).then(
+			      function(data){
+			        console.log('Email sent successfully');	     
+			        ngDialog.open({template: '<div class="ngdialog-message"> \
+						  Email sent successfully.<button class="btn btn-xs btn-info btn-alert" ng-click=closeThisDialog()>OK</button></div>',
+							plain: 'true'
+						});   
+			      },
+			      function(err){
+			        console.log('Questionnaire submission failed', err);
+			        ngDialog.open({template: '<div class="ngdialog-message"> \
+						  An error occurred while sending email. Please try again.</div>',
+							plain: 'true'
+						});
+			      }
+			    );
+			},
+			function(value) {
+				//Cancel or do nothing
+			}
+		);
+  	};
 
 	function compute_elss_ppf_details() {
 
@@ -352,17 +435,19 @@ angular.module('myApp').controller('RecommendationCtrl', function($scope, $modal
 		//Rounding up the amount to the nearest multiple of 1000
 		var recoPPFamount = Math.ceil((recoAmountForELSSandPPF * ppfELSS.ppf)/1000)*1000 ;
 		$scope.ppfAmount = recoPPFamount;
+
+
 		var recoELSSamount = Math.ceil((recoAmountForELSSandPPF * ppfELSS.elss)/1000)*1000;
 		$scope.elssAmount = recoELSSamount;	
 		$scope.elssSliderValue = recoELSSamount;
 		$scope.elss_investment_amount = Math.ceil($scope.elssAmount/2);
 		$scope.displayMaxELSSPPFAmount =  Math.ceil(recoAmountForELSSandPPF);
 		$scope.displayRiskScore = $scope.riskScore;
+		update_reco_object(selectedLifeInsurance, $scope.elss_investment_amount, $scope.ppfAmount);
 	}
 
-
+	$scope.open();
 });
-
 
 
 

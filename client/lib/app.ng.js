@@ -1,12 +1,8 @@
 
-angular.module('myApp', ['angular-meteor', 'ngAnimate','ui.router',  'ui.bootstrap', 'ngMessages']);
-
-
+angular.module('myApp', ['angular-meteor', 'ngAnimate','ui.router',  'ui.bootstrap', 'ngMessages', 'ngDialog']);
 
 angular.module('myApp').directive ('numbersOnly', function() {
 	return {
-
-
 		require: 'ngModel',
 		link: function(scope, element, attrs, modelCtrl) {
 			modelCtrl.$parsers.push(function(inputValue) {
@@ -51,19 +47,30 @@ angular.module('myApp').directive ('numbersOnly', function() {
 });
 
 
+angular.module('myApp').directive('contenteditable', function() {
+	return {
+		require: 'ngModel',
+		link: function(scope, elm, attrs, ctrl) {
+			//view to model
+			elm.bind('blur', function() {
+				$scope.apply(function() {
+					ctrl.$setViewValue(elem.html());
+				});
+			});
+			// from model to view
+			ctrl.$render = function() {
+				elm.html(ctrl.$viewValue);
+			};
 
+		}
+	};
+});
 
 angular.module('myApp').service('sharedProperties', function() {
 	var submitted = false;
 	var questionnaire;
-	var annualSalary;
-	var age;
-	var smoker;
-	var gender;
-	var username;
-	var planToInvest;
-	var currentLifeInsValue;
 	var id;
+	var finalRecommendation;
 
 	return {
 
@@ -86,60 +93,14 @@ angular.module('myApp').service('sharedProperties', function() {
 		},
 		setId: function(value) {
 			id = value;
-		}
-
-		// getAnnualSalary: function() {
-		// 	return annualSalary;
-		// },
-
-		// setAnnualSalary: function(value) {
-		// 	annualSalary = value;
-		// },
-
-		// getAge: function() {
-		// 	return age;
-		// },
-
-		// setAge: function(value) {
-		// 	age = value;
-		// },
-		// getSmokerStatus: function() {
-		// 	return smoker;
-		// },
-
-		// setSmokerStatus: function(value) {
-		// 	smoker = value;
-		// },
-		// getGender: function() {
-		// 	return gender;
-		// },
-
-		// setGender: function(value) {
-		// 	gender = value;
-		// },
-		// getUsername: function() {
-		// 	return username;
-		// },
-
-		// setUsername: function(value) {
-		// 	username = value;
-		// },
-		// getPlanToInvest: function() {
-		// 	return planToInvest;
-		// },
-
-		// setPlanToInvest: function(value) {
-		// 	planToInvest = value;
-		// },
-		// getCurrentLifeInsurance: function() {
-		// 	return currentLifeInsValue;
-		// },
-		// setCurrentLifeInsurance: function(value) {
-		// 	currentLifeInsValue = value;
-		// }
-		
+		},
+		getFinalReco: function() {
+			return finalRecommendation;
+		},
+		setFinalReco: function(value) {
+			finalRecommendation = value;
+		}		
 	}
-
 });
 
 angular.module('myApp').animation('.slide', function () {
@@ -147,13 +108,13 @@ angular.module('myApp').animation('.slide', function () {
    
     return {
         enter: function (element, done) {
-            element.hide().slideDown(900, done);
+            element.hide().slideDown(600, done);
         },
         move: function(element, done) {
-            element.slideUp(900, done);
+            element.slideUp(600, done);
         },
         leave: function(element, done) {
-            element.slideUp(900, done);
+            element.slideUp(600, done);
         }
     };
     

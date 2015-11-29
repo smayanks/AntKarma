@@ -33,3 +33,6 @@ insecure
 sacha:spin
 themeteorchef:jquery-validation
 random
+
+email
+meteorhacks:ssr

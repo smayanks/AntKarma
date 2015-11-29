@@ -1,0 +1,158 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta name="viewport" content="width=device-width" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>HTML email test</title>
+  <link href="styles.css" media="all" rel="stylesheet" type="text/css" />
+</head>
+
+<body itemscope itemtype="http://schema.org/EmailMessage">
+  <div width="800" style="font-size: 14px; font-family: Raleway, Helvetica, Arial, sans-serif; color: #333333;font-weight: 300;">
+    <div style="font-size: 18px; font-family: Raleway, Helvetica, Arial, sans-serif; color: #333333; font-weight: 300; letter-spacing: 0.1em;text-decoration: underline; padding-bottom: 10px; margin-bottom: 10px;">Your Investment Plan from MintingWorks</div>
+    <div style="font-size: 18px; font-family: Raleway, Helvetica, Arial, sans-serif; color: #333333;">Total Investment Amount : {{total_amount}}</div>
+        
+    <div style="font-size: 18px; font-family: Raleway, Helvetica, Arial, sans-serif; color: #333333; padding-top: 30px;font-weight: 300;  letter-spacing: 0.1em;text-decoration: underline; padding-bottom: 10px; margin-bottom: 10px;">Life Insurance Investment</div>
+    <table>
+      <tr>
+        <td></td>
+        <td width="600">
+          <table width="100%" style="border: 1px solid #eee;">
+            <tr>
+              <th style="text-align: left; padding: 10px; border-bottom: 1px solid #eee; border-right: 1px solid #eee;">Policy Name</th>
+              <td style="text-align: left; padding: 10px; border-bottom: 1px solid #eee;">
+                <!-- <img src="{{img_link}}" alt="">{{policy_name}} -->
+                {{policy_name}}
+              </td>
+            </tr>
+            <tr>
+              <th style="text-align: left; padding: 10px; border-bottom: 1px solid #eee; border-right: 1px solid #eee;">Coverage Amount</th>
+              <td style="text-align: left; padding: 10px; border-bottom: 1px solid #eee;">₹ {{amount}}</td>
+            </tr>
+            <tr>
+              <th style="text-align: left; padding: 10px; border-bottom: 1px solid #eee; border-right: 1px solid #eee;">Annual Premium</th>
+              <td style="text-align: left; padding: 10px; border-bottom: 1px solid #eee;">₹ {{premium}}</td>
+            </tr>
+            <tr>
+              <th style="text-align: left; padding: 10px; border-bottom: 1px solid #eee; border-right: 1px solid #eee;">Policy Term</th>
+              <td style="text-align: left; padding: 10px; border-bottom: 1px solid #eee;">{{payment_term}}</td>
+            </tr>
+            <tr>
+              <th style="text-align: left; padding: 10px; border-right: 1px solid #eee;">Policy Link</th>
+              <td style="text-align: left; padding: 10px;">
+                <a href="{{policy_link}}">Buy {{policy_name}}</a>
+              </td>
+            </tr>
+
+          </table>
+        </td>
+      </tr>
+    </table>
+    <div style="font-size: 18px; font-family: Raleway, Helvetica, Arial, sans-serif; color: #333333; padding-top: 30px;font-weight: 300;  letter-spacing: 0.1em;text-decoration: underline; padding-bottom: 10px; margin-bottom: 10px;">ELSS Investment - I</div>
+    <table>
+      <tr>
+        <td></td>
+        <td width="600">
+          <table width="100%" style="border: 1px solid #eee;">
+            <tr>
+              <th style="text-align: left; padding: 10px; border-bottom: 1px solid #eee; border-right: 1px solid #eee;">Fund Name</th>
+              <td style="text-align: left; padding: 10px; border-bottom: 1px solid #eee;">
+                <!-- <img src="{{img_link}}" alt="">{{policy_name}} -->
+                Axis Long Term Equity Fund - G
+              </td>
+            </tr>
+            <tr>
+              <th style="text-align: left; padding: 10px; border-bottom: 1px solid #eee; border-right: 1px solid #eee;">Investment Amount</th>
+              <td style="text-align: left; padding: 10px; border-bottom: 1px solid #eee;">₹ {{elss_amount}}</td>
+            </tr>
+            <tr>
+              <th style="text-align: left; padding: 10px; border-bottom: 1px solid #eee; border-right: 1px solid #eee;">Annualized Return in 5 years</th>
+              <td style="text-align: left; padding: 10px; border-bottom: 1px solid #eee;">17.9%</td>
+            </tr>
+            <tr>
+              <th style="text-align: left; padding: 10px; border-bottom: 1px solid #eee; border-right: 1px solid #eee;">Fund Risk</th>
+              <td style="text-align: left; padding: 10px; border-bottom: 1px solid #eee;">Below Average</td>
+            </tr>
+            <tr>
+              <th style="text-align: left; padding: 10px; border-bottom: 1px solid #eee; border-right: 1px solid #eee;">MorningStar Rating</th>
+              <td style="text-align: left; padding: 10px; border-bottom: 1px solid #eee;">5 Star</td>
+            </tr>
+            <tr>
+              <th style="text-align: left; padding: 10px; border-right: 1px solid #eee;">Policy Link</th>
+              <td style="text-align: left; padding: 10px;">
+                <a href="http://morningstar.in/mutualfunds/f000005ntx/axis-long-term-equity-growth/overview.aspx">Buy Now</a>
+              </td>
+            </tr>
+
+          </table>
+        </td>
+      </tr>
+    </table>
+    <div style="font-size: 18px; font-family: Raleway, Helvetica, Arial, sans-serif; color: #333333; padding-top: 30px;font-weight: 300;  letter-spacing: 0.1em;text-decoration: underline; padding-bottom: 10px; margin-bottom: 10px;">ELSS Investment - II</div>
+
+    <table>
+      <tr>
+        <td></td>
+        <td width="600">
+          <table width="100%" style="border: 1px solid #eee;">
+            <tr>
+              <th style="text-align: left; padding: 10px; border-bottom: 1px solid #eee; border-right: 1px solid #eee;">Fund Name</th>
+              <td style="text-align: left; padding: 10px; border-bottom: 1px solid #eee;">
+                <!-- <img src="{{img_link}}" alt="">{{policy_name}} -->
+                Franklin India Taxshield - G
+              </td>
+            </tr>
+            <tr>
+              <th style="text-align: left; padding: 10px; border-bottom: 1px solid #eee; border-right: 1px solid #eee;">Investment Amount</th>
+              <td style="text-align: left; padding: 10px; border-bottom: 1px solid #eee;">₹ {{elss_amount}}</td>
+            </tr>
+            <tr>
+              <th style="text-align: left; padding: 10px; border-bottom: 1px solid #eee; border-right: 1px solid #eee;">Annualized Return in 5 years</th>
+              <td style="text-align: left; padding: 10px; border-bottom: 1px solid #eee;">13.8%</td>
+            </tr>
+            <tr>
+              <th style="text-align: left; padding: 10px; border-bottom: 1px solid #eee; border-right: 1px solid #eee;">Fund Risk</th>
+              <td style="text-align: left; padding: 10px; border-bottom: 1px solid #eee;">Low</td>
+            </tr>
+            <tr>
+              <th style="text-align: left; padding: 10px; border-bottom: 1px solid #eee; border-right: 1px solid #eee;">MorningStar Rating</th>
+              <td style="text-align: left; padding: 10px; border-bottom: 1px solid #eee;">5 Star</td>
+            </tr>
+            <tr>
+              <th style="text-align: left; padding: 10px; border-right: 1px solid #eee;">Policy Link</th>
+              <td style="text-align: left; padding: 10px;">
+                <a href="http://morningstar.in/mutualfunds/f0gbr06si5/franklin-india-taxshield-fund-growth/overview.aspx">Buy Now</a>
+              </td>
+            </tr>
+
+          </table>
+        </td>
+      </tr>
+    </table>
+    <div style="font-size: 18px; font-family: Raleway, Helvetica, Arial, sans-serif; color: #333333; padding-top: 30px;font-weight: 300;  letter-spacing: 0.1em;text-decoration: underline; padding-bottom: 10px; margin-bottom: 10px;">PPF Investment</div>
+    <table>
+      <tr>
+        <td></td>
+        <td width="600">
+          <table width="100%" style="border: 1px solid #eee;">
+            <tr>
+              <th style="text-align: left; padding: 10px; border-bottom: 1px solid #eee; border-right: 1px solid #eee;">Amount to Invest</th>
+              <td style="text-align: left; padding: 10px; border-bottom: 1px solid #eee;">
+                <!-- <img src="{{img_link}}" alt="">{{policy_name}} -->
+                ₹ {{ppf_amount}}
+              </td>
+            </tr>
+            <tr>
+              <th style="text-align: left; padding: 10px; border-bottom: 1px solid #eee; border-right: 1px solid #eee;">SBI PPF Account</th>
+              <td style="text-align: left; padding: 10px; border-bottom: 1px solid #eee;"><a href="https://www.sbi.co.in/portal/web/personal-banking/public-provident-fund-ppf" target="_blank">Open Account</a></td>
+            </tr>
+            <tr>
+              <th style="text-align: left; padding: 10px; border-bottom: 1px solid #eee; border-right: 1px solid #eee;">ICICI PPF Account</th>
+              <td style="text-align: left; padding: 10px; border-bottom: 1px solid #eee;"><a href="https://www.sbi.co.in/portal/web/personal-banking/public-provident-fund-ppf" target="_blank">Open Account</a></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </div>
+</body>
+</html>
