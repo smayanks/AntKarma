@@ -231,12 +231,12 @@
               total_amount: total_amount
             };
 
-            // Email.send({
-            //   to: toEmail,
-            //   from: fromEmail,
-            //   subject: subject,
-            //   html: SSR.render( 'htmlEmail', emailData )
-            // });
+            Email.send({
+              to: toEmail,
+              from: fromEmail,
+              subject: subject,
+              html: SSR.render( 'htmlEmail', emailData )
+            });
             console.log('emailData: ' + JSON.stringify(emailData));
         }
 

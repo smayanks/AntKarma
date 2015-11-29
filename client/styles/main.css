@@ -187,3 +187,7 @@ section {
 .slide1.ng-leave-active {
     left: -100%;
 }
+
+.footer-text {
+  font-size: 12px;
+}
