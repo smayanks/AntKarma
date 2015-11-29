@@ -68,12 +68,6 @@
     loadData5();
 
 
-    // loadData("ELSS", "elss_data.json");
-    // loadData("ICICIlifeInsurance", "icici_data.json");
-    // loadData("LIClifeInsurance", "lic_data.json");
-    // loadData("SBIlifeInsurance", "sbi_data.json");
-    // loadData("HDFClifeInsurance", "hdfc_data.json");
-
     Meteor.publish('lifeInsRecos', function() {
     	return LifeInsurances.find();
     });
@@ -155,7 +149,7 @@
     		}
     		queryString += policy_term;
 
-    		console.log("Created query string: " + queryString);
+    		// console.log("Created query string: " + queryString);
 
     		var findById = {id: queryString} ;
     		var doc = HDFClifeInsurance.findOne(findById);
@@ -201,7 +195,7 @@
 
         get_risk_score: function(age, focus, marketVolatile) {
             var riskScore = computeScore(age, focus, marketVolatile);
-            console.log('get_risk_score : riskScore : ' + riskScore);
+            // console.log('get_risk_score : riskScore : ' + riskScore);
             return riskScore;
         },
 
@@ -214,8 +208,8 @@
             var elss_amount = query.elss_amount;
             var ppf_amount = query.elss_amount;
             var total_amount = Number(life_insurance.premium) + Number(elss_amount) + Number(ppf_amount);
-            console.log('life_insurance : ' + JSON.stringify(life_insurance));
-            console.log('Sending emails to: ' + toEmail + " from: " + fromEmail);
+            // console.log('life_insurance : ' + JSON.stringify(life_insurance));
+            // console.log('Sending emails to: ' + toEmail + " from: " + fromEmail);
 
             SSR.compileTemplate( 'htmlEmail', Assets.getText( 'email_template.html' ) );
 
@@ -237,7 +231,7 @@
               subject: subject,
               html: SSR.render( 'htmlEmail', emailData )
             });
-            console.log('emailData: ' + JSON.stringify(emailData));
+            // console.log('emailData: ' + JSON.stringify(emailData));
         }
 
     });

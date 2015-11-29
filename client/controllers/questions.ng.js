@@ -140,25 +140,19 @@ angular.module('myApp').controller('QuestionnaireCtrl', function($scope, $modal,
 	
 	$scope.submitForm = function(questions) {
 		
-		console.log(JSON.stringify(questions));
+
 		Session.set('questions', $scope.questions);
 		sharedProperties.setQuestionnaire($scope.questions);
 		sharedProperties.setSubmitted(true);
-		// sharedProperties.setAnnualSalary($scope.questions.annualSalary);
-		// sharedProperties.setAge($scope.questions.currentAge);
-		// sharedProperties.setSmokerStatus($scope.questions.smoker);
-		// sharedProperties.setGender($scope.questions.gender);
-		// sharedProperties.setUsername($scope.questions.username);
-		// sharedProperties.setPlanToInvest($scope.questions.taxInvestmentAmount);
-		// sharedProperties.setCurrentLifeInsurance(questions.currentLifeInsurancePolicies);
+
 
 		$meteor.call('submitQuestionnaire', angular.copy($scope.questions)).then(
 	      function(data){
-	        console.log('Questionnaire submitted succesfully', new Date().getTime() / 1000);
+
 	        // $scope.sbiDataSpinner = false;
 	        
 	       	var computedRiskScore = data;	
-	       	console.log('computedRiskScore : ' + computedRiskScore);
+
 	       	// sharedProperties.setRiskScore(computedRiskScore);
 	       	$rootScope.riskScore = computedRiskScore;
 	       	// Session.set('riskScore', computedRiskScore);
@@ -166,7 +160,7 @@ angular.module('myApp').controller('QuestionnaireCtrl', function($scope, $modal,
 	        
 	      },
 	      function(err){
-	        console.log('Questionnaire submission failed', err);
+
 	      }
 	    );
 
