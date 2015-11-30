@@ -206,8 +206,8 @@
             var subject = "Your investment plan form MintingWorks";
             var life_insurance = query.life_insurance;
             var elss_amount = query.elss_amount;
-            var ppf_amount = query.elss_amount;
-            var total_amount = Number(life_insurance.premium) + Number(elss_amount) + Number(ppf_amount);
+            var ppf_amount = query.ppf_amount;
+            var total_amount = Number(life_insurance.premium) + (Number(elss_amount) * 2) + Number(ppf_amount);
             // console.log('life_insurance : ' + JSON.stringify(life_insurance));
             // console.log('Sending emails to: ' + toEmail + " from: " + fromEmail);
 
