@@ -85,14 +85,14 @@
 				<h4 class="helper-message">Hello {{questions.username}}! Lets start by understanding you better.</h4>
 				<div class="well well-lg">
 					<div ng-form="step3Form" class="form-horizontal">
-						<h4> Overall how much do you plan to invest this year?</h4>
-						<h5 class="answers">Include both tax saving as well as other investments.</h5>
+						<h4> How much do you want to invest for tax saving(Under 80c) this year?</h4>
+						<h5 class="answers">Maximum allowable limit under 80c is 1.5 lacs</h5>
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-inr"></i></span>
 							<input class="form-control input-md" name="taxInvestmentAmount" ng-model="questions.taxInvestmentAmount" numbers-only required>
 						</div>
 						<br>
-						<h4>Have you already made any tax saving investments for this year (FY 2015-2016) ?</h4>
+<!-- 						<h4>Have you already made any tax saving investments for this year (FY 2015-2016) ?</h4>
 						<div class="radio answers">
 							<label class="radio-inline">
 								<h5><input type="radio" name="alreadyMadeTaxInvestment" value="yes" ng-model="questions.alreadyMadeTaxInvestment" required>Yes</h5>
@@ -101,11 +101,15 @@
 								<h5><input type="radio" name="alreadyMadeTaxInvestment" value="no" ng-model="questions.alreadyMadeTaxInvestment" required>No</h5>
 							</label>
 						</div>
-						<div ng-show="questions.alreadyMadeTaxInvestment == 'yes'">
-							<h4>How much have you invested overall?</h4>
-							<h5>Include all investments in life insurance, ELSS, tax saving fixed deposits, NSC, PPF and EPF.</h5>
-							<input class="form-control" name="alreadyMadeTaxInvestmentAmount" ng-model="questions.alreadyMadeTaxInvestmentAmount" type="text" numbers-only ng-required="questions.alreadyMadeTaxInvestment == 'yes'">
-						</div>
+ -->
+ 						<!-- <div ng-show="questions.alreadyMadeTaxInvestment == 'yes'"> -->
+							<h4>Out of above amount how much have you already invested?</h4>
+							<h5>Include all investments planned or made in life insurance, ELSS, tax saving fixed deposits, NSC, PPF and EPF.</h5>
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-inr"></i></span>
+								<input class="form-control" name="alreadyMadeTaxInvestmentAmount" ng-model="questions.alreadyMadeTaxInvestmentAmount" type="text" numbers-only required>
+							</div>
+						<!-- </div> -->
 
 					</div>
 				</div>

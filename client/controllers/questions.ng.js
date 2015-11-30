@@ -37,8 +37,10 @@ angular.module('myApp').controller('QuestionnaireCtrl', function($scope, $modal,
 			subtext:'And everyone should do the same. We believe that good financial advice should be for everyone irrespective of their wealth or status. Our platform will enable effective investments with optimum growth for everyone.',
 			checked: false
 		}
-	]
+	];
 
+	$scope.questions.alreadyMadeTaxInvestmentAmount = 0;
+	
 	$scope.resetOutStandingLoans = function() {
 		$scope.questions.currentOutStandingLoans = [];
 		$scope.questions.currentOutStandingLoans.push({existingLoanType: '', existingLoanUnpaidAmt: '', comments:''});
