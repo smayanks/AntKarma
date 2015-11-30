@@ -158,53 +158,53 @@ angular.module('myApp').controller('RecommendationCtrl', function($scope, $modal
 		$scope.noHDFCdata = false;
 		$scope.noLICdata = false;
 		$scope.noICICIdata = false;
-		$meteor.call('get_sbi_data', query).then(
-	      function(data){
+		// $meteor.call('get_sbi_data', query).then(
+	 //      function(data){
 
 
-	        $scope.sbiDataSpinner = false;
-	        if (typeof data == "undefined"){
-	        	$scope.noSBIdata = true;
-	        } else {
-	        	$scope.sbiData = data;	
-	        }
-	      },
-	      function(err){
+	 //        $scope.sbiDataSpinner = false;
+	 //        if (typeof data == "undefined"){
+	 //        	$scope.noSBIdata = true;
+	 //        } else {
+	 //        	$scope.sbiData = data;	
+	 //        }
+	 //      },
+	 //      function(err){
 
-	      }
-	    );
+	 //      }
+	 //    );
 
-		$meteor.call('get_lic_data', query).then(
-	      function(data){
+		// $meteor.call('get_lic_data', query).then(
+	 //      function(data){
 
-	        $scope.licDataSpinner = false;
-	        if (typeof data == "undefined"){
-	        	$scope.noLICdata = true;
-	        } else {
-	        	$scope.licData = data;
-	        }
-	      },
-	      function(err){
+	 //        $scope.licDataSpinner = false;
+	 //        if (typeof data == "undefined"){
+	 //        	$scope.noLICdata = true;
+	 //        } else {
+	 //        	$scope.licData = data;
+	 //        }
+	 //      },
+	 //      function(err){
 
-	      }
-	    );
+	 //      }
+	 //    );
 
 
-		$meteor.call('get_icici_data', query).then(
-	      function(data){
+		// $meteor.call('get_icici_data', query).then(
+	 //      function(data){
 
 	        
-	        $scope.iciciDataSpinner = false;
-	        if (typeof data == "undefined"){
-	        	$scope.noICICIdata = true;
-	        } else {
-	        	$scope.iciciData = data;
-	        }
-	      },
-	      function(err){
+	 //        $scope.iciciDataSpinner = false;
+	 //        if (typeof data == "undefined"){
+	 //        	$scope.noICICIdata = true;
+	 //        } else {
+	 //        	$scope.iciciData = data;
+	 //        }
+	 //      },
+	 //      function(err){
 
-	      }
-	    );
+	 //      }
+	 //    );
 
 	    $meteor.call('get_hdfc_policy_info').then(
 	      function(data){
@@ -213,7 +213,6 @@ angular.module('myApp').controller('RecommendationCtrl', function($scope, $modal
 	        	$scope.noHDFCpolicyInfo = true;
 	        } else {
 	        	$scope.hdfcData = data;
-	        	// compute_elss_ppf_details();
 	        }
 	      },
 	      function(err){
@@ -224,7 +223,7 @@ angular.module('myApp').controller('RecommendationCtrl', function($scope, $modal
 		$meteor.call('get_hdfc_data', hdfcQuery).then(
 	      function(data){
 
-	        $scope.toggleLifeInsurance();
+	        // $scope.toggleLifeInsurance();
 	        $scope.hdfcDataSpinner = false;
 	        if (typeof data == "undefined"){
 	        	$scope.noHDFCdata = true;
@@ -265,7 +264,7 @@ angular.module('myApp').controller('RecommendationCtrl', function($scope, $modal
 	    set_slider_attributes("#coverageAmountSlider",$scope.coverageAmount, $scope.minCoverageAmount , $scope.maxCoverageAmount );
     	set_slider_attributes("#policyTermSlider", $scope.paymentTerm, $scope.minPolicyTerm , $scope.maxPolicyTerm);
     	
-    	$scope.select_life_insurance(RECOMMENDED_LIFE_INSURANCE);
+    	
     	
     	query = {age: age, sum_assured: $scope.coverageAmount, payment_term: $scope.paymentTerm};
 		hdfcQuery = {age: age, sum_assured: $scope.coverageAmount, payment_term: $scope.paymentTerm, gender: gender, smoker: smoker};
@@ -275,40 +274,26 @@ angular.module('myApp').controller('RecommendationCtrl', function($scope, $modal
 
    	};
 
-   	// Show only recommended content of initial page load
-	$scope.toggleLifeInsurance = function() {
-
-		if ($scope.hideLifeInsranceReco === false) {
-			$scope.hideLifeInsranceReco = true;
-			$('.li-insurance-content').hide();
-			$('.reco-selected').show();
-		} else {
-			$scope.hideLifeInsranceReco = false;
-			$('.li-insurance-content').show();
-
-		}
-		// $scope.hideLifeInsranceReco = $scope.hideLifeInsranceReco === false ? true : false;
-
-
-	}
+	
 
 	function update_reco_object(selectedLifeInsurance, elssAmount, ppfamount) {
+
 		$scope.finalRecommendation.life_insurance =  $scope[selectedLifeInsurance];
 		$scope.finalRecommendation.elss_amount =  elssAmount;
 		$scope.finalRecommendation.ppf_amount =  ppfamount;
 		sharedProperties.setFinalReco($scope.finalRecommendation);
 	}
 
-	$scope.select_life_insurance = function(id) {
+	// $scope.select_life_insurance = function(id) {
 
-		$("button.select-li-reco").text("Select");
-		$("#" + id).find("button.select-li-reco").text("Selected");
+	// 	$("button.select-li-reco").text("Select");
+	// 	$("#" + id).find("button.select-li-reco").text("Selected");
 
-		$(".li-insurance-content").removeClass("reco-selected");
-		$("#" + id).addClass("reco-selected");		
-		selectedLifeInsurance = id;
-		compute_elss_ppf_details();
-	}
+	// 	$(".li-insurance-content").removeClass("reco-selected");
+	// 	$("#" + id).addClass("reco-selected");		
+	// 	selectedLifeInsurance = id;
+	// 	compute_elss_ppf_details();
+	// }
 
 
 

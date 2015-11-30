@@ -149,7 +149,7 @@
     		}
     		queryString += policy_term;
 
-    		// console.log("Created query string: " + queryString);
+    		console.log("Created query string: " + queryString);
 
     		var findById = {id: queryString} ;
     		var doc = HDFClifeInsurance.findOne(findById);
