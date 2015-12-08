@@ -286,7 +286,7 @@
 		}
 
 		else if (investmentFocusOn == 'bothEqually') {
-			attitudeScoreForLossGain = 1;
+			attitudeScoreForLossGain = 3;
 		}
 
 		return attitudeScoreForLossGain;

@@ -39,7 +39,10 @@ angular.module('myApp').controller('QuestionnaireCtrl', function($scope, $modal,
 		}
 	];
 
-	$scope.questions.alreadyMadeTaxInvestmentAmount = 0;
+	if ($scope.questions.alreadyMadeTaxInvestmentAmount == '' || $scope.questions.alreadyMadeTaxInvestmentAmount == null) {
+		$scope.questions.alreadyMadeTaxInvestmentAmount = 0;	
+	}
+	
 	
 	$scope.resetOutStandingLoans = function() {
 		$scope.questions.currentOutStandingLoans = [];

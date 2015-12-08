@@ -61,6 +61,8 @@ angular.module('myApp').controller('RecommendationCtrl', function($scope, $modal
 		}
 
 		var outstandingLoanAmount = 0;
+
+		var alreadyMadeTaxInvestmentAmount = 0;
 		if (questions.currentOutStandingLoans && questions.currentOutStandingLoans.length > 0) {
 			for (i = 0; i < questions.currentOutStandingLoans.length; i++) {
 				outstandingLoanAmount += Number(questions.currentOutStandingLoans[i].existingLoanUnpaidAmt.replace(/,/g,''));
@@ -158,53 +160,7 @@ angular.module('myApp').controller('RecommendationCtrl', function($scope, $modal
 		$scope.noHDFCdata = false;
 		$scope.noLICdata = false;
 		$scope.noICICIdata = false;
-		// $meteor.call('get_sbi_data', query).then(
-	 //      function(data){
 
-
-	 //        $scope.sbiDataSpinner = false;
-	 //        if (typeof data == "undefined"){
-	 //        	$scope.noSBIdata = true;
-	 //        } else {
-	 //        	$scope.sbiData = data;	
-	 //        }
-	 //      },
-	 //      function(err){
-
-	 //      }
-	 //    );
-
-		// $meteor.call('get_lic_data', query).then(
-	 //      function(data){
-
-	 //        $scope.licDataSpinner = false;
-	 //        if (typeof data == "undefined"){
-	 //        	$scope.noLICdata = true;
-	 //        } else {
-	 //        	$scope.licData = data;
-	 //        }
-	 //      },
-	 //      function(err){
-
-	 //      }
-	 //    );
-
-
-		// $meteor.call('get_icici_data', query).then(
-	 //      function(data){
-
-	        
-	 //        $scope.iciciDataSpinner = false;
-	 //        if (typeof data == "undefined"){
-	 //        	$scope.noICICIdata = true;
-	 //        } else {
-	 //        	$scope.iciciData = data;
-	 //        }
-	 //      },
-	 //      function(err){
-
-	 //      }
-	 //    );
 
 	    $meteor.call('get_hdfc_policy_info').then(
 	      function(data){
@@ -284,26 +240,8 @@ angular.module('myApp').controller('RecommendationCtrl', function($scope, $modal
 		sharedProperties.setFinalReco($scope.finalRecommendation);
 	}
 
-	// $scope.select_life_insurance = function(id) {
-
-	// 	$("button.select-li-reco").text("Select");
-	// 	$("#" + id).find("button.select-li-reco").text("Selected");
-
-	// 	$(".li-insurance-content").removeClass("reco-selected");
-	// 	$("#" + id).addClass("reco-selected");		
-	// 	selectedLifeInsurance = id;
-	// 	compute_elss_ppf_details();
-	// }
-
-
 
 	$scope.open = function () {
-
-    	// ngDialog.open({ 
-    	// 	template: 'firstDialog' ,
-    	// 	controller: 'SendEmailCtrl',
-    	// 	scope: $scope
-    	// });
 
     	ngDialog.openConfirm({template: 'firstDialog',
 			scope: $scope //Pass the scope object if you need to access in the template
@@ -337,11 +275,12 @@ angular.module('myApp').controller('RecommendationCtrl', function($scope, $modal
 
 	function compute_elss_ppf_details() {
 
-		if (questions.taxInvestmentAmount) {
-			var planToInvest = Number(questions.taxInvestmentAmount.replace(/,/g,''));	
+		console.log('compute_elss_ppf_details called');
+		if (questions.taxInvestmentAmount && questions.alreadyMadeTaxInvestmentAmount) {
+			var planToInvest = Number(questions.taxInvestmentAmount.replace(/,/g,'')) - Number(questions.alreadyMadeTaxInvestmentAmount.replace(/,/g,''));	
 		} else {
-
-			return;
+			console.error('compute_elss_ppf_details failed !');
+			return;	
 			// planToInvest = 
 		}
 		var premium = 0;

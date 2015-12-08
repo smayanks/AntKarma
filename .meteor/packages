@@ -36,3 +36,6 @@ random
 
 email
 meteorhacks:ssr
+sanjo:jasmine
+velocity:html-reporter
+velocity:console-reporter
