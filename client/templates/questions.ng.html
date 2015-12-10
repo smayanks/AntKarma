@@ -103,18 +103,19 @@
 							<input class="form-control input-md" name="taxInvestmentAmount" ng-model="questions.taxInvestmentAmount" numbers-only required>
 						</div>
 						<br>
+						<br>
 						<h4 class="level1">Out of above amount how much have you invested already?</h4>
-						<h5>Include all investments planned or made in life insurance, ELSS, tax saving fixed deposits, NSC, PPF and EPF.</h5>
+						<h5>Include all payments planned or made in ELSS, tax saving FD, NSC, PPF, EPF etc.</h5>
 						<div class="row">
 							<div class="col-md-6">
-								<label> ELSS : </label>
+								<h6> ELSS : </h6>
 								<div class="input-group">
 									<span class="input-group-addon custom-addon"><i class="fa fa-inr"></i></span>
 									<input class="form-control input-md" name="alreadyMadeElSSInvestmentAmt" ng-model="questions.alreadyMadeElSSInvestmentAmt" numbers-only required>
 								</div>
 							</div>
 							<div class="col-md-6">
-								<label>Life Insurance :</label>
+								<h6>Home Loan Principal Repayment :</h6>
 								<div class="input-group">
 									<span class="input-group-addon custom-addon"><i class="fa fa-inr"></i></span>
 									<input class="form-control input-md" name="alreadyMadeLIInvestmentAmt" ng-model="questions.alreadyMadeLIInvestmentAmt" numbers-only required>
@@ -123,14 +124,14 @@
 						</div>
 						<div class="row">
 							<div class="col-md-6">
-								<label>PPF / EPF/ NSC/ FD : </label>
+								<h6>PPF / EPF/ NSC/ FD : </h6>
 								<div class="input-group">
 									<span class="input-group-addon custom-addon"><i class="fa fa-inr"></i></span>
 									<input class="form-control input-md" name="alreadyMadePPFInvestmentAmt" ng-model="questions.alreadyMadePPFInvestmentAmt" numbers-only required>
 								</div>
 							</div>
 							<div class="col-md-6">
-								<label>Other :</label>
+								<h6>Other :</h6>
 								<div class="input-group">
 									<span class="input-group-addon custom-addon"><i class="fa fa-inr"></i></span>
 									<input class="form-control input-md" name="alreadyMadeOtherInvestmentAmt" ng-model="questions.alreadyMadeOtherInvestmentAmt" numbers-only required>
@@ -149,7 +150,7 @@
 
 			<!-- Step 4 -->
 			<div class="tab-pane fade" id="step4">
-				<h3 class="helper-message">Great! Now let's evaluate your insurance needs. (1/2)</h3>
+				<h3 class="helper-message">Great! Now let's evaluate your insurance needs. <label>(1/2)</label></h3>
 				<div class="well well-lg">
 					<div ng-form="step4Form">
 						<h4 class="level1">Do you have any dependents?</h4>
@@ -163,7 +164,7 @@
 							</label>
 						</div>
 
-
+						<br>
 						<h4 class="level1">Do you smoke?</h4>
 						<h5 class="answers">This affects life insurance premium. Also, for smokers the need for life insurance is higher.</h5>
 						<div class="radio">
@@ -187,7 +188,7 @@
 
 				<!-- Step 5 -->
 				<div class="tab-pane fade" id="step5">
-					<h3 class="helper-message">Great! Now let's evaluate your insurance needs. (2/2)</h3>
+					<h3 class="helper-message">Great! Now let's evaluate your insurance needs. <label>(2/2)</label></h3>
 					<div class="well well-lg">
 						<div ng-form="step5Form">
 
@@ -260,7 +261,7 @@
 
 				<!-- Step 6 -->
 				<div class="tab-pane fade" id="step6">
-					<h3 class="helper-message">Finally, help us evaluate your risk tolerance. (1/2)</h3>
+					<h3 class="helper-message">Finally, help us evaluate your risk tolerance. <label>(1/2)</label></h3>
 					<div ng-form="step6Form">
 						<div class="well well-lg">
 							<h4 class="level1">When making investments what do you focus on?</h4>
@@ -286,7 +287,7 @@
 			</div>
 			<!-- Step 7 -->
 			<div class="tab-pane fade" id="step7">
-				<h3 class="helper-message">Finally, help us evaluate your risk tolerance. (2/2)</h3>
+				<h3 class="helper-message">Finally, help us evaluate your risk tolerance. <label>(2/2)</label></h3>
 				<div ng-form="step7Form">
 					<div class="well well-lg">
 						<h4 class="level1">Market investments are volatile. If your entire investment portfolio lost 10% of its value in a month during a market decline, what would you do?</h4>
