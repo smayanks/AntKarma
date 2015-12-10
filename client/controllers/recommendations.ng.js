@@ -47,6 +47,10 @@ angular.module('myApp').controller('RecommendationCtrl', function($scope, $modal
 	}
 
 	$scope.finalRecommendation = {life_insurance : ''};
+	var alreadyMadeElSSInvestmentAmt = Number(questions.alreadyMadeElSSInvestmentAmt.toString().replace(/,/g,''));
+	var alreadyMadeLIInvestmentAmt = Number(questions.alreadyMadeLIInvestmentAmt.toString().replace(/,/g,''));
+	var alreadyMadePPFInvestmentAmt = Number(questions.alreadyMadePPFInvestmentAmt.toString().replace(/,/g,''));
+	var alreadyMadeOtherInvestmentAmt = Number(questions.alreadyMadeOtherInvestmentAmt.toString().replace(/,/g,''));
 
 
 
@@ -62,7 +66,6 @@ angular.module('myApp').controller('RecommendationCtrl', function($scope, $modal
 
 		var outstandingLoanAmount = 0;
 
-		var alreadyMadeTaxInvestmentAmount = 0;
 		if (questions.currentOutStandingLoans && questions.currentOutStandingLoans.length > 0) {
 			for (i = 0; i < questions.currentOutStandingLoans.length; i++) {
 				outstandingLoanAmount += Number(questions.currentOutStandingLoans[i].existingLoanUnpaidAmt.replace(/,/g,''));
@@ -73,7 +76,7 @@ angular.module('myApp').controller('RecommendationCtrl', function($scope, $modal
 			coverageAmount = DEFAULT_COVERAGE_AMOUNT;
 		}
 
-		var totalCoverageAmount = (coverageAmount + outstandingLoanAmount).toString();
+		var totalCoverageAmount = (coverageAmount + outstandingLoanAmount - alreadyMadeElSSInvestmentAmt - alreadyMadeLIInvestmentAmt - alreadyMadePPFInvestmentAmt - alreadyMadeOtherInvestmentAmt).toString();
 
 
 		return totalCoverageAmount;
@@ -114,7 +117,7 @@ angular.module('myApp').controller('RecommendationCtrl', function($scope, $modal
 	}
 
 	// $timeout(function() {
-		$scope.coverageAmount = compute_coverage_amount() + '';	
+		$scope.coverageAmount = compute_coverage_amount();	
 		$scope.showLifeIns = check_for_life_insurance($scope.coverageAmount);
 	// }, 300);
 	
@@ -276,8 +279,9 @@ angular.module('myApp').controller('RecommendationCtrl', function($scope, $modal
 	function compute_elss_ppf_details() {
 
 		console.log('compute_elss_ppf_details called');
-		if (questions.taxInvestmentAmount && questions.alreadyMadeTaxInvestmentAmount) {
-			var planToInvest = Number(questions.taxInvestmentAmount.replace(/,/g,'')) - Number(questions.alreadyMadeTaxInvestmentAmount.replace(/,/g,''));	
+		var taxInvestmentAmount = Number(questions.taxInvestmentAmount.replace(/,/g,''));
+		if (questions.taxInvestmentAmount) {
+			var planToInvest = taxInvestmentAmount - alreadyMadeElSSInvestmentAmt - alreadyMadeLIInvestmentAmt - alreadyMadePPFInvestmentAmt -  alreadyMadeOtherInvestmentAmt;	
 		} else {
 			console.error('compute_elss_ppf_details failed !');
 			return;	
@@ -289,7 +293,7 @@ angular.module('myApp').controller('RecommendationCtrl', function($scope, $modal
 
 		}
 
-		recoAmountForELSSandPPF = planToInvest - premium;
+		recoAmountForELSSandPPF = planToInvest - premium + alreadyMadeElSSInvestmentAmt + alreadyMadePPFInvestmentAmt;
 
 		if (! $scope.riskScore) {
 			// computeScore(questions.currentAge, questions.investmentFocusOn,questions.whenMarketVolatile);
@@ -337,11 +341,11 @@ angular.module('myApp').controller('RecommendationCtrl', function($scope, $modal
 
 
 		//Rounding up the amount to the nearest multiple of 1000
-		var recoPPFamount = Math.ceil((recoAmountForELSSandPPF * ppfELSS.ppf)/1000)*1000 ;
+		var recoPPFamount = Math.ceil(((recoAmountForELSSandPPF * ppfELSS.ppf) - alreadyMadePPFInvestmentAmt)/1000)*1000 ;
 		$scope.ppfAmount = recoPPFamount;
 
 
-		var recoELSSamount = Math.ceil((recoAmountForELSSandPPF * ppfELSS.elss)/1000)*1000;
+		var recoELSSamount = Math.ceil(((recoAmountForELSSandPPF * ppfELSS.elss) - alreadyMadeElSSInvestmentAmt)/1000)*1000;
 		$scope.elssAmount = recoELSSamount;	
 		$scope.elssSliderValue = recoELSSamount;
 		$scope.elss_investment_amount = Math.ceil($scope.elssAmount/2);

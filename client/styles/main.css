@@ -191,3 +191,10 @@ section {
 .footer-text {
   font-size: 12px;
 }
+
+/*Styling the placeholder text*/
+
+::-webkit-input-placeholder { color:#ccc !important; }
+::-moz-placeholder { color:#ccc !important; } /* firefox 19+ */
+:-ms-input-placeholder { color:#ccc !important; } /* ie */
+input:-moz-placeholder { color:#ccc !important; }

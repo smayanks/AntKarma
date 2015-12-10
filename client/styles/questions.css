@@ -18,9 +18,13 @@
 }
 
 .questions .well{
-	background: none;
-
-  height: 400px;
+	/*background: none;*/
+/*  background-color: #fff;
+  background-color: rgba(255,255,255,0.5);
+*/
+  background: rgb(34,19,73); /* for IE */
+  background: rgba(34,19,73,0.30);
+  height: 450px;
   overflow: auto;
 
 }
@@ -227,4 +231,9 @@
 
 .modal-display button {
   margin-top : 20px;
+}
+
+.questions .custom-addon {
+  background-color: inherit;
+  color: inherit;
 }

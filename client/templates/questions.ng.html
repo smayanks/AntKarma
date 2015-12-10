@@ -65,7 +65,7 @@
 								<h4> What is your annual salary?</h4>
 								<h5 class="answers">(before taxes)</h5>
 								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fs-2x fa-inr"></i></span>
+									<span class="input-group-addon custom-addon"><i class="fa fs-2x fa-inr"></i></span>
 									<input class="form-control input-md" name="annualSalary" ng-model="questions.annualSalary" numbers-only required>
 								</div>
 							</div>
@@ -96,32 +96,47 @@
 				<h3 class="helper-message">{{questions.username}} - tell us about your investment needs.</h3>
 				<div class="well well-lg">
 					<div ng-form="step3Form" class="form-horizontal">
-						<h4> How much do you want to invest this year?</h4>
+						<h4 class="level1"> How much do you want to invest this year?</h4>
 						<h5 class="answers">Tax savings (under section 80c) apply for investments upto Rs. 150,000</h5>
 						<div class="input-group">
-							<span class="input-group-addon"><i class="fa fa-inr"></i></span>
+							<span class="input-group-addon custom-addon"><i class="fa fa-inr"></i></span>
 							<input class="form-control input-md" name="taxInvestmentAmount" ng-model="questions.taxInvestmentAmount" numbers-only required>
 						</div>
 						<br>
-<!-- 						<h4>Have you already made any tax saving investments for this year (FY 2015-2016) ?</h4>
-						<div class="radio answers">
-							<label class="radio-inline">
-								<h5><input type="radio" name="alreadyMadeTaxInvestment" value="yes" ng-model="questions.alreadyMadeTaxInvestment" required>Yes</h5>
-							</label>
-							<label class="radio-inline">
-								<h5><input type="radio" name="alreadyMadeTaxInvestment" value="no" ng-model="questions.alreadyMadeTaxInvestment" required>No</h5>
-							</label>
-						</div>
- -->
- 						<!-- <div ng-show="questions.alreadyMadeTaxInvestment == 'yes'"> -->
-							<h4>Out of above amount how much have you invested already?</h4>
-							<h5>Include all investments planned or made in life insurance, ELSS, tax saving fixed deposits, NSC, PPF and EPF.</h5>
-							<div class="input-group">
-								<span class="input-group-addon"><i class="fa fa-inr"></i></span>
-								<input class="form-control" name="alreadyMadeTaxInvestmentAmount" ng-model="questions.alreadyMadeTaxInvestmentAmount" type="text" numbers-only required>
+						<h4 class="level1">Out of above amount how much have you invested already?</h4>
+						<h5>Include all investments planned or made in life insurance, ELSS, tax saving fixed deposits, NSC, PPF and EPF.</h5>
+						<div class="row">
+							<div class="col-md-6">
+								<label> ELSS : </label>
+								<div class="input-group">
+									<span class="input-group-addon custom-addon"><i class="fa fa-inr"></i></span>
+									<input class="form-control input-md" name="alreadyMadeElSSInvestmentAmt" ng-model="questions.alreadyMadeElSSInvestmentAmt" numbers-only required>
+								</div>
 							</div>
-						<!-- </div> -->
-
+							<div class="col-md-6">
+								<label>Life Insurance :</label>
+								<div class="input-group">
+									<span class="input-group-addon custom-addon"><i class="fa fa-inr"></i></span>
+									<input class="form-control input-md" name="alreadyMadeLIInvestmentAmt" ng-model="questions.alreadyMadeLIInvestmentAmt" numbers-only required>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<label>PPF / EPF/ NSC/ FD : </label>
+								<div class="input-group">
+									<span class="input-group-addon custom-addon"><i class="fa fa-inr"></i></span>
+									<input class="form-control input-md" name="alreadyMadePPFInvestmentAmt" ng-model="questions.alreadyMadePPFInvestmentAmt" numbers-only required>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<label>Other :</label>
+								<div class="input-group">
+									<span class="input-group-addon custom-addon"><i class="fa fa-inr"></i></span>
+									<input class="form-control input-md" name="alreadyMadeOtherInvestmentAmt" ng-model="questions.alreadyMadeOtherInvestmentAmt" numbers-only required>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 				<div class="text-center button-footer">
