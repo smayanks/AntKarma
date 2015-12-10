@@ -205,5 +205,6 @@ angular.module('myApp').controller('QuestionnaireCtrl', function($scope, $modal,
     	$('[href=#step1]').tab('show');
   	});
 
+  	$('[data-toggle="tooltip"]').tooltip();
 
 });
