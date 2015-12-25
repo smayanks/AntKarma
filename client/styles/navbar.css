@@ -4,9 +4,61 @@
         -webkit-transition: background .5s ease-in-out,padding .5s ease-in-out;
         -moz-transition: background .5s ease-in-out,padding .5s ease-in-out;
         transition: background .5s ease-in-out,padding .5s ease-in-out;
+        /*font-family: "Dosis";*/
     }
 
     .top-nav-collapse {
         padding: 0;
     }
+
+    .navbar.transparent.navbar-default.navbar-fixed-top {
+
+   		background: rgba(0,0,0,0.05);
+   		border-bottom: 0px;
+   		
+	}
+
+	.navbar.transparent.navbar-default.navbar-right {
+   		background: rgba(0,0,0,0.05);
+   		border-bottom: 0px;
+
+	}
+	.navbar-default .navbar-nav > li > a {
+		color: #f3f3f3;
+	}
+
+  .navbar-default .navbar-nav > li > a:hover {
+    text-decoration: none;
+    color: #ccc;
+  }
+
+  .navbar-default .navbar-nav > li > a:visited {
+    text-decoration: none;
+    color: #f3f3f3;
+  }
+
+	.company-caption {
+		font-size: 16px;
+
+	}
+
+  .bordered {
+    border: 1px solid #fff;
+    padding: 5px;
+    /*margin-top: -3px;*/
+    /*margin-bottom: -3px;*/
+
+  }
+
+  .ngdialog-content {
+    overflow: auto;
+  }
+
+  .ngdialog-content .email {
+    min-width: 300px;
+  }
+
+  .ngdialog-content .subscribe-form {
+    padding-top: 25px;
+  }
 }

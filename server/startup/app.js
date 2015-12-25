@@ -199,6 +199,7 @@
             return riskScore;
         },
 
+        
         send_email: function(query) {
 
             var toEmail = query.email;

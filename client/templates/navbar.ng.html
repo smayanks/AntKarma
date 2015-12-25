@@ -1,29 +1,41 @@
 
 <!-- ==== Fixed navbar === -->
-    <div id="navbar-main">
-        <div class="navbar navbar-default navbar-fixed-top">
-          <div class="container">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                <i class="fa fa-bars" style="color: #fff; font-size: 22px;"></i>
-              </button>
+<div id="navbar-main" ng-controller="NavbarCtrl">
+    <div class="navbar transparent navbar-default navbar-fixed-top navbar-right">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <i class="fa fa-bars" style="color: #fff; font-size: 22px;"></i>
+          </button>
 
-            </div>
-            <div class="navbar-collapse navbar-ex1-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li> <a href="/home" class="smoothScroll"><i class="fa fa-chevron-circle-up"></i> MintingWorks</a></li>
-                </ul>
-                <ul class="nav right navbar-nav">
-                        <li class="hidden"><a href="#page-top" class="smoothScroll"></a></li>
-                    <li> <a href="#process" class="smoothScroll"> Process</a></li>
-                    <li> <a href="#why-us" class="smoothScroll"> Why MintingWorks?</a></li>
-                    <li> <a href="#faq" class="smoothScroll"> FAQ</a></li>
-                    <li> <a href="#team" class="smoothScroll"> About Us</a></li>
-                    <li> <a href="https://mintingworks.wordpress.com/" target="_blank"> Blog</a></li>
-                    <li> <a href="#contact" class="smoothScroll"> Contact</a></li>
-                    <li> <a href="/questions"> Invest Now</a></li>
-                </ul>
-            </div><!--/.nav-collapse -->
-          </div>
         </div>
+        <div class="navbar-collapse navbar-ex1-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li> <a ng-href="/home" class="smoothScroll company-caption"><i class="fa fa-chevron-circle-up"></i> MintingWorks</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                    <li class="hidden"><a href="#page-top" class="smoothScroll"></a></li>
+                <li> <a href="#process" class="smoothScroll"> Process</a></li>
+                <li> <a href="#why-us" class="smoothScroll"> Why MintingWorks?</a></li>
+                <!-- <li> <a href="#faq" class="smoothScroll"> FAQ</a></li> -->
+                <li> <a href="#team" class="smoothScroll"> About Us</a></li>
+                <li> <a href="https://mintingworks.wordpress.com/" target="_blank"> Blog</a></li>
+                <li> <a href="#contact" class="smoothScroll"> Contact</a></li>
+                <li ng-click="openTax()"> <a href="#"> <span class="bordered animated pulse">Start Saving on Taxes</span></a></li>
+                <!-- <li > <a href="/questions"> <span class="bordered">Invest Now</span></a></li> -->
+            </ul>
+        </div><!--/.nav-collapse -->
+      </div>
     </div>
+</div>
+
+<script type="text/ng-template" id="subscribeDialog" name="subscribeDialog">
+
+    <div class="modal-display" ng-form="subscribeDialogForm">
+            <h4 class="uppercase text-center">Stay tuned for Tax Recommendations</h4>
+            <hr>
+            <h5 class="text-center">We are in process of creating a great tax saving planner for you. Please subscribe for updates - we will notify once we roll out our tax saving solutions.</h5>
+    </div>
+</script>
+
+

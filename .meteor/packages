@@ -18,12 +18,10 @@ ecmascript              # Enable ECMAScript2015+ syntax in app code
 angular
 twbs:bootstrap
 accounts-password
-accounts-ui
 fortawesome:fontawesome
 mrt:jquery-easing
 urigo:angular-blaze-template
 jquery
-angularui:angular-ui-router
 angularui:angular-ui-bootstrap
 angular:angular-animate@=1.4.6
 angular:angular-messages
@@ -34,9 +32,18 @@ sacha:spin
 themeteorchef:jquery-validation
 random
 
-email
 meteorhacks:ssr
 sanjo:jasmine
 velocity:html-reporter
 velocity:console-reporter
 lookback:tooltips
+dotansimha:accounts-ui-angular
+useraccounts:core
+useraccounts:bootstrap
+softwarerero:accounts-t9n
+angularui:angular-ui-router
+accounts-ui
+email
+accounts-base
+miro:mailchimp
+http

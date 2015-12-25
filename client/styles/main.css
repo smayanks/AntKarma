@@ -38,7 +38,7 @@ input {
 }
 
 section {
-	/*min-height: 800px;*/
+	min-height: 400px !important;
   height: 100% !important;
 	/*color: white;*/
 	/*font-size: 2em;*/
@@ -192,6 +192,9 @@ section {
   font-size: 12px;
 }
 
+.uppercase {
+  text-transform: uppercase !important;
+}
 /*Styling the placeholder text*/
 
 ::-webkit-input-placeholder { color:#ccc !important; }

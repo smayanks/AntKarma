@@ -1,39 +1,53 @@
 .hero {
 	/*background-color: #288FEB;*/
-	height:100%;
+	min-height:500px !important;
     position: relative;
-    background: url("../images/bg5.png") center center;
-    /*background-color: #3498db;*/
+    background: url("../images/bg5.png")  no-repeat center center fixed;;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
     width: 100%;
     background-size: cover;
     overflow: hidden;
     padding-bottom: 5%;
 }
 
+/*.hero {
+    background: url(images/bg.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+*/
+
+.hero .large {
+    font-size: 56px;
+}
+
+.hero .medium {
+    font-size: 26px;
+}
+
+.hero .small {
+    font-size: 18px;
+}
+
 .hero .hero-title {
 
-    font-family: "Raleway",sans-serif;
-    /*font-size: 16px;*/
-    font-weight: 300;
-    letter-spacing: 0.1em;
-    /*text-align: center;*/
-    text-transform: uppercase;
-	padding-top: 5% !important;
-    font-family: "Open Sans", sans-serif;
-    font-size: 4rem;
-    /*width: 60%;*/
-    color: white !important;
+    font-family: "Roboto Slab","Raleway",sans-serif;
+    /*font-weight: bold;*/
+    padding-top: 5% !important;
+    color: #ecf0f1 !important;
 
 }
 
 .hero .hero-text {
-	/*color: #333;*/
-    color: #f2f2f2 !important;
-    font-size: 18px;
-    /*width: 60%;*/
-    font-family: "Raleway", sans-serif;
-
+    font-family: "Dosis","Roboto Slab";
+    color: #ecf0f1 !important;
 }
+
 
 .hero .btn {
     font-family: "Raleway";
@@ -42,3 +56,56 @@
     /*color: #fff;*/
     /*text-transform: uppercase;*/
 }
+
+.hero .subscribe-section {
+    margin-top: 15%;
+    
+    /*border: 1px solid #fff;*/
+    background: rgb(34,19,73); /* for IE */
+    background: rgba(34,19,73,0.50);
+    border-radius: 8px;
+    text-align: center;
+    min-height: 50px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+}
+
+.hero .extra-padding {
+    padding-top: 5px;
+}
+@media(min-width:767px) {
+    .hero .email {
+        min-width: 400px;
+    }
+}
+
+.sub-hero {
+    /*background: rgba(34,19,73,0.50);*/
+    /*background: url("../images/bg11.jpg") center center;*/
+    min-height: 60px;
+    /*margin-top: -50px;*/
+    /*min-height: 350px;*/
+    /*letter-spacing: 0.1em;*/
+    /*text-align: center;*/
+    /*margin: 0 0 30px;*/
+    padding: 5% 75px 5% 75px;
+    vertical-align: middle;
+    
+
+    /*position:absolute;
+    bottom:0;
+    left:0;
+    overflow: auto;*/
+}
+
+.sub-hero-text {
+    font-family: "Dosis",sans-serif;
+    letter-spacing: 0.1em;
+    font-size: 22px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    /*color: #ecf0f1 !important;*/
+
+}
+
