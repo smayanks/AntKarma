@@ -1,30 +1,89 @@
 <div ng-include="'client/templates/custom-navbar.ng.html'"></div>
 
 <div id="signup" class="signup">
-	<div id="test" class="col-md-6 col-md-offset-3">
-		<div class="well">
-			<div class="signupSection active" id="pan">
-				<div class="question-text"> Please enter your PAN number?</div>
-				<input class="form-control input-md answer-text transparent-input" name="panNumber" ng-model="signup.panNumber" type="text" autofocus required>
-				<a href="{{hash = 'fullname'}}" class="btn btn-success nextItem">Next</a>
+	<div class="col-md-6 col-md-offset-3">
+		<div class="navbar hidden-navbar">
+			<div class="navbar-inner">
+				<ul class="nav nav-pills">
+					<li class="active"><a id="firstTab" href="#step1" data-toggle="tab" data-step="1"></a></li>
+					<li><a href="#step2" data-toggle="tab" data-step="2"></a></li>
+					<li><a href="#step3" data-toggle="tab" data-step="3"></a></li>
+				</ul>
 			</div>
-
-			<div class="signupSection" id="fullname">
-				<div class="question-text"> Please enter your Name?</div>
-				<input class="form-control input-md answer-text transparent-input" name="Name" ng-model="signup.name" type="text" required>
-				<a href="{{hash = 'dob'}}" class="btn btn-success nextItem">Next</a>
-			</div>
-			<div class="signupSection" id="dob">
-				<div class="question-text"> Please enter your date of birth?</div>
-				<input class="form-control input-md answer-text transparent-input" name="dateOfBirth" ng-model="signup.dob" type="date" required>
-				<a href="{{hash = 'pan'}}" class="btn btn-success nextItem">Next</a>
-			</div>
-			
 		</div>
 
+
+		<div class="tab-content">
+			
+			<div class="tab-pane fadeIn in active" id="step1">
+				<h3 class="text-center">Signup for MintingWorks</h3>
+				<div class="well well-lg">
+					<div ng-form="step1Form" >
+<!-- 						<div class="question-text " for="panNumber">Please enter your 10 digit PAN number?</div>	
+						<input class="form-control input-md transparent-input extra-margin-top" name="panNumber" ng-model="signup.panNumber" type="text" autofocus required>
+						<button class="btn btn-info btn-md text-center extra-margin-top extra-margin-bottom col-md-12">VERIFY YOUR PAN</button>
+ -->						
+						<div class="question-text extra-margin-top extra-margin-bottom" for="email">Email 
+							<div class="question-sub-text">This will be your username for signin</div>
+						</div>
+
+						<input class="form-control input-md transparent-input" name="email" ng-model="signup.email" type="email" required>
+
+						<div class="question-text extra-margin-top extra-margin-bottom" for="email">Password </div>
+						<input class="form-control input-md transparent-input" name="password" ng-model="signup.password" type="password" required>
+
+						<div class="question-text extra-margin-top extra-margin-bottom" for="email">Re-enter password</div>
+						<input class="form-control input-md transparent-input" name="reenterPassword" ng-model="signup.reenterPassword" type="password" required>
+
+
+<!-- 						<div class="col-md-6 no-left-padding">
+							<div class="question-text extra-margin-top extra-margin-bottom" for="firstName">First Name </div>
+							<input class="form-control input-md transparent-input" name="firstName" ng-model="signup.firstName" type="text" required>
+						</div>
+						<div class="col-md-6 no-left-padding">
+							<div class="question-text extra-margin-top extra-margin-bottom" for="firstName">Last Name </div>
+							<input class="form-control input-md transparent-input" name="lastName" ng-model="signup.lastName" type="text" required>
+						</div>
+ -->					</div>
+				</div>
+				<div class="text-center button-footer">
+					<button class="btn btn-info btn-md next uppercase">Signup and enter Investor details</button>
+				</div>
+			</div>
+			<div class="tab-pane fadeIn" id="step2">
+				<h3 class="text-center">Enter details to open Investor's account</h3>
+				<div class="well well-lg">
+					<div ng-form="step1Form" >
+						<div class="question-text " for="panNumber">Please enter your 10 digit PAN number?</div>	
+						<input class="form-control input-md transparent-input extra-margin-top" name="panNumber" ng-model="signup.panNumber" type="text" autofocus required>
+						<button class="btn btn-info btn-md text-center extra-margin-top extra-margin-bottom col-md-12">VERIFY YOUR PAN</button>
+						
+
+						<div class="col-md-6 no-left-padding">
+							<div class="question-text extra-margin-top" for="firstName">First Name </div>
+							<input class="form-control input-md transparent-input" name="firstName" ng-model="signup.firstName" type="text" required>
+						</div>
+						<div class="col-md-6 no-left-padding">
+							<div class="question-text extra-margin-top" for="firstName">Last Name </div>
+							<input class="form-control input-md transparent-input" name="lastName" ng-model="signup.lastName" type="text" required>
+						</div>
+					</div>
+				</div>
+				<div class="text-center button-footer">
+					<a class="btn btn-custom btn-md prev" href="#">Previous</a>
+					<button class="btn btn-custom btn-md next">Next</button>
+				</div>
+
+			</div>
+			<div class="tab-pane fadeIn" id="step3">
+				<h2>This is tab 3</h2>
+				<div class="text-center button-footer">
+					<a class="btn btn-custom btn-md prev" href="#">Previous</a>
+					<button class="btn btn-custom btn-md next">Next</button>
+					<!-- <button class="btn btn-custom btn-md next" >Next</button> -->
+				</div>
+			</div>
+
+		</div>
 	</div>
 </div>
-<script type="text/javascript">
-
-
-</script>

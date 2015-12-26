@@ -6,9 +6,15 @@
 	-o-background-size: cover;
 	background-size: cover;
 	height: 100%;
-	padding-top: 10%;
+	padding-top: 5%;
 	color: #f8f8f8;
 	overflow: auto;
+	font-family: "Raleway",sans-serif;
+	letter-spacing: 0.1em;
+	font-weight: 400;
+  	/*text-align: center;*/
+  	margin: 0 0 30px;
+
 
 }
 
@@ -30,23 +36,69 @@
 }
 
 .signup .question-text {
-	color: #fff;
-	font-size: 22px;
+	font-size: 18px;
 }
 
+.signup .question-sub-text {
+	color: #ccc;
+	font-size: 12px;
+}
+
+.signup .center-question {
+	padding-top: 10%;
+	padding-bottom: 16px;
+}
 
 .signup .answer-text {
 	color: #f8f8f8;	
-	font-size: 18px;
+	font-size: 14px;
 
 }
 
 .signup .transparent-input {
 	background-color:transparent !important;
-    border:none !important;
-    box-shadow:none !important;
+    /*border:none !important;*/
+    /*box-shadow:none !important;*/
 }
 
 .signup .well {
 	/*background-color:transparent !important;*/
+}
+
+.signup .extra-margin-top {
+	margin-top: 15px;
+}
+
+.signup .extra-margin-bottom {
+	margin-bottom: 15px;
+}
+
+.signup .no-left-padding {
+	padding-left: 0;
+}
+
+.signup .uppercase {
+	text-transform: uppercase;
+}
+
+
+.signup .btn-custom {
+  width: 120px !important;
+  margin-bottom: 20px;
+
+}
+
+.signup .next {
+  background-color: #31b0d5   ;
+  color: white;
+}
+
+.signup .prev {
+  background-color: #f8f8f8   ;
+  color: #2c3e50;
+}
+
+.signup .btn[disabled] {
+   
+   opacity: 0.30;
 }

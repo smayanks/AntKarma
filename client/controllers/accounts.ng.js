@@ -4,48 +4,50 @@ angular.module('myApp').controller('AccountsCtrl', function($scope, $state, ngDi
 		alert('successs');
 	}
 	
-	// $('.active').focus();
+	// questionnaire navigation between tabs
+	$('.next').click(function(){
+    	var nextId = $(this).parents('.tab-pane').next().attr("id");
+    	// $('[href=#'+nextId+']').addClass('animated slideInLeft');
+    	$('[href=#'+nextId+']').tab('show');
+    	return false;
+  	});
 
-	$('.nextItem').on('click', function(e) {
-	  e.preventDefault();
-	  console.log('clicked');
-	  var currentSection = $(this).parent('.signupSection');
-	  $(currentSection).removeClass('active');
-	  var target = $(currentSection).next();
-	  $(target).addClass('active');
+	$('.prev').click(function(){
+		var prevId = $(this).parents('.tab-pane').prev().attr("id");
+		// $('[href=#'+prevId+']').addClass('animated slideInRight');
+		$('[href=#'+prevId+']').tab('show');
+		return false;
+	});
 
-	  // $('.signup').stop().animate({
-	  //   scrollTop: $(target).scrollTop()
-	  // }, 1000);
+	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+      //update progress
+      var step = $(e.target).data('step');
+      var percent = (parseInt(step) / 7) * 100;
+      $('.progress-bar').css({width: percent + '%'});
+      $('.progress-bar').text("Step " + step + " of 7");
+      //e.relatedTarget // previous tab
 
-		$(target).ScrollTo({
-    		duration: 500
-		});
-		$(target).find('input').focus();
-	});	
+    // var url = new String(e.target);
+    // var pieces = url.split('#');
+    // var seq=$(this).children('a').attr('data-seq');
+    // var tab=$(this).children('a').attr('href');
+    // // if (pieces[1] == "profile"){       
+    //  leftSlide(tab);        
+    // }
 
+	});
 
-$('.input-md').keypress(function(event){
-	
-	var keycode = (event.keyCode ? event.keyCode : event.which);
-	if(keycode == '13'){
-		console.log('You pressed a "enter" key in somewhere');	
-		var currentSection = $(event.target).parent('.signupSection');
-		$(currentSection).removeClass('active');
-		var target = $(currentSection).next();
-		$(target).addClass('active');
-		$(target).ScrollTo({
-    		duration: 500
-		});		
-		$(target).find('input').focus();
+	function leftSlide(tab){
+		$(tab).addClass('animated slideInLeft');
 	}
-	
-});
 
-$('.input-md').on('click', function() {
-	$('.signupSection').removeClass('active');
-	$(event.target).parent('.signupSection').addClass('active');
-});
+	function rightSlide(tab){
+	   $(tab).addClass('animated slideInRight');   
+	}
+
+  	$('.first').click(function(){
+    	$('[href=#step1]').tab('show');
+  	});
 
 
 }); 
