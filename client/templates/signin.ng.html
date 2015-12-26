@@ -1,0 +1,24 @@
+<div ng-include="'client/templates/custom-navbar.ng.html'"></div>
+<div id="signin" class="signin">
+	<div class="container">
+		<div class="col-md-6 col-md-offset-3">
+			<div class="panel panel-default">
+				<div class="panel-heading"><h3 class="panel-title"><strong>Sign In </strong></h3></div>
+				<div class="panel-body">
+					<form role="form">
+						<div class="form-group">
+							<label for="exampleInputEmail1">Email</label>
+							<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" ng-model="signin.email">
+						</div>
+						<div class="form-group">
+							<label for="exampleInputPassword1">Password <a href="/sessions/forgot_password">(forgot password)</a></label>
+							<input type="password" class="form-control" id="exampleInputPassword1" ng-model="signin.password" placeholder="Password">
+						</div>
+                            <button class="btn btn-success text-center col-sm-offset-5" ng-click="login()">Sign in</button>
+					</form>
+                    <label class="col-sm-offset-4">Don't have an account!<a ng-href="/signup"> Open Account</a></label>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

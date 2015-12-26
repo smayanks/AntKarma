@@ -27,7 +27,6 @@ angular:angular-animate@=1.4.6
 angular:angular-messages
 npm-bcrypt
 natestrauser:animate-css
-insecure
 sacha:spin
 themeteorchef:jquery-validation
 random
@@ -45,5 +44,5 @@ angularui:angular-ui-router
 accounts-ui
 email
 accounts-base
-miro:mailchimp
 http
+richsilv:owl-carousel

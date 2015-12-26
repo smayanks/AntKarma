@@ -1,0 +1,52 @@
+.signup {
+
+	background: url("../images/bg5.png") no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	height: 100%;
+	padding-top: 10%;
+	color: #f8f8f8;
+	overflow: auto;
+
+}
+
+.signupSection {
+	min-height: 200px;
+	/*border: 1px solid #fff;*/
+	padding: 15%;
+	opacity: 0.5;
+}
+
+.signup .well {
+	background: rgba(34,19,73,0.30);
+  	height: 450px;
+  	overflow: auto;
+}
+
+.active {
+	opacity: 1.0 !important;
+}
+
+.signup .question-text {
+	color: #fff;
+	font-size: 22px;
+}
+
+
+.signup .answer-text {
+	color: #f8f8f8;	
+	font-size: 18px;
+
+}
+
+.signup .transparent-input {
+	background-color:transparent !important;
+    border:none !important;
+    box-shadow:none !important;
+}
+
+.signup .well {
+	/*background-color:transparent !important;*/
+}

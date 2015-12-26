@@ -195,6 +195,10 @@ section {
 .uppercase {
   text-transform: uppercase !important;
 }
+
+.full-height {
+  height: 100% !important;
+}
 /*Styling the placeholder text*/
 
 ::-webkit-input-placeholder { color:#ccc !important; }
