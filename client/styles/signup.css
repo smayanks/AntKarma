@@ -6,8 +6,9 @@
 	-o-background-size: cover;
 	background-size: cover;
 	height: 100%;
-	padding-top: 5%;
-	color: #f8f8f8;
+	padding-top: 3%;
+	/*color: #f8f8f8;*/
+	color: #fff;
 	overflow: auto;
 	font-family: "Raleway",sans-serif;
 	letter-spacing: 0.1em;
@@ -101,4 +102,9 @@
 .signup .btn[disabled] {
    
    opacity: 0.30;
+}
+
+.signup a.special-a {
+  text-decoration: none;
+  color: #fff;
 }

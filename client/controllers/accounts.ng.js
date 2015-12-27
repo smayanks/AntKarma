@@ -1,16 +1,34 @@
-angular.module('myApp').controller('AccountsCtrl', function($scope, $state, ngDialog, $timeout) {
+angular.module('myApp').controller('AccountsCtrl', function($scope, $state, ngDialog, $timeout, $meteor) {
 
 	$scope.login = function() {
 		alert('successs');
 	}
-	
+
+	$scope.verifyEmail = function(email) {
+		if (email) {
+	  		$meteor.call('send_email', email).then(
+		      function(data){
+					console.log('Email sent successfully')   ;
+					return 'Email sent successfully';
+
+		      },
+		      function(err){
+
+		       		return err;
+
+			});
+	  	} else {
+	  		return "No email address provided"
+	  	}
+	}
+
 	// questionnaire navigation between tabs
 	$('.next').click(function(){
-    	var nextId = $(this).parents('.tab-pane').next().attr("id");
+		var nextId = $(this).parents('.tab-pane').next().attr("id");
     	// $('[href=#'+nextId+']').addClass('animated slideInLeft');
     	$('[href=#'+nextId+']').tab('show');
     	return false;
-  	});
+    });
 
 	$('.prev').click(function(){
 		var prevId = $(this).parents('.tab-pane').prev().attr("id");
@@ -35,19 +53,19 @@ angular.module('myApp').controller('AccountsCtrl', function($scope, $state, ngDi
     //  leftSlide(tab);        
     // }
 
-	});
+});
 
 	function leftSlide(tab){
 		$(tab).addClass('animated slideInLeft');
 	}
 
 	function rightSlide(tab){
-	   $(tab).addClass('animated slideInRight');   
+		$(tab).addClass('animated slideInRight');   
 	}
 
-  	$('.first').click(function(){
-    	$('[href=#step1]').tab('show');
-  	});
+	$('.first').click(function(){
+		$('[href=#step1]').tab('show');
+	});
 
 
 }); 
