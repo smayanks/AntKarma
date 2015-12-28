@@ -1,7 +1,20 @@
   Meteor.startup(function () {
-    
-    process.env.MAIL_URL = "smtp://postmaster@sandbox36da93257751471db69ded9a0b65ee9c.mailgun.org:62cb7bf9dcc5e7da22a1c01155dd0c0f@smtp.mailgun.org:587";
 
+    var Future = Npm.require( 'fibers/future' ); 
+
+    process.env.MAIL_URL = "smtp://postmaster@sandbox36da93257751471db69ded9a0b65ee9c.mailgun.org:62cb7bf9dcc5e7da22a1c01155dd0c0f@smtp.mailgun.org:587";
+    SMS.twilio = {FROM: '+14154298661', ACCOUNT_SID: 'AC321bdab9784bd834ba67f6717794694b', AUTH_TOKEN: '7dbb2c475acb87bf915219dec30fb0dd'};
+    process.env.TWILIO_NUMBER = '+14154298661';
+    process.env.TWILIO_ACCOUNT_SID = 'AC321bdab9784bd834ba67f6717794694b';
+    process.env.TWILIO_AUTH_TOKEN = '7dbb2c475acb87bf915219dec30fb0dd';
+    SMS.phoneTemplates = {
+        from: '+14154298661',
+        text: function (user, code) {
+            return 'Welcome to MintingWorks! your OTP code is: ' + code;
+        }
+    };
+
+    PhoneValidation._ensureIndex({ "createdAt": 1 }, { expireAfterSeconds: 600 });
     function loadData1() {
 
         if (ELSS.find().count() === 0) {
@@ -72,6 +85,12 @@
     	return LifeInsurances.find();
     });
 
+     Meteor.publish('phone_validation', function() {
+        return PhoneValidation.find();
+    });
+
+    
+
     Meteor.publish('elss', function() {
     	return ELSS.find();
     });
@@ -98,31 +117,31 @@
     		});
 
             return riskScore;
-    	},
-
-    	myMethod: function() {
-
-    		var data = [{policy_name: "a"}, {policy_name: "b"}, {policy_name: "c"}];
-    		return data;
-    	},
-
-        get_hdfc_policy_info: function() {
-            var hdfcData = { policy_id: "1", policy_name: "HDFC Life Click 2 Protect Plus", claim_settlement_ratio: "0.94", 
-            max_policy_term: "40", max_age_at_maturity: "75", additional_features: "Accidental Death Benefit, Increasing life cover",
-            img: "/images/HDFC_Life_logo.png",policy_link: "http://ops.hdfclife.com/ops/click2protectPlus.do?source=W_HP_BIOBox_CPP"};
-            
-            return hdfcData;
         },
 
-    	get_hdfc_data: function(query) {
+        myMethod: function() {
 
-    		console.log('hdfc query in server: ' + JSON.stringify(query));
-    		var queryString = "";
-    		var coverageAmount = query.sum_assured;
-    		var smoker = query.smoker;
-    		var gender = query.gender;
-    		var policy_term = query.payment_term;
-    		var age = query.age;
+          var data = [{policy_name: "a"}, {policy_name: "b"}, {policy_name: "c"}];
+          return data;
+      },
+
+      get_hdfc_policy_info: function() {
+        var hdfcData = { policy_id: "1", policy_name: "HDFC Life Click 2 Protect Plus", claim_settlement_ratio: "0.94", 
+        max_policy_term: "40", max_age_at_maturity: "75", additional_features: "Accidental Death Benefit, Increasing life cover",
+        img: "/images/HDFC_Life_logo.png",policy_link: "http://ops.hdfclife.com/ops/click2protectPlus.do?source=W_HP_BIOBox_CPP"};
+
+        return hdfcData;
+    },
+
+    get_hdfc_data: function(query) {
+
+      console.log('hdfc query in server: ' + JSON.stringify(query));
+      var queryString = "";
+      var coverageAmount = query.sum_assured;
+      var smoker = query.smoker;
+      var gender = query.gender;
+      var policy_term = query.payment_term;
+      var age = query.age;
 
     		//build query string for lookup for HDFCData
     		// Format: [Age][Gender][Smoker][CoverageAmountRange][PolicyTerm]
@@ -199,140 +218,213 @@
             return riskScore;
         },
 
-        
-        send_email: function(query) {
+        send_otp: function(phone) {
 
-            var toEmail = query.email;
-            var fromEmail = "MintingWorks <saurabh@antkarma.com>";
-            var subject = "Your investment plan form MintingWorks";
-            var life_insurance = query.life_insurance;
-            var elss_amount = query.elss_amount;
-            var ppf_amount = query.ppf_amount;
-            var total_amount = Number(life_insurance.premium) + (Number(elss_amount) * 2) + Number(ppf_amount);
-            // console.log('life_insurance : ' + JSON.stringify(life_insurance));
-            // console.log('Sending emails to: ' + toEmail + " from: " + fromEmail);
+            
+            if (PhoneValidation.find({phone: phone}).count() > 0 ) {
+                var prevRecord = PhoneValidation.findOne({phone: phone});
+                PhoneValidation.remove({phone: phone});
+                console.log('removed earlier record with OTP : ' +prevRecord.otp); 
+            }            
+            var future = new Future();
+            var code = Math.round(Math.random() * 10000);
+            HTTP.call(
+                "POST",
+                'https://api.twilio.com/2010-04-01/Accounts/' + 
+                process.env.TWILIO_ACCOUNT_SID + '/SMS/Messages.json', {
+                    params: {
+                        From: process.env.TWILIO_NUMBER,
+                        To: phone,
+                        Body: 'Welcome to MintingWorks! your OTP code is: ' + code + ' . OTP expires in 10 minutes.'
+                    },
+                        // Set your credentials as environment variables 
+                        // so that they are not loaded on the client
+                        auth:
+                        process.env.TWILIO_ACCOUNT_SID + ':' +
+                        process.env.TWILIO_AUTH_TOKEN
+                    },
+                    // Print error or success to console
+                    function (error, response) {
+                        if (error) {
+                            // var errorMessage = error.response.data.message;
+                            // console.log('Error from twilio: ' + errorMessage);
+                            // throw new Meteor.Error("Error", errorMessage);
+                            console.log('Returning error from future');
+                            future.throw(error);
+                        }
+                        else {  
+                            console.log('Response: ' + JSON.stringify(response));
+                            PhoneValidation.insert({phone: phone, otp: code, createdAt: new Date()});
+                            console.log('SMS sent successfully.');
+                            if (response.statusCode != 200) {
+                                var errorMessage = response.data.message;
+                                future.return(new Meteor.Error("Error", errorMessage));    
+                            }
+                            future.return(response);
+                            
+                        }
+                    }
+            );
+            try {
+                return future.wait();
+            } catch(error) {
+                // Replace this with whatever you want sent to the client.
+                var errorMessage = error.response.data.message;
+                throw new Meteor.Error("OTP Error:", errorMessage);
+            }
+    },
 
-            SSR.compileTemplate( 'htmlEmail', Assets.getText( 'email_template.html' ) );
+    verify_otp: function(phone, otpFromClient) {
 
-            var emailData = {
-              policy_name: life_insurance.policy_name,
-              img_link: life_insurance.img,
-              amount: life_insurance.sum_assured,
-              premium: life_insurance.premium,
-              payment_term: life_insurance.payment_term,
-              policy_link: life_insurance.policy_link, 
-              elss_amount: elss_amount,
-              ppf_amount: ppf_amount,
-              total_amount: total_amount
-            };
+        var fromDB = PhoneValidation.findOne({phone: phone});
 
-            Email.send({
-              to: toEmail,
-              from: fromEmail,
-              subject: subject,
-              html: SSR.render( 'htmlEmail', emailData )
-            });
-            // console.log('emailData: ' + JSON.stringify(emailData));
+        console.log('otpFromClient: ' + otpFromClient);
+
+        console.log('otpFromDB: ' + fromDB.otp);
+
+        if (fromDB.otp == otpFromClient) {
+            return "Phone Verification Successful!";
+        } else {
+            throw new Meteor.Error("invalid-otp", "Invalid OTP. Please try again!");
         }
+        return false;
+    },
+
+
+
+    send_email: function(query) {
+
+        var toEmail = query.email;
+        var fromEmail = "MintingWorks <saurabh@antkarma.com>";
+        var subject = "Your investment plan form MintingWorks";
+        var life_insurance = query.life_insurance;
+        var elss_amount = query.elss_amount;
+        var ppf_amount = query.ppf_amount;
+        var total_amount = Number(life_insurance.premium) + (Number(elss_amount) * 2) + Number(ppf_amount);
+                // console.log('life_insurance : ' + JSON.stringify(life_insurance));
+                // console.log('Sending emails to: ' + toEmail + " from: " + fromEmail);
+
+                SSR.compileTemplate( 'htmlEmail', Assets.getText( 'email_template.html' ) );
+
+                var emailData = {
+                  policy_name: life_insurance.policy_name,
+                  img_link: life_insurance.img,
+                  amount: life_insurance.sum_assured,
+                  premium: life_insurance.premium,
+                  payment_term: life_insurance.payment_term,
+                  policy_link: life_insurance.policy_link, 
+                  elss_amount: elss_amount,
+                  ppf_amount: ppf_amount,
+                  total_amount: total_amount
+              };
+
+              Email.send({
+                  to: toEmail,
+                  from: fromEmail,
+                  subject: subject,
+                  html: SSR.render( 'htmlEmail', emailData )
+              });
+                // console.log('emailData: ' + JSON.stringify(emailData));
+            }
 
     });
 
 
 
-    function computeScore(age, investmentFocusOn, whenMarketVolatile) {
+  function computeScore(age, investmentFocusOn, whenMarketVolatile) {
 
-		var baseScore = 10;
-		var currentScore = 0
-		var currentAgeScore = getAgeScore(age);
-
-
-		var currentAttitudeScoreForLossGain = getAttitudeScoreForLossGain(investmentFocusOn);
-
-		var currentAttitudeScoreForBuySell = getAttitudeScoreForBuySell(whenMarketVolatile);
-
-		currentScore = baseScore - currentAttitudeScoreForLossGain - currentAttitudeScoreForBuySell;
-		return currentScore;
-
-	}
-
-	function getAttitudeScoreForBuySell(whenMarketVolatile) {
-
-		var attitudeScoreForBuySell = 0;
-		if (whenMarketVolatile == 'sellAll') {
-			attitudeScoreForLossGain = 4;
-		}
-		else if (whenMarketVolatile == 'sellSome'){
-			attitudeScoreForBuySell = 2;
-		}
-
-		else if (whenMarketVolatile == 'maintainAll') {
-			attitudeScoreForBuySell = 1;
-		}
-		else if (whenMarketVolatile == 'buyMore') {
-			attitudeScoreForBuySell = 0;
-		}
+      var baseScore = 10;
+      var currentScore = 0
+      var currentAgeScore = getAgeScore(age);
 
 
-		return attitudeScoreForBuySell;
+      var currentAttitudeScoreForLossGain = getAttitudeScoreForLossGain(investmentFocusOn);
 
-	}
+      var currentAttitudeScoreForBuySell = getAttitudeScoreForBuySell(whenMarketVolatile);
 
-	function getAttitudeScoreForLossGain(investmentFocusOn) {
-		var attitudeScoreForLossGain = 0;
-		if (investmentFocusOn == 'maximizeReturns') {
-			attitudeScoreForLossGain = 0;
-		}
-		else if (investmentFocusOn == 'minimizeLosses'){
-			attitudeScoreForLossGain = 5;
-		}
+      currentScore = baseScore - currentAttitudeScoreForLossGain - currentAttitudeScoreForBuySell;
+      return currentScore;
 
-		else if (investmentFocusOn == 'bothEqually') {
-			attitudeScoreForLossGain = 3;
-		}
+  }
 
-		return attitudeScoreForLossGain;
+  function getAttitudeScoreForBuySell(whenMarketVolatile) {
 
-	}
+      var attitudeScoreForBuySell = 0;
+      if (whenMarketVolatile == 'sellAll') {
+         attitudeScoreForLossGain = 4;
+     }
+     else if (whenMarketVolatile == 'sellSome'){
+         attitudeScoreForBuySell = 2;
+     }
 
-	function getAgeScore(age) {
-		var ageScore = 0;
+     else if (whenMarketVolatile == 'maintainAll') {
+         attitudeScoreForBuySell = 1;
+     }
+     else if (whenMarketVolatile == 'buyMore') {
+         attitudeScoreForBuySell = 0;
+     }
 
-		if (age < 29) {
-			ageScore = -1;
-		}	
-		else if (age >=29 && age <=34) {
-			ageScore = 0;
-		}
-		else if (age >=35 && age <=39) {
-			ageScore = 0.5;
-		}
-		else if (age >=40 && age <=44) {
-			ageScore = 1;
-		}
-		else if (age >=45 && age <=46) {
-			ageScore = 2;
-		}
-		else if (age >=47 && age <=49) {
-			ageScore = 3;
-		}
-		else if (age >=50 && age <=52) {
-			ageScore = 4;
-		}
-		else if (age >=53 && age <=56) {
-			ageScore = 5;
-		}
-		else if (age >=57 && age <=59) {
-			ageScore = 6;
-		}
-		else if (age >=60) {
-			ageScore = 6;
-		}
 
-		return ageScore;
+     return attitudeScoreForBuySell;
 
-	}
+ }
 
-  });
+ function getAttitudeScoreForLossGain(investmentFocusOn) {
+  var attitudeScoreForLossGain = 0;
+  if (investmentFocusOn == 'maximizeReturns') {
+     attitudeScoreForLossGain = 0;
+ }
+ else if (investmentFocusOn == 'minimizeLosses'){
+     attitudeScoreForLossGain = 5;
+ }
+
+ else if (investmentFocusOn == 'bothEqually') {
+     attitudeScoreForLossGain = 3;
+ }
+
+ return attitudeScoreForLossGain;
+
+}
+
+function getAgeScore(age) {
+  var ageScore = 0;
+
+  if (age < 29) {
+     ageScore = -1;
+ }	
+ else if (age >=29 && age <=34) {
+     ageScore = 0;
+ }
+ else if (age >=35 && age <=39) {
+     ageScore = 0.5;
+ }
+ else if (age >=40 && age <=44) {
+     ageScore = 1;
+ }
+ else if (age >=45 && age <=46) {
+     ageScore = 2;
+ }
+ else if (age >=47 && age <=49) {
+     ageScore = 3;
+ }
+ else if (age >=50 && age <=52) {
+     ageScore = 4;
+ }
+ else if (age >=53 && age <=56) {
+     ageScore = 5;
+ }
+ else if (age >=57 && age <=59) {
+     ageScore = 6;
+ }
+ else if (age >=60) {
+     ageScore = 6;
+ }
+
+ return ageScore;
+
+}
+
+});
 
 
 

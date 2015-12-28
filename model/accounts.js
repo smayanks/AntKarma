@@ -1,0 +1,1 @@
+PhoneValidation = new Mongo.Collection("phone_validation");

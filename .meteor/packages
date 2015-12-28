@@ -7,15 +7,12 @@
 meteor-base             # Packages every Meteor app needs to have
 mobile-experience       # Packages for a great mobile UX
 mongo                   # The database Meteor supports right now
-blaze-html-templates    # Compile .html files into Meteor Blaze views
 session                 # Client-side reactive dictionary for your app
 tracker                 # Meteor's client-side reactive programming library
 
 standard-minifiers      # JS/CSS minifiers run for production mode
 es5-shim                # ECMAScript 5 compatibility for older browsers.
-ecmascript              # Enable ECMAScript2015+ syntax in app code
 
-angular
 twbs:bootstrap
 accounts-password
 fortawesome:fontawesome
@@ -23,8 +20,6 @@ mrt:jquery-easing
 urigo:angular-blaze-template
 jquery
 angularui:angular-ui-bootstrap
-angular:angular-animate@=1.4.6
-angular:angular-messages
 npm-bcrypt
 natestrauser:animate-css
 sacha:spin
@@ -39,7 +34,6 @@ lookback:tooltips
 dotansimha:accounts-ui-angular
 useraccounts:core
 useraccounts:bootstrap
-softwarerero:accounts-t9n
 angularui:angular-ui-router
 accounts-ui
 email
@@ -47,3 +41,7 @@ accounts-base
 http
 richsilv:owl-carousel
 okland:accounts-phone
+angular
+jirikavi:angularjs-toaster
+angular:angular-animate
+reactive-var

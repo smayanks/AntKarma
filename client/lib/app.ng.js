@@ -1,5 +1,5 @@
 
-angular.module('myApp', ['angular-meteor', 'ngAnimate','ui.router',  'ui.bootstrap', 'ngMessages', 'ngDialog']);
+angular.module('myApp', ['angular-meteor', 'ngAnimate','ui.router',  'ui.bootstrap',  'ngDialog', 'toaster']);
 
 angular.module('myApp').directive ('numbersOnly', function() {
 	return {
@@ -45,7 +45,6 @@ angular.module('myApp').directive ('numbersOnly', function() {
 	}
 
 });
-
 
 angular.module('myApp').directive('contenteditable', function() {
 	return {
@@ -101,90 +100,5 @@ angular.module('myApp').service('sharedProperties', function() {
 			finalRecommendation = value;
 		}		
 	}
-});
-
-angular.module('myApp').animation('.slide', function () {
-
-   
-    return {
-        enter: function (element, done) {
-            element.hide().slideDown(600, done);
-        },
-        move: function(element, done) {
-            element.slideUp(600, done);
-        },
-        leave: function(element, done) {
-            element.slideUp(600, done);
-        }
-    };
-    
-});
-
-angular.module('myApp').animation('.table-reload', function () {
-    return {
-        enter: function (element, done) {
-            element.hide().slideDown(1500, done);
-        },
-        move: function(element, done) {
-            element.slideUp(1500, done);
-        },
-        leave: function(element, done) {
-            element.slideUp(1200, done);
-        }
-    };
-    
-});
-
-angular.module('myApp').animation('.slide-animation', function () {
-        return {
-            addClass: function (element, className, done) {
-                if (className == 'ng-hide') {
-                    TweenMax.to(element, 0.5, {left: -element.parent().width(), onComplete: done });
-                }
-                else {
-                    done();
-                }
-            },
-            removeClass: function (element, className, done) {
-                if (className == 'ng-hide') {
-                    element.removeClass('ng-hide');
-
-                    TweenMax.set(element, { left: element.parent().width() });
-                    TweenMax.to(element, 0.5, {left: 0, onComplete: done });
-                }
-                else {
-                    done();
-                }
-            }
-        };
-});
-
-angular.module('myApp').animation('.if-element', function() {
-  return {
-    enter : function(element, done) {
-      element.css('opacity',0);
-      jQuery(element).animate({
-        opacity: 1
-      },1500, done);
-
-      return function(isCancelled) {
-        if(isCancelled) {
-          jQuery(element).stop();
-        }
-      }
-    },
-    leave : function(element, done) {
-      element.css('opacity', 1);
-      jQuery(element).animate({
-        opacity: 0
-      },1500, done);
-
-      return function(isCancelled) {
-        if(isCancelled) {
-          jQuery(element).stop();
-        }
-      }
-    }
-  }
 });
 

@@ -60,6 +60,7 @@
 	background-color:transparent !important;
     /*border:none !important;*/
     /*box-shadow:none !important;*/
+    color: inherit;
 }
 
 .signup .well {
@@ -107,4 +108,26 @@
 .signup a.special-a {
   text-decoration: none;
   color: #fff;
+}
+
+.signup .small {
+	font-size: 10px;
+	
+}
+
+.signup .underline {
+	text-decoration: underline !important;
+}
+
+.signup .spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -50px;
+    margin-top: -50px;
+	
+}
+.signup .custom-addon {
+  background-color: inherit;
+  color: inherit;
 }

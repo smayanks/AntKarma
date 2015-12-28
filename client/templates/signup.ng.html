@@ -20,22 +20,18 @@
 				<h3 class="text-center">Signup for MintingWorks</h3>
 				<hr>
 				<div class="well well-lg">
-					<div ng-form="step1Form" >
-<!-- 						<div class="question-text " for="panNumber">Please enter your 10 digit PAN number?</div>	
-						<input class="form-control input-md transparent-input extra-margin-top" name="panNumber" ng-model="signup.panNumber" type="text" autofocus required>
-						<button class="btn btn-info btn-md text-center extra-margin-top extra-margin-bottom col-md-12">VERIFY YOUR PAN</button>
-					-->						
+					<div ng-form="stepForm" >
 					<div class="question-text extra-margin-top extra-margin-bottom" for="email">Email 
 						<div class="question-sub-text">Please verify your email.This will be your username for signin.</div>
 					</div>
-					<div class="row">
-						<div class="col-md-6">
+					<!-- <div class="row"> -->
+						<!-- <div class="col-md-6"> -->
 							<input class="form-control input-md transparent-input" name="email" ng-model="signup.email" type="email" required>
-						</div>
-						<div class="col-md-6">
-							<button class="btn btn-info btn-sm" ng-click="verifyEmail()">Verify Email</button>
-						</div>							
-					</div>
+						<!-- </div> -->
+						<!-- <div class="col-md-6"> -->
+							<!-- <button class="btn btn-info btn-sm" ng-click="verifyEmail()">Verify Email</button> -->
+						<!-- </div>							 -->
+					<!-- </div> -->
 
 					<div class="row">
 						<div class="col-md-6">
@@ -63,20 +59,37 @@
 					</div>
 					<div class="row">
 						<div class="col-md-6">
-							<input class="form-control input-md transparent-input" name="phone" ng-model="signup.phone" type="text" required>
+							<!-- <div class="input-group"> -->
+								<!-- <span class="input-group-addon custom-addon">+91</span> -->
+								<input class="form-control input-md transparent-input" name="phone" ng-model="signup.phone" ng-readonly="otp || isPhoneVerified" type="text"  required>
+							<!-- </div> -->
 						</div>
 						<div class="col-md-6">
-							<button class="btn btn-info btn-sm">Send OTP</button>
-						</div>							
+							<div ng-if="!otp && !isPhoneVerified">
+								<button class="btn btn-info btn-sm" ng-click="sendOTP()">Send OTP</button>
+							</div>
+							
+							<div ng-if="otp && !isPhoneVerified">
+								<div class="col-md-6">
+									<input class="form-control input-md transparent-input" name="otpText" ng-model="signup.otpText" type="text" placeholder="Enter OTP" required>
+								</div>
+								<button class="btn btn-info btn-sm" ng-click="verifyPhone()" >Verify</button>
+								<a href="#" ng-click="sendOTP()" class="special-a small underline" >Resend OTP</a>
+								<!-- <p class="small">Wait for {{counter}} seconds before resending otp request</p> -->
+								<!-- <button class="btn btn-info btn-sm" ng-click="pop()" ng-href="#">Resend OTP</button> -->
+							</div>
+							<div ng-if="isPhoneVerified">
+								<label class="label label-success extra-margin"><i class="fa fa-check-circle"></i>Phone Verified</label>
+							</div>
+						</div>
 					</div>
-
-
+					<!-- <div class="text-center" ng-show="otp">Resend OTP in {{counter}} seconds</div> -->
 				</div>
 			</div>
 			<div class="text-center button-footer extra-margin-top">
-				<button class="btn btn-info btn-md next uppercase">Signup and enter Investor details</button>
+				<button class="btn btn-info btn-md next uppercase" ng-disabled="stepForm.$invalid">Signup and enter Investor details</button>
 				<div class="extra-margin-top"><a class="special-a" ng-href="/signin">Already have an account! Signin</a></div>
-				<p id="form-messages"></p>
+				<!-- <p id="form-messages" ng-if="message">{{message}}</p> -->
 			</div>
 
 		</div>
@@ -116,4 +129,6 @@
 
 	</div>
 </div>
+<toaster-container toaster-options="{'time-out': 5000, 'close-button':true, 'position-class': 'toast-top-right'}"></toaster-container>
+<div id="spinner" class="spinner"><i class="fa fa-spinner fa-4x fa-spin"></i></div>
 </div>
