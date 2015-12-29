@@ -10,11 +10,11 @@
 	/*color: #f8f8f8;*/
 	color: #fff;
 	overflow: auto;
-	font-family: "Raleway",sans-serif;
-	letter-spacing: 0.1em;
+	font-family: "Roboto Slab", "Open Sans", "Raleway",sans-serif;
+	/*letter-spacing: 0.1em;*/
 	font-weight: 400;
   	/*text-align: center;*/
-  	margin: 0 0 30px;
+  	/*margin: 0 0 30px;*/
 
 
 }
@@ -30,6 +30,7 @@
 	background: rgba(34,19,73,0.30);
   	height: 450px;
   	overflow: auto;
+  	border: none;
 }
 
 .active {

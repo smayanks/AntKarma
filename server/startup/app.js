@@ -15,6 +15,8 @@
     };
 
     PhoneValidation._ensureIndex({ "createdAt": 1 }, { expireAfterSeconds: 600 });
+    EmailValidation._ensureIndex({ "createdAt": 1 }, { expireAfterSeconds: 600 });
+
     function loadData1() {
 
         if (ELSS.find().count() === 0) {
@@ -222,9 +224,7 @@
 
             
             if (PhoneValidation.find({phone: phone}).count() > 0 ) {
-                var prevRecord = PhoneValidation.findOne({phone: phone});
                 PhoneValidation.remove({phone: phone});
-                console.log('removed earlier record with OTP : ' +prevRecord.otp); 
             }            
             var future = new Future();
             var code = Math.round(Math.random() * 10000);
@@ -290,12 +290,50 @@
         return false;
     },
 
+    send_email_code: function(email) {
+        if (EmailValidation.find({email: email}).count() > 0 ) {
 
+            EmailValidation.remove({email: email});
+        }            
+
+        var code = Math.round(Math.random() * 10000);
+
+        var toEmail = email;
+        var fromEmail = "MintingWorks <saurabh@mintingworks.com>";
+        var subject = "Verfify your email for MintingWorks!";
+        var emailText =  "Welcome to minting works. Please verify your email by entering your code: " + code + ". This code expires in 10 minutes."
+
+        Email.send({
+          to: toEmail,
+          from: fromEmail,
+          subject: subject,
+          text: emailText
+        });
+        EmailValidation.insert({email: email, emailCode: code, createdAt: new Date()});
+        return "Email sent successfully!";
+
+    },
+
+    verify_email: function(email, emailCodeText) {
+
+        var fromDB = EmailValidation.findOne({email: email});
+
+        console.log('EmailCodeFromClient: ' + emailCodeText);
+
+        console.log('Email code fromDB: ' + fromDB.emailCode);
+
+        if (fromDB.emailCode == emailCodeText) {
+            return "Email Verification Successful!";
+        } else {
+            throw new Meteor.Error("invalid-email-code", "Invalid email code. Please try again!");
+        }
+        return false;
+    },
 
     send_email: function(query) {
 
         var toEmail = query.email;
-        var fromEmail = "MintingWorks <saurabh@antkarma.com>";
+        var fromEmail = "MintingWorks <saurabh@mintingworks.com>";
         var subject = "Your investment plan form MintingWorks";
         var life_insurance = query.life_insurance;
         var elss_amount = query.elss_amount;

@@ -29,30 +29,57 @@ angular.module('myApp').controller('AccountsCtrl', function($scope, $state, ngDi
 
 	$('#spinner').hide();
 	$scope.otp = false;
+	$scope.emailVerificatioInProcess = false;
+
+	$scope.sendEmailCode = function() {
+		$('#spinner').show()
+
+		$meteor.call('send_email_code', $scope.signup.email).then(
+		      function(data){
+
+		      	if (data) {
+					toaster.pop('note', "", "Email code sent - Please check your email!");
+					$scope.emailVerificatioInProcess = true;
+					$('#spinner').hide();
+
+		      	} else {
+		      		toaster.pop('error', "", "Error in sending email code");
+					$('#spinner').hide();	
+		      	}
+
+		      },
+		      function(err){
+				console.log("Got error in client: " + err);
+				toaster.pop('error', "", "Error in sending email code!");
+				$('#spinner').hide();
+		});
+		
+	}
+
+	$scope.verifyEmail = function() {
+		$('#spinner').show();
+
+		$meteor.call('verify_email', $scope.signup.email, $scope.signup.emailCodeText).then(
+		      function(data){
+		      	console.log('data: ' + JSON.stringify(data));
+		      	
+					toaster.pop('note', "", "Email verified successfully");
+					$scope.isEmailVerified = true;
+					$('#spinner').hide();
+		      	
+
+		      },
+		      function(err){
+				console.log(JSON.stringify(err));
+				toaster.pop('error', "", err.reason);
+				$('#spinner').hide();
+		});
+
+	}
 
 	$scope.sendOTP = function() {
 		$('#spinner').show()
-		// toaster.pop('error', "", "error sending otp");
-		// $timeout(function(){
-		// 	$scope.showOTPSpinner = false;
-		// 	$('#spinner').hide();
-		// 	$scope.otp = true;
-		// 	console.log('otp is now true');
-		// }, 5000);
 
-
-		// Meteor.call('send_otp', $scope.signup.phone, function (error, result) {
-		// 	if (error) {
-		// 		console.log("Got error in client: " + error);
-		// 		toaster.pop('error', "", error);
-		// 		$('#spinner').hide();
-		// 	} else {
-		// 		toaster.pop('note', "", "One time password sent successfully");
-		// 		$scope.otp = true;
-		// 		$('#spinner').hide();
-		// 		console.log('data from server: ' + result);
-		// 	}
-		// });
 		$meteor.call('send_otp', $scope.signup.phone).then(
 		      function(data){
 
@@ -66,7 +93,6 @@ angular.module('myApp').controller('AccountsCtrl', function($scope, $state, ngDi
 		      		toaster.pop('error', "", "Error in sending OTP");
 					$('#spinner').hide();	
 		      	}
-				// runCounter();
 
 		      },
 		      function(err){
@@ -77,43 +103,9 @@ angular.module('myApp').controller('AccountsCtrl', function($scope, $state, ngDi
 		
 	}
 
-	function runCounter() {
-		$scope.counter = 0;
-
-		while ($scope.counter <=60) {
-			$scope.counter++;
-		}
-	}
-
-
-	function handleError(err) {
-		console.log(JSON.stringify(err));
-		toaster.pop('error', "", err.reason);
-		$('#spinner').hide();
-	}
 
 	$scope.verifyPhone = function() {
 		$('#spinner').show();
-
-
-		// Meteor.call('verify_otp', $scope.signup.phone, $scope.signup.otpText, function (error, result) {
-
-		// 	// console.log(result);
-		// 	// console.log(JSON.stringify(error));
-		// 	if (error) {
-		// 		console.log(JSON.stringify(error));
-		// 		toaster.pop('error', "", error.reason);
-		//       	$('#spinner').hide();
-		//       	return ;
-
-		// 	} else {
-		// 		toaster.pop('note', "", result);
-		// 		$scope.isPhoneVerified = true;
-		// 		$('#spinner').hide();
-		// 		return true; 
-
-		// 	}
-		// });
 
 		$meteor.call('verify_otp', $scope.signup.phone, $scope.signup.otpText).then(
 		      function(data){
@@ -130,25 +122,7 @@ angular.module('myApp').controller('AccountsCtrl', function($scope, $state, ngDi
 				toaster.pop('error', "", err.reason);
 				$('#spinner').hide();
 		});
-		// $timeout(function(){
-		// 	$scope.showOTPSpinner = false;
-		// 	$('#spinner').hide();
-		// 	toaster.pop('note', "", "Phone verified successfully!");
-		// 	$scope.isPhoneVerified = true;
 
-		// }, 5000);
-		// Accounts.verifyPhone($scope.signup.phone, $scope.signup.otpText, function(err) {
-		// 	if (err) {
-		// 		console.log(err);
-		// 		// alert("error in verifying phone" + err.reason);
-		// 		toaster.pop('error', "", err.reason);
-		// 		$('#spinner').hide();
-		// 	} else {
-		// 		toaster.pop('note', "", "Phone verified successfully!");
-		// 		$('#spinner').hide();
-		// 		$scope.isPhoneVerified = true;
-		// 	}
-		// });
 	}
 
 	// questionnaire navigation between tabs
