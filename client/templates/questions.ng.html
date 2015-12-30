@@ -59,14 +59,14 @@
 							<div class="col-md-6" id="age">
 								<h4> What is your age? <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="bottom" title="Why we ask your age - because your insurance premium is directly affected by it. The earlier you start investing lower will be the premium."></i></h4>
 								<h5 class="answers">(in years)</h5>
-								<input class="form-control input-md" id="currentAge" name="currentAge" ng-model="questions.currentAge" maxlength="3" type="text" numbers-only required>								
+								<input class="form-control input-md" id="currentAge" name="currentAge" ng-model="questions.currentAge" maxlength="3" type="text" numbers-currency required>								
 							</div>
 							<div class="col-md-6">
 								<h4> What is your annual salary? <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="bottom" title="We ask your salary because your total coverage amount is dependent on how much money you make annually"></i></h4>
 								<h5 class="answers">(before taxes)</h5>
 								<div class="input-group">
 									<span class="input-group-addon custom-addon"><i class="fa fs-2x fa-inr"></i></span>
-									<input class="form-control input-md" name="annualSalary" ng-model="questions.annualSalary" numbers-only required>
+									<input class="form-control input-md" name="annualSalary" ng-model="questions.annualSalary" numbers-currency required>
 								</div>
 							</div>
 						</div>
@@ -100,7 +100,7 @@
 						<h5 class="answers">Tax savings (under section 80c) apply for investments upto Rs. 150,000</h5>
 						<div class="input-group">
 							<span class="input-group-addon custom-addon"><i class="fa fa-inr"></i></span>
-							<input class="form-control input-md" name="taxInvestmentAmount" ng-model="questions.taxInvestmentAmount" numbers-only required>
+							<input class="form-control input-md" name="taxInvestmentAmount" ng-model="questions.taxInvestmentAmount" numbers-currency required>
 						</div>
 						<br>
 						<br>
@@ -111,14 +111,14 @@
 								<h6> ELSS : </h6>
 								<div class="input-group">
 									<span class="input-group-addon custom-addon"><i class="fa fa-inr"></i></span>
-									<input class="form-control input-md" name="alreadyMadeElSSInvestmentAmt" ng-model="questions.alreadyMadeElSSInvestmentAmt" numbers-only required>
+									<input class="form-control input-md" name="alreadyMadeElSSInvestmentAmt" ng-model="questions.alreadyMadeElSSInvestmentAmt" numbers-currency required>
 								</div>
 							</div>
 							<div class="col-md-6">
 								<h6>Home Loan Principal Repayment :</h6>
 								<div class="input-group">
 									<span class="input-group-addon custom-addon"><i class="fa fa-inr"></i></span>
-									<input class="form-control input-md" name="alreadyMadeLIInvestmentAmt" ng-model="questions.alreadyMadeLIInvestmentAmt" numbers-only required>
+									<input class="form-control input-md" name="alreadyMadeLIInvestmentAmt" ng-model="questions.alreadyMadeLIInvestmentAmt" numbers-currency required>
 								</div>
 							</div>
 						</div>
@@ -127,14 +127,14 @@
 								<h6>PPF / EPF/ NSC/ FD : </h6>
 								<div class="input-group">
 									<span class="input-group-addon custom-addon"><i class="fa fa-inr"></i></span>
-									<input class="form-control input-md" name="alreadyMadePPFInvestmentAmt" ng-model="questions.alreadyMadePPFInvestmentAmt" numbers-only required>
+									<input class="form-control input-md" name="alreadyMadePPFInvestmentAmt" ng-model="questions.alreadyMadePPFInvestmentAmt" numbers-currency required>
 								</div>
 							</div>
 							<div class="col-md-6">
 								<h6>Other :</h6>
 								<div class="input-group">
 									<span class="input-group-addon custom-addon"><i class="fa fa-inr"></i></span>
-									<input class="form-control input-md" name="alreadyMadeOtherInvestmentAmt" ng-model="questions.alreadyMadeOtherInvestmentAmt" numbers-only required>
+									<input class="form-control input-md" name="alreadyMadeOtherInvestmentAmt" ng-model="questions.alreadyMadeOtherInvestmentAmt" numbers-currency required>
 								</div>
 							</div>
 						</div>
@@ -205,8 +205,8 @@
 									<div class="slide" ng-repeat="lifeIns in questions.currentLifeInsurancePolicies">
 										<div class="form-inline extra-padding" id="lifeInsuranceDetails">
 											<input class="form-control" name="{{'existingLifeInsPolicyName' + $index}}" ng-model="lifeIns.existingLifeInsPolicyName" placeholder="Policy Name" ng-required = "{{questions.alreadyMadeLifeInsInvestment == 'yes'}}">
-											<input class="form-control" name="{{'existingLifeInsSumInsured' + $index}}" placeholder="Sum Assured" ng-model="lifeIns.existingLifeInsSumInsured" numbers-only ng-required = "questions.alreadyMadeLifeInsInvestment == 'yes'">
-											<input class="form-control" name="{{'existingLifeInsYrlyPrem' + $index}}" placeholder="Annual Premium" ng-model="lifeIns.existingLifeInsYrlyPrem" numbers-only ng-required = "questions.alreadyMadeLifeInsInvestment == 'yes'">
+											<input class="form-control" name="{{'existingLifeInsSumInsured' + $index}}" placeholder="Sum Assured" ng-model="lifeIns.existingLifeInsSumInsured" numbers-currency ng-required = "questions.alreadyMadeLifeInsInvestment == 'yes'">
+											<input class="form-control" name="{{'existingLifeInsYrlyPrem' + $index}}" placeholder="Annual Premium" ng-model="lifeIns.existingLifeInsYrlyPrem" numbers-currency ng-required = "questions.alreadyMadeLifeInsInvestment == 'yes'">
 											<i class="fa fa-minus-circle" ng-click="removeLifeInsurance($index)"></i>
 
 										</div>
@@ -238,7 +238,7 @@
 												<option value="Other">Other</option>
 											</select>
 
-											<input class="form-control" name="{{'existingLoanUnpaidAmt' + $index}}" placeholder="Outstanding loan amount" ng-model="questions.currentOutStandingLoans[$index].existingLoanUnpaidAmt" numbers-only ng-required = "questions.outstandingLoans == 'yes'">
+											<input class="form-control" name="{{'existingLoanUnpaidAmt' + $index}}" placeholder="Outstanding loan amount" ng-model="questions.currentOutStandingLoans[$index].existingLoanUnpaidAmt" numbers-currency ng-required = "questions.outstandingLoans == 'yes'">
 											<!-- <input class="form-control" name="{{'comments' + $index}}" placeholder="Description" ng-model="questions.currentOutStandingLoans[$index].comments" ng-required = "questions.outstandingLoans == 'yes'"> -->
 											<i class="fa fa-minus-circle" ng-click="removeOutstandingLoan($index)"></i>
 											<!-- </span> -->

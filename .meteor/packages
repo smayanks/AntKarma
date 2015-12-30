@@ -31,9 +31,6 @@ sanjo:jasmine
 velocity:html-reporter
 velocity:console-reporter
 lookback:tooltips
-dotansimha:accounts-ui-angular
-useraccounts:core
-useraccounts:bootstrap
 angularui:angular-ui-router
 accounts-ui
 email
@@ -45,3 +42,5 @@ angular
 jirikavi:angularjs-toaster
 angular:angular-animate
 reactive-var
+angular:angular-messages
+dotansimha:accounts-ui-angular

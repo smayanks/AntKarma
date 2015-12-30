@@ -227,7 +227,7 @@
                 PhoneValidation.remove({phone: phone});
             }            
             var future = new Future();
-            var code = Math.round(Math.random() * 10000);
+            var code = Math.round(Math.random() * 1000000);
             HTTP.call(
                 "POST",
                 'https://api.twilio.com/2010-04-01/Accounts/' + 
@@ -249,7 +249,7 @@
                             // var errorMessage = error.response.data.message;
                             // console.log('Error from twilio: ' + errorMessage);
                             // throw new Meteor.Error("Error", errorMessage);
-                            console.log('Returning error from future');
+                            console.log('Error in send_otp: ' + error );
                             future.throw(error);
                         }
                         else {  
@@ -296,7 +296,7 @@
             EmailValidation.remove({email: email});
         }            
 
-        var code = Math.round(Math.random() * 10000);
+        var code = Math.round(Math.random() * 1000000);
 
         var toEmail = email;
         var fromEmail = "MintingWorks <saurabh@mintingworks.com>";

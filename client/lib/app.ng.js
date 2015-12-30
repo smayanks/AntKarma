@@ -1,7 +1,7 @@
 
-angular.module('myApp', ['angular-meteor', 'ngAnimate','ui.router',  'ui.bootstrap',  'ngDialog', 'toaster']);
+angular.module('myApp', ['angular-meteor', 'ngAnimate','ui.router',  'ui.bootstrap',  'ngDialog', 'toaster', 'ngMessages']);
 
-angular.module('myApp').directive ('numbersOnly', function() {
+angular.module('myApp').directive ('numbersCurrency', function() {
 	return {
 		require: 'ngModel',
 		link: function(scope, element, attrs, modelCtrl) {

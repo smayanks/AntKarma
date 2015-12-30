@@ -2,12 +2,18 @@
 
 <div id="signup" class="signup">
 	<div class="col-md-6 col-md-offset-3">
+		<div class="progress">
+			<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="10" style="width:20%;">
+				Step 1 of 4
+			</div>
+		</div>
 		<div class="navbar hidden-navbar">
 			<div class="navbar-inner">
 				<ul class="nav nav-pills">
 					<li class="active"><a id="firstTab" href="#step1" data-toggle="tab" data-step="1"></a></li>
 					<li><a href="#step2" data-toggle="tab" data-step="2"></a></li>
 					<li><a href="#step3" data-toggle="tab" data-step="3"></a></li>
+					<li><a href="#step4" data-toggle="tab" data-step="4"></a></li>
 				</ul>
 			</div>
 		</div>
@@ -17,22 +23,11 @@
 			
 			<div class="tab-pane fadeIn in active" id="step1">
 				<hr>
-				<h3 class="text-center">Signup for MintingWorks</h3>
+				<div class="section-heading text-center">Signup for MintingWorks</div>
 				<hr>
 				<div class="well well-lg">
 					<div ng-form="stepForm" >
-<!-- 					<div class="question-text extra-margin-top extra-margin-bottom" for="email">Email 
-						<div class="question-sub-text">Please verify your email.This will be your username for signin.</div>
-					</div>
-					<div class="row">
-						<div class="col-md-6">
-							<input class="form-control input-md transparent-input" name="email" ng-model="signup.email" type="email" required>
-						</div>
-						<div class="col-md-6">
-							<button class="btn btn-info btn-sm" ng-click="verifyEmail()">Verify Email</button>
-						</div>							
-					</div> -->
-					<div class="question-text extra-margin-top extra-margin-bottom" for="email">Email 
+					<div class="question-text extra-margin-top" for="email">Email 
 						<div class="question-sub-text">Please verify your email.This will be your username for signin.</div>
 					</div>
 					<div class="row">
@@ -40,6 +35,7 @@
 							<!-- <div class="input-group"> -->
 								<!-- <span class="input-group-addon custom-addon">+91</span> -->
 								<input class="form-control input-md transparent-input" name="email" ng-model="signup.email" ng-readonly="emailVerificatioInProcess || isEmailVerified" type="email"  required>
+								<div class="help-block" ng-messages="stepForm.email.$error"  ng-show="stepForm.email.$touched"><div ng-messages-include="client/templates/messages.html"></div></div>
 							<!-- </div> -->
 						</div>
 						<div class="col-md-6">
@@ -49,7 +45,8 @@
 							
 							<div ng-if="emailVerificatioInProcess && !isEmailVerified">
 								<div class="col-md-6">
-									<input class="form-control input-md transparent-input" name="emailCodeText" ng-model="signup.emailCodeText" type="text" placeholder="Enter Code" required>
+									<input class="form-control input-md transparent-input" name="emailCodeText" ng-model="emailCodeText" type="text" placeholder="Enter Code" required>
+									<div class="help-block" ng-messages="stepForm.emailCodeText.$error"  ng-show="stepForm.emailCodeText.$touched"><div ng-messages-include="client/templates/messages.html"></div></div>
 								</div>
 								<button class="btn btn-info btn-sm" ng-click="verifyEmail()" >Verify Email</button>
 								<a href="#" ng-click="sendEmailCode()" class="special-a small underline" >Resend Code</a>
@@ -62,26 +59,17 @@
 						</div>
 					</div>
 					<hr>
-
-<!-- 					<div class="row">
-						<div class="col-md-6">
-							<div class="question-text extra-margin-top" for="firstName">First Name </div>
-							<input class="form-control input-md transparent-input" name="firstName" ng-model="signup.firstName" type="text" required>
-						</div>
-						<div class="col-md-6">
-							<div class="question-text extra-margin-top" for="firstName">Last Name </div>
-							<input class="form-control input-md transparent-input" name="lastName" ng-model="signup.lastName" type="text" required>
-						</div>
-					</div> -->
-					<div class="question-text extra-margin-top extra-margin-bottom" for="email">Enter your mobile number 
+					<div class="question-text extra-margin-top" for="phone">Enter your mobile number 
 						<div class="question-sub-text">One time password will be sent to this number and will be used for future transaction alerts.</div>
 					</div>
 					<div class="row">
 						<div class="col-md-6">
-							<!-- <div class="input-group"> -->
-								<!-- <span class="input-group-addon custom-addon">+91</span> -->
-								<input class="form-control input-md transparent-input" name="phone" ng-model="signup.phone" ng-readonly="otp || isPhoneVerified" type="text"  required>
-							<!-- </div> -->
+							<div class="input-group">
+								<span class="input-group-addon custom-addon">+91</span>
+								<input class="form-control input-md transparent-input" name="phone" ng-model="signup.phone" ng-readonly="otp || isPhoneVerified" type="text" ng-pattern="/^[0-9]{10}$/" required>
+							</div>
+							<div class="help-block" ng-messages="stepForm.phone.$error"  ng-show="stepForm.phone.$touched"><div ng-messages-include="client/templates/messages.html"></div></div>
+
 						</div>
 						<div class="col-md-6">
 							<div ng-if="!otp && !isPhoneVerified">
@@ -90,7 +78,8 @@
 							
 							<div ng-if="otp && !isPhoneVerified">
 								<div class="col-md-6">
-									<input class="form-control input-md transparent-input" name="otpText" ng-model="signup.otpText" type="text" placeholder="Enter OTP" required>
+									<input class="form-control input-md transparent-input" name="otpText" ng-model="otpText" type="text" placeholder="Enter OTP" required>
+									<div class="help-block" ng-messages="stepForm.otpText.$error"  ng-show="stepForm.otpText.$touched"><div ng-messages-include="client/templates/messages.html"></div></div>
 								</div>
 								<button class="btn btn-info btn-sm" ng-click="verifyPhone()" >Verify</button>
 								<a href="#" ng-click="sendOTP()" class="special-a small underline" >Resend OTP</a>
@@ -107,42 +96,114 @@
 					<!-- <div class="question-text extra-margin-top extra-margin-bottom" for="email">Select a password for future login</div> -->
 					<div class="row">
 						<div class="col-md-6">
-							<div class="question-text  extra-margin-bottom" for="email">Password </div>
-							<input class="form-control input-md transparent-input" name="password" ng-model="signup.password" type="password" required>
+							<div class="question-text" for="password">Password <i class="fa fa-question-circle pwd-regex" data-toggle="tooltip" data-placement="top" data-html="true" title="Password should meet following criteria: <br/>
+								Minimum 8 characters in length <br/>
+								At least one uppercase letter <br/>
+ 								At least one lowercase letter <br/>
+								At least one number <br/>
+								At least one special character <br/>
+								"></i></div>
+							<input class="form-control input-md transparent-input" name="password" ng-blur="checkPwdRegex()" ng-model="password" type="password" required>
+							<div class="help-block" ng-messages="stepForm.password.$error"  ng-show="stepForm.password.$touched"><div ng-messages-include="client/templates/messages.html"></div></div>
 						</div>
 						<div class="col-md-6">
 
-							<div class="question-text  extra-margin-bottom" for="email">Re-enter password</div>
-							<input class="form-control input-md transparent-input" name="reenterPassword" ng-model="signup.reenterPassword" type="password" required>
+							<div class="question-text" for="reenterPassword">Re-enter password</div>
+							<input class="form-control input-md transparent-input" name="reenterPassword" ng-model="reenterPassword" type="password" required>
+							<div class="help-block" ng-messages="stepForm.reenterPassword.$error"  ng-show="stepForm.reenterPassword.$touched"><div ng-messages-include="client/templates/messages.html"></div></div>
 						</div>
 					</div>
-					<div class="question-sub-text">Signup with this password when you next login.</div>
 				</div>
+				<label class="label label-danger" ng-show="!pwdCriteriaMatch">Password does not meet requirement criteria.</label>
+				<label class="label label-danger pull-right" ng-show="passDoNotMatch">Password do not match. Re-enter password.</label>
 			</div>
 			<div class="text-center button-footer extra-margin-top">
-				<button class="btn btn-info btn-md next uppercase" >Signup and enter Investor details</button>
+				<button class="btn btn-info btn-md uppercase" ng-click="userSignup()" ng-disabled="stepForm.$invalid">Signup and enter Investor details</button>
 				<div class="extra-margin-top"><a class="special-a" ng-href="/signin">Already have an account! Signin</a></div>
 				<!-- <p id="form-messages" ng-if="message">{{message}}</p> -->
 			</div>
 
 		</div>
 		<div class="tab-pane fadeIn" id="step2">
-			<h3 class="text-center">Enter details to open Investor's account</h3>
+			<hr>
+			<div class="section-heading text-center">Enter details to Open Investor's Account</div>
+			<hr>
 			<div class="well well-lg">
 				<div ng-form="step1Form" >
-					<div class="question-text " for="panNumber">Please enter your 10 digit PAN number?</div>	
-					<input class="form-control input-md transparent-input extra-margin-top" name="panNumber" ng-model="signup.panNumber" type="text" autofocus required>
-					<button class="btn btn-info btn-md text-center extra-margin-top extra-margin-bottom col-md-12">VERIFY YOUR PAN</button>
-
-
-					<div class="col-md-6 no-left-padding">
-						<div class="question-text extra-margin-top" for="firstName">First Name </div>
-						<input class="form-control input-md transparent-input" name="firstName" ng-model="signup.firstName" type="text" required>
+					<div class="question-text" for="panNumber">Please enter your 10 digit PAN number? 
+						<!-- <div class="question-sub-text">Please verify your email.This will be your username for signin.</div> -->
 					</div>
-					<div class="col-md-6 no-left-padding">
-						<div class="question-text extra-margin-top" for="firstName">Last Name </div>
-						<input class="form-control input-md transparent-input" name="lastName" ng-model="signup.lastName" type="text" required>
+					<div class="row">
+						<div class="col-md-6">
+								<input class="form-control input-md transparent-input" name="panNumber" ng-model="signup.panNumber" type="text"  required>
+						</div>
+						<div class="col-md-6">
+							<button class="btn btn-info btn-md text-center">Verify Your PAN</button>
+						</div>
 					</div>
+					<hr>
+					<div class="row extra-margin-top">
+						<div class="col-md-4">
+							<div class="question-text extra-margin-top" for="firstName">First Name </div>
+							<input class="form-control input-md transparent-input" name="firstName" ng-model="signup.firstName" type="text" required>
+						</div>
+						<div class="col-md-4">
+							<div class="question-text extra-margin-top" for="firstName">Last Name </div>
+							<input class="form-control input-md transparent-input" name="lastName" ng-model="signup.lastName" type="text" required>
+						</div>
+						<div class="col-md-4">
+							<div class="question-text extra-margin-top" for="dob">Date of Birth </div>
+							<input class="form-control input-md transparent-input" name="dob" ng-model="signup.dob" type="date" required>
+						</div>
+
+					</div>
+					
+					<hr>
+					
+					<div class="question-text">Are you KYC compliant?
+						<div class="question-sub-text">Not sure? Check your compliance status here: <a class="special-a" target="_blank" href="https://www.cvlkra.com/kycpaninquiry.aspx">https://www.cvlkra.com/kycpaninquiry.aspx</a></div>
+					</div>
+
+					<div class="row">
+						<div class="radio">
+							<div class="col-md-4">
+								<label>
+									<input type="radio" class="answer-text" name="kycCompliant" value="yes" ng-model="questions.kycCompliant" required>Yes
+								</label>
+							</div>
+							<div class="col-md-4">
+								<label>
+									<input type="radio" class="answer-text" name="kycCompliant" value="no" ng-model="questions.kycCompliant" required>No
+								</label>
+							</div>
+						</div>
+					
+					</div>
+					<hr>
+					<div class="question-text">What is your Nationality?</div>
+					<div class="radio">
+						<div class="col-md-6">
+							<label>
+								<input type="radio" class="answer-text" name="nationality" value="Indian" ng-model="questions.nationality" required>Indian
+							</label>
+						</div>
+						<div class="col-md-6">
+							<label>
+								<input type="radio" class="answer-text" name="nationality" value="NRI" ng-model="questions.nationality" required>Non Resident Indian (NRI)
+							</label>
+						</div>
+						<div class="col-md-6">
+							<label>
+								<input type="radio" class="answer-text" name="nationality" value="PIO" ng-model="questions.nationality" required>Person of Indian Origin(PIO)
+							</label>
+						</div>
+						<div class="col-md-6">
+							<label>
+								<input type="radio" class="answer-text" name="nationality" value="FN" ng-model="questions.nationality" required>Foreign National
+							</label>
+						</div>
+					</div>
+
 				</div>
 			</div>
 			<div class="text-center button-footer">
@@ -152,7 +213,143 @@
 
 		</div>
 		<div class="tab-pane fadeIn" id="step3">
-			<h2>This is tab 3</h2>
+			<hr>
+			<div class="section-heading text-center">Fill in your Address Details</div>
+			<hr>
+			<div class="well well-lg">
+				<div ng-form="step3Form" >
+					<div class="question-text">Are you KYC compliant?
+						<div class="question-sub-text">Not sure? Check your compliance status here: <a class="special-a" target="_blank" href="https://www.cvlkra.com/kycpaninquiry.aspx">https://www.cvlkra.com/kycpaninquiry.aspx</a></div>
+					</div>
+
+					<div class="row">
+						<div class="radio">
+							<div class="col-md-4">
+								<label>
+									<input type="radio" class="answer-text" name="kycCompliant" value="yes" ng-model="questions.kycCompliant" required>Yes
+								</label>
+							</div>
+							<div class="col-md-4">
+								<label>
+									<input type="radio" class="answer-text" name="kycCompliant" value="no" ng-model="questions.kycCompliant" required>No
+								</label>
+							</div>
+						</div>
+					
+					</div>
+					<hr>
+					<div class="question-text">What is your address?
+						<div class="question-sub-text">Preferably permanent address - all future correspondence will be made to this address</div>
+					</div>
+					<div class="question-text extra-margin-top" for="address">Address </div>
+					<input class="form-control input-md transparent-input" name="address" ng-model="signup.address" type="text" required>
+					
+					<div class="row">
+						<div class="col-md-4">
+							<div class="question-text extra-margin-top" for="address">City </div>
+							<input class="form-control input-md transparent-input" name="city" ng-model="signup.city" type="text" required>
+						</div>
+						<div class="col-md-4">
+							<div class="question-text extra-margin-top" for="address">Pin Code </div>
+							<input class="form-control input-md transparent-input" name="pincode" ng-model="signup.pincode" type="text" required>
+						</div>
+						<div class="col-md-4">
+							<div class="question-text extra-margin-top" for="address">State </div>
+							<select name="state" id="repeatState" ng-model="signup.state" class="form-control input-md transparent-input">
+									<option ng-repeat="currentstate in states" value="{{currentstate.state}}">{{currentstate.state}}</option>
+							</select>
+
+						</div>
+					</div>
+					<!-- <div class="col-md-6"> -->
+						<div class="question-text extra-margin-top" for="address">Residence Telephone No. 
+							<div class="question-sub-text">Don't forget to include the STD code if you have a fixed line number. If you don't have a fixed line number, mention your mobile phone number again.</div>
+						</div>
+						<input class="form-control input-md transparent-input" name="landline" ng-model="signup.landline" type="text" required>
+					<!-- </div> -->
+				</div>
+			</div>
+			<div class="text-center button-footer">
+				<a class="btn btn-custom btn-md prev" href="#">Previous</a>
+				<button class="btn btn-custom btn-md next">Next</button>
+				<!-- <button class="btn btn-custom btn-md next" >Next</button> -->
+			</div>
+		</div>
+		<div class="tab-pane fadeIn" id="step4">
+			<hr>
+			<div class="section-heading text-center">Fill in your Bank Details</div>
+			<div class="question-sub-text">At least one bank account has to be registered under CAN. Future redemptions or dividend payout from your MF investments will go to this account.</div>
+			<hr>
+			<div class="well well-lg">
+				<div ng-form="step3Form" >
+					<div class="row">
+						<div class="col-md-6">
+							<div class="question-text">Bank Account No
+								<div class="question-sub-text">In case of redemption your funds will be deposited into this account.</div>
+							</div>
+							<input class="form-control input-md transparent-input" name="address" ng-model="signup.address" type="text" required>
+						</div>
+						<div class="col-md-6">
+							<div class="question-text">Account Type
+								<div class="question-sub-text">Select the type of account you have from dropdown menu.</div>
+							</div>
+							<select name="accountType" id="repeatAccountType" ng-model="signup.accountType" class="form-control input-md transparent-input">
+								<option ng-repeat="accountType in accountTypes" value="{{accountType}}">{{accountType}}</option>
+							</select>
+						</div>
+
+					</div>
+					<div class="row extra-margin-top">
+						<div class="col-md-6">
+							<div class="question-text">IFSC Code
+								<div class="question-sub-text">You can find this alphanumeric string online or by checking the bottom of your cheque leaf.</div>
+							</div>
+							<input class="form-control input-md transparent-input" name="ifscCode" ng-model="signup.ifscCode" type="text" required>
+						</div>
+						<div class="col-md-6">
+							<div class="question-text">MICR Code
+								<div class="question-sub-text">This is a 9 digit number that you can find at the bottom of the cheque leaf or by searching online.</div>
+							</div>
+							<input class="form-control input-md transparent-input" name="micrCode" ng-model="signup.micrCode" type="text" required>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4">
+							<div class="question-text extra-margin-top" for="address">Bank Name </div>
+							<input class="form-control input-md transparent-input" name="bankName" ng-model="signup.bankName" type="text" required>
+						</div>
+						<div class="col-md-4">
+							<div class="question-text extra-margin-top" for="address">Branch Name </div>
+							<input class="form-control input-md transparent-input" name="bankBranch" ng-model="signup.bankBranch" type="text" required>
+						</div>
+						<div class="col-md-4">
+							<div class="question-text extra-margin-top" for="address">City </div>
+							<input class="form-control input-md transparent-input" name="bankCity" ng-model="signup.bankCity" type="text" required>
+
+						</div>
+					</div>
+					<hr>
+					<div class="question-text">Do you wish to register for PayEezz?
+						<div class="question-sub-text">We recommend registering with PayEezz because it simplifies SIP investments which is the best strategy for mutual fund investments.</div>
+					</div>
+
+					<div class="row">
+						<div class="radio">
+							<div class="col-md-4">
+								<label>
+									<input type="radio" class="answer-text" name="registerForPayEezz" value="yes" ng-model="questions.registerForPayEezz" required>Yes
+								</label>
+							</div>
+							<div class="col-md-4">
+								<label>
+									<input type="radio" class="answer-text" name="registerForPayEezz" value="no" ng-model="questions.registerForPayEezz" required>No
+								</label>
+							</div>
+						</div>
+					
+					</div>
+				</div>
+			</div>
 			<div class="text-center button-footer">
 				<a class="btn btn-custom btn-md prev" href="#">Previous</a>
 				<button class="btn btn-custom btn-md next">Next</button>
@@ -162,6 +359,7 @@
 
 	</div>
 </div>
-<toaster-container toaster-options="{'time-out': 8000, 'close-button':true, 'position-class': 'toast-top-right', 'progressBar': true}"></toaster-container>
+<toaster-container toaster-options="{'time-out': 5000, 'close-button':true, 'position-class': 'toast-top-right', 'progressBar': true}"></toaster-container>
 <div id="spinner" class="spinner"><i class="fa fa-spinner fa-4x fa-spin"></i></div>
+
 </div>

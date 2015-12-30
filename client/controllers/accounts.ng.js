@@ -1,5 +1,18 @@
 angular.module('myApp').controller('AccountsCtrl', function($scope, $state, ngDialog, $timeout, $meteor, toaster) {
 
+	//Setting default values for scope variables
+	$scope.emailVerificatioInProcess = false;
+	$scope.isEmailVerified = false;
+
+	$scope.otp = false;
+	$scope.isPhoneVerified = false;
+
+	$scope.pwdCriteriaMatch = true;
+	$scope.passDoNotMatch = false;
+
+
+
+
 	$scope.login = function() {
 		alert('successs');
 	}
@@ -23,22 +36,25 @@ angular.module('myApp').controller('AccountsCtrl', function($scope, $state, ngDi
 	}
 
 	$scope.pop = function() {
-		toaster.pop('note', "", "One time password sent successfully");
+		toaster.pop('success', "", "One time password sent successfully");
 		$scope.otp = true;
 	}
 
 	$('#spinner').hide();
-	$scope.otp = false;
-	$scope.emailVerificatioInProcess = false;
 
 	$scope.sendEmailCode = function() {
+
+		if ($scope.stepForm.email.$invalid) {
+			toaster.pop('error', "Invalid Email", "Please check the email field");
+			return;
+		}
 		$('#spinner').show()
 
 		$meteor.call('send_email_code', $scope.signup.email).then(
 		      function(data){
 
 		      	if (data) {
-					toaster.pop('note', "", "Email code sent - Please check your email!");
+					toaster.pop('success', "", "Email code sent - Please check your email!");
 					$scope.emailVerificatioInProcess = true;
 					$('#spinner').hide();
 
@@ -57,13 +73,19 @@ angular.module('myApp').controller('AccountsCtrl', function($scope, $state, ngDi
 	}
 
 	$scope.verifyEmail = function() {
+
+		if ($scope.stepForm.email.$invalid || $scope.stepForm.emailCodeText.$invalid ) {
+			toaster.pop('error', "Invalid code!", "Please enter a valid passcode");
+			return;
+		}
+
 		$('#spinner').show();
 
-		$meteor.call('verify_email', $scope.signup.email, $scope.signup.emailCodeText).then(
+		$meteor.call('verify_email', $scope.signup.email, $scope.emailCodeText).then(
 		      function(data){
 		      	console.log('data: ' + JSON.stringify(data));
 		      	
-					toaster.pop('note', "", "Email verified successfully");
+					toaster.pop('success', "", "Email verified successfully");
 					$scope.isEmailVerified = true;
 					$('#spinner').hide();
 		      	
@@ -78,13 +100,20 @@ angular.module('myApp').controller('AccountsCtrl', function($scope, $state, ngDi
 	}
 
 	$scope.sendOTP = function() {
+
+		if ($scope.stepForm.phone.$invalid  ) {
+			toaster.pop('error', "", "Please enter a valid phone number!");
+			return;
+		}
+
 		$('#spinner').show()
 
-		$meteor.call('send_otp', $scope.signup.phone).then(
+		var phoneWithISD = '+91' + $scope.signup.phone;
+		$meteor.call('send_otp', phoneWithISD).then(
 		      function(data){
 
 		      	if (data) {
-					toaster.pop('note', "", "One time password sent successfully");
+					toaster.pop('success', "", "One time password sent successfully");
 					$scope.otp = true;
 					$('#spinner').hide();
 					console.log('data from server: ' + data);
@@ -105,13 +134,21 @@ angular.module('myApp').controller('AccountsCtrl', function($scope, $state, ngDi
 
 
 	$scope.verifyPhone = function() {
+
+		if ($scope.stepForm.phone.$invalid || $scope.stepForm.otpText.$invalid ) {
+			toaster.pop('error', "", "Please enter a valid one time password");
+			return;
+		}
+
 		$('#spinner').show();
 
-		$meteor.call('verify_otp', $scope.signup.phone, $scope.signup.otpText).then(
+		var phoneWithISD = '+91' + $scope.signup.phone;
+
+		$meteor.call('verify_otp', phoneWithISD, $scope.otpText).then(
 		      function(data){
 		      	console.log('data: ' + JSON.stringify(data));
 		      	
-					toaster.pop('note', "", "Phone verified successfully");
+					toaster.pop('success', "", "Phone verified successfully");
 					$scope.isPhoneVerified = true;
 					$('#spinner').hide();
 		      	
@@ -121,6 +158,64 @@ angular.module('myApp').controller('AccountsCtrl', function($scope, $state, ngDi
 				console.log(JSON.stringify(err));
 				toaster.pop('error', "", err.reason);
 				$('#spinner').hide();
+		});
+
+	}
+
+
+	$scope.checkPwdRegex = function() {
+
+		var regex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+		console.log('$scope.password: ' + $scope.password);
+		if (regex.test($scope.password)) {
+			console.log('password criteria matched');
+			$scope.pwdCriteriaMatch = true;
+			// $scope.stepForm.password.$setValidity("password", true);
+		} else {
+			console.log('password criteria not matched');
+			$scope.pwdCriteriaMatch = false;
+			$scope.stepForm.password.$setValidity("password", false);
+		}
+	}
+
+	$scope.userSignup = function() {
+		var user;
+
+
+		if ($scope.password != $scope.reenterPassword) {
+			$scope.passDoNotMatch = true;
+			return ;
+		} 
+
+		user = {
+			email: $scope.signup.email,
+			password: $scope.password,
+			phone: $scope.signup.phone
+		}
+		$('#spinner').show();
+
+		Accounts.createUser(user, function(error) {
+			if(error) {
+				console.log(error);
+				toaster.pop('error', "Unable to create user!", error.reason);
+				$('#spinner').hide();
+			} else {
+				var nextId = $(this).parents('.tab-pane').next().attr("id");
+    			// $('[href=#'+nextId+']').addClass('animated slideInLeft');
+    			$('[href=#'+nextId+']').tab('show');
+    			$timeout(function(){
+    				
+    				toaster.pop('success', "", "Account created successfully. Now fill investor details.");
+    				$('#spinner').hide();
+    				var nextId = $(this).parents('.tab-pane').next().attr("id");
+    				console.log('nextId : ' + nextId);
+    				// $('[href=#'+nextId+']').addClass('animated slideInLeft');
+    				$('[href=#'+nextId+']').tab('show');
+
+    			}, 3000);
+    			
+			}
+
 		});
 
 	}
@@ -170,5 +265,56 @@ angular.module('myApp').controller('AccountsCtrl', function($scope, $state, ngDi
 		$('[href=#step1]').tab('show');
 	});
 
+	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+      //update progress
+      var step = $(e.target).data('step');
+      var percent = (parseInt(step) / 4) * 100;
+      $('.progress-bar').css({width: percent + '%'});
+      $('.progress-bar').text("Step " + step + " of 4");
+      //e.relatedTarget // previous tab
+	});
+
+  	$('[data-toggle="tooltip"]').tooltip();
+
+	$scope.states = [
+	{'state' : 'Andaman and Nicobar Islands'},
+	{'state' : 'Andhra Pradesh'},
+	{'state' : 'Arunachal Pradesh'},
+	{'state' : 'Assam'},
+	{'state' : 'Bihar'},
+	{'state' : 'Chandigarh'},
+	{'state' : 'Chhattisgarh'},
+	{'state' : 'Dadra and Nagar Haveli'},
+	{'state' : 'Daman and Diu'},
+	{'state' : 'National Capital Territory of Delhi'},
+	{'state' : 'Goa'},
+	{'state' : 'Gujarat'},
+	{'state' : 'Haryana'},
+	{'state' : 'Himachal Pradesh'},
+	{'state' : 'Jammu and Kashmir'},
+	{'state' : 'Jharkhand'},
+	{'state' : 'Karnataka'},
+	{'state' : 'Kerala'},
+	{'state' : 'Lakshadweep'},
+	{'state' : 'Madhya Pradesh'},
+	{'state' : 'Maharashtra'},
+	{'state' : 'Manipur'},
+	{'state' : 'Meghalaya'},
+	{'state' : 'Mizoram'},
+	{'state' : 'Nagaland'},
+	{'state' : 'Odisha'},
+	{'state' : 'Puducherry'},
+	{'state' : 'Punjab'},
+	{'state' : 'Rajasthan'},
+	{'state' : 'Sikkim'},
+	{'state' : 'Tamil Nadu'},
+	{'state' : 'Telangana'},
+	{'state' : 'Tripura'},
+	{'state' : 'Uttar Pradesh'},
+	{'state' : 'Uttarakhand'},
+	{'state' : 'West Bengal'}];
+
+	$scope.accountTypes = ['Savings', 'Current', 'Cash Credit', 'O/D', 'NRE', 'NRO', 'FCNR', 'NRSR', 'Other'];
+	$('[data-toggle="tooltip"]').tooltip({html: true});
 
 }); 
