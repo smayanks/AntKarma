@@ -10,11 +10,62 @@ angular.module('myApp').controller('AccountsCtrl', function($scope, $state, ngDi
 	$scope.pwdCriteriaMatch = true;
 	$scope.passDoNotMatch = false;
 
+	$scope.emailCodeText = '';
 
+	$scope.global = $rootScope;
 
+	$('#signInOutButtons').hide();
 
+	if (Session.get('resetPassword')) {
+		global.resetPassword = true;
+	} else {
+		global.resetPassword = false;
+	}
 	$scope.login = function() {
-		alert('successs');
+		// alert('successs');
+		
+		if ($scope.stepForm.email.$invalid) {
+			toaster.pop('error', "Invalid Email", "Please check the email field");
+			return false;
+		}
+
+		$('#spinner').show();
+		Meteor.loginWithPassword($scope.signin.email, $scope.signin.password, function(error){
+
+			if (error) {
+				console.log("Error in loggin in : " + error);
+				$('#spinner').hide();
+				$scope.$apply(function () {
+					toaster.pop('error', "Unable to create user!", error.reason);
+				});
+				return false;
+			}
+
+			if (Meteor.user()) {
+				$scope.$apply(function () {
+					toaster.pop('success', "logged in successfully!", "");
+					$timeout(function(){
+						$state.go('home');	
+					}, 3000);
+					
+				});
+				//on successful login redirect to user dashboard
+				// $state.go('dashboard');
+
+
+			} else {
+				// var message = "There was an error logging in: <strong>" + error.reason + "</strong>";
+				$scope.$apply(function () {
+					toaster.pop('error', "Unable to login!", error.reason);
+				});
+
+
+			}
+		});
+	}
+
+	$scope.logout = function() {
+		Meteor.logout();
 	}
 
 	$scope.verifyEmail = function(email) {
@@ -74,13 +125,16 @@ angular.module('myApp').controller('AccountsCtrl', function($scope, $state, ngDi
 
 	$scope.verifyEmail = function() {
 
-		if ($scope.stepForm.email.$invalid || $scope.stepForm.emailCodeText.$invalid ) {
-			toaster.pop('error', "Invalid code!", "Please enter a valid passcode");
+		var emailCodeRegex = /[0-9]{1,6}/;
+
+		if (!emailCodeRegex.test($scope.emailCodeText)) {
+			toaster.pop('error', "Invalid Email Code", "Only 6 digit email code allowed!");
+			$scope.emailCodeText = '';
 			return;
 		}
 
-		$('#spinner').show();
 
+		$('#spinner').show();
 		$meteor.call('verify_email', $scope.signup.email, $scope.emailCodeText).then(
 		      function(data){
 		      	console.log('data: ' + JSON.stringify(data));
@@ -135,9 +189,12 @@ angular.module('myApp').controller('AccountsCtrl', function($scope, $state, ngDi
 
 	$scope.verifyPhone = function() {
 
-		if ($scope.stepForm.phone.$invalid || $scope.stepForm.otpText.$invalid ) {
-			toaster.pop('error', "", "Please enter a valid one time password");
-			return;
+		var phoneCodeRegex = /[0-9]{1,6}/;
+
+		if (!phoneCodeRegex.test($scope.otpText)) {
+			toaster.pop('error', "Invalid OTP Code", "Only 6 digit OTP allowed!");
+			$scope.otpText = '';
+			return false;
 		}
 
 		$('#spinner').show();
@@ -146,7 +203,7 @@ angular.module('myApp').controller('AccountsCtrl', function($scope, $state, ngDi
 
 		$meteor.call('verify_otp', phoneWithISD, $scope.otpText).then(
 		      function(data){
-		      	console.log('data: ' + JSON.stringify(data));
+		      	// console.log('data: ' + JSON.stringify(data));
 		      	
 					toaster.pop('success', "", "Phone verified successfully");
 					$scope.isPhoneVerified = true;
@@ -178,47 +235,135 @@ angular.module('myApp').controller('AccountsCtrl', function($scope, $state, ngDi
 		}
 	}
 
+	$scope.checkRenteredPassword = function() {
+
+		if ($scope.password != $scope.reenterPassword) {
+
+			$scope.passDoNotMatch = true;
+			// $timeout(function() {
+			// 	$scope.passDoNotMatch = false;
+			// }, 3000);
+			
+			return false;
+		} 
+		return true;
+	}
+
 	$scope.userSignup = function() {
 		var user;
 
+		$scope.isEmailVerified = true;
 
-		if ($scope.password != $scope.reenterPassword) {
-			$scope.passDoNotMatch = true;
-			return ;
-		} 
+		$scope.isPhoneVerified = true;
+
+		if (! $scope.isEmailVerified) {
+			toaster.pop('error', "Please verify your email to signup!");
+			return false;
+		}
+
+		if (! $scope.isPhoneVerified) {
+			toaster.pop('error', "Please verify your email to signup!");
+			return false;
+		}
+
+		
 
 		user = {
 			email: $scope.signup.email,
 			password: $scope.password,
-			phone: $scope.signup.phone
+			profile: {
+				userDetails: $scope.signup
+			}
 		}
+
 		$('#spinner').show();
-
-		Accounts.createUser(user, function(error) {
-			if(error) {
-				console.log(error);
-				toaster.pop('error', "Unable to create user!", error.reason);
+		var error = Accounts.createUser(user, function(error) {
+			if (error) {
+				console.log("Error in creating user : " +error);
 				$('#spinner').hide();
-			} else {
-				var nextId = $(this).parents('.tab-pane').next().attr("id");
-    			// $('[href=#'+nextId+']').addClass('animated slideInLeft');
-    			$('[href=#'+nextId+']').tab('show');
-    			$timeout(function(){
-    				
-    				toaster.pop('success', "", "Account created successfully. Now fill investor details.");
-    				$('#spinner').hide();
-    				var nextId = $(this).parents('.tab-pane').next().attr("id");
-    				console.log('nextId : ' + nextId);
-    				// $('[href=#'+nextId+']').addClass('animated slideInLeft');
-    				$('[href=#'+nextId+']').tab('show');
+				$scope.$apply(function () {
+					toaster.pop('error', "Unable to create user!", error.reason);
+				});
+				return false;
+			}  else {
 
-    			}, 3000);
-    			
+				//Simulated delay of 3 seconds
+				$timeout(function() {
+					$('#spinner').hide();
+					$scope.$apply(function () {
+						toaster.pop('success', "", "Account created successfully. Now fill investor details.");
+					});
+					var nextId = "step2";
+	    			$('[href=#'+nextId+']').tab('show');
+				}, 3000);
+
 			}
 
+    			
+			
 		});
 
+		if (error) {
+			toaster.pop('error', "Unable to create user!", error.reason);
+		}
+		return false;
 	}
+
+
+
+	// Meteor will set _resetPasswordToken if found in the url
+	// Setting this now in navbar.ng.js
+	// if (Accounts._resetPasswordToken) {
+	//   Session.set('resetPassword', Accounts._resetPasswordToken);
+	// }
+
+
+	$scope.sendPwdEmail = function() {
+		Accounts.forgotPassword({email: $scope.email}, function(err) {
+        if (err) {
+          if (err.message === 'User not found [403]') {
+			$scope.$apply(function () {
+				toaster.pop('error', "This email does not exist.", "");
+			});
+            console.log('This email does not exist.' + err.reason);
+          } else {
+			$scope.$apply(function () {
+				toaster.pop('error', "We are sorry but something went wrong.", err.reason);
+			});
+
+            console.log('We are sorry but something went wrong. : ' + err.reason);
+          }
+        } else {
+			$scope.$apply(function () {
+				toaster.pop('success', "Email Sent. Check your mailbox.", "");
+			});
+          console.log('Email Sent. Check your mailbox.');
+        }
+      });
+	}
+
+
+	$scope.resetPassword = function() {
+		Accounts.resetPassword(Session.get('resetPassword'), $scope.password, function(err) {
+        if (err) {
+          console.log('We are sorry but something went wrong. : ' + err.reason);
+          	$scope.$apply(function () {
+				toaster.pop('error', "We are sorry but something went wrong.", err.reason);
+			});
+        } else {
+          console.log('Your password has been changed. Welcome back!');
+	      	$scope.$apply(function () {
+				toaster.pop('success', "Your password has been changed.", "Welcome Back");
+			});
+
+          Session.set('resetPassword', null);
+        }
+      });
+	}
+
+	// $scope.$watch('isError', function() {
+	// 	toaster.pop('error', "Unable to create user!", "");
+	// });
 
 	// questionnaire navigation between tabs
 	$('.next').click(function(){

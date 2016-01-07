@@ -1,0 +1,62 @@
+.tax-savings-hero {
+    background-color: #003171;
+    min-height:500px !important;
+    position: relative;
+    /*background: url("../images/bg5.png")  no-repeat center center fixed;*/
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    width: 100%;
+    background-size: cover;
+    overflow: hidden;
+    padding-bottom: 5%;
+    color: #ecf0f1 !important;
+}
+
+
+.tax-savings-hero .large {
+    font-size: 56px;
+    /*margin-top: 50px;*/
+    margin-top: 10%;
+}
+
+.tax-savings-hero .medium {
+    font-size: 26px;
+}
+
+.tax-savings-hero .small {
+    font-size: 18px;
+}
+
+.tax-savings-hero .tax-savings-hero-title {
+
+    font-family: "Roboto Slab","Raleway",sans-serif;
+    padding-top: 5% !important;
+    color: #ecf0f1 !important;
+
+}
+
+.tax-savings-hero .tax-savings-hero-text {
+    font-family: "Dosis","Roboto Slab";
+    color: #ecf0f1 !important;
+}
+
+.tax-savings-hero .extra-margin-top {
+    margin-top:  20px;   
+}
+
+.tax-savings-hero .title-btn {
+    background-color: #ecf0f1;
+
+    color: #003171;
+}
+
+
+.taxsavings .fa {
+    padding-right: 10px;
+}
+
+.taxsavings .tax-consideration {
+ /*background-color: #E8EAF6   ;*/
+}

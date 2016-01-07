@@ -1,15 +1,37 @@
-angular.module('myApp').controller('NavbarCtrl', function($window, $scope, $state, ngDialog, $timeout, $document ) {
+angular.module('myApp').controller('NavbarCtrl', function($window, $scope, $state, $rootScope, $state, ngDialog, $timeout, $document ) {
 
 	console.log("From client : " + Meteor.default_connection._lastSessionId);
+
+	$rootScope.resetPassword = false; //we will set this to true only when user click on forgot pass link in email
+
+	if (Accounts._resetPasswordToken) {
+	  Session.set('resetPassword', Accounts._resetPasswordToken);
+	}
+
+	// If link has reset password token it should route it to forgot-password-template
+
+	if (Session.get('resetPassword')) {
+		$state.go('forgetResetPwd');
+	}
+
+
+	if ($rootScope.currentUser) {
+		$('#signout').show();
+		$('#signin').hide();		
+	} else {
+		$('#signin').show();
+		$('#signout').hide();
+
+	}
 
 	$scope.signout = function() {
 		
 		// AccountsTemplates.logout();
-		Meteor.logout(function() {
-      	// Redirect to login
-      		$state.go('home');
-    	});
+		Meteor.logout();
 		displayDialogMessage('Signed out successfully!');
+		$('#signin').show();
+		$('#signout').hide();
+		$state.go('home');
 		
 	}
 

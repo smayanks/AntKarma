@@ -6,5 +6,97 @@
 	-o-background-size: cover;
 	background-size: cover;
 	height: 100%;
-	padding-top: 10%;
+	padding-top: 3%;
+	/*color: #f8f8f8;*/
+	color: #fff;
+	overflow: auto;
+	font-family: "Roboto Slab", "Open Sans", "Raleway",sans-serif;
+	/*letter-spacing: 0.1em;*/
+	/*font-weight: 400;*/
+  	/*text-align: center;*/
+  	/*margin: 0 0 30px;*/
+
+
+}
+
+.signin .section-heading {
+	font-size: 22px;
+
+}
+
+.signin .well {
+	background: rgba(34,19,73,0.30);
+  	min-height: 450px;
+  	overflow: auto;
+  	border: none;
+  	margin-top: 0px;
+  	/*padding-top: 0px;*/
+}
+
+.signin .transparent-input {
+	background-color:transparent !important;
+    /*border:none !important;*/
+    /*box-shadow:none !important;*/
+    color: inherit;
+}
+
+
+.signin .extra-margin-top {
+	margin-top: 15px;
+}
+
+.signin .extra-margin-bottom {
+	margin-bottom: 15px;
+}
+
+.signin .no-left-padding {
+	padding-left: 0;
+}
+
+.signin .uppercase {
+	text-transform: uppercase;
+}
+
+
+.signin .btn-custom {
+  width: 120px !important;
+  margin-bottom: 20px;
+
+}
+
+
+.signin a.special-a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.signin .small {
+	font-size: 10px;
+	
+}
+
+.signin .underline {
+	text-decoration: underline !important;
+}
+
+.signin .spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -50px;
+    margin-top: -50px;
+	
+}
+
+.signin .toast-error {
+	background-color: #D9534F;	
+}
+
+.signin .toast-success {
+	background-color: #4AA24A;	
+}
+
+.signin .pwd-regex {
+	white-space: nowrap;
+	text-align: left !important;
 }

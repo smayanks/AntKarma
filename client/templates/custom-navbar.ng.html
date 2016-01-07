@@ -1,6 +1,6 @@
 
 <!-- ==== Fixed navbar === -->
-<div id="custom-navbar-main">
+<div id="custom-navbar-main" ng-controller="CustomNavbarCtrl">
     <div class="navbar transparent navbar-default navbar-fixed-top navbar-right">
       <div class="container">
         <div class="navbar-header">
@@ -13,7 +13,14 @@
             <ul class="nav navbar-nav">
                 <li> <a ng-href="/home" class="smoothScroll company-caption"><i class="fa fa-chevron-circle-up"></i> MintingWorks</a></li>
             </ul>
-        </div><!--/.nav-collapse -->
+<!--             <ul class="nav navbar-nav navbar-right" id="signInOutButtons">
+                <li >
+                  <a ng-click="logout()" ng-show="{{currentUser}}" class="transparent">Logout</a>
+                  <a ng-click="login()" ng-show="{{!currentUser}}" class="transparent">Login</a>
+                </li>   
+
+            </ul>
+ -->        </div><!--/.nav-collapse -->
       </div>
     </div>
 </div>

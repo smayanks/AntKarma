@@ -22,36 +22,32 @@
 		<div class="tab-content">
 			
 			<div class="tab-pane fadeIn in active" id="step1">
-				<hr>
+				<!-- <hr> -->
 				<div class="section-heading text-center">Signup for MintingWorks</div>
 				<hr>
 				<div class="well well-lg">
 					<div ng-form="stepForm" >
+					<div class="label label-danger col-md-8 text-center" ng-show="signupError">Signup Error: {{error.reason}}</div>	
 					<div class="question-text extra-margin-top" for="email">Email 
 						<div class="question-sub-text">Please verify your email.This will be your username for signin.</div>
 					</div>
 					<div class="row">
 						<div class="col-md-6">
-							<!-- <div class="input-group"> -->
-								<!-- <span class="input-group-addon custom-addon">+91</span> -->
 								<input class="form-control input-md transparent-input" name="email" ng-model="signup.email" ng-readonly="emailVerificatioInProcess || isEmailVerified" type="email"  required>
 								<div class="help-block" ng-messages="stepForm.email.$error"  ng-show="stepForm.email.$touched"><div ng-messages-include="client/templates/messages.html"></div></div>
-							<!-- </div> -->
 						</div>
 						<div class="col-md-6">
 							<div ng-if="!emailVerificatioInProcess && !isEmailVerified">
 								<button class="btn btn-info btn-sm" ng-click="sendEmailCode()">Send Code</button>
 							</div>
 							
-							<div ng-if="emailVerificatioInProcess && !isEmailVerified">
+							<div ng-show="emailVerificatioInProcess && !isEmailVerified">
 								<div class="col-md-6">
-									<input class="form-control input-md transparent-input" name="emailCodeText" ng-model="emailCodeText" type="text" placeholder="Enter Code" required>
+									<input class="form-control input-md transparent-input" name="emailCodeText" ng-model="emailCodeText" type="text" placeholder="Enter Code">
 									<div class="help-block" ng-messages="stepForm.emailCodeText.$error"  ng-show="stepForm.emailCodeText.$touched"><div ng-messages-include="client/templates/messages.html"></div></div>
 								</div>
 								<button class="btn btn-info btn-sm" ng-click="verifyEmail()" >Verify Email</button>
 								<a href="#" ng-click="sendEmailCode()" class="special-a small underline" >Resend Code</a>
-								<!-- <p class="small">Wait for {{counter}} seconds before resending otp request</p> -->
-								<!-- <button class="btn btn-info btn-sm" ng-click="pop()" ng-href="#">Resend OTP</button> -->
 							</div>
 							<div ng-if="isEmailVerified">
 								<label class="label label-success extra-margin"><i class="fa fa-check-circle"></i>Email Verified</label>
@@ -76,9 +72,9 @@
 								<button class="btn btn-info btn-sm" ng-click="sendOTP()">Send OTP</button>
 							</div>
 							
-							<div ng-if="otp && !isPhoneVerified">
+							<div ng-show="otp && !isPhoneVerified">
 								<div class="col-md-6">
-									<input class="form-control input-md transparent-input" name="otpText" ng-model="otpText" type="text" placeholder="Enter OTP" required>
+									<input class="form-control input-md transparent-input" name="otpText" ng-model="otpText" type="text" placeholder="Enter OTP" >
 									<div class="help-block" ng-messages="stepForm.otpText.$error"  ng-show="stepForm.otpText.$touched"><div ng-messages-include="client/templates/messages.html"></div></div>
 								</div>
 								<button class="btn btn-info btn-sm" ng-click="verifyPhone()" >Verify</button>
@@ -109,23 +105,44 @@
 						<div class="col-md-6">
 
 							<div class="question-text" for="reenterPassword">Re-enter password</div>
-							<input class="form-control input-md transparent-input" name="reenterPassword" ng-model="reenterPassword" type="password" required>
+							<input class="form-control input-md transparent-input" name="reenterPassword" ng-model="reenterPassword" type="password" ng-blur="checkRenteredPassword()" ng-focus="passDoNotMatch = false;" required>
 							<div class="help-block" ng-messages="stepForm.reenterPassword.$error"  ng-show="stepForm.reenterPassword.$touched"><div ng-messages-include="client/templates/messages.html"></div></div>
 						</div>
 					</div>
+				
+					<label class="label label-danger" ng-show="!pwdCriteriaMatch">Password does not meet requirement criteria.</label>
+					<label class="label label-danger col-md-offset-6" ng-show="passDoNotMatch">Password do not match. Re-enter password.</label>
+					<hr>
+					<div class="question-text">Do yout have a Common Account Number(CAN) number? <i class="fa fa-question-circle pwd-regex" data-toggle="tooltip" data-placement="top" data-html="true" title="Common Account Number(CAN) is a unique number assigned by Mutual Fund Utility to help investor transact in multiple mutual funds through single transaction and consolidated payment system. " ></i>
+					</div>
+
+					<div class="row">
+						<div class="radio">
+							<div class="col-md-4">
+								<label>
+									<input type="radio" class="answer-text" name="existingCAN" value="yes" ng-model="signup.existingCAN" required>Yes
+								</label>
+							</div>
+							<div class="col-md-4">
+								<label>
+									<input type="radio" class="answer-text" name="existingCAN" value="no" ng-model="signup.existingCAN" required>No
+								</label>
+							</div>
+						</div>
+					
+					</div>
 				</div>
-				<label class="label label-danger" ng-show="!pwdCriteriaMatch">Password does not meet requirement criteria.</label>
-				<label class="label label-danger pull-right" ng-show="passDoNotMatch">Password do not match. Re-enter password.</label>
 			</div>
+
 			<div class="text-center button-footer extra-margin-top">
-				<button class="btn btn-info btn-md uppercase" ng-click="userSignup()" ng-disabled="stepForm.$invalid">Signup and enter Investor details</button>
+				<button class="btn btn-info btn-md uppercase " ng-click="userSignup()" ng-disabled="stepForm.$invalid" >Signup and enter Investor details</button>
 				<div class="extra-margin-top"><a class="special-a" ng-href="/signin">Already have an account! Signin</a></div>
 				<!-- <p id="form-messages" ng-if="message">{{message}}</p> -->
 			</div>
 
 		</div>
 		<div class="tab-pane fadeIn" id="step2">
-			<hr>
+			<!-- <hr> -->
 			<div class="section-heading text-center">Enter details to Open Investor's Account</div>
 			<hr>
 			<div class="well well-lg">
@@ -168,12 +185,12 @@
 						<div class="radio">
 							<div class="col-md-4">
 								<label>
-									<input type="radio" class="answer-text" name="kycCompliant" value="yes" ng-model="questions.kycCompliant" required>Yes
+									<input type="radio" class="answer-text" name="kycCompliant" value="yes" ng-model="signup.kycCompliant" required>Yes
 								</label>
 							</div>
 							<div class="col-md-4">
 								<label>
-									<input type="radio" class="answer-text" name="kycCompliant" value="no" ng-model="questions.kycCompliant" required>No
+									<input type="radio" class="answer-text" name="kycCompliant" value="no" ng-model="signup.kycCompliant" required>No
 								</label>
 							</div>
 						</div>
@@ -184,22 +201,22 @@
 					<div class="radio">
 						<div class="col-md-6">
 							<label>
-								<input type="radio" class="answer-text" name="nationality" value="Indian" ng-model="questions.nationality" required>Indian
+								<input type="radio" class="answer-text" name="nationality" value="Indian" ng-model="signup.nationality" required>Indian
 							</label>
 						</div>
 						<div class="col-md-6">
 							<label>
-								<input type="radio" class="answer-text" name="nationality" value="NRI" ng-model="questions.nationality" required>Non Resident Indian (NRI)
+								<input type="radio" class="answer-text" name="nationality" value="NRI" ng-model="signup.nationality" required>Non Resident Indian (NRI)
 							</label>
 						</div>
 						<div class="col-md-6">
 							<label>
-								<input type="radio" class="answer-text" name="nationality" value="PIO" ng-model="questions.nationality" required>Person of Indian Origin(PIO)
+								<input type="radio" class="answer-text" name="nationality" value="PIO" ng-model="signup.nationality" required>Person of Indian Origin(PIO)
 							</label>
 						</div>
 						<div class="col-md-6">
 							<label>
-								<input type="radio" class="answer-text" name="nationality" value="FN" ng-model="questions.nationality" required>Foreign National
+								<input type="radio" class="answer-text" name="nationality" value="FN" ng-model="signup.nationality" required>Foreign National
 							</label>
 						</div>
 					</div>
@@ -213,7 +230,7 @@
 
 		</div>
 		<div class="tab-pane fadeIn" id="step3">
-			<hr>
+			<!-- <hr> -->
 			<div class="section-heading text-center">Fill in your Address Details</div>
 			<hr>
 			<div class="well well-lg">
@@ -226,12 +243,12 @@
 						<div class="radio">
 							<div class="col-md-4">
 								<label>
-									<input type="radio" class="answer-text" name="kycCompliant" value="yes" ng-model="questions.kycCompliant" required>Yes
+									<input type="radio" class="answer-text" name="kycCompliant" value="yes" ng-model="signup.kycCompliant" required>Yes
 								</label>
 							</div>
 							<div class="col-md-4">
 								<label>
-									<input type="radio" class="answer-text" name="kycCompliant" value="no" ng-model="questions.kycCompliant" required>No
+									<input type="radio" class="answer-text" name="kycCompliant" value="no" ng-model="signup.kycCompliant" required>No
 								</label>
 							</div>
 						</div>
@@ -263,7 +280,7 @@
 					</div>
 					<!-- <div class="col-md-6"> -->
 						<div class="question-text extra-margin-top" for="address">Residence Telephone No. 
-							<div class="question-sub-text">Don't forget to include the STD code if you have a fixed line number. If you don't have a fixed line number, mention your mobile phone number again.</div>
+							<div class="question-sub-text">Don't forget to include the STD code if you have a fixed line number.</div>
 						</div>
 						<input class="form-control input-md transparent-input" name="landline" ng-model="signup.landline" type="text" required>
 					<!-- </div> -->
@@ -276,7 +293,7 @@
 			</div>
 		</div>
 		<div class="tab-pane fadeIn" id="step4">
-			<hr>
+			<!-- <hr> -->
 			<div class="section-heading text-center">Fill in your Bank Details</div>
 			<div class="question-sub-text">At least one bank account has to be registered under CAN. Future redemptions or dividend payout from your MF investments will go to this account.</div>
 			<hr>
@@ -337,12 +354,12 @@
 						<div class="radio">
 							<div class="col-md-4">
 								<label>
-									<input type="radio" class="answer-text" name="registerForPayEezz" value="yes" ng-model="questions.registerForPayEezz" required>Yes
+									<input type="radio" class="answer-text" name="registerForPayEezz" value="yes" ng-model="signup.registerForPayEezz" required>Yes
 								</label>
 							</div>
 							<div class="col-md-4">
 								<label>
-									<input type="radio" class="answer-text" name="registerForPayEezz" value="no" ng-model="questions.registerForPayEezz" required>No
+									<input type="radio" class="answer-text" name="registerForPayEezz" value="no" ng-model="signup.registerForPayEezz" required>No
 								</label>
 							</div>
 						</div>
@@ -359,7 +376,7 @@
 
 	</div>
 </div>
-<toaster-container toaster-options="{'time-out': 5000, 'close-button':true, 'position-class': 'toast-top-right', 'progressBar': true}"></toaster-container>
+<toaster-container toaster-options="{'time-out': 5000, 'close-button':true, 'position-class': 'toast-top-right'}"></toaster-container>
 <div id="spinner" class="spinner"><i class="fa fa-spinner fa-4x fa-spin"></i></div>
 
 </div>

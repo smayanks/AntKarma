@@ -25,6 +25,16 @@ angular.module('myApp').config(function ($urlRouterProvider, $stateProvider, $lo
 			url: '/recommendations',
 			templateUrl: 'client/templates/reco.ng.html',
 			controller: 'RecommendationCtrl'
+		})
+		.state('forgetResetPwd', {
+			url: '/forgot-reset-password',
+			templateUrl: 'client/templates/forgot-reset-password.ng.html',
+			controller: 'AccountsCtrl'
+		})
+		.state('taxsavings', {
+			url: '/taxsavings',
+			templateUrl: 'client/templates/taxsavings.ng.html',
+			controller: 'TaxSavingsCtrl'
 		});
 
 	$urlRouterProvider.otherwise('/home');

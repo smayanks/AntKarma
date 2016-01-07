@@ -24,6 +24,7 @@
 
 .hero .large {
     font-size: 56px;
+    margin-top: 15%;
 }
 
 .hero .medium {
@@ -100,12 +101,28 @@
 }
 
 .sub-hero-text {
-    font-family: "Dosis",sans-serif;
+    font-family: "Raleway",sans-serif;
     letter-spacing: 0.1em;
-    font-size: 22px;
+    font-size: 18px;
     padding-top: 20px;
     padding-bottom: 20px;
     /*color: #ecf0f1 !important;*/
 
 }
 
+.sub-hero .process-title {
+
+    font-family: "Raleway",sans-serif;
+    /*font-size: 16px;*/
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    text-align: center;
+    text-transform: uppercase;
+    margin: 0 0 30px;
+    font-family: "Open Sans", sans-serif;
+    font-size: 2rem;
+    /*font-weight: 700;*/
+    color: #333 !important;
+    /*color: white !important;*/
+
+}

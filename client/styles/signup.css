@@ -28,9 +28,11 @@
 
 .signup .well {
 	background: rgba(34,19,73,0.30);
-  	height: 450px;
+  	min-height: 450px;
   	overflow: auto;
   	border: none;
+  	margin-top: 0px;
+  	/*padding-top: 0px;*/
 }
 
 .active {
