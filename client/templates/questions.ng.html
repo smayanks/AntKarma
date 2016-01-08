@@ -1,6 +1,18 @@
-<!-- <div ng-include="'client/templates/custom-navbar.ng.html'"></div> -->
-<section id="questions" class="questions">
-	<div class="col-md-6 col-md-offset-3 question-bg">
+<div ng-include="'client/templates/custom-navbar.ng.html'"></div>
+
+<div id="questions" class="questions">
+
+	<div class="tax-savings-hero" ng-if="!showQuestions">
+		<div class="col-md-10 col-md-offset-1 extra-margin-top">
+			<div class="tax-savings-hero-title large text-center">Tax Savings Simplified</div>
+			<hr>
+			<div class="tax-savings-hero-text medium text-center animated fadeInLeftBig">
+				<br><button class="btn btn-lg title-btn text-center extra-margin-top" ng-click="accessRiskProfile()">Access your risk tolerance Now > </button>
+			</div>
+			
+		</div>
+	</div>
+	<div class="col-md-6 col-md-offset-3 question-bg" ng-show="showQuestions">
 		<div class="progress">
 			<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="10" style="width:20%;">
 				Step 1 of 7
@@ -43,6 +55,7 @@
 					</div>
 				</div>
 				<div class="text-center button-footer">
+					<button class="btn btn-custom btn-md" ng-click="hideQuestions()"> Back </button>
 					<button class="btn btn-custom btn-md next" >Next</button>
 				</div>
 			</div>
@@ -317,6 +330,7 @@
 			</div>
 		</div>
 	</div>
-</section>
+</div>
+<div ng-include="'client/templates/taxsavings.ng.html'"></div>
 <!-- <div ng-include="'client/templates/taxsavings.ng.html'"></div> -->
 <!-- <div id="messages" class="alert alert-success" data-ng-if="messages" data-ng-bind="messages"></div> -->

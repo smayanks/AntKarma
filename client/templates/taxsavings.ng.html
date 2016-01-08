@@ -1,64 +1,70 @@
-<div ng-include="'client/templates/custom-navbar.ng.html'"></div>
-<section id="taxsavings" class="taxsavings">
+<!-- <div ng-include="'client/templates/custom-navbar.ng.html'"></div> -->
+<div id="taxsavings" class="taxsavings">
 
-		<div class="tax-savings-hero">
-			<!-- <div class="container"> -->
-				<div class="col-md-10 col-md-offset-1 extra-margin-top">
-					<div class="tax-savings-hero-title large text-center">Tax Savings Simplified</div>
-					<hr>
-					<div class="tax-savings-hero-text medium text-center animated fadeInLeftBig">
-						<br><button class="btn btn-lg title-btn text-center extra-margin-top">Access your risk tolerance Now > </button>
-					</div>
-					<!-- <button class="btn btn-lg title-btn text-center extra-margin-top">Get Started Now > </button> -->
+<!-- 	<div class="tax-savings-hero" ng-show="!showQuestions">
+			<div class="col-md-10 col-md-offset-1 extra-margin-top">
+				<div class="tax-savings-hero-title large text-center">Tax Savings Simplified</div>
+				<hr>
+				<div class="tax-savings-hero-text medium text-center animated fadeInLeftBig">
+					<br><button class="btn btn-lg title-btn text-center extra-margin-top" ng-click="accessRiskProfile()">Access your risk tolerance Now > </button>
 				</div>
-			<!-- </div> -->
-		</div>
-
-
-		<div class="container">
-			<div class="tax-consideration">
-				<h3 class="text-center">Tax saving investments require careful consideration.</h3>
-			
-				<div class="row">
-					<div class="col-md-4">
-						<h4><i class="fa fa-search"></i>Which life insurance do I buy?</h4>
-						<p>How much cover do I need? Is a money back policy better suited than a term insurance? Which insurer should I go with?</p>
-					</div><!-- col-md-4 -->
-						
-					<div class="col-md-4">
-						<h4><i class="fa fa-line-chart"></i> How do I make my money grow?</h4>
-						<p>Isn’t investing in mutual funds risky? How do I pick the right mutual fund? How about PPFs or FDs (fixed deposit)?</p>
-					</div><!-- col-md-4 -->	
-					
-					<div class="col-md-4">
-						<h4><i class="fa fa-hourglass-o"></i> How do I plan long term?</h4>
-						<p>What is a good tenure for investments? How do I ensure that my short and long terms goals are both taken care of?</p>
-					</div><!-- col-md-4 -->	
-				</div><!-- row -->
-			</div>	
-		</div>
-		<!-- ==== PROCESS ==== -->
-		<div class="container" id="process">
-			<div class="row">
-				<h3 class="text-center">Good tax saving investments are like clothing.</h3>
-				<div class="col-md-5 col-md-offset-1">
-					<p><b>One size doesn't fit all.</b></p>
-						<p>Individuals have varying risk tolerance and the risk taking capability. An investor’s risk tolerance is a mix of his/her ability and the willingness to take risk. Your life circumstances – income, assets, age, education, dependents, financial goals – determine your ability to take risk. Your level of comfort with fluctuations in the value of your investments defines your willingness to take risks.</p>
-					<p>Risk taking ability changes with whether you are saving for your retirement (long term) or your marriage (short term).</p>
-				</div><!-- col-md-5 -->
 				
-				<div class="col-md-5">
+			</div>
+	</div>
+	<div class="riskQuestions" ng-show="showQuestions"> 
+		<div ng-include="'client/templates/questions.ng.html'"></div>
+	</div>
+ -->	
+
+
+	<div class="tax-consideration">
+		<div class="container">
+			<h2 class="text-center uppercase">Tax saving investments require careful consideration.</h2>
+			<hr>
+			<div class="row">
+				<div class="col-md-4">
+					<h4><i class="fa fa-search"></i>Which life insurance do I buy?</h4>
+					<p>How much cover do I need? Is a money back policy better suited than a term insurance? Which insurer should I go with?</p>
+				</div><!-- col-md-4 -->
+					
+				<div class="col-md-4">
+					<h4><i class="fa fa-line-chart"></i> How do I make my money grow?</h4>
+					<p>Isn’t investing in mutual funds risky? How do I pick the right mutual fund? How about PPFs or FDs (fixed deposit)?</p>
+				</div><!-- col-md-4 -->	
+				
+				<div class="col-md-4">
+					<h4><i class="fa fa-hourglass-o"></i> How do I plan long term?</h4>
+					<p>What is a good tenure for investments? How do I ensure that my short and long terms goals are both taken care of?</p>
+				</div><!-- col-md-4 -->	
+			</div><!-- row -->
+		</div>	
+	</div>
+	<!-- ==== PROCESS ==== -->
+	<div class="tax-saving-info">
+		<div class="container">
+			<div class="row">
+				<h2 class="text-center uppercase">Good tax saving investments needs customization</h2>
+				<hr>
+				<div class="col-md-6">
+					<h4><strong>One size doesn't fit all.</strong></h4>
+					<p>Individuals have varying risk tolerance and the risk taking capability. An investor’s risk tolerance is a mix of his/her ability and the willingness to take risk. Your life circumstances – income, assets, age, education, dependents, financial goals – determine your ability to take risk. Your level of comfort with fluctuations in the value of your investments defines your willingness to take risks. Risk taking ability changes with whether you are saving for your retirement (long term) or your marriage (short term).</p>
+				</div>
+				
+				<div class="col-md-6">
 					<p>If you are a person who enjoys taking risks in general and think of risks as opportunities, your willingness to take risk is high. If you are the one who loses sleep over fluctuations in the value of your investments, you probably don’t like to take risks.</p>
 					<p>Any investment advice, like clothing, has to be tailored to fit the individual. Tax saving investments are no different. While one objective is to maximise tax savings, it doesn’t end here. The other aim should be to make investments best suited to your needs.</p>
 				</div><!-- col-md-5 -->
 			</div><!-- row -->
 		</div><!-- container -->
+	</div>
 
-		
-		<!-- ==== FAQ ==== -->
-		<div class="container" id="faq">
+	
+	<!-- ==== FAQ ==== -->
+	<div class="faq">
+		<div class="container">
 			<div class="row">
-				<h1 class="centered section-heading">Frequently asked questions</h1>		
+				<h2 class="text-center uppercase">Frequently asked questions</h2>		
+				<hr>
 				<div class="col-md-5 col-md-offset-1">
 
 					<h4>Why do you need so much information?</h4>
@@ -79,47 +85,14 @@
 					<p>Financial planning is an ongoing affair and we will ensure that you are always on top. Our automated platform will constantly monitor and rebalance your portfolio. You will also receive investment recommendations based on your changing life stage and new financial needs that come up. Finally, MintingWorks provides a platform for you to manage all your investments in one place.</p>
 				</div><!-- col-md-5 -->
 				
-			</div><!-- row -->
-		</div><!-- container -->
-		
-		<!-- ==== SIGN UP FORM ==== -->
-		<section id="signup2" class="section-divider textdivider divider1">
-			<div class="container">
-				<h1>Want to save taxes?</h1>
-				<p>Just signup using your name and email id below, and we will get in touch real quick!</p>
-				<!-- Begin MailChimp Signup Form -->
-				<form action="//github.us11.list-manage.com/subscribe/post?u=99996da44518a5f597a82db5b&amp;id=cfe9679845" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate form-inline" target="_blank" novalidate>
-					
-					<div class="mc-field-group form-group">
-						<input type="text" value="" name="FNAME" class="required form-control" id="mce-FNAME" placeholder="Name (required)" required>
-					</div>
-
-					<div class="mc-field-group form-group">
-						<input type="email" value="" name="EMAIL" class="required email form-control" id="mce-EMAIL" placeholder="Email (required)" required>
-					</div>
-					
-					<!-- <div id="mce-responses" class="clear">
-						<div class="response" id="mce-error-response" style="display:none"></div>
-						<div class="response" id="mce-success-response" style="display:none"></div>
-					</div> -->
-
-					<!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-				    <span style="position: absolute; left: -5000px;"><input type="text" name="b_99996da44518a5f597a82db5b_cfe9679845" tabindex="-1" value=""></span>
-				    
-				    <div class="clear form-group"><input type="submit" value="Sign up" name="subscribe" id="mc-embedded-subscribe" class="btn btn-success btn-lg"></div>
-				</form>
-				<!--End mc_embed_signup-->
-			</div><!-- container -->
-		</section><!-- section -->
-
-		
-		<br>
-		<br>
-		
-		<!-- ==== FOOTER ==== -->
-		<div id="footerwrap">
-			<div class="container">
-				<h4>&copy;2015 Ant Karma</h4>
 			</div>
 		</div>
-</section>
+	</div>
+	<div class="bottom-cta">
+		<div class="container">
+			<h2 class="text-center uppercase">Want to save taxes?</h2>
+			<a class="btn title-btn col-md-4 col-md-offset-4" href="/questions#questions">Invest Now</a>
+		</div>
+	</div>
+	<div ng-include="'client/templates/contact.ng.html'" ></div>
+</div>

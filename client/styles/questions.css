@@ -1,10 +1,33 @@
 .questions {
-	height: 90%;
+	/*height: 90%;*/
   background: url("../images/bg5.png") center center;
   /*background: url("../images/bg11.jpg") center center;*/
   background-size: cover;
   color: white;
 }
+
+.questions .progress {
+  margin-top: 60px;
+}
+
+/*.questions .ng-hide {
+    opacity: 0;
+    transition: none 0;
+}
+
+.questions .ng-show {
+    opacity: 0;
+    transition: none 0;
+}*/
+
+.tax-savings-hero.ng-hide-add, .tax-savings-hero.ng-hide-remove {
+  /* this is required as of 1.3x to properly
+     apply all styling in a show/hide animation */
+  /*transition: 0s linear all;*/
+  transition: none 0;
+}
+
+
 .questions form {
 	background-color: clear;
 }
@@ -24,7 +47,7 @@
 */
   background: rgb(34,19,73); /* for IE */
   background: rgba(34,19,73,0.30);
-  height: 450px;
+  min-height: 450px;
   overflow: auto;
 
 }

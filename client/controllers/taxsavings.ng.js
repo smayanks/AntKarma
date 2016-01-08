@@ -1,5 +1,10 @@
-angular.module('myApp').controller('TaxSavingsCtrl', function($scope, $state, ngDialog, $timeout, $meteor, toaster, $document, $rootScope) {
+angular.module('myApp').controller('TaxSavingsCtrl', function($scope, $state, $timeout, $meteor, toaster, $document) {
 
+	$scope.showQuestions = false;
+	
+	$scope.accessRiskProfile = function() {
+		$scope.showQuestions = true;
+	}
 
   	// Logic to change the navbar color and background on scroll
     $document.on('scroll', function() {

@@ -1,6 +1,4 @@
-.faq {
-	/*background-color: green;*/
-    /*background: url("../images/bg4.jpg") center center;*/
+/*.faq {
     background: #fff;
 	height:100%;
     position: relative;
@@ -8,7 +6,6 @@
     background-size: cover;
     overflow: hidden;
     margin-bottom: 0px;
-    /*color: white;*/
     color: #333;
     padding-bottom: 10%;
     font-family: "Open Sans", sans-serif;
@@ -21,9 +18,7 @@
 	font-weight: 400;
 	text-transform: uppercase;
 	letter-spacing: 0.1em;
-	/*color: white;*/
 	font-size: 16px;
-	/*text-align: center;*/
 
 }
 
@@ -35,18 +30,16 @@
     text-transform: uppercase;
     margin: 0 0 30px;
     font-size: 2rem;
-    /*font-weight: 700;*/
-    /*color: white;*/
-    /*color: white !important;*/
+
 
 }
 
 .faq .faq-text {
 	color: #666;
-    /*color: white !important;*/
     font-size: 14px;
     font-family: "Raleway", sans-serif;
     padding-bottom: 20px;
 
 }
 
+*/

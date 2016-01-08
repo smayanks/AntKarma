@@ -33,8 +33,8 @@ angular.module('myApp').config(function ($urlRouterProvider, $stateProvider, $lo
 		})
 		.state('taxsavings', {
 			url: '/taxsavings',
-			templateUrl: 'client/templates/taxsavings.ng.html',
-			controller: 'TaxSavingsCtrl'
+			templateUrl: 'client/templates/questions.ng.html',
+			controller: 'QuestionnaireCtrl'
 		});
 
 	$urlRouterProvider.otherwise('/home');
