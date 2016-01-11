@@ -14,6 +14,9 @@
         }
     };
 
+    Accounts.emailTemplates.siteName = "MintingWorks";
+    Accounts.emailTemplates.from = "MintingWorks Admin <saurabh@mintingworks.com>";
+
     PhoneValidation._ensureIndex({ "createdAt": 1 }, { expireAfterSeconds: 600 });
     EmailValidation._ensureIndex({ "createdAt": 1 }, { expireAfterSeconds: 600 });
 

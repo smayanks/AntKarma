@@ -13,8 +13,6 @@ angular.module('myApp').controller('QuestionnaireCtrl', function($scope, $modal,
 	$scope.hideQuestions = function() {
 		$scope.showQuestions = false;
 		$('.question-bg').hide();
-		// $scope.showQuestions = false;
-		// $('.tax-savings-hero').show();
 	}
     
 	$scope.questionnaire = $meteor.collection(Questionnaire);

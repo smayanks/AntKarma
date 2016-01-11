@@ -17,7 +17,6 @@ twbs:bootstrap
 accounts-password
 fortawesome:fontawesome
 mrt:jquery-easing
-urigo:angular-blaze-template
 jquery
 angularui:angular-ui-bootstrap
 npm-bcrypt
@@ -28,11 +27,8 @@ random
 
 meteorhacks:ssr
 sanjo:jasmine
-velocity:html-reporter
-velocity:console-reporter
 lookback:tooltips
 angularui:angular-ui-router
-accounts-ui
 email
 accounts-base
 http
@@ -43,4 +39,3 @@ jirikavi:angularjs-toaster
 angular:angular-animate
 reactive-var
 angular:angular-messages
-dotansimha:accounts-ui-angular

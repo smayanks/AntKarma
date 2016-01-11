@@ -1,4 +1,4 @@
-angular.module('myApp').controller('AccountsCtrl', function($scope, $state, ngDialog, $timeout, $meteor, toaster) {
+angular.module('myApp').controller('AccountsCtrl', function($scope, $state, ngDialog, $timeout, $meteor, toaster, $rootScope) {
 
 	//Setting default values for scope variables
 	$scope.emailVerificatioInProcess = false;
@@ -17,9 +17,9 @@ angular.module('myApp').controller('AccountsCtrl', function($scope, $state, ngDi
 	$('#signInOutButtons').hide();
 
 	if (Session.get('resetPassword')) {
-		global.resetPassword = true;
+		$scope.global.resetPassword = true;
 	} else {
-		global.resetPassword = false;
+		$scope.global.resetPassword = false;
 	}
 	$scope.login = function() {
 		// alert('successs');
@@ -29,12 +29,12 @@ angular.module('myApp').controller('AccountsCtrl', function($scope, $state, ngDi
 			return false;
 		}
 
-		$('#spinner').show();
+		showSpinner();
 		Meteor.loginWithPassword($scope.signin.email, $scope.signin.password, function(error){
 
 			if (error) {
 				console.log("Error in loggin in : " + error);
-				$('#spinner').hide();
+				hideSpinner();
 				$scope.$apply(function () {
 					toaster.pop('error', "Unable to create user!", error.reason);
 				});
@@ -43,14 +43,15 @@ angular.module('myApp').controller('AccountsCtrl', function($scope, $state, ngDi
 
 			if (Meteor.user()) {
 				$scope.$apply(function () {
-					toaster.pop('success', "logged in successfully!", "");
-					$timeout(function(){
-						$state.go('home');	
-					}, 3000);
-					
+					toaster.pop('success', "logged in successfully!", "");					
 				});
+
 				//on successful login redirect to user dashboard
 				// $state.go('dashboard');
+				$timeout(function(){
+					$state.go('home');	
+				}, 3000);
+
 
 
 			} else {
@@ -91,7 +92,7 @@ angular.module('myApp').controller('AccountsCtrl', function($scope, $state, ngDi
 		$scope.otp = true;
 	}
 
-	$('#spinner').hide();
+	hideSpinner();
 
 	$scope.sendEmailCode = function() {
 
@@ -107,18 +108,18 @@ angular.module('myApp').controller('AccountsCtrl', function($scope, $state, ngDi
 		      	if (data) {
 					toaster.pop('success', "", "Email code sent - Please check your email!");
 					$scope.emailVerificatioInProcess = true;
-					$('#spinner').hide();
+					hideSpinner();
 
 		      	} else {
 		      		toaster.pop('error', "", "Error in sending email code");
-					$('#spinner').hide();	
+					hideSpinner();	
 		      	}
 
 		      },
 		      function(err){
 				console.log("Got error in client: " + err);
 				toaster.pop('error', "", "Error in sending email code!");
-				$('#spinner').hide();
+				hideSpinner();
 		});
 		
 	}
@@ -134,21 +135,21 @@ angular.module('myApp').controller('AccountsCtrl', function($scope, $state, ngDi
 		}
 
 
-		$('#spinner').show();
+		showSpinner();
 		$meteor.call('verify_email', $scope.signup.email, $scope.emailCodeText).then(
 		      function(data){
 		      	console.log('data: ' + JSON.stringify(data));
 		      	
 					toaster.pop('success', "", "Email verified successfully");
 					$scope.isEmailVerified = true;
-					$('#spinner').hide();
+					hideSpinner();
 		      	
 
 		      },
 		      function(err){
 				console.log(JSON.stringify(err));
 				toaster.pop('error', "", err.reason);
-				$('#spinner').hide();
+				hideSpinner();
 		});
 
 	}
@@ -169,19 +170,19 @@ angular.module('myApp').controller('AccountsCtrl', function($scope, $state, ngDi
 		      	if (data) {
 					toaster.pop('success', "", "One time password sent successfully");
 					$scope.otp = true;
-					$('#spinner').hide();
+					hideSpinner();
 					console.log('data from server: ' + data);
 
 		      	} else {
 		      		toaster.pop('error', "", "Error in sending OTP");
-					$('#spinner').hide();	
+					hideSpinner();	
 		      	}
 
 		      },
 		      function(err){
 				console.log("Got error in client: " + err);
 				toaster.pop('error', "", "Error in sending OTP. ");
-				$('#spinner').hide();
+				hideSpinner();
 		});
 		
 	}
@@ -197,7 +198,7 @@ angular.module('myApp').controller('AccountsCtrl', function($scope, $state, ngDi
 			return false;
 		}
 
-		$('#spinner').show();
+		showSpinner();
 
 		var phoneWithISD = '+91' + $scope.signup.phone;
 
@@ -207,14 +208,14 @@ angular.module('myApp').controller('AccountsCtrl', function($scope, $state, ngDi
 		      	
 					toaster.pop('success', "", "Phone verified successfully");
 					$scope.isPhoneVerified = true;
-					$('#spinner').hide();
+					hideSpinner();
 		      	
 
 		      },
 		      function(err){
 				console.log(JSON.stringify(err));
 				toaster.pop('error', "", err.reason);
-				$('#spinner').hide();
+				hideSpinner();
 		});
 
 	}
@@ -276,11 +277,11 @@ angular.module('myApp').controller('AccountsCtrl', function($scope, $state, ngDi
 			}
 		}
 
-		$('#spinner').show();
+		showSpinner();
 		var error = Accounts.createUser(user, function(error) {
 			if (error) {
 				console.log("Error in creating user : " +error);
-				$('#spinner').hide();
+				hideSpinner();
 				$scope.$apply(function () {
 					toaster.pop('error', "Unable to create user!", error.reason);
 				});
@@ -289,7 +290,7 @@ angular.module('myApp').controller('AccountsCtrl', function($scope, $state, ngDi
 
 				//Simulated delay of 3 seconds
 				$timeout(function() {
-					$('#spinner').hide();
+					hideSpinner();
 					$scope.$apply(function () {
 						toaster.pop('success', "", "Account created successfully. Now fill investor details.");
 					});
@@ -319,44 +320,66 @@ angular.module('myApp').controller('AccountsCtrl', function($scope, $state, ngDi
 
 
 	$scope.sendPwdEmail = function() {
+		console.log('$scope.email : ' + $scope.email);
+		var gotResponse = false;
+		showSpinner();
 		Accounts.forgotPassword({email: $scope.email}, function(err) {
+		gotResponse = true;
         if (err) {
           if (err.message === 'User not found [403]') {
 			$scope.$apply(function () {
 				toaster.pop('error', "This email does not exist.", "");
+
 			});
             console.log('This email does not exist.' + err.reason);
+            hideSpinner();
           } else {
 			$scope.$apply(function () {
 				toaster.pop('error', "We are sorry but something went wrong.", err.reason);
 			});
 
             console.log('We are sorry but something went wrong. : ' + err.reason);
+            hideSpinner();
           }
         } else {
+        	hideSpinner();
 			$scope.$apply(function () {
-				toaster.pop('success', "Email Sent. Check your mailbox.", "");
+				toaster.pop('success', "Email Sent. Check your mailbox.", "Redirecting you to home page.....");
 			});
-          console.log('Email Sent. Check your mailbox.');
+			console.log('Email Sent. Check your mailbox.');
+			$timeout(function(){
+				$state.go('home');
+			}, 6000);
         }
       });
+
+		// $timeout(function(){
+		// 	if (!gotResponse) {
+		// 		console.log('Timeout! Error in sending email - Please try again later!');
+		// 		toaster.pop('error','', "Timeout! Error in sending email - Please try again later!");
+		// 		return false;
+		// 	}
+		// }, 5000);
 	}
 
 
 	$scope.resetPassword = function() {
+		showSpinner();
 		Accounts.resetPassword(Session.get('resetPassword'), $scope.password, function(err) {
         if (err) {
           console.log('We are sorry but something went wrong. : ' + err.reason);
           	$scope.$apply(function () {
 				toaster.pop('error', "We are sorry but something went wrong.", err.reason);
 			});
+			hideSpinner();
         } else {
           console.log('Your password has been changed. Welcome back!');
 	      	$scope.$apply(function () {
 				toaster.pop('success', "Your password has been changed.", "Welcome Back");
 			});
-
-          Session.set('resetPassword', null);
+	      	hideSpinner();
+          	Session.set('resetPassword', null);
+          	$state.go('home');
         }
       });
 	}
@@ -461,5 +484,15 @@ angular.module('myApp').controller('AccountsCtrl', function($scope, $state, ngDi
 
 	$scope.accountTypes = ['Savings', 'Current', 'Cash Credit', 'O/D', 'NRE', 'NRO', 'FCNR', 'NRSR', 'Other'];
 	$('[data-toggle="tooltip"]').tooltip({html: true});
+
+
+	function showSpinner() {
+		$('#spinner').show();
+	}
+
+	function hideSpinner() {
+		$('#spinner').hide();	
+	}
+
 
 }); 
