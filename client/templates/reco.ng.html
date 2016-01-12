@@ -34,6 +34,7 @@
 				<div class="col-md-8 col-md-offset-1">
 					<div class="col-md-6">
 						<h5 class="ins-heading  col-md-11">Coverage Amount: 
+							<i class="fa fa-question-circle" data-toggle="tooltip" data-placement="bottom" title="This is the minimum coverage recommended for you. It takes into account your salary and other liabilities and will ensure that your dependents continue to have the same lifestyle - should something happen to you."></i>
 							<span class="display-amount">{{coverageAmount}}</span>
 							<input type="range" name="sliderValue" ng-model="coverageAmount" ng-mouseup="update_life_ins_reco($event,'coverageAmountSlider')" min="{{minCoverageAmount}}" max="{{maxCoverageAmount}}" step="500000">
 							<div class="slider-label" id="coverageAmountSlider">{{coverageAmount}}</div>
@@ -41,6 +42,7 @@
 					</div>
 					<div class="col-md-6">
 						<h5 class="ins-heading col-md-10 col-md-offset-1">Policy Term: 
+							<i class="fa fa-question-circle" data-toggle="tooltip" data-placement="bottom" title="We recommend a policy term that will provide cover until the age of 60. You can stop the policy in any year in case you no longer need the coverage."></i>
 							<span class="display-amount"> {{paymentTerm}} yrs</span>
 
 							<input type="range" name="policyTermSlider" ng-model="paymentTerm" ng-mouseup="update_life_ins_reco($event,'policyTermSlider')" min="{{minPolicyTerm}}" max="{{maxPolicyTerm}}" step="1">
@@ -54,9 +56,11 @@
 			<div class="row heading" >
 					<div class="col-md-2 ins-heading text-center">Product Name</div>
 					<!-- <div class="col-md-1  ins-heading text-center">Sum Insured</div> -->
-					<div class="col-md-3  ins-heading text-center">Additional Coverage</div>
-					<div class="col-md-1  ins-heading text-center">Claim Settlement Ratio</div>
-					<div class="col-md-2  ins-heading text-center">Policy Term</div>
+					<div class="col-md-3  ins-heading text-center">Other Policy Features</div>
+					<div class="col-md-1  ins-heading text-center">Claim Settlement Ratio
+						<i class="fa fa-question-circle" data-toggle="tooltip" data-placement="bottom" title="This is the percentage of claims that were settled by the insurer. Higher the number better it is. Source: IRDA."></i>
+					</div>
+					<!-- <div class="col-md-2  ins-heading text-center">Policy Term</div> -->
 					<div class="col-md-2  ins-heading text-center">Max Coverage Upto</div>
 					<div class="col-md-1  ins-heading text-center">Annnual Premium</div>
 			</div>
@@ -73,7 +77,7 @@
 					<!-- <div class="col-md-1  ins-heading text-center reco-section-column"><i class="fa fa-inr"></i>{{hdfcData.sum_assured}}</div> -->
 					<div class="col-md-3  ins-heading text-center reco-section-column">{{hdfcData.additional_features}}</div>
 					<div class="col-md-1  ins-heading text-center reco-section-column">{{hdfcData.claim_settlement_ratio * 100}} %</div>
-					<div class="col-md-2  ins-heading text-center reco-section-column">{{hdfcData.payment_term}} years</div>
+					<!-- <div class="col-md-2  ins-heading text-center reco-section-column">{{hdfcData.payment_term}} years</div> -->
 					<div class="col-md-2  ins-heading text-center reco-section-column">{{hdfcData.max_age_at_maturity}} years</div>
 					<div class="col-md-1  ins-heading text-center reco-section-column"><i class="fa fa-inr"></i>{{hdfcData.premium}}</div>
 					<a class="btn btn-success btn-sm special-a pull-right" href="{{hdfcData.policy_link}}" target="_blank">Buy Now</a>
@@ -95,9 +99,15 @@
 		<div class="row heading" >
 				<div class="col-md-2 ins-heading text-center">Fund Name</div>
 				<!-- <div class="col-md-1  ins-heading text-center">Sum Insured</div> -->
-				<div class="col-md-3  ins-heading text-center">Annualized 5 year return</div>
-				<div class="col-md-2  ins-heading text-center">Risk</div>
-				<div class="col-md-2  ins-heading text-center">Morning Star Rating</div>
+				<div class="col-md-3  ins-heading text-center">Annualized 5 year returns
+					<i class="fa fa-question-circle" data-toggle="tooltip" data-placement="bottom" title="The average annual returns from this fund for investments through the last 5 years. For example, comparable annual returns of an FD is ~9%."></i>
+				</div>
+				<div class="col-md-2  ins-heading text-center">Volatility
+					<i class="fa fa-question-circle" data-toggle="tooltip" data-placement="bottom" title="This is a measure of the variability in fund performance compared to the markets (e.g. Sensex). Lower is better."></i>
+				</div>
+				<div class="col-md-2  ins-heading text-center">Morning Star Rating
+					<i class="fa fa-question-circle" data-toggle="tooltip" data-placement="bottom" title="Morningstar, Inc. is an investment research and investment management firm headquartered in Chicago and provides data on more than 500,000 investment offerings, including stocks, mutual funds, and similar vehicles, along with real-time global market data on more than 17 million equities, indexes, futures, options, commodities, and precious metals."></i>
+				</div>
 				<div class="col-md-2  ins-heading text-center">Investment Amount</div>
 		</div>
 		<div ng-repeat="el in elss" class="row well reco-selected">
@@ -127,9 +137,9 @@
 			</div>
 		</div>
 		<hr>
-		<h5>You can visit your local SBI or ICICI bank to open a new account.</h5>
-		<h5><a class="special-a btn btn-large btn-success" href="https://www.sbi.co.in/portal/web/personal-banking/public-provident-fund-ppf" target="_blank">Open SBI PPF Account</a></h5>
-		<h5><a class="special-a btn btn-large btn-success" href="http://www.icicibank.com/Personal-Banking/investments/ppf/ppf.page" target="_blank">Open ICICI bank PPF Account</a></h5>
+		<h5>You can make investments into PPF online through SBI or ICICI.</h5>
+		<h5><a class="special-a btn btn-large btn-success" href="https://www.sbi.co.in/portal/web/personal-banking/public-provident-fund-ppf" target="_blank">Invest into SBI PPF Account</a></h5>
+		<h5><a class="special-a btn btn-large btn-success" href="http://www.icicibank.com/Personal-Banking/investments/ppf/ppf.page" target="_blank">Invest into ICICI PPF Account</a></h5>
 		<h5>Call our customer care in case you need any help or have any questions how to open PPF account.</h5>
 	</div>
 </section>
