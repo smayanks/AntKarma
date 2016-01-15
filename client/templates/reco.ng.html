@@ -1,12 +1,4 @@
-<!-- <section id="reco" class="reco">
-	<h2>Listing all recommendations</h2>
-	<ul>
-		<li ng-repeat = "reco in reco_life_insurance">
-			<h5>{{reco.policy_name}}  {{reco.premium}}</h5>
-		</li>
-	</ul>
-</section> -->
-
+<div ng-include="'client/templates/custom-navbar.ng.html'"></div>
 <section id="reco" class="reco">
 	<div class="col-md-10 col-md-offset-1">
 		<h4 class="text-center section-title">Hello {{username}}! Based on your answers, here is your customized plan.
@@ -21,126 +13,162 @@
 	<div id="lifeInsurance"  class="life-insurance well well-custom col-md-10 col-md-offset-1">
 		<div ng-if="!showLifeIns" >
 			
-			<h4 class="ins-heading col-md-3">Life Insurance</h4>
+			<h4 class="ins-heading col-md-2">Life Insurance</h4>
 
-			<h5 class="col-md-6 col-md-offset-3">
+			<h5 class="col-md-6">
 				Great! Based on your answers you are already covered for <span class="display-amount">{{coverageAmount}}</span>
 				It's good that you are suffciently covered for Life Insurance.
 			</h5>
 		</div>
 		<div ng-if="showLifeIns">
-			<div class="row">
-				<h4 class="ins-heading col-md-3">Life Insurance</h4>
-				<div class="col-md-8 col-md-offset-1">
+			<div class="row life-ins-header">
+				<h4 class="ins-heading col-md-2">Life Insurance</h4>
+				<div class="col-md-9 ">
 					<div class="col-md-6">
-						<h5 class="ins-heading  col-md-11">Coverage Amount: 
+						<h5 class="ins-heading">Coverage Amount: 
 							<i class="fa fa-question-circle" data-toggle="tooltip" data-placement="bottom" title="This is the minimum coverage recommended for you. It takes into account your salary and other liabilities and will ensure that your dependents continue to have the same lifestyle - should something happen to you."></i>
 							<span class="display-amount">{{coverageAmount}}</span>
-							<input type="range" name="sliderValue" ng-model="coverageAmount" ng-mouseup="update_life_ins_reco($event,'coverageAmountSlider')" min="{{minCoverageAmount}}" max="{{maxCoverageAmount}}" step="500000">
-							<div class="slider-label" id="coverageAmountSlider">{{coverageAmount}}</div>
+							<div id="coverageAmountSlider" class="slider"></div>
 						</h5> 
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-5 col-md-offset-1">
 						<h5 class="ins-heading col-md-10 col-md-offset-1">Policy Term: 
 							<i class="fa fa-question-circle" data-toggle="tooltip" data-placement="bottom" title="We recommend a policy term that will provide cover until the age of 60. You can stop the policy in any year in case you no longer need the coverage."></i>
 							<span class="display-amount"> {{paymentTerm}} yrs</span>
-
-							<input type="range" name="policyTermSlider" ng-model="paymentTerm" ng-mouseup="update_life_ins_reco($event,'policyTermSlider')" min="{{minPolicyTerm}}" max="{{maxPolicyTerm}}" step="1">
-							<div class="slider-label" id="policyTermSlider">{{ paymentTerm}}</div>
-
+							<div id="policyTermSlider" class="slider"></div>
 						</h5> 
 					</div>
 				</div>
 			</div>
 			<hr>
 			<div class="row heading" >
-					<div class="col-md-2 ins-heading text-center">Product Name</div>
+					<div class="col-sm-4 ins-heading text-center"></div>
 					<!-- <div class="col-md-1  ins-heading text-center">Sum Insured</div> -->
-					<div class="col-md-3  ins-heading text-center">Other Policy Features</div>
-					<div class="col-md-1  ins-heading text-center">Claim Settlement Ratio
+					<div class="col-sm-4  ins-heading text-center">Policy Features</div>
+					<div class="col-sm-2  ins-heading text-center">Claim Settlement Ratio
 						<i class="fa fa-question-circle" data-toggle="tooltip" data-placement="bottom" title="This is the percentage of claims that were settled by the insurer. Higher the number better it is. Source: IRDA."></i>
 					</div>
-					<!-- <div class="col-md-2  ins-heading text-center">Policy Term</div> -->
-					<div class="col-md-2  ins-heading text-center">Max Coverage Upto</div>
-					<div class="col-md-1  ins-heading text-center">Annnual Premium</div>
+					<div class="col-sm-2  ins-heading text-center">Annnual Premium</div>
 			</div>
 			<!-- <hr class="col-md-10 col-md-offset-1"> -->
 			
-			<div id="hdfcData" class="row well li-insurance-content reco-selected">
+			<div id="hdfcData" class="row well li-insurance-content">
 				<span class="col-md-6 col-md-offset-6" ng-show="hdfcDataSpinner"><i class="fa fa-refresh fa-spin"></i></span>
 				<span class="col-md-6 col-md-offset-3 message" ng-show="noHDFCdata"> No data found for HDFC life insurance</span>
 				<div ng-show="!hdfcDataSpinner && !noHDFCdata">
-					<div class="col-md-2 ins-heading text-center reco-section-column">
+					<div class="col-sm-4 ins-heading text-center reco-section-column">
 						<img class="product-info" src="{{hdfcData.img}}" alt="{{hdfcData.productName}}">
 						<div class="product-info">{{hdfcData.policy_name}}</div>
 					</div>
-					<!-- <div class="col-md-1  ins-heading text-center reco-section-column"><i class="fa fa-inr"></i>{{hdfcData.sum_assured}}</div> -->
-					<div class="col-md-3  ins-heading text-center reco-section-column">{{hdfcData.additional_features}}</div>
-					<div class="col-md-1  ins-heading text-center reco-section-column">{{hdfcData.claim_settlement_ratio * 100}} %</div>
-					<!-- <div class="col-md-2  ins-heading text-center reco-section-column">{{hdfcData.payment_term}} years</div> -->
-					<div class="col-md-2  ins-heading text-center reco-section-column">{{hdfcData.max_age_at_maturity}} years</div>
-					<div class="col-md-1  ins-heading text-center reco-section-column"><i class="fa fa-inr"></i>{{hdfcData.premium}}</div>
-					<a class="btn btn-success btn-sm special-a pull-right" href="{{hdfcData.policy_link}}" target="_blank">Buy Now</a>
+					<!-- <div class="col-sm-4  ins-heading reco-section-column">{{hdfcData.additional_features}}</div> -->
+					<div class="col-sm-4  ins-heading reco-section-column">
+						<ul>
+							<li ng-repeat="data in additional_features_data">{{data}}</li>
+						</ul>
+					</div>
+					<div class="col-sm-2  ins-heading text-center reco-section-column extra-padding-top">{{hdfcData.claim_settlement_ratio * 100}} %</div>
+					<div class="col-sm-2  ins-heading text-center reco-section-column extra-padding-top"><i class="fa fa-inr"></i>{{hdfcData.premium}}</div>
+					<!-- <a class="btn btn-success btn-sm special-a pull-right" href="{{hdfcData.policy_link}}" target="_blank">Buy Now</a> -->
 				</div>
 			</div>
 		</div>
 	</div>
 	<div id="elssPPF" class="elss-ppf well well-custom col-md-10 col-md-offset-1">
-		<div class="row">
-			<h4 class="ins-heading col-md-3">ELSS Investments</h4>
-
-			<div class="col-md-8 col-md-offset-1">
-				<div class="pull-right">
-					<div class="ins-main-heading">ELSS Investment Amount: <span class="display-amount"> {{ elssAmount }}</span></div> 
-				</div>				
+		<div ng-if="!showELSSPPF" >
+			
+			<h4 class="ins-heading col-md-3">Investments</h4>
+			<h5 class="col-md-6">
+				You do not have suffient funds to invest in ELSS and PPF. Change your investment amount in questionnaire to invest in ELSS and PPF.
+			</h5>
+		</div>
+		<div ng-if="showELSSPPF">
+			<div class="row">
+				<h4 class="ins-heading col-md-1">Investments</h4>
+				<h5 class="ins-heading col-md-5 col-md-offset-2">Your Risk Tolerance: 
+					<span class="display-amount">{{displayRiskCategory}}</span>
+					<div id="riskScoreSlider" class="slider"></div>
+					<div class="row">
+						<div class="col-sm-2 small-text">Very Conservative</div>
+						<div class="col-sm-1 col-sm-offset-3 small-text">Moderate</div>
+						<div class="col-sm-2 col-sm-offset-4 small-text">Very Aggressive</div>
+					</div>
+				</h5> 
+				<h5 class="ins-heading col-md-4">Total Investment Amount: <span class="display-amount"> {{ totalInvestmentAmount }}</span></h5> 
+				
 			</div>
-		</div>
-		<hr>
-		<div class="row heading" >
-				<div class="col-md-2 ins-heading text-center">Fund Name</div>
-				<!-- <div class="col-md-1  ins-heading text-center">Sum Insured</div> -->
-				<div class="col-md-3  ins-heading text-center">Annualized 5 year returns
-					<i class="fa fa-question-circle" data-toggle="tooltip" data-placement="bottom" title="The average annual returns from this fund for investments through the last 5 years. For example, comparable annual returns of an FD is ~9%."></i>
+			<hr>
+			<div class="row heading" >
+					<div class="col-md-3 ins-heading text-center">Name</div>
+					<!-- <div class="col-md-1  ins-heading text-center">Sum Insured</div> -->
+					<div class="col-md-2  ins-heading text-center">Returns over last 5 years
+						<i class="fa fa-question-circle" data-toggle="tooltip" data-placement="bottom" title="The average annual returns from this fund for investments through the last 5 years. For example, comparable annual returns of an FD is ~9%."></i>
+					</div>
+					<div class="col-md-2  ins-heading text-center">Volatility
+						<i class="fa fa-question-circle" data-toggle="tooltip" data-placement="bottom" title="This is a measure of the variability in fund performance compared to the markets (e.g. Sensex). Lower is better."></i>
+					</div>
+					<div class="col-md-3  ins-heading text-center">Morning Star Rating
+						<i class="fa fa-question-circle" data-toggle="tooltip" data-placement="bottom" title="Morningstar, Inc. is an investment research and investment management firm headquartered in Chicago and provides data on more than 500,000 investment offerings, including stocks, mutual funds, and similar vehicles, along with real-time global market data on more than 17 million equities, indexes, futures, options, commodities, and precious metals."></i>
+					</div>
+					<div class="col-md-2  ins-heading text-center">Investment Amount</div>
+			</div>
+			<div ng-repeat="el in elss" class="row well reco-selected">
+				<div>
+					<div class="col-md-3 ins-heading text-center reco-section-column">
+						<!-- <img class="product-info" src="{{el.img}}" alt="{{el.elss_fund_name}}"> -->
+						<div class="product-info">{{el.elss_fund_name}}</div>
+					</div>
+					<!-- <div class="col-md-1  ins-heading text-center reco-section-column"><i class="fa fa-inr"></i>{{licData.sum_assured}}</div> -->
+					<div class="col-md-2  ins-heading text-center reco-section-column">{{el.annualized_returns_5_yrs * 100}} %</div>
+					<div class="col-md-2  ins-heading text-center reco-section-column">{{el.fund_risk}}</div>
+					<div class="col-md-3  ins-heading text-center reco-section-column">{{createRatingStars(5)}}<div class="raty"></div></div>
+					<div class="col-md-2  ins-heading text-center reco-section-column"><i class="fa fa-inr"></i>{{elss_investment_amount}}</div>
+					<!-- <a class="btn btn-success btn-sm special-a pull-right" href="{{el.policy_link}}" target="_blank">Buy Now</a>	 -->
 				</div>
-				<div class="col-md-2  ins-heading text-center">Volatility
-					<i class="fa fa-question-circle" data-toggle="tooltip" data-placement="bottom" title="This is a measure of the variability in fund performance compared to the markets (e.g. Sensex). Lower is better."></i>
+			</div>
+			<div class="row">
+				<div>
+					<div class="col-md-3 ins-heading text-center reco-section-column">
+						<!-- <img class="product-info" src="{{el.img}}" alt="{{el.elss_fund_name}}"> -->
+						<div class="product-info">PPF</div>
+					</div>
+					<!-- <div class="col-md-1  ins-heading text-center reco-section-column"><i class="fa fa-inr"></i>{{licData.sum_assured}}</div> -->
+					<div class="col-md-2  ins-heading text-center reco-section-column"> 9 %</div>
+					<div class="col-md-2  ins-heading text-center reco-section-column"> -NA- </div>
+					<div class="col-md-3  ins-heading text-center reco-section-column"> -NA- </div>
+					<div class="col-md-2  ins-heading text-center reco-section-column"><i class="fa fa-inr"></i>{{ppfAmount}}</div>
+					<!-- <a class="btn btn-success btn-sm special-a pull-right" href="{{el.policy_link}}" target="_blank">Buy Now</a>	 -->
 				</div>
-				<div class="col-md-2  ins-heading text-center">Morning Star Rating
-					<i class="fa fa-question-circle" data-toggle="tooltip" data-placement="bottom" title="Morningstar, Inc. is an investment research and investment management firm headquartered in Chicago and provides data on more than 500,000 investment offerings, including stocks, mutual funds, and similar vehicles, along with real-time global market data on more than 17 million equities, indexes, futures, options, commodities, and precious metals."></i>
-				</div>
-				<div class="col-md-2  ins-heading text-center">Investment Amount</div>
-		</div>
-		<div ng-repeat="el in elss" class="row well reco-selected">
-			<div>
-				<div class="col-md-2 ins-heading text-center reco-section-column">
-					<!-- <img class="product-info" src="{{el.img}}" alt="{{el.elss_fund_name}}"> -->
-					<div class="product-info">{{el.elss_fund_name}}</div>
-				</div>
-				<!-- <div class="col-md-1  ins-heading text-center reco-section-column"><i class="fa fa-inr"></i>{{licData.sum_assured}}</div> -->
-				<div class="col-md-3  ins-heading text-center reco-section-column">{{el.annualized_returns_5_yrs * 100}} %</div>
-				<div class="col-md-2  ins-heading text-center reco-section-column">{{el.fund_risk}}</div>
-				<div class="col-md-2  ins-heading text-center reco-section-column">{{el.morning_star_rating}}</div>
-				<div class="col-md-2  ins-heading text-center reco-section-column"><i class="fa fa-inr"></i>{{elss_investment_amount}}</div>
-				<a class="btn btn-success btn-sm special-a pull-right" href="{{el.policy_link}}" target="_blank">Buy Now</a>	
+				
 			</div>
 		</div>
 	</div>
 
-	<div id="ppf" class="elss-ppf well well-custom col-md-10 col-md-offset-1">
-		<div class="row">
+	<div id="ppf" class="elss-ppf well well-custom col-md-10 col-md-offset-1" ng-hide="true">
+		<div ng-if="!showELSSPPF" >
+			
 			<h4 class="ins-heading col-md-3">PPF Investments</h4>
 
-			<div class="col-md-8 col-md-offset-1">
-				<div class="pull-right">
-					<div class="ins-main-heading">Recommended Investment Amount: <span class="display-amount"> {{ ppfAmount }}</span></div> 
+			<h5 class="col-md-6">
+				You do not have suffient funds to invest in PPF. Change your investment amount in questionnaire to invest in ELSS and PPF.
+			</h5>
+		</div>
+		<div ng-if="showELSSPPF">
+
+			<div class="row">
+				<h4 class="ins-heading col-md-3">PPF Investments</h4>
+
+				<div class="col-md-8 col-md-offset-1">
+					<div class="pull-right">
+						<div class="ins-main-heading">Recommended Investment Amount: <span class="display-amount">{{ ppfAmount }}</span></div> 
+					</div>
 				</div>
 			</div>
+			<hr>
+			<h5>You can make investments into PPF online through SBI or ICICI.</h5>
+			<h5><a class="special-a btn btn-large btn-success" href="https://www.sbi.co.in/portal/web/personal-banking/public-provident-fund-ppf" target="_blank">Invest into SBI PPF Account</a></h5>
+			<h5><a class="special-a btn btn-large btn-success" href="http://www.icicibank.com/Personal-Banking/investments/ppf/ppf.page" target="_blank">Invest into ICICI PPF Account</a></h5>
+			<h5>Call our customer care in case you need any help or have any questions how to open PPF account.</h5>
 		</div>
-		<hr>
-		<h5>You can make investments into PPF online through SBI or ICICI.</h5>
-		<h5><a class="special-a btn btn-large btn-success" href="https://www.sbi.co.in/portal/web/personal-banking/public-provident-fund-ppf" target="_blank">Invest into SBI PPF Account</a></h5>
-		<h5><a class="special-a btn btn-large btn-success" href="http://www.icicibank.com/Personal-Banking/investments/ppf/ppf.page" target="_blank">Invest into ICICI PPF Account</a></h5>
-		<h5>Call our customer care in case you need any help or have any questions how to open PPF account.</h5>
 	</div>
 </section>
 

@@ -1,9 +1,9 @@
 
 .reco {
-	/*background: url("../images/bg11.jpg") center center;*/
+	background: url("../images/bg11.jpg") center center;
 	/*background: rgb(43,39,36); */
 	/*background: rgba(43,39,36, .30);*/
-	background-color: #2b2724;
+	/*background-color: #2b2724;*/
 	overflow: auto;
 	color: #fff;
 }
@@ -204,8 +204,8 @@
 
 .reco .reco-selected {
 
-	background-color: #f8f8f8;
-	color: #7d7d7d !important;
+	/*background-color: #f8f8f8;*/
+	/*color: #7d7d7d !important;*/
 	/*opacity: 1;*/
 }
 
@@ -222,4 +222,23 @@
 
 .btn-alert {
 	margin-left: 10px;
+}
+
+.reco .slider {
+  
+  margin-top: 10px !important;
+  
+}
+
+.reco .life-ins-header {
+  margin-bottom: 50px !important;
+}
+
+.reco .extra-padding-top {
+	padding-top: 10px;
+}
+
+.reco .small-text {
+	font-size: 10px;
+	padding-top: 10px;
 }

@@ -7,7 +7,7 @@
 			<div class="tax-savings-hero-title large text-center">Tax Savings Simplified</div>
 			<hr>
 			<div class="tax-savings-hero-text medium text-center animated fadeInLeftBig">
-				<br><button class="btn btn-lg title-btn text-center extra-margin-top" ng-click="accessRiskProfile()">Access your risk tolerance Now > </button>
+				<br><button class="btn btn-lg title-btn text-center extra-margin-top" ng-click="accessRiskProfile()">Assess your risk tolerance Now > </button>
 			</div>
 			
 		</div>
@@ -73,7 +73,8 @@
 							<div class="col-md-6" id="age">
 								<h4> What is your age? <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="bottom" title="Why we ask your age - because your insurance premium is directly affected by it. The earlier you start investing lower will be the premium."></i></h4>
 								<h5 class="answers">(in years)</h5>
-								<input class="form-control input-md" id="currentAge" name="currentAge" ng-model="questions.currentAge" maxlength="3" type="text" numbers-currency required>								
+								<!-- <input class="form-control input-md" id="currentAge" name="currentAge" ng-model="questions.currentAge" maxlength="3" type="number"  min="18" max="60" numbers-currency required>	 -->
+								<select ng-name="page" class="form-control" ng-options="age for age in Range(18, 60)" id="currentAge" name="currentAge" ng-model="questions.currentAge"></select> 							
 							</div>
 							<div class="col-md-6">
 								<h4> What is your annual salary? <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="bottom" title="We ask your salary because your total coverage amount is dependent on how much money you make annually"></i></h4>
@@ -114,44 +115,56 @@
 						<h5 class="answers">Tax savings (under section 80c) apply for investments upto Rs. 150,000</h5>
 						<div class="input-group">
 							<span class="input-group-addon custom-addon"><i class="fa fa-inr"></i></span>
-							<input class="form-control input-md" name="taxInvestmentAmount" ng-model="questions.taxInvestmentAmount" numbers-currency required>
+							<input class="form-control input-md" name="taxInvestmentAmount" ng-model="questions.taxInvestmentAmount" ng-blur="checkForErrorInTaxAmount()" numbers-currency required>
 						</div>
+						<label class="label label-danger error-text" ng-show="errorInTaxAmount">Please enter an amount less than 150,000</label>
 						<br>
 						<br>
 						<h4 class="level1">Out of above amount how much have you invested already?</h4>
 						<h5>Include all payments planned or made in ELSS, tax saving FD, NSC, PPF, EPF etc.</h5>
 						<div class="row">
 							<div class="col-md-6">
-								<h6> ELSS : </h6>
-								<div class="input-group">
-									<span class="input-group-addon custom-addon"><i class="fa fa-inr"></i></span>
-									<input class="form-control input-md" name="alreadyMadeElSSInvestmentAmt" ng-model="questions.alreadyMadeElSSInvestmentAmt" numbers-currency required>
+								<div class="row">
+									<p class="col-md-7 exisitingInvestmentText">Home Loan Principal Repayment :</p>
+									<div class="input-group col-md-5">
+										<span class="input-group-addon custom-addon"><i class="fa fa-inr"></i></span>
+										<input class="form-control input-md" name="alreadyMadeHLInvestmentAmt" ng-model="questions.alreadyMadeHLInvestmentAmt" numbers-currency required ng-blur="checkSumAlreadyInvestedAmt()">
+									</div>
 								</div>
 							</div>
 							<div class="col-md-6">
-								<h6>Home Loan Principal Repayment :</h6>
-								<div class="input-group">
-									<span class="input-group-addon custom-addon"><i class="fa fa-inr"></i></span>
-									<input class="form-control input-md" name="alreadyMadeLIInvestmentAmt" ng-model="questions.alreadyMadeLIInvestmentAmt" numbers-currency required>
+								<div class="row">
+									<p class="col-md-7 exisitingInvestmentText extra-padding-top"> ELSS : </p>
+									<div class="input-group col-md-5">
+										<span class="input-group-addon custom-addon"><i class="fa fa-inr"></i></span>
+										<input class="form-control input-md" name="alreadyMadeElSSInvestmentAmt" ng-model="questions.alreadyMadeElSSInvestmentAmt" numbers-currency required ng-blur="checkSumAlreadyInvestedAmt()">
+									</div>
+									
 								</div>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-6">
-								<h6>PPF / EPF/ NSC/ FD : </h6>
-								<div class="input-group">
-									<span class="input-group-addon custom-addon"><i class="fa fa-inr"></i></span>
-									<input class="form-control input-md" name="alreadyMadePPFInvestmentAmt" ng-model="questions.alreadyMadePPFInvestmentAmt" numbers-currency required>
+								<div class="row">
+									<p class="col-md-7 exisitingInvestmentText extra-padding-top">PPF / EPF/ NSC/ FD : </p>
+									<div class="input-group col-md-5">
+										<span class="input-group-addon custom-addon"><i class="fa fa-inr"></i></span>
+										<input class="form-control input-md" name="alreadyMadePPFInvestmentAmt" ng-model="questions.alreadyMadePPFInvestmentAmt" numbers-currency required ng-blur="checkSumAlreadyInvestedAmt()">
+									</div>
 								</div>
 							</div>
 							<div class="col-md-6">
-								<h6>Other :</h6>
-								<div class="input-group">
-									<span class="input-group-addon custom-addon"><i class="fa fa-inr"></i></span>
-									<input class="form-control input-md" name="alreadyMadeOtherInvestmentAmt" ng-model="questions.alreadyMadeOtherInvestmentAmt" numbers-currency required>
+								<div class="row">
+									<p class="col-md-7 exisitingInvestmentText extra-padding-top">Other :</p>
+									<div class="input-group col-md-5">
+										<span class="input-group-addon custom-addon"><i class="fa fa-inr"></i></span>
+										<input class="form-control input-md" name="alreadyMadeOtherInvestmentAmt" ng-model="questions.alreadyMadeOtherInvestmentAmt" numbers-currency required ng-blur="checkSumAlreadyInvestedAmt()">
+									</div>
 								</div>
 							</div>
 						</div>
+						<label class="label label-danger error-text" ng-show="errorInAlreadyInvestedAmt">Sum of already invested amount should be less than total amount to be invested</label>
+						
 					</div>
 				</div>
 				<div class="text-center button-footer">

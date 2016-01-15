@@ -1,6 +1,7 @@
 
 angular.module('myApp', ['angular-meteor', 'ngAnimate','ui.router',  'ui.bootstrap',  'ngDialog', 'toaster', 'ngMessages']);
 
+
 angular.module('myApp').directive ('numbersCurrency', function() {
 	return {
 		require: 'ngModel',
@@ -65,6 +66,24 @@ angular.module('myApp').directive('contenteditable', function() {
 	};
 });
 
+angular.module('myApp').directive('slider', function() {
+    return {
+        restrict: 'AE',
+        link: function(scope, element, attrs) {
+            element.slider({
+                value: scope[attrs.ngModel],
+                min: parseInt(attrs.min),
+                max: parseInt(attrs.max),
+                step: parseFloat(attrs.step),
+                slide: function(event, ui) {
+                    scope.$apply(function() {
+                        scope[attrs.ngModel] = ui.value;
+                    });
+                }
+            });
+        }
+    };
+});
 angular.module('myApp').service('sharedProperties', function() {
 	var submitted = false;
 	var questionnaire;

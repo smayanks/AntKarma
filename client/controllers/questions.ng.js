@@ -4,6 +4,8 @@ angular.module('myApp').controller('QuestionnaireCtrl', function($scope, $modal,
     });
 
     $scope.showQuestions = false;
+    $scope.errorInTaxAmount = false;
+    $scope.errorInAlreadyInvestedAmt = false;
 	
 	$scope.accessRiskProfile = function() {
 		$('.question-bg').show();
@@ -43,10 +45,10 @@ angular.module('myApp').controller('QuestionnaireCtrl', function($scope, $modal,
 				}
 		];
 		$scope.questions.currentLifeInsurancePolicies = [{existingLifeInsPolicyName: '', existingLifeInsSumInsured: '', existingLifeInsYrlyPrem: ''}];
-		$scope.questions.alreadyMadeElSSInvestmentAmt = 0;
-		$scope.questions.alreadyMadeLIInvestmentAmt = 0;
-		$scope.questions.alreadyMadePPFInvestmentAmt = 0;
-		$scope.questions.alreadyMadeOtherInvestmentAmt = 0;
+		$scope.questions.alreadyMadeElSSInvestmentAmt = "0";
+		$scope.questions.alreadyMadeHLInvestmentAmt = "0";
+		$scope.questions.alreadyMadePPFInvestmentAmt = "0";
+		$scope.questions.alreadyMadeOtherInvestmentAmt = "0";
 
 	} else {
 		$scope.questions = questions;
@@ -155,8 +157,39 @@ angular.module('myApp').controller('QuestionnaireCtrl', function($scope, $modal,
 		
 	}
 
+	$scope.checkForErrorInTaxAmount = function() {
+		// alert($scope.questions.taxInvestmentAmount);
+		if ($scope.questions.taxInvestmentAmount && Number($scope.questions.taxInvestmentAmount.replace(/,/g,'')) > 150000) {
+			$scope.errorInTaxAmount = true;
+			$scope.step3Form.$setValidity('taxInvestmentAmount', false);
+		} else {
+			$scope.errorInTaxAmount = false;
+			$scope.step3Form.$setValidity('taxInvestmentAmount', true);
+		}
+		
+		$scope.checkSumAlreadyInvestedAmt();
+	}
 	
-	
+
+	$scope.checkSumAlreadyInvestedAmt = function() {
+		// alert($scope.questions.taxInvestmentAmount);
+		var homeLoanAmount = Number($scope.questions.alreadyMadeHLInvestmentAmt.replace(/,/g,''));
+		var elss = Number($scope.questions.alreadyMadeElSSInvestmentAmt.replace(/,/g,''));
+		var ppfEtc = Number($scope.questions.alreadyMadePPFInvestmentAmt.replace(/,/g,''));
+		var other = Number($scope.questions.alreadyMadeOtherInvestmentAmt.replace(/,/g,''));
+
+		var totalAlreadyInvestedAmt = homeLoanAmount + elss + ppfEtc + other;
+
+
+		if (totalAlreadyInvestedAmt > Number($scope.questions.taxInvestmentAmount.replace(/,/g,''))) {
+			$scope.errorInAlreadyInvestedAmt = true;
+			$scope.step3Form.$setValidity('taxInvestmentAmount', false);
+		} else {
+			$scope.errorInAlreadyInvestedAmt = false;
+			$scope.step3Form.$setValidity('taxInvestmentAmount', true);
+		}
+		
+	}
 	$scope.submitForm = function(questions) {
 		
 
@@ -170,27 +203,29 @@ angular.module('myApp').controller('QuestionnaireCtrl', function($scope, $modal,
 
 	        // $scope.sbiDataSpinner = false;
 	        
-	       	var computedRiskScore = data;	
+	       	var computedRiskScore = data.score;	
 
 	       	// sharedProperties.setRiskScore(computedRiskScore);
 	       	$rootScope.riskScore = computedRiskScore;
+	       	$rootScope.riskCategory = data.riskCategory;
 	       	// Session.set('riskScore', computedRiskScore);
-
-	        
 	      },
 	      function(err){
 
 	      }
 	    );
-
 	    $rootScope.submitted = true;
-		$state.go('recommendations');	
-		
-		
+		$state.go('recommendations');
 	};
 
 
-
+	$scope.Range = function(start, end) {
+	  	var result = [];
+		for (var i = start; i <= end; i++) {
+	        result.push(i);
+	    }
+    	return result;
+	};
 
 	// questionnaire navigation between tabs
 	$('.next').click(function(){

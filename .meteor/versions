@@ -24,6 +24,7 @@ caching-html-compiler@1.0.2
 callback-hook@1.0.4
 check@1.1.0
 coffeescript@1.0.11
+cosmos:browserify@0.8.4
 dburles:mongo-collection-instances@0.3.4
 ddp@1.2.2
 ddp-client@1.2.1
@@ -53,6 +54,7 @@ livedata@1.0.15
 localstorage@1.0.5
 logging@1.0.8
 lookback:tooltips@0.5.2
+markoshust:nouislider@8.2.1
 meteor@1.1.10
 meteor-base@1.0.1
 meteorhacks:ssr@2.2.0
@@ -63,6 +65,7 @@ mobile-status-bar@1.0.6
 mongo@1.1.3
 mongo-id@1.0.1
 mrt:jquery-easing@1.3.0
+mrt:jquery-raty@2.7.2
 natestrauser:animate-css@3.4.0
 npm-bcrypt@0.7.8_2
 npm-mongo@1.4.39_1

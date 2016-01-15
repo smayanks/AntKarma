@@ -202,6 +202,16 @@
   
 }
 
+.questions .extra-padding-top {
+  padding-top: 5px;
+  /*padding-bottom: 5px;*/
+  
+}
+.questions .extra-padding-bottom {
+  padding-top: 5px;
+  /*padding-bottom: 5px;*/
+  
+}
 .questions .answers {
   /*color: #c2c8cc;*/
 }
@@ -260,3 +270,17 @@
   background-color: inherit;
   color: inherit;
 }
+
+.questions .exisitingInvestmentText {
+  text-align: right;
+}
+
+.questions select {
+  background-color: transparent;
+  color: inherit;
+}
+
+.questions .error-text {
+  font-size: 12px;
+}
+

@@ -374,6 +374,7 @@
 
   function computeScore(age, investmentFocusOn, whenMarketVolatile) {
 
+      var finalScore = {}
       var baseScore = 10;
       var currentScore = 0
       var currentAgeScore = getAgeScore(age);
@@ -384,7 +385,40 @@
       var currentAttitudeScoreForBuySell = getAttitudeScoreForBuySell(whenMarketVolatile);
 
       currentScore = baseScore - currentAttitudeScoreForLossGain - currentAttitudeScoreForBuySell;
-      return currentScore;
+
+      // some hacky stuff need to revisit again
+      if (currentScore < 0) {
+        currentScore = 0;
+      } else if (currentScore > 10) {
+        currentScore = 10;
+      }
+
+      finalScore.score = currentScore;
+      finalScore.riskCategory = computeRiskCategory(currentScore);
+      console.log('finalScore: ' + JSON.stringify(finalScore));
+      return finalScore;
+
+  }
+
+  function computeRiskCategory(score) {
+    var riskCategory;
+    if (score <= 2) {
+      riskCategory = "Very Conservative";
+
+    } else if (score > 2 && score <=4) {
+      riskCategory = "Conservative";
+
+    } else if (score > 4 && score <=6) {
+      riskCategory = "Moderate";
+
+    } else if (score > 6 && score <=8) {
+      riskCategory = "Aggressive";
+
+    } else if (score > 8 ) {
+      riskCategory = "Very Aggressive";
+    }
+    console.log('riskCategory: ' + riskCategory);
+    return riskCategory;
 
   }
 
