@@ -1,4 +1,4 @@
-# MintingWorks
-MintingWorks - Intelligent investments for all
+# AntKarma
+AntKarma - Financial Planning Simplified
 
 
